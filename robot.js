@@ -1,29 +1,31 @@
 const puppeteer = require("puppeteer");
  
 (async () => {
-  const browser = await puppeteer.launch({headless: false});
+  const browserConfig = {
+    headless: false,
+    args: {
+      "--start-maximized": true,
+      "--disable-notifications": true,
+
+      
+    }
+  };
+  }
+
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
+
  
-  await page.goto("https://casino.betfair.com/pt-br/", {waitUntil: 'networkidle0'});
-    // Select the cookie id="onetrust-accept-btn-handler"
-    await page.click('#onetrust-accept-btn-handler');
-    // sleep 
-    
-    // Select the login id="ssc-liu"
-    const inputLogin = await page.$('#ssc-liu');
-    await inputLogin.type('maikonweber@gmail.com');
-    const inputPass = await page.$('#ssc-lipw');
-    await inputPass.type('Ma128sio4@');
-    await page.click('#ssc-lis');
-    await page.waitForNavigation({waitUntil: 'networkidle0'});
-    // Click class button primary
-    await page.goto('https://launcher.betfair.com/?gameId=betfair-live-roulette-cptl&returnURL=https%3A%2F%2Fcasino.betfair.com%2Fpt-br%2Fp%2Fcassino-ao-vivo&launchProduct=gaming&RPBucket=gaming&mode=real&dataChannel=ecasino&switchedToPopup=true', {waitUntil: 'networkidle0'});
+  await page.goto("https://launcher.betfair.com/?gameId=betfair-live-roulette-cptl&returnURL=https%3A%2F%2Fcasino.betfair.com%2Fpt-br%2Fp%2Fcassino-ao-vivo&launchProduct=gaming&RPBucket=gaming&mode=real&dataChannel=ecasino&switchedToPopup=true", {waitUntil: 'networkidle0'});
+   
 
     const frame = await page.waitForSelector("iframe");
     const rect = await page.evaluate(el => {
             const {x, y} = el.getBoundingClientRect();
             return {x, y};
           }, frame);
+
+      console.log(frame );
 
 
     
