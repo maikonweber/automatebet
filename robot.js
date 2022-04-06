@@ -32,9 +32,17 @@ const puppeteer = require("puppeteer");
       console.log(error);
     }
 
-    await page.waitFor(20000);
+    await page.waitForTimeout(000);
 
-
+    try { 
+    //Listerner the event name with name game_state_round_finished
+    page.on('game_state_round_finished', async (data) => {
+      console.log(data);
+      await page.screenshot({path: 'example.png'});
+    });
+  } catch {
+    console.log('Error');
+  }
 
     try {
       const svg = await page.$('#class="roulette-digital-table roulette-digital-table_theme_retro roulette-digital-table_type_main"');
