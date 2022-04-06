@@ -1,64 +1,55 @@
 const puppeteer = require("puppeteer");
  
-(async () => {
-  const browserConfig = {
-    headless: false,
-    args: {
-      "--start-maximized": true,
-      "--disable-notifications": true,
-
-      
-    }
-  };
-  }
-
-  const browser = await puppeteer.launch({headless: true});
+ async function loginRoullete(username, password) {
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
- 
   await page.goto("https://launcher.betfair.com/?gameId=betfair-live-roulette-cptl&returnURL=https%3A%2F%2Fcasino.betfair.com%2Fpt-br%2Fp%2Fcassino-ao-vivo&launchProduct=gaming&RPBucket=gaming&mode=real&dataChannel=ecasino&switchedToPopup=true", {waitUntil: 'networkidle0'});
-   
+    try {   
+        const element = await page.$('#onetrust-accept-btn-handler');
+        if (element) {
+          await element.click();
+        } else {
+          console.log('Element not found');
+        }
+    } catch (error) {
+      console.log(error);    
+    }
+  
+    try {
+      const element_ = await page.$('#username');
+      const elementPass_ = await page.$('#password-label');
+      if (element_ && elementPass_) {
+        // Send keys to the element
+        await element_.type(username);
+        await elementPass_.type(password);
+        await page.keyboard.press('Enter');
 
-    const frame = await page.waitForSelector("iframe");
-    const rect = await page.evaluate(el => {
-            const {x, y} = el.getBoundingClientRect();
-            return {x, y};
-          }, frame);
+      } else {
+        console.log('Element not found');
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-      console.log(frame );
-
-
-    
-    setTimeout(async () => {
-    }, 85000);
+    await page.waitFor(20000);
 
 
 
-//   const login = await page.$('#login-form');
-//     await login.click();
+    try {
+      const svg = await page.$('#class="roulette-digital-table roulette-digital-table_theme_retro roulette-digital-table_type_main"');
+      console.log(svg);
+    } catch (error) {
+      console.log(error);
+    }
+  
 
 
-//   // Find the iframe
-//   const frame = await page.waitForSelector("iframe");
-  // Find its coordinates
-//   const rect = await page.evaluate(el => {
-//     const {x, y} = el.getBoundingClientRect();
-//     return {x, y};
-//   }, frame);
- 
-  // Values found manually by doing 
-  // `document.querySelector('.yscp_link').getBoundingClientRect()`
-  // in the dev console. Add 5 to them, because it's the top left corner
-//   const offset = {x: 213 + 5, y: 11 + 5};
- 
-//   // Click
-//   await page.mouse.click(rect.x + offset.x, rect.y + offset.y);
- 
-//   await frame.waitForNavigation({
-//     waitUntil: 'networkidle2',
-//   });
- 
-//   await page.screenshot({ path: "example.png" });
- 
-//   await browser.close();
-})();
+  }
+
+
+
+
+module.exports = {
+  loginRoullete
+}
