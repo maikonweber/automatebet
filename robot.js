@@ -32,29 +32,32 @@ const puppeteer = require("puppeteer");
       console.log(error);
     }
 
-    await page.waitForTimeout(000);
 
-    try { 
-    //Listerner the event name with name game_state_round_finished
-    page.on('game_state_round_finished', async (data) => {
-      console.log(data);
-      await page.screenshot({path: 'example.png'});
-    });
-  } catch {
-    console.log('Error');
-  }
+  await page.waitForTimeout(35000);
 
-    try {
-      const svg = await page.$('#class="roulette-digital-table roulette-digital-table_theme_retro roulette-digital-table_type_main"');
-      console.log(svg);
-    } catch (error) {
-      console.log(error);
-    }
+  // await page.on('console', msg => {
+  //   for (let i = 0; i < msg.args().length; ++i)
+  //     console.log(`${i}: ${msg.args()[i]}`);
+
+  // });
+
+  // await page.on('request', request => {
+  //   console.log(request.url());
+  //   console.log(request.headers());
+  // });
+
+
+//  const elem = await page.metrics()
+//     console.log(elem);
+
+  const conten = await page.content();
+  console.log(conten)
+
+
+  
   
 
-
-  }
-
+}
 
 
 
