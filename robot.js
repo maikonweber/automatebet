@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
  
  async function loginRoullete(username, password) {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.goto("https://launcher.betfair.com/?gameId=betfair-live-roulette-cptl&returnURL=https%3A%2F%2Fcasino.betfair.com%2Fpt-br%2Fp%2Fcassino-ao-vivo&launchProduct=gaming&RPBucket=gaming&mode=real&dataChannel=ecasino&switchedToPopup=true", {waitUntil: 'networkidle0'});
@@ -35,11 +35,20 @@ const puppeteer = require("puppeteer");
 
   await page.waitForTimeout(35000);
 
-  // await page.on('console', msg => {
-  //   for (let i = 0; i < msg.args().length; ++i)
-  //     console.log(`${i}: ${msg.args()[i]}`);
+  await page.on('console', msg => {
+    // for (let i = 0; i < msg.args().length; ++i) {
+    //   // consle.log(`${i}: ${msg.args()[i]}`);
+    // }
 
-  // });
+    // console.log(msg.text());
+   
+    // console.log(msg.location());
+    console.log(msg.args()[0]);
+    
+
+
+   
+  });
 
   // await page.on('request', request => {
   //   console.log(request.url());
