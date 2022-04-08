@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
  
  async function loginRoullete(username, password) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
   await page.goto("https://launcher.betfair.com/?gameId=betfair-live-roulette-cptl&returnURL=https%3A%2F%2Fcasino.betfair.com%2Fpt-br%2Fp%2Fcassino-ao-vivo&launchProduct=gaming&RPBucket=gaming&mode=real&dataChannel=ecasino&switchedToPopup=true", {waitUntil: 'networkidle0'});
@@ -35,20 +35,30 @@ const puppeteer = require("puppeteer");
 
   await page.waitForTimeout(35000);
 
-  await page.on('console', msg => {
+  await page.on('console', async (msg) => {
     // for (let i = 0; i < msg.args().length; ++i) {
     //   // consle.log(`${i}: ${msg.args()[i]}`);
     // }
 
-    // console.log(msg.text());
-   
-    // console.log(msg.location());
-    console.log(msg.args()[0]);
-    
+  const text = msg.text();
+ 
+  if (text.includes('endBettingRound()')) {
+    console.log('Rodada de Aposta Finalizada');
+  }
 
-
+  if (text.includes('Game.State.Round Finished ')) {
+    console.log('Game Finalizado');
+    const elem  = await page.waitForXPath('//*[@id="root"]/div/div[3]/div[1]/div[2]/div[9]/div/div[2]/div', {timeout: 5000});
+    elem.screenshot({path: './screenshot.png'});
+  }
+  
+  if (text.includes('Start')) {
+    console.log('Game Iniciado');
+  }
    
   });
+
+  // Select with xPath //*[@id="root"]/div/div[3]/div[1]/div[2]/div[9]/div/div[2]/div
 
   // await page.on('request', request => {
   //   console.log(request.url());
@@ -57,10 +67,7 @@ const puppeteer = require("puppeteer");
 
 
 //  const elem = await page.metrics()
-//     console.log(elem);
-
-  const conten = await page.content();
-  console.log(conten)
+//     console.log(elem)
 
 
   
