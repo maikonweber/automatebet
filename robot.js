@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer");
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  await page.goto("https://launcher.betfair.com/?gameId=betfair-live-roulette-cptl&returnURL=https%3A%2F%2Fcasino.betfair.com%2Fpt-br%2Fp%2Fcassino-ao-vivo&launchProduct=gaming&RPBucket=gaming&mode=real&dataChannel=ecasino&switchedToPopup=true", {waitUntil: 'networkidle0'});
+  await page.goto("https://casino-com-ngm.bfcdl.com/live/bundles/22.3.1.1/?launch_alias=rol_bfroulette&language=pt&gameType=lobby&redirect_time=1649451368134&backUrl=https%3A%2F%2Fcasino-com-ngm.bfcdl.com%2Flive%2F%3Flaunch_alias%3Drol_bfroulette%26language%3Dpt#/", {waitUntil: 'networkidle0'});
     try {   
         const element = await page.$('#onetrust-accept-btn-handler');
         if (element) {
