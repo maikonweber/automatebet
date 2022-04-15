@@ -4,14 +4,13 @@ const puppeteer = require("puppeteer");
     const browser = await puppeteer.launch({ 
       headless: false,
       defaultViewport: {
-        width: 1920,
-        height: 1080
+        width: 920,
+        height: 580
       },
       slowMo : 50,
       args: [
         '--disable-web-security',
         '--disable-features=IsolateOrigins,site-per-process',
-        '--start-maximized'
       ],  
       devTools: true, 
         
@@ -48,7 +47,7 @@ const puppeteer = require("puppeteer");
       console.log(error);
     }
 
-    await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000', {waitUntil: 'networkidle0'});
+    await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000?_ga=2.126519438.262529314.1649986994-801031878.1649986994', {waitUntil: 'networkidle0'});
 
     await page.waitForTimeout(15000);
     var frames = (await page.frames());
@@ -66,8 +65,6 @@ const puppeteer = require("puppeteer");
     const elementX = page.$$(elementNumber);
     const elementX_ = await elementX[0].$$(elementNumber);
 
-
-  
 
     //   try {
     //   await page.$x('/html/body/main/section[2]/div/div/div/div[2]/figure/a');

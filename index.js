@@ -1,13 +1,16 @@
 
 const input = require('input');
-const { loginRoullete } = require('./robot');
+const RobotObserverRoullet  = require('./RobotObserverRoullet');
+
+
 
 (async () => {
     const login = await input.text("Press 1 to login in Roullete");
     if (login === '1') {
-        loginRoullete("maikonweber1", "ma128sio4");
+        const robot = new RobotObserverRoullet('ma128sio4', 'maikonweber1');
+        await robot.routine();
     } else if (login === 2) {
-        console.log(login);
+        
     }
     
 })();
