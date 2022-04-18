@@ -41,8 +41,6 @@ const puppeteer = require('puppeteer');
             numeber29 : null,
             numeber30 : null,
             numeber31 : null,
-
-
         }
 
         this.roulletHistory = {
@@ -56,13 +54,13 @@ const puppeteer = require('puppeteer');
     }
 
     async init() {
-        const browser = await puppeteer.launch({ 
+        const browser = await puppeteer.launch({
+            userDataDir : './userData', 
             headless: false,
             defaultViewport: {
               width: 920,
               height: 580
             },
-            slowMo : 50,
             args: [
               '--disable-web-security',
               '--disable-features=IsolateOrigins,site-per-process',
@@ -108,9 +106,34 @@ const puppeteer = require('puppeteer');
         await this.init();
         const page = await this.login();
         const page2 = await this.seeAllRoulletesPage(page);
+        const page3 = await this.roulletpad(page2);
       
        
     }
+
+    async roulletpad (page) {
+        console.log("Roullet pad");
+        // Select all elements in the div root
+        const data = await page.evaluate(() => document.querySelector('*').outerHTML);
+            // SVG //*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[2]/div/div[2]/div/div[1]/div/div[1]/div/svg
+            // Table Class #classicStandard-wrapper
+            // Element Class name is green_color , red_color, black_color
+            // Element Class name is green_color , red_color, black_color
+            // get Element by class name green_color
+            const element = await page.$$('#text--27a51 uppercase--1918b');
+            console.log(element[0]);
+            const thx = await page.$$('.green_color');
+            const ty = await page.$$('.red_color');
+            const tz = await page.$$('.black_color');
+
+            await tz.evaluate(() => {
+                console.log(tz);
+            });
+
+
+        await thx[0].click();
+    }
+
 
     async seeAllRoulletesPage(page) {
         await page.goto("https://player.smashup.com/player_center/goto_common_game/5941/1000000", {waitUntil: 'networkidle0'});
@@ -119,22 +142,13 @@ const puppeteer = require('puppeteer');
         const a = frames[1].url();
         await page.goto(a, {waitUntil: 'networkidle0'});
         await page.waitForTimeout(5000);
-        const RoulletIcon = '/html/body/div[5]/div/div/div/div[3]/div[2]/div[5]/div/div/div[2]/div[1]/div';
         const Balance = '/html/body/div[5]/div/div/div/div[3]/div[4]/div/div/span[2]/span[2]'
-        const resultAllTable = '/html/body/div[5]/div/div/div/div[3]/div[3]'
-        const popUpNoMoney = 'popup--3eb13 popupBubble--41420'
-        const tableContainer = '//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]'
-        const PlaceLocal = '//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[1]'
-        const spanOfPlaceLocal = '//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[1]/div/div/div[2]'
-        const bidGrid = '//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[2]/div/div[2]/div'
-        const bidGridTable = '//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[2]/div/div[2]/div'
-        const bidGridSvg = '//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[2]/div/div[2]/div[2]'
-        const blaclButton = '#black_color'   
-        const redButton = '#red_color'
-        const greenButton = '#green_color'
-        const allBidTableElements = "#classicStandard-wrapper"
+        
         const Ballance = await page.$x(Balance);
-        console.log(Ballance);
+        // Print the context of element
+        const BalanceText = await (await Ballance[0].getProperty('textContent')).jsonValue();
+        this.balance = BalanceText;
+        console.log(BalanceText);
      
         const w = await page.waitForXPath('/html/body/div[5]/div/div/div/div[3]/div[2]/div[5]/div/div/div[2]/div[1]/div/div')
         w.click();
@@ -142,10 +156,12 @@ const puppeteer = require('puppeteer');
         const x = await page.waitForXPath('/html/body/div[5]/div/div/div/div[3]/div[3]/div/div/div/div[1]/div/div[2]/div[2]')
         x.click();
         await page.waitForTimeout(15000);
-       
 
-
+        return page;
+        
     }
+ 
+       
 
   waitForSecond (time) {
         setTimeout(() => {
