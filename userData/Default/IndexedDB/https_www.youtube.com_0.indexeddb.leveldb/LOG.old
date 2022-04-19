@@ -1,0 +1,7 @@
+2022/04/19-13:09:40.363 2920f Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/04/19-13:09:40.363 2920f Recovering log #3
+2022/04/19-13:09:40.390 2920f Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000003.log 
+2022/04/19-13:58:40.554 1a09b Level-0 table #5: started
+2022/04/19-13:58:40.585 1a09b Level-0 table #5: 462847 bytes OK
+2022/04/19-13:58:40.616 1a09b Delete type=0 #3
+2022/04/19-13:58:40.646 1a09b Manual compaction at level-0 from (begin) .. (end); will stop at (end)

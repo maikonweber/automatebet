@@ -8,6 +8,7 @@ const puppeteer = require('puppeteer');
         this.page = null;
         this.RoulletLastNumber = [],
         this.balance = 0;
+        this.round = null;
 
         this.roulletNumbersInterface = {
             numeber1 : null,
@@ -107,8 +108,25 @@ const puppeteer = require('puppeteer');
         const page = await this.login();
         const page2 = await this.seeAllRoulletesPage(page);
         const page3 = await this.roulletpad(page2);
-      
+
        
+    }
+
+
+    async mappingBoard (page) {
+        console.log("Mapping Board");
+        const thx = await page.$$('.green_color');
+        const ty = await page.$$('.red_color');
+        const tz = await page.$$('.black_color');
+        const t2 = await page.$$('.outsides_color');
+        
+        ty.forEach(
+            async (element) => {
+                element.getAttribute('0').then(
+        )
+    
+
+
     }
 
     async roulletpad (page) {
@@ -125,13 +143,19 @@ const puppeteer = require('puppeteer');
             const thx = await page.$$('.green_color');
             const ty = await page.$$('.red_color');
             const tz = await page.$$('.black_color');
+            const ligthTraffic = await page. $$('.traffic-light--a7a04');
+            const textLigth = await page.$$('.text--27a51');
+            const w =  await page.$x('//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[1]/div/div/div[2]')
+            console.log(w, 'w');
+            this.mappingBoard(page);
 
-            await tz.evaluate(() => {
-                console.log(tz);
-            });
+            setInterval(async () => {
+              const text = await  w[0].getProperty('textContent')
+              const l = await text.jsonValue();
+                this.round = l;
+            }, 1000);
+        
 
-
-        await thx[0].click();
     }
 
 
