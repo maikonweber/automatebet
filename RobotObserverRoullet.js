@@ -119,13 +119,32 @@ const puppeteer = require('puppeteer');
         const ty = await page.$$('.red_color');
         const tz = await page.$$('.black_color');
         const t2 = await page.$$('.outsides_color');
-        
-        ty.forEach(
-            async (element) => {
-                element.getAttribute('0').then(
-        )
-    
 
+
+        ty.forEach(async element => {
+            console.log(await  element.getProperties());
+          
+
+        });
+          
+        
+
+        // })
+
+        // tz.forEach(async element => {
+        //     await element.getAttribute('data-bet-spot-id').then(async (value) => {
+        //         console.log(value);
+
+        //     });
+
+        // })
+
+        // t2.forEach(async element => {
+        //     await element.getAttribute('data-bet-spot-id').then(async (value) => {
+        //         console.log(value);
+
+        //     });  
+        // })
 
     }
 
@@ -148,6 +167,7 @@ const puppeteer = require('puppeteer');
             const w =  await page.$x('//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[1]/div/div/div[2]')
             console.log(w, 'w');
             this.mappingBoard(page);
+
 
             setInterval(async () => {
               const text = await  w[0].getProperty('textContent')

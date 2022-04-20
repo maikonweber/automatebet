@@ -1,2 +1,3 @@
-2022/04/19-15:09:18.801 1903 Creating DB /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/File System/Origins since it was missing.
-2022/04/19-15:09:18.845 1903 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/File System/Origins/MANIFEST-000001
+2022/04/19-17:35:02.801 1960f Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/File System/Origins/MANIFEST-000001
+2022/04/19-17:35:02.802 1960f Recovering log #3
+2022/04/19-17:35:02.803 1960f Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/File System/Origins/000003.log 
