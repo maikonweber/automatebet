@@ -172,7 +172,9 @@ const puppeteer = require('puppeteer');
             setInterval(async () => {
               const text = await  w[0].getProperty('textContent')
               const l = await text.jsonValue();
-                this.round = l;
+              console.log(l, 'l');
+              this.round = l;
+
             }, 1000);
         
 
