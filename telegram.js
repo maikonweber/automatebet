@@ -1,8 +1,14 @@
 const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
-const { getMe } = require("telegram/client/users");
-const { getMessages } = require("telegram/client/messages");
+const Redis = require("redis");
+const publisher = Redis.createClient({
+    host: "localhost",
+    port: 6379,
+    password: "roullet",
+});
+
+
 
 const apiId = 17228434;
 const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
@@ -10,6 +16,7 @@ const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBu4koD9vmeJ6R32
  // fill this later with the value from session.save()
 
 (async () => {
+
   console.log("Loading interactive example...");
   const client = new TelegramClient(stringSession, apiId, apiHash, {
     connectionRetries: 5,
@@ -34,7 +41,10 @@ const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBu4koD9vmeJ6R32
     console.log(result);
 
     const channels = []
-    
+    let sala;   
+    let entry;
+
+    await publisher.connect();
  
         const thx = await client.getInputEntity(-1575582320);
 
@@ -57,25 +67,60 @@ const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBu4koD9vmeJ6R32
         )
 
         chat2.forEach(
-            (chat, index) => {
+           async (chat, index) => {   
                 if(chat.message.toString() != last) {
-                    console.log(chat.message.toString())
-                    const lastMessage = chat.message.toString()
-                    if(lastMessage.includes("Possível Entrada")) {
-                        console.log("Entrada")
-                    }
-                    last = lastMessage
+                   const lastMessage = chat.message.toString()
+                   if (entry === true) {
+                    console.log("===========================================================");
+                    console.log("==========================/Entry = True/===============================");
+                    console.log("===========================================================");
+                    let regEx2 = /Abortar possível entrada/g
+                   if (regEx2.test(lastMessage)) {
+                        await publisher.publish("roulletsEvents", "Abortar possível entrada");
+                        console.log("Entrada negada!");
+                        console.log("==========================/Entry = True/===============================");
+                        console.log("==========================/Entrada Abortada ===============================");
+                        entry = false;
+                    } else  {   
+                        console.log("===========================================================");
+                          console.log("==========================/Entry = True/===============================");
+                          console.log("===========================================================");
+                        const line = lastMessage.split("\n")
+                        let object = {
+                            name : line[0],
+                            id : line[1],
+                            time : line[2]
+                        }
+                        console.log(object);
+                        await publisher.publish("roulletsEvents", JSON.stringify(object));
+                        entry = false;
+                        last = lastMessage
+                    } 
+                    } else {
+                    console.log("===========================================================");
+                    console.log("==========================/Entry = False/===============================");
+                    let regEx = /Possível entrada/g
+                    let result = lastMessage.match(regEx)
+                    if(result != null) {
+                    console.log("Possível entrada!");
+                    const lines = lastMessage.split("\n")
+                    console.log(lines[2])
+                    sala = lines[2]
+                    await publisher.publish("roulletsEvents", lines[2]);
+                    entry = true
                     
-            
-                } else {
-                    console.log("no new messages")
+                                    } else {
+                                            console.log("Não foi possível identificar um entrada")
+                                             }
+                        last = lastMessage   
                 }
             }
+        }
         )
 
 
 
-        }), 4000);
+        }), 35000);
 
         
 

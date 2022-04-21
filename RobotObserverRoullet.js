@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const redis = require('redis');
 // Create class js
  class RobotObserverRoullet {
     constructor(password, username) {
@@ -104,6 +105,7 @@ const puppeteer = require('puppeteer');
     }   
 
     async routine () {
+        await this.connectPublisher();
         await this.init();
         const page = await this.login();
         const page2 = await this.seeAllRoulletesPage(page);
@@ -206,7 +208,11 @@ const puppeteer = require('puppeteer');
         return page;
         
     }
- 
+
+
+    async connectPublisher() {
+     
+    } 
        
 
   waitForSecond (time) {
