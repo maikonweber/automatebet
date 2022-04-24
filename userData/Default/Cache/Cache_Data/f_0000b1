@@ -1,0 +1,483 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Hardcoded path to keep the error page low on logic -->
+    <link href="/Styles/ErrorPage.css" rel="stylesheet" type="text/css" />
+    <title>bet365</title>
+    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; user-scalable=0; width=device-width;" />
+    <script src="/bundles/scripts/jquery?v=saA7m1ZSj48kDrxMP8_fiCSRrVYx5bHeGlTmVTmUCjM1"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.homePageLink').click(function () { window.top.location = '/'; });
+            $('.closeLink').click(function () { window.close(); });
+            try {
+                window.webkit.messageHandlers.gaming.postMessage(JSON.stringify({ message: "CLOSE"}));
+            } catch (e) {
+
+            }
+            
+        });
+    </script>
+</head>
+<body>
+    <div id="ErrorHeader" style="background-image: url(/SystemImages/ErrorHeader.jpg)">
+        &nbsp;
+    </div>
+    <div id="Messages">
+        <div id="MessageInnerContent">
+            <div id="LanguageAnchorsContainer">
+                <span class="LanguageAnchor">
+                    <a href="#en-GB">English</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#es-ES">Español</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#de-DE">Deutsch</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#it-IT">Italiano</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#da-DK">Dansk</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#sv-SE">Svenska</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#nn-NO">Norsk</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#zh-CHT">
+                        <span class="Chinese">繁體中文</span>
+                    </a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#zh-CHS">
+                        <span class="Chinese">简体中文</span>
+                    </a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#bg-BG">Български</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#el-GR">Ελληνικά</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#pt-PT">Português</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#pl-PL">Polski</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#ro-RO">Română</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#cs-CZ">Česky</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#hu-HU">Magyar</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#sk-SK">Slovenčina</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#nl-NL">Nederlands</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#et-EE">Eesti</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#ru-RU">Русcкий</a>
+                </span>
+                <span class="Seperator">|</span>
+                <span class="LanguageAnchor">
+                    <a href="#ja-JP">日本語</a>
+                </span>
+                <span class="Seperator">|</span>
+            </div>
+            <a name="en-GB" id="en-GB"></a>
+            <h5 class="LanguageSectionHeader">
+                English
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Sorry, there has been an error. <a class="ln homePageLink" href="#">Please click on this link to return to the home page.</a> For security reasons if you were logged in we have closed your session and you will need to login again. Additionally if you currently have a pop up window open please <a class="ln closeLink" href="#">click here</a> to close it and return to the home page from within the main browser window.
+</p>
+<p>
+    If you continue to experience problems please contact our customer service team by email: <a href="mailto:support@customerservices365.com" class="ln">support@customerservices365.com</a> or telephone 08000 288 365 (UK) or +44 1782 684757 (Rest of the World).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="es-ES" id="es-ES"></a>
+            <h5 class="LanguageSectionHeader">
+                Español
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Lo sentimos, ha habido un error. <a class="ln homePageLink" href="#">Por favor haga clic en este enlace para volver a la p&#225;gina de inicio.</a> Si ya estaba conectado, hemos cerrado la sesi&#243;n por razones de seguridad por lo que necesitar&#225; conectarse de nuevo. Si adem&#225;s tiene alguna ventana abierta, haga <a class="ln closeLink" href="#">clic aqu&#237;</a> para cerrarla y volver a la p&#225;gina de inicio en la ventana principal del navegador.
+</p>
+<p>
+    Si contin&#250;a teniendo problemas, por favor, p&#243;ngase en contacto con nuestro Servicio de atenci&#243;n al cliente por correo electr&#243;nico en la direcci&#243;n <a href="mailto:support-spa@customerservices365.com" class="ln">support-spa@customerservices365.com</a> o por teléfono llamando al número gratuito 900 811 365 (si llama desde España) o al número +44 1782 684 659 (si llama desde otro lugar).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="de-DE" id="de-DE"></a>
+            <h5 class="LanguageSectionHeader">
+                Deutsch
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Wir bitten um Entschuldigung, es ist ein Fehler aufgetreten. <a class="ln homePageLink" href="#">Bitte klicken Sie auf diesen Link, um zur Startseite zur&#252;ckzukehren.</a> Falls Sie eingeloggt waren, haben wir aus Sicherheitsgr&#252;nden Ihre Sitzung beendet, und Sie m&#252;ssen sich noch einmal einloggen. Falls Sie ein &#39;pop up&#39; Fenster ge&#246;ffnet haben, m&#246;chten wir Sie au&#223;erdem bitten, <a class="ln closeLink" href="#">hier zu klicken,</a> um es zu schlie&#223;en, und vom Hauptfenster Ihres Browsers zur Startseite zur&#252;ckzukehren.
+</p>
+<p>
+    Falls Sie weiterhin Probleme haben sollten, nehmen Sie bitte durch Email <a href="mailto:support-ger@customerservices365.com" class="ln">support-ger@customerservices365.com</a> oder unter der Telefonnummer 00800 12 365 365 (Deutschland) oder +44 1782 684 654 (Rest der Welt).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="it-IT" id="it-IT"></a>
+            <h5 class="LanguageSectionHeader">
+                Italiano
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Siamo spiacenti ma si &#232; verificato un errore. <a class="ln homePageLink" href="#">La preghiamo di cliccare su questo link per ritornare alla homepage.</a> Per motivi di sicurezza, Le sar&#224; richiesto di effettuare nuovamente l’accesso. Inoltre, se ha una finestra pop-up aperta, La preghiamo di cliccare <a class="ln closeLink" href="#">qui</a> per chiuderla e ritornare alla homepage sulla finestra del browser.
+</p>
+<p>
+    In caso di ulteriori problemi, La preghiamo di contattare l&#39;Assistenza Clienti tramite e-mail all&#39;indirizzo <a href="mailto:support-ita@assistenzaclienti365.com" class="ln">support-ita@assistenzaclienti365.com</a> o per telefono al numero gratuito 00800 12 365 365 o allo +44 1782 684 656.
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="da-DK" id="da-DK"></a>
+            <h5 class="LanguageSectionHeader">
+                Dansk
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Beklager, der er opst&#229;et en fejl. <a class="ln homePageLink" href="#">Klik venligst p&#229; dette link for at returnere til hjemmesiden.</a> Af sikkerhedsm&#230;ssige &#229;rsager er du blevet logget ud og er n&#248;dt til at logge ind igen. Hvis du har et pop-op-vindue &#229;bent, <a class="ln closeLink" href="#">klik venligst her</a> for at lukke det og returnere til hjemmesiden fra det oprindelige browservindue.
+</p>
+<p>
+    Hvis du fortsat har problemer, kontakt venligst vores kundeservice p&#229; e-mail: <a href="mailto:support-dan@customerservices365.com" class="ln">support-dan@customerservices365.com</a> eller på telefon 00800 12 365 365 (Danmark) +44 1782 684 651 (alle øvrige lande).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="sv-SE" id="sv-SE"></a>
+            <h5 class="LanguageSectionHeader">
+                Svenska
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Vi ber om urs&#228;kt f&#246;r att det har uppst&#229;tt ett fel. <a class="ln homePageLink" href="#">Var v&#228;nlig och klicka p&#229; l&#228;nken f&#246;r att &#229;terv&#228;nda till hemsidan.</a> Om du var inloggad har du nu loggats ut av s&#228;kerhetssk&#228;l och du m&#229;ste logga in igen. Om du har ett pop-up f&#246;nster &#246;ppet ber vi dig att st&#228;nga ner detta genom att <a class="ln closeLink" href="#">klicka h&#228;r</a> och &#229;terv&#228;nda till v&#229;r hemsida via din browser.
+</p>
+<p>
+    Om du fortfarande har problem ber vi dig att kontakta v&#229;r kundtj&#228;nst. Du n&#229;r oss p&#229; e-mailadressen <a href="mailto:support-swe@customerservices365.com" class="ln">support-swe@customerservices365.com</a> eller på telefonnummer 00800 12 365 365. (Sverige), +44 1782 684 660 (Övriga länder).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="nn-NO" id="nn-NO"></a>
+            <h5 class="LanguageSectionHeader">
+                Norsk
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Beklager, det har oppst&#229;tt en feil. <a class="ln homePageLink" href="#">Vennligst klikk her for &#229; komme tilbake til hjemmesiden.</a> Dersom du var p&#229;logget da feilen oppstod, vil du av sikkerhetsgrunner automatisk ha blitt logget ut, og du vil m&#229;tte logge inn p&#229; nytt. I tilfelle du har et pop-up vindu &#229;pent, <a class="ln closeLink" href="#">klikk her</a> for &#229; stenge det og returnere til hjemmesiden.
+</p>
+<p>
+    Dersom du fortsetter &#229; ha problemer, ta kontakt med kundeservice. Du kan n&#229; oss via e-post <a href="mailto:support-nor@customerservices365.com" class="ln">support-nor@customerservices365.com</a> og telefon 00800 12 365 365 (Norge) eller +44 1782 684 658 (Utland).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="zh-CHT" id="zh-CHT"></a>
+            <h5 class="LanguageSectionHeader">
+                <span class="Chinese">繁體中文</span>
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    很抱歉，網頁暫時無法顯示。 <a class="ln homePageLink" href="#">請點擊此鏈接回到主頁。</a> 由于您的帳戶已自動退出系統，為安全起見，您需要重新登錄帳戶。如果您有使用彈出窗口，請點擊 <a class="ln closeLink" href="#">這里</a> 關閉，並從主瀏覽窗口返回主頁。
+</p>
+<p>
+    如果問題仍未解決，請聯繫客戶服務部，電郵 <a href="mailto:support-tch@customerservices365.com" class="ln">support-tch@customerservices365.com</a> 或者致電<br/><br/>08000 328 886 （英國）<br/>001800 12 365 365 （香港/新加坡）<br/>00800 12 365 365 （澳門/馬來西亞）<br/>00800 8866 8888 （中國）<br/>10 800 152 1168 （中國南方）<br/>10 800 852 1168 （中國北方）<br/>1 888 666 8510 （美國/加拿大）<br/>+44 1782 684 657 （國際長途）<br/><br/>請一併將錯誤信息代碼告知，我們會盡快處理。
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="zh-CHS" id="zh-CHS"></a>
+            <h5 class="LanguageSectionHeader">
+                <span class="Chinese">简体中文</span>
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    很抱歉，网页暂时无法显示。 <a class="ln homePageLink" href="#">请点击此链接回到主页。</a> 由于您的帐户已自动退出系统，为安全起见，您需要重新登录帐户。如果您有使用弹出窗口，请点击 <a class="ln closeLink" href="#">这里</a> 关闭，并从主浏览窗口返回主页。
+</p>
+<p>
+    如果问题仍未解决，请联系客户服务部，电邮 <a href="mailto:support-sch@customerservices365.com" class="ln">support-sch@customerservices365.com</a> 或者致电<br/><br/>08000 328 886 （英国）<br/>001800 12 365 365 （香港/新加坡）<br/>00800 12 365 365 （澳门/马来西亚）<br/>00800 8866 8888 （中国）<br/>10 800 152 1168 （中国南方）<br/>10 800 852 1168 （中国北方）<br/>1 888 666 8510 （美国/加拿大）<br/>+44 1782 684 657 （国际长途）<br/><br/>请一并将错误信息代码告知，我们会尽快处理。
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="bg-BG" id="bg-BG"></a>
+            <h5 class="LanguageSectionHeader">
+                Български
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    За съжаление, възникна грешка. <a class="ln homePageLink" href="#">Моля, натиснете тук, за да се върнете на началната страница.</a> Ако сте били логнати, сме затворили Вашата сесия от съображения за сигурност и ще трябва отново да се логнете. В допълнение, ако имате отворен изскачащ прозорец, <a class="ln closeLink" href="#">натиснете тук</a> за да го затворите, и се върнете на началната страница от основния прозорец на браузъра.
+</p>
+<p>
+    Ако продължавате да изпитвате проблеми, моля, свържете се с Отдел Клиенти на имейл: <a href="mailto:support-bul@customerservices365.com" class="ln">support-bul@customerservices365.com</a> или на телефон 00800 115 4406 (България) или +44 1782 684 636 (извън България).
+</p>
+
+                    </div>
+                </div>
+            </div>
+            <a name="el-GR" id="el-GR"></a>
+            <h5 class="LanguageSectionHeader">
+                Ελληνικά
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Λυπούμαστε, έχει συμβεί κάποιο σφάλμα. <a class="ln homePageLink" href="#">Παρακαλούμε κάντε κλικ σε αυτό το σύνδεσμο για να επιστρέψετε στην αρχική σελίδα.</a> Για λόγους ασφαλείας, αν είσαστε συνδεδεμένοι, έχουμε κλείσει τη σύνδεσή σας και χρειάζεται να συνδεθείτε ξανά. Επιπλέον, αν αυτή τη στιγμή έχετε ανοικτό ένα pop up παράθυρο, παρακαλούμε <a class="ln closeLink" href="#">κάντε κλικ εδώ</a> για να το κλείσετε και επιστρέψτε στην αρχική σελίδα από το παράθυρο του βασικού πλοηγού.
+</p>
+<p>
+    Αν συνεχίσετε να αντινετωπίζετε προβλήματα, παρακαλούμε επικοινωνήστε με το τμήμα εξυπηρέτησης πελατών μας μέσω email <a href="mailto:support-gre@customerservices365.com" class="ln">support-gre@customerservices365.com</a> ή τηλεφώνου 00800 12 365 365 (Ελλάδα) ή +44 1782 684 757 (Υπόλοιπος Κόσμος).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="pt-PT" id="pt-PT"></a>
+            <h5 class="LanguageSectionHeader">
+                Português
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Desculpe, ocorreu um erro. <a class="ln homePageLink" href="#">Por favor clique neste link para voltar &#224; p&#225;gina inicial.</a> Por raz&#245;es de seguran&#231;a, se estava dentro da sua conta, n&#243;s termin&#225;mos a sua sess&#227;o e necessitar&#225; de entrar de novo. Adicionalmente se tiver uma janela de pop up aberta, por favor <a class="ln closeLink" href="#">clique aqui</a> para a fechar, e voltar &#224; p&#225;gina inicial, na janela principal do seu navegador.
+</p>
+<p>
+    Se continuar a encontrar problemas, por favor contacte o nosso servi&#231;o de apoio ao cliente atrav&#233;s do email: <a href="mailto:support-por@customerservices365.com" class="ln">support-por@customerservices365.com</a> ou do número 00800 12 365 365 (Portugal) ou +441782 684 631 (Resto do Mundo).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="pl-PL" id="pl-PL"></a>
+            <h5 class="LanguageSectionHeader">
+                Polski
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Przepraszamy, pojawił się błąd. <a class="ln homePageLink" href="#">Kliknij na ten link, aby powr&#243;cić do strony gł&#243;wnej.</a> W celach bezpieczeństwa, jeżeli byłeś zalogowany, zakończyliśmy Twoją sesję i będziesz musiał zalogować się ponownie. Dodatkowo, jeżeli masz obecnie otwarte okno pop up, <a class="ln closeLink" href="#">kliknij tutaj</a> by je zamknąć i wr&#243;ć do strony gł&#243;wnej z gł&#243;wnego okna przeglądarki.
+</p>
+<p>
+    Jeżeli wciąż będziesz miał problemy, skontaktuj się z naszym Biurem Obsługi Klienta za pomocą e-maila: <a href="mailto:support-pol@customerservices365.com" class="ln">support-pol@customerservices365.com</a> lub telefonu 00800 12 365 365 (Polska) lub +44 1782 684 757 (reszta świata).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="ro-RO" id="ro-RO"></a>
+            <h5 class="LanguageSectionHeader">
+                Română
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Ne cerem scuze, a intervenit o eroare. <a class="ln homePageLink" href="#">Va rugam sa apasati pe acest link pentru a reveni la pagina principala.</a> In cazul in care erati autentificat in cont, din motive de securitate, sesiunea a fost inchisa si este necesar sa va autentificati din nou. In plus, daca aveti deschisa o fereastra pop-up, va rugam sa <a class="ln closeLink" href="#">apasati aici</a> pentru inchiderea acesteia si pentru a reveni la pagina principala, in fereastra browserului dvs.
+</p>
+<p>
+    Daca intampinati dificultati in continuare, va rugam sa contactati serviciul de Relatii Clienti prin e-mail la adresa <a href="mailto:support-rom@customerservices365.com" class="ln">support-rom@customerservices365.com</a> sau telefonic la numerele 00800 12 365 365 (Romania) sau +44 1782 684 757 (Restul lumii).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="cs-CZ" id="cs-CZ"></a>
+            <h5 class="LanguageSectionHeader">
+                Česky
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Litujeme, došlo k chybě. <a class="ln homePageLink" href="#">Pro n&#225;vrat na hlavn&#237; str&#225;nku klikněte pros&#237;m na tento odkaz.</a> Jestliže jste byli přihl&#225;šeni, z bezpečnostn&#237;ch důvodů jsme ukončili Vaši relaci a budete se muset znovu přihl&#225;sit. V př&#237;padě, že m&#225;te moment&#225;lně otevřen&#233; vyskakovac&#237; okno, pros&#237;m <a class="ln closeLink" href="#">klikněte zde</a> pro jeho zavřen&#237; a n&#225;vrat na hlavn&#237; str&#225;nku v r&#225;mci hlavn&#237;ho okna prohl&#237;žeče.
+</p>
+<p>
+    Pokud probl&#233;my přetrv&#225;vaj&#237;, kontaktujte pros&#237;m naše z&#225;kaznick&#233; centrum emailem na <a href="mailto:support-cze@customerservices365.com" class="ln">support-cze@customerservices365.com</a> nebo telefonicky na čísle 00800 12 365 365 (Česká republika), případně +44 1782 684757 (zbytek světa).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="hu-HU" id="hu-HU"></a>
+            <h5 class="LanguageSectionHeader">
+                Magyar
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Sajn&#225;ljuk, hiba t&#246;rt&#233;nt. <a class="ln homePageLink" href="#">Kattintson a linkre, hogy visszat&#233;rjen a főoldalra.</a> Amennyiben be volt jelentkezve, biztons&#225;gi okokb&#243;l kil&#233;ptett&#252;k, &#237;gy &#250;jra be kell jelentkeznie. Ha jelenleg nyitva van &#214;nn&#233;l egy felugr&#243; ablak, akkor <a class="ln closeLink" href="#">kattintson ide</a> annak bez&#225;r&#225;s&#225;hoz &#233;s a főoldalra val&#243; visszat&#233;r&#233;shez.
+</p>
+<p>
+    Tov&#225;bbi probl&#233;ma eset&#233;n, k&#233;rj&#252;k, l&#233;pjen kapcsolatba &#252;gyf&#233;lszolg&#225;latunkkal e-mailben a <a href="mailto:support-hun@customerservices365.com" class="ln">support-hun@customerservices365.com</a> címen, vagy telefonon a +800 12 365 365 vagy +44 1782 684 663 számok egyikén.
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="sk-SK" id="sk-SK"></a>
+            <h5 class="LanguageSectionHeader">
+                Slovenčina
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Prep&#225;čte, vyskytla sa chyba. <a class="ln homePageLink" href="#">Pros&#237;m, kliknite na tento odkaz pre n&#225;vrat na domovsk&#250; str&#225;nku.</a> Ak ste boli prihl&#225;sen&#253;, ukončili sme Vaše pripojenie z bezpečnostn&#253;ch d&#244;vodov, takže sa budete musieť prihl&#225;siť znovu. Okrem toho, ak m&#225;te otvoren&#233; vyskakovacie okno, pros&#237;m, <a class="ln closeLink" href="#">kliknite sem</a> pre jeho zatvorenie a vr&#225;ťte sa na domovsk&#250; str&#225;nku z hlavn&#233;ho okna prehliadača.
+</p>
+<p>
+    Ak bud&#250; probl&#233;my pretrv&#225;vať, pros&#237;m, kontaktujte n&#225;š t&#237;m z&#225;kazn&#237;ckeho centra emailom: <a href="mailto:support-svk@customerservices365.com" class="ln">support-svk@customerservices365.com</a> alebo telefonicky na +800 12 365 365 (Slovensko) alebo na +44 1782 684 662 (zvyšok sveta).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="nl-NL" id="nl-NL"></a>
+            <h5 class="LanguageSectionHeader">
+                Nederlands
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Er heeft een fout opgetreden. <a class="ln homePageLink" href="#">Klik op deze link om terug te gaan naar de homepagina.</a> Indien je was ingelogd, hebben wij als veiligheidsmaatregel je sessie gesloten en dien je opnieuw in te loggen. Als je een pop-up venster open hebt staan, klik dan <a class="ln closeLink" href="#">hier</a> om deze te sluiten en ga via het hoofdvenster terug naar de homepagina.
+</p>
+<p>
+    Mocht het probleem zich blijven voordoen, neem dan contact op met onze klantenservice via e- mail <a href="mailto:support-ned@customerservices365.com" class="ln">support-ned@customerservices365.com</a> of telefonisch via +44 1782 684 648.
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="et-EE" id="et-EE"></a>
+            <h5 class="LanguageSectionHeader">
+                Eesti
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Vabandage! Tekkis t&#245;rge. <a class="ln homePageLink" href="#">Avalehele naasmiseks kl&#245;psake sellele lingile.</a> Juhul kui olite sisse logitud, l&#245;petasime turvakaalutlustel teie seansi ning peate uuesti sisse logima. Kui teil on lahti h&#252;pikaken, <a class="ln closeLink" href="#">kl&#245;psake siia,</a> et see sulgeda ning naaske avalehele brauseri p&#245;hiakna kaudu.
+</p>
+<p>
+    T&#245;rgete p&#252;simisel v&#245;tke meiega &#252;hendust e-posti aadressil <a href="mailto:support-est@customerservices365.com" class="ln">support-est@customerservices365.com</a> või telefonil 08000 288 365 (ÜK) või +44 1782 684757 (ülejäänud maailm).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="ru-RU" id="ru-RU"></a>
+            <h5 class="LanguageSectionHeader">
+                Русcкий
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    Извините, произошла ошибка. <a class="ln homePageLink" href="#">Нажмите на эту ссылку, чтобы вернуться на главную страницу.</a> В целях безопасности, если вы находились в системе, мы прервали ваш сеанс, и вам будет необходимо снова войти в систему. Так же, если у вас открыто всплывающее окно, пожалуйста, <a class="ln closeLink" href="#">нажмите здесь</a> , чтобы закрыть его и вернуться на домашнюю страницу из главного окна браузера.
+</p>
+<p>
+    Если вы продолжаете сталкиваться с проблемами, пожалуйста, свяжитесь с нашей службой поддержки по адресу электронной почты: <a href="mailto:support@customerservices365.com" class="ln">support@customerservices365.com</a> или по номеру 08000 288 365 (Великобритания) или +44 1782 684757 (остальные страны).
+</p>
+                    </div>
+                </div>
+            </div>
+            <a name="ja-JP" id="ja-JP"></a>
+            <h5 class="LanguageSectionHeader">
+                日本語
+            </h5>
+            <div class="CountryContainer">
+                <div class="GrayBox">
+                    <div class="ErrorMessageTextContainer">
+                        
+<p>
+    申し訳ありませんが、エラーが発生しました。 <a class="ln homePageLink" href="#">このリンクをクリックしてホームページにお戻りください。</a> セキュリティ上の理由により、ログインしていたセッションが終了しました。再度ログインしていただく必要があります。現在ポップアップウィンドウが開いている場合は、 <a class="ln closeLink" href="#">こちらをクリック</a> して閉じ、ブラウザのメインウィンドウ内からホームページにお戻りください。
+</p>
+<p>
+    問題が解決しない場合は、カスタマーサービスまでメールでご連絡ください: <a href="mailto:support@customerservices365.com" class="ln">support@customerservices365.com</a> お電話の場合は 08000 288 365(英国内)、または +44 1782 684757(英国外)までご連絡ください。
+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<!--ML2 - 2P2 - 25-->

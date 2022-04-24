@@ -23,6 +23,7 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
+      userDataDir : './userData', 
       headless: false,
       defaultViewport: {
         width: 920,
