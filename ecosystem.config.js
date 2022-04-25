@@ -7,3 +7,4 @@ module.exports = {
     script: 'node server.js',
   },
 ],
+};
