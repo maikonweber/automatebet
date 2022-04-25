@@ -11,43 +11,8 @@ const redis = require('redis');
         this.balance = 0;
         this.round = null;
 
-        this.roulletNumbersInterface = {
-            numeber1 : null,
-            numeber2 : null,
-            numeber3 : null,
-            numeber4 : null,
-            numeber5 : null,
-            numeber6 : null,
-            numeber7 : null,
-            numeber8 : null,
-            numeber9 : null,
-            numeber10 : null,
-            numeber11 : null,
-            numeber12 : null,
-            numeber13 : null,
-            numeber14 : null,
-            numeber15 : null,
-            numeber16 : null,
-            numeber17 : null,
-            numeber18 : null,
-            numeber19 : null,
-            numeber20 : null,
-            numeber21 : null,
-            numeber22 : null,
-            numeber23 : null,
-            numeber24 : null,
-            numeber25 : null,
-            numeber26 : null,
-            numeber27 : null,
-            numeber28 : null,
-            numeber29 : null,
-            numeber30 : null,
-            numeber31 : null,
-        }
+        this.IndexofRoullet = []
 
-        this.roulletHistory = {
-            numbers : []
-        }
 
         this.roullerCurrentResult = null;
 
@@ -100,16 +65,16 @@ const redis = require('redis');
         else {
             console.log('Ocorreu um erro ao logar no site');    
         }
-        
+        this.page = page;
         return page;
     }   
 
     async routine () {
-        await this.connectPublisher();
+        await this.subscribe();
         await this.init();
         const page = await this.login();
-        const page2 = await this.seeAllRoulletesPage(page);
-        const page3 = await this.roulletpad(page2);
+        const page2 = await this.seeAllRoulletesPage();
+        // const page3 = await this.roulletpad(page2);
 
        
     }
@@ -184,35 +149,87 @@ const redis = require('redis');
 
 
     async seeAllRoulletesPage(page) {
-        await page.goto("https://player.smashup.com/player_center/goto_common_game/5941/1000000", {waitUntil: 'networkidle0'});
-        await page.waitForTimeout(15000);
-        var frames = (await page.frames());
+        await this.page.goto("https://player.smashup.com/player_center/goto_common_game/5941/1000000", {waitUntil: 'networkidle0'});
+        await this.page.waitForTimeout(15000);
+        var frames = (await this.page.frames());
         const a = frames[1].url();
-        await page.goto(a, {waitUntil: 'networkidle0'});
-        await page.waitForTimeout(5000);
+        await this.page.goto(a, {waitUntil: 'networkidle0'});
+        await this.page.waitForTimeout(5000);
         const Balance = '/html/body/div[5]/div/div/div/div[3]/div[4]/div/div/span[2]/span[2]'
         
-        const Ballance = await page.$x(Balance);
+        const Ballance = await this.page.$x(Balance);
         // Print the context of element
         const BalanceText = await (await Ballance[0].getProperty('textContent')).jsonValue();
         this.balance = BalanceText;
-        console.log(BalanceText);
-     
-        const w = await page.waitForXPath('/html/body/div[5]/div/div/div/div[3]/div[2]/div[5]/div/div/div[2]/div[1]/div/div')
+        
+        
+
+        const w = await this.page.waitForXPath('/html/body/div[5]/div/div/div/div[3]/div[2]/div[5]/div/div/div[2]/div[1]/div/div')
         w.click();
-        await page.waitForTimeout(15000);
-        const x = await page.waitForXPath('/html/body/div[5]/div/div/div/div[3]/div[3]/div/div/div/div[1]/div/div[2]/div[2]')
-        x.click();
-        await page.waitForTimeout(15000);
+        await this.page.waitForTimeout(15000);
+        
+        const container = await this.page.$$('.wrap-inner.ListLobbyTablesInner--3b432')
+        // Take all div inside the container
+        // const divs = await container[0].$$('.TableFooter--f32c7.desktop--11e14');
+        // const div2 = await container[0].$$('.recentNumbersContainer--072a1');
+        const div3 = await container[0].$$('.lobby-table-block.LobbyTableBlock--a2b5c.roulette.table-details-loaded.desktop--f6be4.landscape--b15ec');
+
+        div3.forEach(async element => {
+            let result = await element.$$('.recentNumbersContainer--072a1')
+            // get text
+            let Resulttext = await (await result[0].getProperty('textContent')).jsonValue();
+           
+            let nameElement = await element.$$('.TableFooter--f32c7.desktop--11e14')
+            let nameElementText = await (await nameElement[0].getProperty('textContent')).jsonValue();
+
+
+            let obj = {
+                Result : Resulttext ,
+                nameElement : nameElementText,
+                element : element
+            }
+
+            this.IndexofRoullet.push(obj);
+
+        });
+
+    
 
         return page;
         
     }
 
 
-    async connectPublisher() {
-     
-    } 
+    async subscribe() {
+        const client = redis.createClient({
+          host: 'localhost',
+          port: 6379,
+          password: "roullet" 
+        });
+      
+        const subscriber = client.duplicate();
+      
+        await subscriber.connect();
+      
+          await subscriber.subscribe('roulletsEvents', (message) => {
+             // check if message have nameElement include in this.indexofRoullet nameElement
+                // if yes then call this.mappingBoard
+                // if no then call this.roulletpad
+                console.log(message);
+
+            this.IndexofRoullet.forEach(async element => {
+                if (element.nameElement.includes(message)
+
+            
+            });
+
+
+          });
+      }
+
+      async openPage(name) {
+          this.page()
+      }
        
 
   waitForSecond (time) {

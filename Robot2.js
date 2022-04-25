@@ -41,7 +41,8 @@ class RoulleteBot {
         
     });
     this.browser = browser;
-    const page = await browser.newPage();
+    const page = await browser.newPage(
+    await this.page.goto('')
     this.page = page;
 
   }
@@ -64,14 +65,14 @@ class RoulleteBot {
   }
 
   async login() {
-    const element_ = await page.$('#username');
-    const elementPass_ = await page.$('#password');
+    const element_ = await this.page.$('#username');
+    const elementPass_ = await this.page.$('#password');
     if (element_ && elementPass_) {
         // Send keys to the element
         await element_.type(this.username);
         await elementPass_.type(this.password);
-        await page.keyboard.press('Enter');
-        await page.waitForNavigation({waitUntil: 'networkidle0'});
+        await this.page.keyboard.press('Enter');
+        await this.page.waitForNavigation({waitUntil: 'networkidle0'});
     }
     else {
         console.log('Ocorreu um erro ao logar no site');    

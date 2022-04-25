@@ -1,2 +1,3 @@
-2022/04/25-14:09:37.501 11403 Creating DB /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Sync Data/LevelDB since it was missing.
-2022/04/25-14:09:37.621 11403 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Sync Data/LevelDB/MANIFEST-000001
+2022/04/25-16:04:12.376 e03 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Sync Data/LevelDB/MANIFEST-000001
+2022/04/25-16:04:12.376 e03 Recovering log #3
+2022/04/25-16:04:12.376 e03 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Sync Data/LevelDB/000003.log 
