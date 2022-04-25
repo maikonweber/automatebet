@@ -41,7 +41,8 @@ class RoulleteBot {
    
 //  await this.antiIndle(this.page);
     const container = await this.page.$$('.inline-games-page-component__iframe-container')
-    console.log(container);       
+    console.log(container);   
+    await this.antiIndle(this.page, container);    
   // const element = await this.page.$$('div');  
     // element.forEach(
     //   async (element, index) => {
@@ -51,32 +52,10 @@ class RoulleteBot {
     //     // console.log(textContent);
       
     //   })  
-     await this.antiIndle(this.page);
+     
       //  // get scheenshoot bodyHandle
-        setInterval(async () => {
-       let screenshot = await container[0].screenshot()
-          sharp(screenshot)
-          .resize(920, 680)
-          .extract({ 
-            right: 0,
-            top: 499, 
-            width: 200, 
-            height: 27 })
-          .toFile('crop.png')
-          .then((image) => { 
-            console.log('image saved');
-            console.log(image);
-            T.recognize('crop.png', 'eng', {
-              tessedit_char_whitelist: '0123456789',
-            }).then(({ data: { text } }) => {
-                console.log(text);
-          })
-        })
-          
-        }, 8000);
-
-      }
-   
+        
+  }
     //  
 
 
@@ -145,11 +124,29 @@ class RoulleteBot {
       await this.page.waitForTimeout(15000);
   }
 
-  async antiIndle(page) {
+  async antiIndle(page, container) {
     setInterval((async () => {
       await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
+      let screenshot = await container[0].screenshot()
+      sharp(screenshot)
+      .resize(920, 680)
+      .extract({ 
+        right: 0,
+        top: 499, 
+        width: 200, 
+        height: 27 })
+      .toFile('crop.png')
+      .then((image) => { 
+        console.log('image saved');
+        console.log(image);
+        T.recognize('crop.png', 'eng', {
+          tessedit_char_whitelist: '0123456789',
+        }).then(({ data: { text } }) => {
+            console.log(text);
+      })
+    })
 
-    }), 75000);
+    }), 20000);
   }
 
 
