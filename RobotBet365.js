@@ -3,6 +3,7 @@ const redis = require("redis");
 const cheerio = require("cheerio");
 const sharp = require("sharp");
 const T = require("tesseract.js");
+const { data } = require("cheerio/lib/api/attributes");
 
 
 
@@ -50,29 +51,25 @@ class RoulleteBot {
     //     // console.log(textContent);
       
     //   })  
-
-     await this.page.on('console', msg => {
-      console.log(`${msg.text()}`);
-     });
-
-     
+     await this.antiIndle(this.page);
       //  // get scheenshoot bodyHandle
         setInterval(async () => {
        let screenshot = await container[0].screenshot()
-        console.log(screenshot)
           sharp(screenshot)
-          .resize(920, 580)
+          .resize(920, 680)
           .extract({ 
-            left: 610, 
+            right: 0,
             top: 499, 
-            width: 300, 
+            width: 200, 
             height: 27 })
           .toFile('crop.png')
           .then((image) => { 
-            T.recognize('crop.png', 'por', {
-              tessedit_char_whitelist: '0123456789'
+            console.log('image saved');
+            console.log(image);
+            T.recognize('crop.png', 'eng', {
+              tessedit_char_whitelist: '0123456789',
             }).then(({ data: { text } }) => {
-                console.log(text);              
+                console.log(text);
           })
         })
           
@@ -85,6 +82,7 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
+      userDataDir: './userData2',
       headless: false,
       dumpio: true,
       defaultViewport: {
@@ -109,7 +107,7 @@ class RoulleteBot {
     console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(8000) //https://casino.bet365.com/Play/en-gb/
-    await this.login();
+    // await this.login();
   
 
 }
@@ -131,7 +129,7 @@ class RoulleteBot {
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     if (username && password) {
-      await username.type(this.username);
+      // await username.type(this.username);
       await password.type(this.password);
       // enter the page
       await this.page.waitForTimeout(5000);
@@ -149,15 +147,9 @@ class RoulleteBot {
 
   async antiIndle(page) {
     setInterval((async () => {
-   await page.waitForTimeout(5000);
-    const container = await page.$$('#gamecontainer')
-    // mouse move to enter of container and click
-    await container[0].hover();
-    await page.waitForTimeout(5000);
-    await page.mouse.click(100, 100);
-    await page.waitForTimeout(5000);
-    
-    }), 15000);
+      await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
+
+    }), 75000);
   }
 
 
@@ -168,6 +160,6 @@ class RoulleteBot {
 
 
 
-const bot = new RoulleteBot("ma128sio4", "maikonweber", 'LiveRoulette');
+const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
 bot.init();
 

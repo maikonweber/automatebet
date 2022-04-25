@@ -1,0 +1,14 @@
+2022/04/25-17:52:57.794 b03 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData2/Default/Session Storage/MANIFEST-000001
+2022/04/25-17:52:57.795 b03 Recovering log #10
+2022/04/25-17:52:57.796 b03 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData2/Default/Session Storage/000010.log 
+2022/04/25-17:53:03.556 250f Level-0 table #13: started
+2022/04/25-17:53:03.561 250f Level-0 table #13: 36972 bytes OK
+2022/04/25-17:53:03.600 250f Delete type=0 #10
+2022/04/25-17:53:03.631 250f Compacting 4@0 + 0@1 files
+2022/04/25-17:53:03.637 250f Generated table #14@0: 126 keys, 30270 bytes
+2022/04/25-17:53:03.637 250f Compacted 4@0 + 0@1 files => 30270 bytes
+2022/04/25-17:53:03.679 250f compacted to: files[ 0 1 0 0 0 0 0 ]
+2022/04/25-17:53:03.681 250f Delete type=2 #3
+2022/04/25-17:53:03.681 250f Delete type=2 #7
+2022/04/25-17:53:03.681 250f Delete type=2 #13
+2022/04/25-17:53:03.681 250f Delete type=2 #9
