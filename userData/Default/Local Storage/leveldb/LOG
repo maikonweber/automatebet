@@ -1,3 +1,6 @@
-2022/04/24-16:22:15.845 2e90 Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\userData\Default\Local Storage\leveldb/MANIFEST-000001
-2022/04/24-16:22:15.847 2e90 Recovering log #4
-2022/04/24-16:22:15.850 2e90 Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\userData\Default\Local Storage\leveldb/000004.log 
+2022/04/24-21:24:40.438 118c Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\userData\Default\Local Storage\leveldb/MANIFEST-000001
+2022/04/24-21:24:40.458 118c Recovering log #4
+2022/04/24-21:24:40.461 118c Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\userData\Default\Local Storage\leveldb/000004.log 
+2022/04/24-21:25:44.061 668 Level-0 table #8: started
+2022/04/24-21:25:44.066 668 Level-0 table #8: 6499 bytes OK
+2022/04/24-21:25:44.069 668 Delete type=0 #4

@@ -32,14 +32,17 @@ class RoulleteBot {
     const frames = await this.page.frames();
     const l = await frames[2].url();
     this.browser.newPage().then(async (page) => {
-        await page.goto(l, {waitUntil: 'networkidle0'});
-        await page.waitForTimeout(25000);
-          console.log('|Console');
-        await page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    await page.goto(l, {waitUntil: 'networkidle0'});
+    await page.waitForTimeout(25000);
+    console.log('|Console');
+    await page.on('console', msg => console.log('PAGE LOG:', msg.text()));
         
 
         // Get body of page
          const bodyHandle = await page.$$('#gamecontainer')
+
+         // Random click inde a bodyhandle
+    
          const frame = await page.$$('#gamecontent')
        
         
@@ -115,30 +118,27 @@ class RoulleteBot {
 //   });
 // }
 
-    const username = await this.page.waitForSelector('#txtUsername');
-    const password = await this.page.waitForSelector('#txtPassword');
-    if (username && password) {
-      // send keys to the element
+    // const username = await this.page.waitForSelector('#txtUsername');
+    // const password = await this.page.waitForSelector('#txtPassword');
+    // if (username && password) {
+    //   // await username.type(this.username);
+    //   await password.type(this.password);
+    //   // enter the page
+    //   await this.page.waitForTimeout(5000);
+    //   await this.page.keyboard.press('Enter');
+    //   await this.page.waitForTimeout(20000);
+    //   const button = await page.$('.regulatory-last-login-modal__button');
+    //   if (button) {
+    //     await button.click();
+    //   }
+    //   await this.page.waitForTimeout(8000);
 
-      // await username.type(this.username);
-      await password.type(this.password);
-      // enter the page
-      await this.page.waitForTimeout(5000);
-      await this.page.keyboard.press('Enter');
-      await this.page.waitForTimeout(20000);
-      const button = await page.$('.regulatory-last-login-modal__button');
-      if (button) {
-        await button.click();
-      }
-      await this.page.waitForTimeout(8000);
+    // }
 
-    }
-
-      await page.waitForTimeout(55000);
+    //   await page.waitForTimeout(55000);
   // }
 
   // }
-
 
 }
 
