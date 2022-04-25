@@ -2,6 +2,8 @@ const puppeteer = require("puppeteer");
 const redis = require("redis");
 const cheerio = require("cheerio");
 const sharp = require("sharp");
+const T = require("tesseract.js");
+
 
 
 class RoulleteBot {
@@ -30,60 +32,72 @@ class RoulleteBot {
     // get frames of page
     this.page.waitForTimeout(35000);
     const frames = await this.page.frames();
-    const l = await frames[2].url();
-    this.browser.newPage().then(async (page) => {
-    await page.goto(l, {waitUntil: 'networkidle0'});
-    await page.waitForTimeout(25000);
-    console.log('|Console');
-    await page.on('console', msg => console.log('PAGE LOG:', msg.text()));
-        
+    await frames[2].$$('#root')
 
-        // Get body of page
-         const bodyHandle = await page.$$('#gamecontainer')
+  
 
-         // Random click inde a bodyhandle
-    
-         const frame = await page.$$('#gamecontent')
-       
-        
-       // get scheenshoot bodyHandle
+     
+   
+//  await this.antiIndle(this.page);
+    const container = await this.page.$$('.inline-games-page-component__iframe-container')
+    console.log(container);       
+  // const element = await this.page.$$('div');  
+    // element.forEach(
+    //   async (element, index) => {
+    //     // get the text of element
+    //     const text = await element.getProperty('textContent');
+    //     const textContent = await text.jsonValue();
+    //     // console.log(textContent);
+      
+    //   })  
+
+     await this.page.on('console', msg => {
+      console.log(`${msg.text()}`);
+     });
+
+     
+      //  // get scheenshoot bodyHandle
         setInterval(async () => {
-       let screenshot = await bodyHandle[0].screenshot()
+       let screenshot = await container[0].screenshot()
         console.log(screenshot)
           sharp(screenshot)
           .resize(920, 580)
           .extract({ 
-            left: 655, 
-            top: 500, 
-            width: 250, 
+            left: 610, 
+            top: 499, 
+            width: 300, 
             height: 27 })
           .toFile('crop.png')
-          .then(() => { 
-            console.log('Imagem Cropada');
+          .then((image) => { 
+            T.recognize('crop.png', 'por', {
+              tessedit_char_whitelist: '0123456789'
+            }).then(({ data: { text } }) => {
+                console.log(text);              
           })
+        })
           
         }, 8000);
 
-      });
+      }
    
     //  
 
-  }
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      userDataDir: './userData',
       headless: false,
+      dumpio: true,
       defaultViewport: {
-        width: 920,
-        height: 580
+        width: 1020,
+        height: 880
       },
       args: [
         '--disable-web-security',
         '--disable-features=IsolateOrigins,site-per-process',
           '--disable-extensions',
-          "--window-size=920,680",
+          "--window-size=1020,880",
           "--window-position=500,0",
+
 
       ],  
       devTools: true, 
@@ -95,50 +109,8 @@ class RoulleteBot {
     console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(8000) //https://casino.bet365.com/Play/en-gb/
-//     // get all frame
-//     const frames = await this.page.frames();
-//     const l = await frames[2].url();
-//     this.browser.newPage().then(async (page) => {
-//       await page.goto(l, {waitUntil: 'networkidle0'});
-//       await page.waitForTimeout(25000);
-//       // Get body of page
-//       const bodyHandle = await page.$$('div');
-//       await page.waitForTimeout(25000);
-//       const frame = page.frames()
-//       // get text of body
-//       await frame.forEach(async element => {
-//           element.url().then(async (url) => {
-//             this.browser.newPage().then(async (page) => {
-//                 page.goto(url, {waitUntil: 'networkidle0'});
-//             });
-//       });
-//     });
-//       const element_ = await bodyHandle[0].getProperty('innerText');
-//       const element_text = await element_.jsonValue();
-//   });
-// }
-
-    // const username = await this.page.waitForSelector('#txtUsername');
-    // const password = await this.page.waitForSelector('#txtPassword');
-    // if (username && password) {
-    //   // await username.type(this.username);
-    //   await password.type(this.password);
-    //   // enter the page
-    //   await this.page.waitForTimeout(5000);
-    //   await this.page.keyboard.press('Enter');
-    //   await this.page.waitForTimeout(20000);
-    //   const button = await page.$('.regulatory-last-login-modal__button');
-    //   if (button) {
-    //     await button.click();
-    //   }
-    //   await this.page.waitForTimeout(8000);
-
-    // }
-
-    //   await page.waitForTimeout(55000);
-  // }
-
-  // }
+    await this.login();
+  
 
 }
 
@@ -156,26 +128,42 @@ class RoulleteBot {
   }
 
   async login() {
-    const element_ = await this.page.$('#txtusername');
-    const elementPass_ = await this.page.$('#txtPassword');
-    if (element_ && elementPass_) {
-        // Send keys to the element
-        // await element_.type(this.username);
-        await elementPass_.type(this.password);
-        await page.keyboard.press('Enter');
-        await page.waitForNavigation({waitUntil: 'networkidle0'});
+    const username = await this.page.waitForSelector('#txtUsername');
+    const password = await this.page.waitForSelector('#txtPassword');
+    if (username && password) {
+      await username.type(this.username);
+      await password.type(this.password);
+      // enter the page
+      await this.page.waitForTimeout(5000);
+      await this.page.keyboard.press('Enter');
+      await this.page.waitForTimeout(20000);
+      const button = await this.page.$('.regulatory-last-login-modal__button');
+      if (button) {
+        await button.click();
+      }
+      await this.page.waitForTimeout(8000);
+
     }
-    else {
-        console.log('Ocorreu um erro ao logar no site');    
-    }
+      await this.page.waitForTimeout(15000);
+  }
+
+  async antiIndle(page) {
+    setInterval((async () => {
+   await page.waitForTimeout(5000);
+    const container = await page.$$('#gamecontainer')
+    // mouse move to enter of container and click
+    await container[0].hover();
+    await page.waitForTimeout(5000);
+    await page.mouse.click(100, 100);
+    await page.waitForTimeout(5000);
     
-    return page;
-    
+    }), 15000);
   }
 
 
-
 }
+
+
 
 
 

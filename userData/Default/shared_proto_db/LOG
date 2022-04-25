@@ -1,3 +1,2 @@
-2022/04/21-17:17:23.383 ef03 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/shared_proto_db/MANIFEST-000001
-2022/04/21-17:17:23.383 ef03 Recovering log #3
-2022/04/21-17:17:23.384 ef03 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/shared_proto_db/000003.log 
+2022/04/25-14:09:38.650 d603 Creating DB /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/shared_proto_db since it was missing.
+2022/04/25-14:09:38.781 d603 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/shared_proto_db/MANIFEST-000001

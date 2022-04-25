@@ -17,6 +17,7 @@
     "puppeteer": "^13.5.2",
     "redis": "^4.0.6",
     "sharp": "^0.30.4",
-    "telegram": "^2.6.13"
+    "telegram": "^2.6.13",
+    "tesseract.js": "^2.1.5"
   }
 }
