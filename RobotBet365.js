@@ -115,26 +115,26 @@ class RoulleteBot {
 //   });
 // }
 
-    // const username = await this.page.waitForSelector('#txtUsername');
-    // const password = await this.page.waitForSelector('#txtPassword');
-    // if (username && password) {
-    //   // send keys to the element
+    const username = await this.page.waitForSelector('#txtUsername');
+    const password = await this.page.waitForSelector('#txtPassword');
+    if (username && password) {
+      // send keys to the element
 
-    //   // await username.type(this.username);
-    //   await password.type(this.password);
-    //   // enter the page
-    //   await this.page.waitForTimeout(5000);
-    //   await this.page.keyboard.press('Enter');
-    //   await this.page.waitForTimeout(20000);
-    //   const button = await page.$('.regulatory-last-login-modal__button');
-    //   if (button) {
-    //     await button.click();
-    //   }
-    //   await this.page.waitForTimeout(8000);
+      // await username.type(this.username);
+      await password.type(this.password);
+      // enter the page
+      await this.page.waitForTimeout(5000);
+      await this.page.keyboard.press('Enter');
+      await this.page.waitForTimeout(20000);
+      const button = await page.$('.regulatory-last-login-modal__button');
+      if (button) {
+        await button.click();
+      }
+      await this.page.waitForTimeout(8000);
 
-    // }
+    }
 
-    //   await page.waitForTimeout(20000);
+      await page.waitForTimeout(55000);
   // }
 
   // }
