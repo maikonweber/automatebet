@@ -12,7 +12,7 @@ const redis = require('redis');
 
   await subscriber.connect();
 
-    await subscriber.subscribe('roulletsEvents', (message) => {
+    await subscriber.subscribe('roulleteEventsTelegram', (message) => {
     console.log(message); // 'message'
     });
 

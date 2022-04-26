@@ -70,52 +70,12 @@ const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBu4koD9vmeJ6R32
            async (chat, index) => {   
                 if(chat.message.toString() != last) {
                    const lastMessage = chat.message.toString()
-                   if (entry === true) {
-                    console.log("===========================================================");
-                    console.log("==========================/Entry = True/===============================");
-                    console.log("===========================================================");
-                    let regEx2 = /Abortar possível entrada/g
-                   if (regEx2.test(lastMessage)) {
-                        await publisher.publish("roulletsEvents", "Abortar possível entrada");
-                        console.log("Entrada negada!");
-                        console.log("==========================/Entry = True/===============================");
-                        console.log("==========================/Entrada Abortada ===============================");
-                        entry = false;
-                    } else  {   
-                        console.log("===========================================================");
-                          console.log("==========================/Entry = True/===============================");
-                          console.log("===========================================================");
-                        const line = lastMessage.split("\n")
-                        let object = {
-                            name : line[0],
-                            id : line[1],
-                            time : line[2]
-                        }
-                        console.log(object);
-                        await publisher.publish("roulletsEvents", JSON.stringify(object));
-                        entry = false;
-                        last = lastMessage
-                    } 
-                    } else {
-                    console.log("===========================================================");
-                    console.log("==========================/Entry = False/===============================");
-                    let regEx = /Possível entrada/g
-                    let result = lastMessage.match(regEx)
-                    if(result != null) {
-                    console.log("Possível entrada!");
-                    const lines = lastMessage.split("\n")
-                    console.log(lines[2])
-                    sala = lines[2]
-                    await publisher.publish("roulletsEvents", lines[2]);
-                    entry = true
-                    
-                                    } else {
-                                            console.log("Não foi possível identificar um entrada")
-                                             }
-                        last = lastMessage   
+                    console.log(lastMessage)
+                    publisher.publish("roulleteEventsTelegram", lastMessage);
+                    last = lastMessage
+
                 }
             }
-        }
         )
 
 

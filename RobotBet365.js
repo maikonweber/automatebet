@@ -130,13 +130,28 @@ class RoulleteBot {
       await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
       setInterval(async () => {
       const container = await this.page.waitForSelector('.inline-games-page-component__iframe-container')
-      let scheenshoot = container[0].screenshot();
-      sharp(scheenshoot)
-        .resize(1020, 880)
-        .extract({ left: 880, top: 980, width: 220, height: 30 })
-        .toFile('new.png');
-      }, 15000)
-    }), 75000);
+      setInterval((async () => {
+        await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
+        let screenshot = await container[0].screenshot()
+        sharp(screenshot)
+        .resize(920, 680)
+        .extract({ 
+          right: 0,
+          top: 499, 
+          width: 200, 
+          height: 27 })
+        .toFile('crop.png')
+        .then((image) => { 
+          console.log('image saved');
+          console.log(image);
+          T.recognize('crop.png', 'eng', {
+            tessedit_char_whitelist: '0123456789',
+          }).then(({ data: { text } }) => {
+              console.log(text);
+        })
+      })
+  
+      }), 20000);
   }
 
 
