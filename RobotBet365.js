@@ -33,30 +33,32 @@ class RoulleteBot {
     // get frames of page
     this.page.waitForTimeout(35000);
     const frames = await this.page.frames();
-    await frames[2].$$('#root')
-
-  
-
-     
-   
-//  await this.antiIndle(this.page);
+    console.log(await frames[2].$$('#root'));
     const container = await this.page.$$('.inline-games-page-component__iframe-container')
     console.log(container);   
-    await this.antiIndle();    
-  // const element = await this.page.$$('div');  
-    // element.forEach(
-    //   async (element, index) => {
-    //     // get the text of element
-    //     const text = await element.getProperty('textContent');
-    //     const textContent = await text.jsonValue();
-    //     // console.log(textContent);
+    let screenshot = await container[0].screenshot()
+    console.log(screenshot);
+      sharp(screenshot)
+      .resize(1020, 880)
+      .extract({
+        left: 800,
+        top: 200,
+        width: 400,
+        height: 20
+      })
+      .toFile('screenshot.png');
       
-    //   })  
-     
-      //  // get scheenshoot bodyHandle
-        
+  //   T.recognize('screenshot.png', {
+  //       lang: 'eng',
+  //       tessedit_char_whitelist: '0123456789',
+  //   }).then(({ data }) => {
+  //     console.log(data.text, typeof data.text);
+  //     console.log(Number(data.text), parseInt(data.text));
+  //     let convertedNumber = [...data.text].map((num) => Number(num));
+  //     console.log(convertedNumber);
+  //   });
+
   }
-    //  
 
 
   async preLoad() {
@@ -85,7 +87,7 @@ class RoulleteBot {
     this.page = page
     console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
-    await this.page.waitForTimeout(8000) //https://casino.bet365.com/Play/en-gb/
+    await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
     // await this.login();
   
 
@@ -125,42 +127,10 @@ class RoulleteBot {
   }
 
   async antiIndle( ) {
-    setInterval((async () => {
-      await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
       await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-      setInterval(async () => {
-      const container = await this.page.waitForSelector('.inline-games-page-component__iframe-container')
-      setInterval((async () => {
-        await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
-        let screenshot = await container[0].screenshot()
-        sharp(screenshot)
-        .resize(920, 680)
-        .extract({ 
-          right: 0,
-          top: 499, 
-          width: 200, 
-          height: 27 })
-        .toFile('crop.png')
-        .then((image) => { 
-          console.log('image saved');
-          console.log(image);
-          T.recognize('crop.png', 'eng', {
-            tessedit_char_whitelist: '0123456789',
-          }).then(({ data: { text } }) => {
-              console.log(text);
-        })
-      })
-  
-      }), 20000);
+          
   }
-
-
 }
-
-
-
-
-
 
 const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
 bot.init();
