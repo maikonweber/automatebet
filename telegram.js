@@ -73,14 +73,13 @@ const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBuyL3+ODWpT1Hqa
                     console.log(lastMessage)
                     publisher.publish("roulleteEventsTelegram", lastMessage);
                     last = lastMessage
-
                 }
             }
         )
 
 
 
-        }), 35000);
+        }), 8000);
 
         
 

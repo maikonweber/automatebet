@@ -18,6 +18,7 @@ const redis = require('redis');
     Sala : "",
     mensage : "",
     aposta : "",
+    resultado : "",
   }
   
   await subscriber.subscribe('roulleteEventsTelegram', (message) => { 
@@ -33,12 +34,12 @@ const redis = require('redis');
        let regEx =   /🧐 Possível entrada/g;
 
         if(result === false ) { 
-          console.log(result)     
+          
         if(possible === false) {
-          console.log(possible)
+        
         if(regEx.test(message)){
           possible = true;
-          console.log(message);
+          
       }
     } else {
       if(regEx2.test(message)){
@@ -112,18 +113,22 @@ const redis = require('redis');
       result = false;
       possible = false;
       Gale = true;
+      sala.result = "GREEN";
       console.log(message);
     } else if (/GREEN PAPAI/g.test(message)){
       result = false;
       possible = false;
+      sala.result = "GREEN";
       console.log(message);
     } else if (Gale === true) {
       if (/GREEN PAPAI/g.test(message)){
         result = false;
         possible = false;
+        sala.result = "GREEN 1 GALE";
         console.log(message);
       } else {
         console.log("Gale")
+        Sala.result = "RED ou Segundo Gale";
         result = false;
         possible = false;
         console.log(message);
@@ -135,6 +140,11 @@ const redis = require('redis');
       console.log(message);
     }
 }
+  if (sala.Sala !== "") {
+    console.logg(sala);
+  } else {
+    console.log("Menssagem Ignorada")
+  }
   });
-
+   
 })();

@@ -1,10 +1,10 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
 const redis = require("redis");
 const cheerio = require("cheerio");
 const sharp = require("sharp");
 const T = require("tesseract.js");
-const { data } = require("cheerio/lib/api/attributes");
-
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin());
 
 
 class RoulleteBot {
@@ -47,16 +47,15 @@ class RoulleteBot {
         height: 20
       })
       .toFile('screenshot.png');
-      
-  //   T.recognize('screenshot.png', {
-  //       lang: 'eng',
-  //       tessedit_char_whitelist: '0123456789',
-  //   }).then(({ data }) => {
-  //     console.log(data.text, typeof data.text);
-  //     console.log(Number(data.text), parseInt(data.text));
-  //     let convertedNumber = [...data.text].map((num) => Number(num));
-  //     console.log(convertedNumber);
-  //   });
+    T.recognize('screenshot.png', {
+        lang: 'eng',
+        tessedit_char_whitelist: '0123456789',
+    }).then(({ data }) => {
+      console.log(data.text, typeof data.text);
+      console.log(Number(data.text), parseInt(data.text));
+      let convertedNumber = [...data.text].map((num) => Number(num));
+      console.log(convertedNumber);
+    });
 
   }
 
@@ -71,6 +70,7 @@ class RoulleteBot {
         height: 880
       },
       args: [
+        '--no-sandbox',
         '--disable-web-security',
         '--disable-features=IsolateOrigins,site-per-process',
           '--disable-extensions',
@@ -88,7 +88,7 @@ class RoulleteBot {
     console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-    // await this.login();
+    await this.login();
   
 
 }
