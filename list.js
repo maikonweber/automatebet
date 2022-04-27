@@ -11,35 +11,130 @@ const redis = require('redis');
   const subscriber = client.duplicate();
 
   await subscriber.connect();
+  let possible = false;
+  let result = false;
+  let Gale = false;
+  let sala = {
+    Sala : "",
+    mensage : "",
+    aposta : "",
+  }
+  
+  await subscriber.subscribe('roulleteEventsTelegram', (message) => { 
+       let regEx4 = /Entrar no Bloco 1/g;
+       let regEx3 = /Entrar no Bloco 2/g;
+       let regEx5 = /Entrar no Bloco 3/g; 
+       let regEx6 = /Entrar no Coluna 1/g;
+       let regEx7 = /Entrar no Coluna 2/g;
+       let regEx8 = /Entrar no Coluna 3/g;
+       let regEx9 = /Cobrir o ZERO/g;
+       let regEx10 = /1° Gale/g;      
+       let regEx2 = /Abortar possível entrada…/g;
+       let regEx =   /🧐 Possível entrada/g;
 
-    await subscriber.subscribe('roulleteEventsTelegram', (message) => {
+        if(result === false ) { 
+          console.log(result)     
+        if(possible === false) {
+          console.log(possible)
+        if(regEx.test(message)){
+          possible = true;
+          console.log(message);
+      }
+    } else {
+      if(regEx2.test(message)){
+        possible = false;
         
-      let regEx = /Possível Entrada/g;
-      let regEx2 = /Abortar/g;
-      let regEx3 = /Entrada/g;
-      let regEx4 = /Green/g;
-      let regEx5= /Red/g;
-      let regEx6 = /Vamos para o 1° Gale/g;
-      
-      if (regEx.test(message)) {
-        console.log(message, "regEx");
-      }
-      if (regEx2.test(message)) {
-        console.log(message, "regEx2");
-      }
-      if (regEx3.test(message)) {
-        console.log(message, "regEx3");
-      }
-      if (regEx4.test(message)) {
-        console.log(message, "regEx4");
-      }
-      if (regEx5.test(message)) {
-        console.log(message, "regEx5");
-      }
-      if (regEx6.test(message)) {
-        console.log(message, "regEx6");
-      }
+      } else {
+        console.log("Entradas")
+        if(regEx4.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Bloco 1";
+          sala.mensage = message;
+          sala.aposta = "1";
+          console.log(sala);
+        } else if(regEx3.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Bloco 2";
+          sala.mensage = message;
+          sala.aposta = "2";
+          console.log(sala);
+        } else if(regEx5.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Bloco 3";
+          sala.mensage = message;
+          sala.aposta = "3";
+          console.log(sala);
 
-    });
+        } else if(regEx6.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Coluna 1";
+          sala.mensage = message;
+          sala.aposta = "4";
+          console.log(sala);
+        } else if(regEx7.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Coluna 2";
+          sala.mensage = message;
+          sala.aposta = "5";
+          console.log(sala);
+        }
+        else if(regEx8.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Coluna 3";
+          sala.mensage = message;
+          sala.aposta = "6";
+          console.log(sala);
+       
+        } else if(regEx9.test(message)){
+          possible = false;
+          result = true;
+          sala.Sala = "Coluna 3";
+          sala.mensage = message;
+          sala.aposta = "7";   
+          console.log(sala);
+        } else  {
+          possible = false;
+          result = false;
+          console.log(message);
+        }
+    }
+  }
+} else {
+    console.log("Resultado")
+    let regEx10 = /1° Gale/g;
+    if(regEx10.test(message)){
+      result = false;
+      possible = false;
+      Gale = true;
+      console.log(message);
+    } else if (/GREEN PAPAI/g.test(message)){
+      result = false;
+      possible = false;
+      console.log(message);
+    } else if (Gale === true) {
+      if (/GREEN PAPAI/g.test(message)){
+        result = false;
+        possible = false;
+        console.log(message);
+      } else {
+        console.log("Gale")
+        result = false;
+        possible = false;
+        console.log(message);
+      }
+    } else {
+      console.log("Resultado")
+      result = false;
+      possible = false;
+      console.log(message);
+    }
+}
+  });
 
 })();
