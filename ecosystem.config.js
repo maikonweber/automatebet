@@ -6,5 +6,9 @@ module.exports = {
     name: 'RobotObserverRoullet',
     script: 'node server.js',
   },
+  {
+    name: 'Robot',
+    script: 'node list.js',
+  },
 ],
 };

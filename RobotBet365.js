@@ -43,9 +43,9 @@ class RoulleteBot {
       sharp(screenshot)
       .resize(1020, 880)
       .extract({
-        right: 0,
+        left: 620,
         top: 770,
-        width: 280,
+        width: 400,
         height: 30
       })
       .toFile(`crop${this.room}.png`, (err, info) => {
