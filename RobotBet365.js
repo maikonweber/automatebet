@@ -31,31 +31,31 @@ class RoulleteBot {
   async getSygnal() {
     console.log('Aguardando Sinal');
     // get frames of page
-    this.page.waitForTimeout(35000);
+    this.page.waitForTimeout(5000);
     const frames = await this.page.frames();
     console.log(await frames[2].$$('#root'));
     const container = await this.page.$$('.inline-games-page-component__iframe-container')
     console.log(container);   
+    setInterval(async () => {
     let screenshot = await container[0].screenshot()
     console.log(screenshot);
+
       sharp(screenshot)
       .resize(1020, 880)
       .extract({
-        left: 800,
-        top: 200,
-        width: 400,
-        height: 20
+        right: 0,
+        top: 770,
+        width: 280,
+        height: 30
       })
-      .toFile('screenshot.png');
-    T.recognize('screenshot.png', {
-        lang: 'eng',
-        tessedit_char_whitelist: '0123456789',
-    }).then(({ data }) => {
-      console.log(data.text, typeof data.text);
-      console.log(Number(data.text), parseInt(data.text));
-      let convertedNumber = [...data.text].map((num) => Number(num));
-      console.log(convertedNumber);
-    });
+      .toFile(`crop${this.room}.png`, (err, info) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(info);
+      });
+     
+  }, 35000);
 
   }
 
