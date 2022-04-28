@@ -33,31 +33,35 @@ class RoulleteBot {
     // get frames of page
     this.page.waitForTimeout(5000);
     const frames = await this.page.frames();
-    console.log(await frames[2].$$('#root'));
-    const container = await this.page.$$('.inline-games-page-component__iframe-container')
-    console.log(container);   
-    setInterval(async () => {
-    let screenshot = await container[0].screenshot()
-    console.log(screenshot);
+    let getMy = await frames[2].$$('.roulette-historyfOmuwAaXbwHRa3HTIjFProulette-history_lineI4ifBnY7E4N_2u7U0_Tf');
+    console.log(getMy);
+    this.page.screenshot({path: './screenshot.png'});
 
-      sharp(screenshot)
-      .resize(1020, 880)
-      .extract({
-        left: 620,
-        top: 770,
-        width: 400,
-        height: 30
-      })
-      .toFile(`crop${this.room}.png`, (err, info) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(info);
-      });
-     
+    setInterval(async () => {
+    
+    let screenshot = await getMy.screenshot({
+      path: './screenshot.png',
+      type: 'png',
+      omitBackground: true,
+      fullPage: true
+    }) 
+    sharp(screenshot)
+    .resize(1100, 980)
+    .extract({
+      width: 1100,
+      height: 980,
+      left: 0,
+      top: 0
+    })
+    .toFile(`crop${this.room}.png`, (err, info) => {
+      console.log(err, info);
+
+    });
+
   }, 35000);
 
-  }
+}
+
 
 
   async preLoad() {
@@ -66,15 +70,15 @@ class RoulleteBot {
       headless: false,
       dumpio: true,
       defaultViewport: {
-        width: 1020,
-        height: 880
+        width: 1100,
+        height: 980
       },
       args: [
         '--no-sandbox',
         '--disable-web-security',
         '--disable-features=IsolateOrigins,site-per-process',
           '--disable-extensions',
-          "--window-size=1020,880",
+          "--window-size=1110,980",
           "--window-position=500,0",
 
 

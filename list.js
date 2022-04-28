@@ -141,7 +141,7 @@ const redis = require('redis');
     }
 }
   if (sala.Sala !== "") {
-    console.logg(sala);
+    console.log(sala);
   } else {
     console.log("Menssagem Ignorada")
   }
