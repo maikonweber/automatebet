@@ -4,6 +4,8 @@ const cheerio = require("cheerio");
 const sharp = require("sharp");
 const T = require("tesseract.js");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const { data } = require("cheerio/lib/api/attributes");
+const { Logger } = require("selenium-webdriver/lib/logging");
 puppeteer.use(StealthPlugin());
 
 
@@ -33,32 +35,40 @@ class RoulleteBot {
     // get frames of page
     this.page.waitForTimeout(5000);
     const frames = await this.page.frames();
-    let getMy = await frames[2].$$('.roulette-historyfOmuwAaXbwHRa3HTIjFProulette-history_lineI4ifBnY7E4N_2u7U0_Tf');
-    console.log(getMy);
-    this.page.screenshot({path: './screenshot.png'});
-
+    // get frame content of frame[2]
+ 
+  
     setInterval(async () => {
-    
-    let screenshot = await getMy.screenshot({
-      path: './screenshot.png',
-      type: 'png',
-      omitBackground: true,
-      fullPage: true
-    }) 
+    const screenshot = await this.page.screenshot();
     sharp(screenshot)
     .resize(1100, 980)
     .extract({
-      width: 1100,
-      height: 980,
-      left: 0,
-      top: 0
+      width: 250,
+      height: 40,
+      left: 770,
+      top: 740
     })
-    .toFile(`crop${this.room}.png`, (err, info) => {
-      console.log(err, info);
-
-    });
-
-  }, 35000);
+    // convert background image to gray
+    .greyscale()
+    // remove noise
+    // threshold the image
+    .threshold(0)
+    .toFile(`crop${this.room}.png`)
+      .then((image) => { 
+        T.recognize(`crop${this.room}.png`, 'eng', {
+          tessedit_char_whitelist: '0123456789',
+          tessedit_pageseg_mode: '1',
+          tessedit_ocr_engine_mode: '1',
+          tessedit_image_dpi: '300',
+          tessedit_char_blacklist: '',  
+        
+        }).then(({ data: { text } }) => {
+          console.log(parseInt(text)); // converting string to number
+        
+      })
+    })
+    
+  }, 10000);
 
 }
 
@@ -66,7 +76,6 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      userDataDir: './userData2',
       headless: false,
       dumpio: true,
       defaultViewport: {
@@ -114,7 +123,7 @@ class RoulleteBot {
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     if (username && password) {
-      // await username.type(this.username);
+      await username.type(this.username);
       await password.type(this.password);
       // enter the page
       await this.page.waitForTimeout(5000);
