@@ -9,7 +9,6 @@ const publisher = Redis.createClient({
 });
 
 
-
 const apiId = 17228434;
 const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
 const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBuyL3+ODWpT1HqawZpif444I42IkhMfmac8R19bptwTgCpYQMsMGb8XSFs47CBnHDo+dMA2BFomEjTKNqkG7h1PrJV/I7zjK2eA3EeLteWxzgixZCtiSGt9qO3Q2dMxXgdb7N7iSp3SpbTBgwyKVFCDf4mje486TVC14Jv354CPs5NQJJFOetZE4HTmPyLjY4yFefAPl/jCUnNDmTxv6ktdtnxOaTZPYACxDWFmTTdN9TQBLK4cmV1n98dlD7hmTqupFsUsSUsZSJfeYOqRAG8z3+fnJ7/o+UlVUaMu2820lq6TQooRN5tNrxZYwO+Jbh48kcbjt+kfs0dRKoOB4cmLQ=");
