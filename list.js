@@ -1,4 +1,5 @@
 const redis = require('redis');
+const { insertTelegram } = require('./database');
 
 (async () => {
 
@@ -18,7 +19,7 @@ const redis = require('redis');
     Sala : "",
     mensage : "",
     aposta : "",
-    resultado : "",
+    result : "",
   }
   
   await subscriber.subscribe('roulleteEventsTelegram', (message) => { 
@@ -50,54 +51,54 @@ const redis = require('redis');
         if(regEx4.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Bloco 1";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "1";
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
         } else if(regEx3.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Bloco 2";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "2";
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
         } else if(regEx5.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Bloco 3";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "3";
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
 
         } else if(regEx6.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Coluna 1";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "4";
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
         } else if(regEx7.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Coluna 2";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "5";
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
         }
         else if(regEx8.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Coluna 3";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "6";
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
        
         } else if(regEx9.test(message)){
           possible = false;
           result = true;
-          sala.Sala = "Coluna 3";
+          sala.Sala = message[0];
           sala.mensage = message;
-          sala.aposta = "7";   
+          sala.aposta = `message[1] + message[2]`;   
           console.log(sala);
         } else  {
           possible = false;
@@ -142,6 +143,14 @@ const redis = require('redis');
 }
   if (sala.Sala !== "") {
     console.log(sala);
+    const id = await insertTelegram(sala.Sala, sala.mensage, sala.aposta, sala.result);
+    // clean the object
+    sala = {
+      Sala : "",
+      mensage : "",
+      aposta : "",
+      resultado : "",
+    }
   } else {
     console.log("Menssagem Ignorada")
   }

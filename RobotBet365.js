@@ -145,6 +145,6 @@ class RoulleteBot {
   }
 }
 
-const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
+const bot = new RoulleteBot("ma128sio4", "maikonwdc", 'LiveRoulette');
 bot.init();
 
