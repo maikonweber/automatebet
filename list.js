@@ -22,7 +22,7 @@ const { insertTelegram } = require('./database');
     result : "",
   }
   
-  await subscriber.subscribe('roulleteEventsTelegram', (message) => { 
+  await subscriber.subscribe('roulleteEventsTelegram', async (message) => { 
        let regEx4 = /Entrar no Bloco 1/g;
        let regEx3 = /Entrar no Bloco 2/g;
        let regEx5 = /Entrar no Bloco 3/g; 
