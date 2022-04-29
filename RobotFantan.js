@@ -22,6 +22,7 @@ class RoulleteBot {
     async init() {
     console.log('Abrindo Pagina');
      await this.preLoad();
+
      console.log('Aguardando o sinal');
      await this.getSygnal();
 
@@ -29,34 +30,8 @@ class RoulleteBot {
   }
 
   async getSygnal() {
-    console.log('Aguardando Sinal');
-    // get frames of page
-    this.page.waitForTimeout(5000);
-    const frames = await this.page.frames();
-    console.log(await frames[2].$$('#root'));
-    const container = await this.page.$$('.inline-games-page-component__iframe-container')
-    console.log(container);   
-    setInterval(async () => {
-    let screenshot = await container[0].screenshot()
-    console.log(screenshot);
-
-      sharp(screenshot)
-      .resize(1020, 880)
-      .extract({
-        left: 620,
-        top: 770,
-        width: 400,
-        height: 30
-      })
-      .toFile(`crop${this.room}.png`, (err, info) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(info);
-      });
-     
-  }, 35000);
-
+   
+  
   }
 
 
@@ -107,6 +82,7 @@ class RoulleteBot {
   }
 
   async login() {
+    console.log()
     const username = await this.page.waitForSelector('#Username');
     const password = await this.page.waitForSelector('#Password');
     if (username && password) {

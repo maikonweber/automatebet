@@ -34,6 +34,10 @@ const { insertTelegram } = require('./database');
        let regEx2 = /Abortar possível entrada…/g;
        let regEx =   /🧐 Possível entrada/g;
 
+       // break message in lines
+        let lines = message.split('\n');
+       
+
         if(result === false ) { 
           
         if(possible === false) {
@@ -51,54 +55,54 @@ const { insertTelegram } = require('./database');
         if(regEx4.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
         } else if(regEx3.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
         } else if(regEx5.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
 
         } else if(regEx6.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
         } else if(regEx7.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
         }
         else if(regEx8.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
        
         } else if(regEx9.test(message)){
           possible = false;
           result = true;
-          sala.Sala = message[0];
+          sala.Sala = lines[0];
           sala.mensage = message;
-          sala.aposta = `message[1] + message[2]`;   
+          sala.aposta = `${lines[1]} + / ${lines[2]}`;   
           console.log(sala);
         } else  {
           possible = false;
@@ -114,7 +118,7 @@ const { insertTelegram } = require('./database');
       result = false;
       possible = false;
       Gale = true;
-      sala.result = "GREEN";
+      sala.result = "1° Gale";
       console.log(message);
     } else if (/GREEN PAPAI/g.test(message)){
       result = false;
@@ -138,21 +142,22 @@ const { insertTelegram } = require('./database');
       console.log("Resultado")
       result = false;
       possible = false;
+      gale = false
       console.log(message);
     }
 }
   if (sala.Sala !== "") {
     console.log(sala);
     const id = await insertTelegram(sala.Sala, sala.mensage, sala.aposta, sala.result);
-    // clean the object
+    console.log(id);
     sala = {
       Sala : "",
       mensage : "",
       aposta : "",
-      resultado : "",
+      result : "",
     }
   } else {
-    console.log("Menssagem Ignorada")
+    console.log("Menssagem Ignorada", message)
   }
   });
    

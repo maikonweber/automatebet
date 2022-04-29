@@ -4,6 +4,7 @@ const cheerio = require("cheerio");
 const sharp = require("sharp");
 const T = require("tesseract.js");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const { Touchscreen } = require("puppeteer");
 puppeteer.use(StealthPlugin());
 
 
@@ -22,41 +23,60 @@ class RoulleteBot {
     async init() {
     console.log('Abrindo Pagina');
      await this.preLoad();
-     console.log('Aguardando o sinal');
-     await this.getSygnal();
-
-
+     this.getSygnal()
+  
   }
 
   async getSygnal() {
     console.log('Aguardando Sinal');
-    // get frames of page
-    this.page.waitForTimeout(5000);
+    // Get all content of html
+    const content = await this.page.content();
+    // Get all frames of page
     const frames = await this.page.frames();
-    console.log(await frames[2].$$('#root'));
-    const container = await this.page.$$('.inline-games-page-component__iframe-container')
-    console.log(container);   
-    setInterval(async () => {
-    let screenshot = await container[0].screenshot()
-    console.log(screenshot);
+    const frame = frames[1].url();
+    await this.page.goto(frame);
+    await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
 
-      sharp(screenshot)
-      .resize(1100, 980)
-      .extract({
-        left: 620,
-        top: 770,
-        width: 400,
-        height: 30
-      })
-      .toFile(`crop${this.room}.png`, (err, info) => {
-        if (err) {
-          console.log(err);
+
+    let TopElement = await this.page.$('.top-container--281fe');
+    let BottonmElement = await this.page.$('.bottom-game-overlay--e714e');
+    console.log(TopElement, BottonmElement)
+
+    // Select all canvas of page and get a screenshot for each one
+    const canvas = await this.page.$$('canvas');
+      // For LOOP
+      for (let i = 0; i < canvas.length; i++) {
+          console.log(canvas[3])
+         
         }
-        console.log(info);
-      });
-     
-  }, 35000);
 
+    let result = await this.page.evaluate(async (el) => {
+        let canvas = document.querySelectorAll('canvas');
+        // for loop to get the canvas
+        canvas[3].getBoundingClientRect();
+        let canvasWidth = canvas[3].getBoundingClientRect().width;
+        let canvasHeight = canvas[3].getBoundingClientRect().height;
+      
+        return { width :canvasWidth, heigth : canvasHeight}
+    
+      });
+
+      console.log(result)
+      await this.page.mouse(
+      {
+        x: result.width - 1020,
+        y: result.heigth - 880
+      })
+     
+    
+
+      
+  
+    await this.page.screenshot({path: './screenshot.png'});
+
+  
+    
+    
   }
 
 
@@ -88,7 +108,7 @@ class RoulleteBot {
     console.log('Abrindo a página');
     await this.page.goto(`https://br.betano.com/casino/live/games/fan-tan/4281/tables/`)
     await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-    await this.login();
+      
   
 
 }
@@ -108,14 +128,18 @@ class RoulleteBot {
 
   async login() {
     console.log('Aguardando Login');
-    try  {
-    const username = await this.page.$$('#username');
-    console.log(username);
-    const password = await this.page.$$('#password');
-    console.log(password);
-    if (username && password) {
-      await username.type(this.username);
-      await password.type(this.password);
+    // get all frames of page
+    const frames = await this.page.frames();
+    const frame = frames[1].url();
+    await this.page.goto(frame);
+    await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
+    let bird = await this.page.$$('#username')
+    let elefant = await this.page.$$('#password') 
+    console.log(bird, elefant)
+    
+    if (bird[0] && elefant[0]) {
+      await bird[0].type(this.username);
+      await elefant[0].type(this.password);
       // enter the page
       await this.page.waitForTimeout(5000);
       await this.page.keyboard.press('Enter');
@@ -128,9 +152,8 @@ class RoulleteBot {
 
     }
       await this.page.waitForTimeout(15000);
-} catch (error) {
-    console.log("Erro ao logar");
-}
+      await this.page.goto(`https://br.betano.com/casino/live/games/fan-tan/4281/tables/`)
+      await this.getSygnal();
     }
 
 
@@ -140,5 +163,5 @@ class RoulleteBot {
   }
 }
 
-const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
+const bot = new RoulleteBot("ma128sio4", "maikonweber", 'LiveRoulette');
 bot.init();
