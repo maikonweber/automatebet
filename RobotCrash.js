@@ -61,9 +61,8 @@ class RoulleteBot {
     const page = await this.browser.newPage();
     this.page = page
     console.log('Abrindo a página');
-    await this.page.goto(`https://br.betano.com/casino/live/games/fan-tan/4281/tables/`)
+    await this.page.goto(`https://blaze.com/pt/games/crash?tab=normal`)
     await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-    await this.login();
   
 
 }

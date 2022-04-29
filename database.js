@@ -4,7 +4,7 @@ const { mod } = require('telegram/Helpers');
 let client = {
     host: 'roullet',
     port: 5532,
-    database: 'roullete',
+    database: 'roullet',
     user: 'roullet',
     password: 'roullet'
 };
