@@ -36,46 +36,51 @@ class RoulleteBot {
     this.page.waitForTimeout(5000);
     const frames = await this.page.frames();
     // get frame content of frame[2]
- 
+    let tesseractConfig = {
+      lang: 'eng',
+      oem: 1,
+      psm: 3
+    }
   
     setInterval(async () => {
-    const screenshot = await this.page.screenshot();
-    sharp(screenshot)
-    .resize(1100, 980)
-    .extract({
-      width: 250,
-      height: 40,
-      left: 770,
-      top: 740
-    })
-    // convert background image to gray
-    .greyscale()
-    // remove noise
-    // threshold the image
-    .threshold(0)
-    .toFile(`crop${this.room}.png`)
-      .then((image) => { 
-        T.recognize(`crop${this.room}.png`, 'eng', {
-          tessedit_char_whitelist: '0123456789',
-          tessedit_pageseg_mode: '1',
-          tessedit_ocr_engine_mode: '1',
-          tessedit_image_dpi: '300',
-          tessedit_char_blacklist: '',  
-        
-        }).then(({ data: { text } }) => {
-          console.log(parseInt(text)); // converting string to number
-        
-      })
-    })
-    
-  }, 10000);
+      const screenshot = await this.page.screenshot();
+      const sharpedImg = await sharp(screenshot).extract({ left: 770, top: 740, width: 40, height: 40 }).toBuffer();
+      const resizeSharp = await sharp(sharpedImg).resize(90, 90).toFile('resize.png').then(
+        () => {
+            T.recognize('resize.png', 'eng', {
+              tessedit_pageseg_mode: '7',    
+              psm: '2',
+              oem: '1',
+             logger: m => console.log(m) // optional
+            }).then(({ data: { text } }) => {
+                console.log(text)
 
+        })
+      })
+   
+      this.page.mouse.click(770, 780);
+
+
+
+      // sharp(screenshot)
+    // .resize(1100, 980)
+    // .extract({
+    //   width: 40,
+    //   height: 40,
+    //   left: 750,
+    //   top: 740
+    // })  
+    // .toFile('./screenshot.png')
+    
+
+    }, 5000);
 }
 
 
 
   async preLoad() {
     const browser = await puppeteer.launch({
+      userDataDir: './userDataBet365',
       headless: false,
       dumpio: true,
       defaultViewport: {
@@ -123,7 +128,7 @@ class RoulleteBot {
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     if (username && password) {
-      await username.type(this.username);
+      // await username.type(this.username);
       await password.type(this.password);
       // enter the page
       await this.page.waitForTimeout(5000);
@@ -145,6 +150,6 @@ class RoulleteBot {
   }
 }
 
-const bot = new RoulleteBot("ma128sio4", "maikonwdc", 'LiveRoulette');
+const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
 bot.init();
 
