@@ -5,17 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_database": "sudo docker-compose -f docker-compose.yml up -d"
+    "build_database": "sudo docker-compose -f docker-compose.yml up -d",
+    "start": ""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.8.0",
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.3",
     "input": "^1.0.1",
     "pg": "^8.7.3",
     "puppeteer": "^13.5.2",
+    "puppeteer-cluster": "^0.23.0",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "redis": "^4.0.6",
     "sharp": "^0.30.4",
