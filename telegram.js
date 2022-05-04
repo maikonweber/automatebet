@@ -50,8 +50,7 @@ last = chat.message.toString()
 
         console.log(chat);
 
-setInterval(async () => {
-console.log("Sending message...");        
+setInterval(async () => {   
 const chat2 = await client.getMessages(thx, {
                 limit : 1,
             }
@@ -72,6 +71,6 @@ chat2.forEach(
         }
     }
 )
-}, 8000);
+}, 5000);
 
 })()
