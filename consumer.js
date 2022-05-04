@@ -53,8 +53,8 @@ conn.createChannel( async (err, ch) => {
         let line1 = lines[0];
         let line2 = lines[1];
         let line3 = lines[2];
-        if (lines[4].test(ZERO)) {
-            console.log("ZERO");
+        // test line 3 if ZERO
+        if (ZERO.test(line3)) {
             insertObject.zero = true;
         }
         // Remove the match RegEx fot line1
@@ -123,7 +123,9 @@ conn.createChannel( async (err, ch) => {
         }
         console.log(insertObject);
       }
-    }, { noAck: true });
+
+    }
+}, { noAck: true });
 
 
 
