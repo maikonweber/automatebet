@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqp": "^0.2.7",
     "amqplib": "^0.8.0",
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.3",
