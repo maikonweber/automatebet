@@ -8,7 +8,7 @@ module.exports = {
   },
   {
     name: 'Robot',
-    script: 'node list.js',
+    script: 'node consumer.js',
   },
 ],
 };
