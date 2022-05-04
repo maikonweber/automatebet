@@ -61,7 +61,7 @@ chat2.forEach(
             const lastMessage = chat.message.toString()
             console.log(lastMessage)
             last = lastMessage
-        amqp.connect('amqp://roullet:roullet@localhost:15672', function(err, conn) {
+        amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
                 conn.createChannel(function(err, ch) {
                     ch.assertQueue(queue, {durable: false});
                     ch.sendToQueue(queue, Buffer.from(lastMessage));
