@@ -33,7 +33,6 @@ class RoulleteBot {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     this.page.waitForTimeout(5000);
-<<<<<<< HEAD:RobotBet365.js
     const frames = await this.page.frames();
     // get frame content of frame[2]
  
@@ -68,11 +67,6 @@ class RoulleteBot {
     })
     
   }, 10000);
-=======
-    let frames = await this.page.frames();
-    const frame = this.page.frames();
-    console.log(frame);
->>>>>>> 9a71f672e2ebf8f859f9f6f46e4701ff8d36f9c5:Robots/RobotBet365.js
 
     let lobbyItem  =   this.page.evaluate(() => {
       const lobbyItens = document.querySelectorAll('.lobby-tables__item');
@@ -176,11 +170,7 @@ class RoulleteBot {
   }
 }
 
-<<<<<<< HEAD:RobotBet365.js
 const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
 bot.init();
-=======
-const bot = new RoulleteBot("Ma128sio4", "maikonweber", 'LiveRoulette');
->>>>>>> 9a71f672e2ebf8f859f9f6f46e4701ff8d36f9c5:Robots/RobotBet365.js
 
 bot.init();

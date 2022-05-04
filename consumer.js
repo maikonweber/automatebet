@@ -30,6 +30,7 @@ conn.createChannel( async (err, ch) => {
       fistGale: false,
       secondGale: false,
       result: false,
+      zero: false
     };
 
     let swh = false;
@@ -43,6 +44,7 @@ conn.createChannel( async (err, ch) => {
       let green = /GREEN PAPAI/g;
       let gale = /Vamos para o 1° Gale/g;
       let gale2 = /Vamos para o 2° Gale/g;
+      let ZERO =  /ZERO/g;
       let red = /não deu!"/g;
       if (regEx.test(message)) {
         console.log("Entrada", message);
@@ -51,6 +53,10 @@ conn.createChannel( async (err, ch) => {
         let line1 = lines[0];
         let line2 = lines[1];
         let line3 = lines[2];
+        if (lines[4].test(ZERO)) {
+            console.log("ZERO");
+            insertObject.zero = true;
+        }
         // Remove the match RegEx fot line1
         let salEx = /Sala: /g;
         let salEx2 = /Entrar no: /g;
@@ -72,7 +78,7 @@ conn.createChannel( async (err, ch) => {
           console.log(insertObject, 'Insert Object');
           // Save in Redis
           console.log("Saved in Redis");
-          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale);
+          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
           console.log(result, 'Result');
           insertObject = {
             entrada: "",
@@ -80,8 +86,7 @@ conn.createChannel( async (err, ch) => {
             fistGale: false,
             secondGale: false,
             result: false,
-          };
-
+            zero: false
         }
         if (gale.test(message)) {
           console.log("1° Gale ", message);
@@ -104,7 +109,7 @@ conn.createChannel( async (err, ch) => {
           console.log("Saved in Redis");
           // Clean object
           console.log(insertObject, 'Insert Object');
-          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale);
+          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
           console.log(result, 'Result');
           insertObject = {
             entrada: "",
@@ -112,6 +117,7 @@ conn.createChannel( async (err, ch) => {
             fistGale: false,
             secondGale: false,
             result: false,
+            zero: false
           };
           console.log("Cleaned Object", insertObject);
         }
