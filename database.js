@@ -33,7 +33,7 @@ async function insertTelegram(sala, mensagem , aposta, resultado) {
 }
 
 async function insertNewSygnal(sala , aposta, resultado, fistGale, secondGale) {
-    let sql = `INSERT INTO roullete_new(room, aposta, result, fistGale, secondGale) VALUES ($1, $2, $3, $4, $5) Returning id`;    
+    let sql = `INSERT INTO roullete_new(room, aposta, result, fistgale, secondgale) VALUES ($1, $2, $3, $4, $5) Returning id`;    
     let params = [sala, aposta, resultado, fistGale, secondGale];
     let result = await pool.query(sql, params);
     return result;
