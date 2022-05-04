@@ -72,7 +72,7 @@ conn.createChannel( async (err, ch) => {
           console.log(insertObject, 'Insert Object');
           // Save in Redis
           console.log("Saved in Redis");
-          let result = await insertNewSygnal(insertObject);
+          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale);
           console.log(result, 'Result');
           insertObject = {
             entrada: "",
@@ -104,7 +104,7 @@ conn.createChannel( async (err, ch) => {
           console.log("Saved in Redis");
           // Clean object
           console.log(insertObject, 'Insert Object');
-          let result = await insertNewSygnal(insertObject);
+          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale);
           console.log(result, 'Result');
           insertObject = {
             entrada: "",
