@@ -22,16 +22,28 @@ services:
     command: redis-server --appendonly yes --requirepass roullet
     ports:
       - "6379:6379"
+<<<<<<< HEAD
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: roullet_rabbitmq
     ports:
       - "5672:5672"
+=======
+  RabbitMQ:
+    container_name: roullet_rabbitmq
+    image: rabbitmq:3.7.8-management
+    restart: always
+    command: rabbitmq-plugins enable rabbitmq_management
+    ports:
+>>>>>>> 9a71f672e2ebf8f859f9f6f46e4701ff8d36f9c5
       - "15672:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=roullet
       - RABBITMQ_DEFAULT_PASS=roullet
+<<<<<<< HEAD
 
 
   
+=======
+>>>>>>> 9a71f672e2ebf8f859f9f6f46e4701ff8d36f9c5
         
