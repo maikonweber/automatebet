@@ -63,8 +63,15 @@ class RoulleteBot {
     console.log('Abrindo a página');
     await this.page.goto(`https://blaze.com/pt/games/crash?tab=normal`)
     await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-  
-
+    let container = await this.page.waitForSelector('.game-controller-container');
+    let button = await container.$$('button');
+    console.log(button);
+    // for loop
+    for (let i = 0; i < button.length; i++) {
+      await button[i].click();
+      console.log('click')
+      await this.page.waitForTimeout(5000);
+    }
 }
 
   async publisher(message) {

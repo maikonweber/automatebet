@@ -5,7 +5,6 @@ const sharp = require("sharp");
 const T = require("tesseract.js");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const { data } = require("cheerio/lib/api/attributes");
-const { Logger } = require("selenium-webdriver/lib/logging");
 puppeteer.use(StealthPlugin());
 
 
@@ -43,7 +42,7 @@ class RoulleteBot {
     sharp(screenshot)
     .resize(1100, 980)
     .extract({
-      width: 250,
+      width: 48,
       height: 40,
       left: 770,
       top: 740
@@ -60,10 +59,9 @@ class RoulleteBot {
           tessedit_pageseg_mode: '1',
           tessedit_ocr_engine_mode: '1',
           tessedit_image_dpi: '300',
-          tessedit_char_blacklist: '',  
         
         }).then(({ data: { text } }) => {
-          console.log(parseInt(text)); // converting string to number
+          // converting string to number
         
       })
     })
@@ -76,6 +74,7 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
+      userDataDir: './data',
       headless: false,
       dumpio: true,
       defaultViewport: {
@@ -86,9 +85,9 @@ class RoulleteBot {
         '--no-sandbox',
         '--disable-web-security',
         '--disable-features=IsolateOrigins,site-per-process',
-          '--disable-extensions',
-          "--window-size=1110,980",
-          "--window-position=500,0",
+        '--disable-extensions',
+        "--window-size=1110,980",
+        "--window-position=500,0",
 
 
       ],  
@@ -145,6 +144,6 @@ class RoulleteBot {
   }
 }
 
-const bot = new RoulleteBot("ma128sio4", "maikonwdc", 'LiveRoulette');
+const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
 bot.init();
 

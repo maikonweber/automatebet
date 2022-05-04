@@ -1,6 +1,5 @@
 // initialize database pg
 var pg = require('pg');
-const { mod } = require('telegram/Helpers');
 let client = {
     host: 'roullet',
     port: 5532,

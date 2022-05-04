@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_database": "sudo docker-compose -f docker-compose.yml up -d"
+    "build_database": "sudo docker-compose -f docker-compose.yml up -d",
+    "pm2_start": "pm2 start ecosystem.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.8.0",
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.3",
     "input": "^1.0.1",

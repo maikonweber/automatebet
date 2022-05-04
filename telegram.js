@@ -2,11 +2,6 @@ const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
 const Redis = require("redis");
-const publisher = Redis.createClient({
-    host: "localhost",
-    port: 6379,
-    password: "roullet",
-});
 
 
 const apiId = 17228434;
