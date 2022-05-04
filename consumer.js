@@ -29,7 +29,7 @@ let insertObject = {
 }
 
 let swh = false;
-
+let gale = false
 ch.assertQueue(queue, {durable: false});
  console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
 
@@ -39,8 +39,7 @@ ch.consume(queue, function(msg) {
   let green = /GREEN PAPAI/g
   let gale = /Vamos para o 1° Gale/g
   let gale2 = /Vamos para o 2° Gale/g
-  let red = /✖️/g
-
+  let red = /não deu!"/g
   if(regEx.test(message)) {
     console.log("Entrada", message);
      //Break lines of message
@@ -52,7 +51,7 @@ ch.consume(queue, function(msg) {
       let salEx =  /Sala: /g;
       let salEx2 = /Entrar no: /g;
       let sal = line1.replace(salEx, "");
-      let sal2 = sal.replace(salEx2, "");
+      let sal2 = line2.replace(salEx2, "");
       insertObject.sala = sal;
       insertObject.entrada = sal2;
       console.log(insertObject);
@@ -65,26 +64,52 @@ ch.consume(queue, function(msg) {
     console.log("Green", message);
     insertObject.result = true;
     swh = false;
+    // Clean object
+    console.log(insertObject, 'Insert Object');
+    // Save in Redis
+    console.log("Saved in Redis");
+
+    insertObject = {
+      entrada : "",
+      sala: "",
+      fistGale: false,
+      secondGale: false,
+      result: false,
+    }
     
   }
-  if(gale.test(message)) {
-    console.log("1 Gale ", message);
+  if (gale.test(message)) {
+    console.log("1° Gale ", message);
     insertObject.fistGale = true;
-    swh = false;
+    swh = true;
+
   }
   if(gale2.test(message)) {
     console.log("2 Galee", message);
     insertObject.secondGale = true;
-    swh = false;
+    swh = true;
+    console.log(insertObject);
+
   } 
-  if(red.test(message)) {
+  if (red.test(message)) {
     console.log("Red", message);
     insertObject.result = false;
     swh = false;
+    // Save in Redis
+    console.log("Saved in Redis");
+    // Clean object
+    console.log(insertObject, 'Insert Object');
+    insertObject = {
+      entrada : "",
+      sala: "",
+      fistGale: false,
+      secondGale: false,
+      result: false,
+    }
+    console.log("Cleaned Object", insertObject);
+  } 
+    console.log(insertObject);
   }
-  console.log(insertObject);
-}
-    
 }, {noAck: true});
 
 

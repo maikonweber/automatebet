@@ -66,7 +66,9 @@ chat2.forEach(
                     ch.assertQueue(queue, {durable: false});
                     ch.sendToQueue(queue, Buffer.from(lastMessage));
                     console.log(" [x] Sent %s", lastMessage);
-                    
+                    setTimeout(function() {
+                        conn.close();
+                    }, 500);
                 });
             });
         }
