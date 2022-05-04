@@ -1,7 +1,7 @@
 // initialize database pg
 var pg = require('pg');
 let client = {
-    host: 'roullet',
+    host: 'localhost',
     port: 5532,
     database: 'roullet',
     user: 'roullet',
