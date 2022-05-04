@@ -60,12 +60,13 @@ chat2.forEach(
         if(chat.message.toString() != last) {
             const lastMessage = chat.message.toString()
             console.log(lastMessage)
+            last = lastMessage
         amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
                 conn.createChannel(function(err, ch) {
                     ch.assertQueue(queue, {durable: false});
                     ch.sendToQueue(queue, Buffer.from(lastMessage));
                     console.log(" [x] Sent %s", lastMessage);
-                    last = lastMessage
+                    
                 });
             });
         }
