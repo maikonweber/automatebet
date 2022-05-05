@@ -8,7 +8,9 @@ const {
 
 } = require('./database');
 
-// Create endpoint
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+}) 
 
 app.get('/api/v1/', (req, res, next) => {
     res.send('Hello World');
@@ -71,7 +73,6 @@ app.get("/api/v1/telegramresult", async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-
 
 }
 
