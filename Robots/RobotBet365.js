@@ -1,10 +1,8 @@
 const puppeteer = require("puppeteer-extra");
-const redis = require("redis");
 const cheerio = require("cheerio");
 const sharp = require("sharp");
 const T = require("tesseract.js");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-const { data } = require("cheerio/lib/api/attributes");
 puppeteer.use(StealthPlugin());
 
 
@@ -36,54 +34,6 @@ class RoulleteBot {
     const frames = await this.page.frames();
     // get frame content of frame[2]
  
-  
-    setInterval(async () => {
-    const screenshot = await this.page.screenshot();
-    sharp(screenshot)
-    .resize(1100, 980)
-    .extract({
-      width: 48,
-      height: 40,
-      left: 770,
-      top: 740
-    })
-    // convert background image to gray
-    .greyscale()
-    // remove noise
-    // threshold the image
-    .threshold(0)
-    .toFile(`crop${this.room}.png`)
-      .then((image) => { 
-        T.recognize(`crop${this.room}.png`, 'eng', {
-          tessedit_char_whitelist: '0123456789',
-          tessedit_pageseg_mode: '1',
-          tessedit_ocr_engine_mode: '1',
-          tessedit_image_dpi: '300',
-        
-        }).then(({ data: { text } }) => {
-          // converting string to number
-        
-      })
-    })
-    
-  }, 10000);
-
-    let lobbyItem  =   this.page.evaluate(() => {
-      const lobbyItens = document.querySelectorAll('.lobby-tables__item');
-      return lobbyItens 
-    });
-
-    console.log(lobbyItem);
-
-
-
-//  let result  = this.page.evaluate(() => {
-//       console.log(document.querySelector('#root'))
-//     let result   =  document.querySelector('.roulette-game-area__history-line').innerHTML()
-//     return result;
-//     }) 
-
-//     console.log(result);
   
 }
 
@@ -123,16 +73,10 @@ class RoulleteBot {
 }
 
   async publisher(message) {
-
-    const publish = redis.createClient({
-      host: 'localhost',
-      port: 6379,
-      password: "roullet" 
-    });
-  
     
-    await publish.connect();
-    await publish.publish('bet365events',message);
+    
+  
+  
   }
 
   async login() {

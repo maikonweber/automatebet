@@ -54,9 +54,6 @@ conn.createChannel( async (err, ch) => {
         let line2 = lines[1];
         let line3 = lines[2];
         // test line 3 if ZERO
-        if (ZERO.test(line3)) {
-            insertObject.zero = true;
-        }
         // Remove the match RegEx fot line1
         let salEx = /Sala: /g;
         let salEx2 = /Entrar no: /g;
@@ -72,6 +69,10 @@ conn.createChannel( async (err, ch) => {
       if (swh === true) {
         if (green.test(message)) {
           console.log("Green", message);
+          let ZERO =  /ZERO/g;
+          if (ZERO.test(message)) {
+            insertObject.zero = true;
+          }
           insertObject.result = true;
           swh = false;
           // Clean object
@@ -104,6 +105,9 @@ conn.createChannel( async (err, ch) => {
         if (red.test(message)) {
           console.log("Red", message);
           insertObject.result = false;
+          if (ZERO.test(message)) {
+            insertObject.zero = true;
+          }
           swh = false;
           // Save in Redis
           console.log("Saved in Redis");

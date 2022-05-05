@@ -39,6 +39,70 @@ async function insertNewSygnal(sala , aposta, resultado, fistGale, secondGale, z
     return result;
 }
 
+async function countAllSygnal() {
+    let sql = `SELECT COUNT(*) FROM roullete`;    
+    let params = [];
+    let result = await pool.query(sql, params);
+    return result;
+}
+
+async function insertUsers(name, username, password, email, password, sal, phone, address) {
+    const query = `INSERT INTO users(username, password, name, email, password, sal, phone, address)
+                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+    try {
+
+        const result = await pool.query(query, [username, password, name, email, password, sal, phone, address]);
+        return result.rows[0]
+
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+async function getUser(username, password) {
+    const query = `SELECT * FROM users WHERE username = $1 AND password = $2`
+    try {
+
+        const result = await pool.query(query, [username, password]);
+        return result.rows[0]
+
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+async function insertIntoLiveRoullete(result) {
+    let sql = `INSERT INTO bet365LiveRoullete(result) VALUES ($1)`;
+    let params = [result];
+    let res = await pool.query(sql, params);
+    return res;
+}
+
+
+async function getAllSygnal() {
+    let sql = `SELECT * FROM roullete`;    
+    let params = [];
+    let result = await pool.query(sql, params);
+    return result;
+
+}
+
+async function insertUsersToken(id, navegator, is_admin) {
+
+    const token = crypto.randomBytes(16).toString('hex')
+
+    const query = `INSERT INTO users_token(user_id, token, navegator, is_admin)
+                    VALUES ($1, $2, $3, $4) RETURNING *`
+    try {
+        const result = await pool.query(query, [id, token, navegator, is_admin])
+        return result.rows[0]
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+
+
 
 module.exports = {
     insertTelegram,
