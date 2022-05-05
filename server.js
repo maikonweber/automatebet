@@ -1,14 +1,28 @@
 const express  = require('express');
 const app = express();
 const port = process.env.PORT || 3055; 
-const db = require('./database');
+const {
+    insertUsersToken,
+    countAllSygnal,
+    createUsers,
+
+} = require('./database');
 
 // Create endpoint
 
-
-
 app.get('/api/v1/', (req, res, next) => {
     res.send('Hello World');
+});
+
+app.post('/api/createUsers', async (req, res) => {
+    const { email, password, lastname,name, username, phone, address} = req.body;
+    const is_admin = false;
+    try {
+    const user = await createUsers(username, name, email, password, is_admin, nasc, cpf, lastname);
+        res.send(user);
+    } catch (error) {
+        res.sendStatus(500);
+    }
 });
 
 
@@ -33,7 +47,7 @@ app.post('/api/loginInAdm', async(req, res) => {
 })
 
 
-app.post("/dye/api/v1/*", async (req, res, next) => {
+app.post("/api/v1/*", async (req, res, next) => {
     const token = req.headers['x-auth-adm'];
       const user = await checkTokenUsers(token);
       if(user){
@@ -42,6 +56,14 @@ app.post("/dye/api/v1/*", async (req, res, next) => {
         res.sendStatus(401);
       } 
 });
+
+
+app.get("/api/v1/telegramresult", async (req, res) => {
+    const result = await countAllSygnal();
+    res.json(result).status(200);
+}
+);
+
 
 
 

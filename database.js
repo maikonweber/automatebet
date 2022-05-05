@@ -46,18 +46,22 @@ async function countAllSygnal() {
     return result;
 }
 
-async function insertUsers(name, username, password, email, password, sal, phone, address) {
-    const query = `INSERT INTO users(username, password, name, email, password, sal, phone, address)
-                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+async function createUsers(username, name, email, password, phone, address) {
+    
+    const hash = hasher.hasher(password, "")
+
+    console.log(username, name, email, hash.hashedpassword, hash.salt, nasc, cpf, )
+    const query = `INSERT INTO users(username, name, email, password, sal, phone, address)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
     try {
+        const result = await pool.query(query, [username, name ,email, hash.hashedpassword, hash.salt, phone, address])
+        return result.rows
 
-        const result = await pool.query(query, [username, password, name, email, password, sal, phone, address]);
-        return result.rows[0]
-
-    } catch(e) {
+        } catch(e) {
         console.log(e)
     }
 }
+
 
 async function getUser(username, password) {
     const query = `SELECT * FROM users WHERE username = $1 AND password = $2`
