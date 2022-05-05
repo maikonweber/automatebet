@@ -44,8 +44,8 @@ conn.createChannel( async (err, ch) => {
       let green = /GREEN PAPAI/g;
       let gale = /Vamos para o 1° Gale/g;
       let gale2 = /Vamos para o 2° Gale/g;
-      let ZERO =  /ZERO/g;
-      let red = /não deu!"/g;
+      let ZERO =  /ZEROOOOO!!!/g;
+      let red = /Esse não deu!"/g;
       if (regEx.test(message)) {
         console.log("Entrada", message);
         //Break lines of message
@@ -67,9 +67,8 @@ conn.createChannel( async (err, ch) => {
         console.log("Não é entrada", message);
       }
       if (swh === true) {
-        if (green.test(message)) {
+        if (green.test(message) || ZERO.test(message)) {
           console.log("Green", message);
-          let ZERO =  /ZERO/g;
           if (ZERO.test(message)) {
             insertObject.zero = true;
           }
@@ -109,9 +108,7 @@ conn.createChannel( async (err, ch) => {
             insertObject.zero = true;
           }
           swh = false;
-          // Save in Redis
-          console.log("Saved in Redis");
-          // Clean object
+
           console.log(insertObject, 'Insert Object');
           let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
           console.log(result, 'Result');
