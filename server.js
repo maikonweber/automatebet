@@ -40,6 +40,16 @@ app.get('/api', (req, res) => {
   console.log(req.headers);
 })
 
+app.use('/api/v1/telegram', (req, res, next) => {
+  console.log(req.headers);
+  if (req.headers.acceptCookies === 'true') {
+  next();
+  } else {
+    res.send('You need to accept cookies');
+  }
+})
+
+
 app.post('api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
