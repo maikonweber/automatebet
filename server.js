@@ -36,11 +36,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
-app.post('/api', (req, res)  => {
-  const { email, password,name, username, phone, address, product} = req.body;
-  console.log(req.body);
-
-})
 
 app.post("/api/v2/*", async (req, res, next) => {
   const token = req.headers['x-auth-adm'];
@@ -52,7 +47,7 @@ app.post("/api/v2/*", async (req, res, next) => {
     } 
 });
 
-app.post('/api/createusers', async (req, res) => {
+app.post('/api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
     try {
