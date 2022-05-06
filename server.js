@@ -36,7 +36,11 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
-app.post('/api/v2/createusers', async (req, res) => {
+app.get('/api', (req, res) => {
+  console.log(req.headers);
+})
+
+app.post('api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
     console.log(email, password, name, username, phone, address, product)
