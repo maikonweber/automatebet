@@ -40,7 +40,7 @@ app.get('/api', (req, res) => {
   console.log(req.headers);
 })
 
-app.use('/api/v1/telegram', (req, res, next) => {
+app.use('/api/v1/*', (req, res, next) => {
   console.log(req.headers);
   if (req.headers.acceptCookies === 'true') {
   next();
