@@ -14,7 +14,6 @@ const {
   insertIntoLiveRoullete,
   getAllSygnal,
   insertUsersToken,
-  checkToken
 } = require('./database');
 
 app.use(express.json());
@@ -37,9 +36,9 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
-app.get('/api', (req, res)  => {
-  console.log(req.headers);
-  console.log("Bateu");
+app.post('/api', (req, res)  => {
+  const { email, password,name, username, phone, address, product} = req.body;
+  console.log(req.body);
 
 })
 
@@ -90,7 +89,7 @@ app.post("/api/v1/*", async (req, res, next) => {
 
     const token = req.headers['x-auth-adm'];
     console.log(token);
-      const user = await checkToken(token);
+      const user = await getUserToken(token);
       console.log(user)
       if(user){
        next();
