@@ -11,7 +11,8 @@ const {
   getUser,
   insertIntoLiveRoullete,
   getAllSygnal,
-  insertUsersToken
+  insertUsersToken,
+  checkToken
 } = require('./database');
 
 app.use(express.json());

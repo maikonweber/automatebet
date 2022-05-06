@@ -117,6 +117,16 @@ async function insertUsersToken(id, navegator, is_admin) {
     }
 }
 
+async function checkToken(token) {
+    const query = `SELECT * FROM users_token WHERE token = $1`
+    try {
+        const result = await pool.query(query, [token]);
+        return result.rows[0]
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 
 
 
@@ -130,7 +140,8 @@ module.exports = {
     getUser,
     insertIntoLiveRoullete,
     getAllSygnal,
-    insertUsersToken
+    insertUsersToken,
+    checkToken
 }
 
 
