@@ -65,18 +65,12 @@ app.use('/api/v2/*', (req, res, next) => {
   }
 })
 
-
-app.post('api/v1/createusers', async (req, res) => {
-    const { email, password,name, username, phone, address, product} = req.body;
-    console.log(email, password, name, username, phone, address, product)
-    try {
-    const user = await createUsers(username, name, email, password, phone, address, product);
-        	console.log(users)
-	      res.send(user);
-    } catch (error) {
-        res.sendStatus(500);
-    }
-});
+app.post("/api/v1/createus", (req, res) => {
+  const { email, password, name, username, phone, address, product } = req.body;
+  console.log("response", req.body);
+  res.send("response");
+  
+})
 
 
 app.post('/api/v1/loginadm', async(req, res) => {
