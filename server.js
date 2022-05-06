@@ -10,7 +10,6 @@ const {
   insertNewSygnal,
   countAllSygnal,
   createUsers,
-  getUser,
   insertIntoLiveRoullete,
   getAllSygnal,
   insertUsersToken,
