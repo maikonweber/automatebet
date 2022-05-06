@@ -75,9 +75,9 @@ app.post("/api/v1/createus", async (req, res) => {
 
 app.post('/api/loginadm', async(req, res) => {
     const { email, password } = req.body;
-    let navegator = req.headers['user-agent'];
+    let navegator = "agent";
     console.log(email, password)
-    
+
     try {
         const user = await getUser(email, password)
         console.log(user)
