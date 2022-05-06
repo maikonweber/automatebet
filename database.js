@@ -79,9 +79,10 @@ async function getUser(username, password) {
     const query = `SELECT * FROM users WHERE email = $1`
     try {
         const result = await pool.query(query, [username]);
-        const passwordC = hasher.hasher(password, result.rows[0].salt);
+        const passwordC = hasher.hasher(result.rows[0].hashedpassword, result.rows[0].salt);
+        console.log(passwordC)
         if (passwordC === password) {
-            return result.rows[0].id;
+            return result.rows[0]
         }
         return false;
     } catch (error) {
