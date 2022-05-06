@@ -1,6 +1,6 @@
 // post a fetch with axios
  const axios = require('axios');
- const url = 'https://api.muttercorp.online/api/v2/createusers';
+ const url = 'https://api.muttercorp.online/api/v1/createusers';
  const headers = {
     'Content-Type': 'application/json',
  };
@@ -22,4 +22,3 @@
         console.log(error);
     }
     );
-    

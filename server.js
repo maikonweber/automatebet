@@ -65,10 +65,10 @@ app.use('/api/v2/*', (req, res, next) => {
   }
 })
 
-app.post("/api/v1/createus", (req, res) => {
+app.post("/api/v1/createus", async (req, res) => {
   const { email, password, name, username, phone, address, product } = req.body;
-  console.log("response", req.body);
-  res.send("response");
+  let result = await createUsers(email, password, name, username, phone, address, product);
+  res.send(result);
   
 })
 
