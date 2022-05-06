@@ -65,6 +65,7 @@ app.post('/api/v1/loginadm', async(req, res) => {
 
 app.post("/api/v1/*", async (req, res, next) => {
     const token = req.headers['x-auth-adm'];
+    console.log(token);
       const user = await checkTokenUsers(token);
       console.log(user)
       if(user){
@@ -76,6 +77,7 @@ app.post("/api/v1/*", async (req, res, next) => {
 
 
 app.get("/api/v1/telegramresult", async (req, res) => {
+    console.log("Bateu");
     const result = await countAllSygnal();
     res.json(result.rows).status(200);
 }
