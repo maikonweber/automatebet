@@ -42,15 +42,30 @@ app.get('/api', (req, res) => {
 
 app.use('/api/v1/*', (req, res, next) => {
   console.log(req.headers);
-  if (req.headers.acceptCookies === 'true') {
+  if (req.headers.token === '555215667') {
   next();
   } else {
     res.send('You need to accept cookies');
   }
 })
 
+app.use('/api/v2/*', (req, res, next) => {
+  console.log(req.headers);
+  const token = req.headers.token;
+  if (token) {
+    const user = checkToken(token);
+    if (user) {
+      next();
+    } else {
+      res.send('You need to login to access this page');
+    }
+  } else {
+    res.send('You need to login to access this page');
+  }
+})
 
-app.post('api/v2/createusers', async (req, res) => {
+
+app.post('api/v1/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
     console.log(email, password, name, username, phone, address, product)
@@ -83,20 +98,6 @@ app.post('/api/v1/loginadm', async(req, res) => {
         res.sendStatus(500);
       }
 })
-
-
-app.post("/api/v1/*", async (req, res, next) => {
-
-    const token = req.headers['x-auth-adm'];
-    console.log(token);
-      const user = await getUserToken(token);
-      console.log(user)
-      if(user){
-       next();
-      } else{
-        res.json({ status: "401" }).status(401);
-      } 
-});
 
 
 app.get("/api/v1/telegramresult", async (req, res) => {
