@@ -1,6 +1,7 @@
 const express  = require('express');
 const app = express();
 const port = process.env.PORT || 3055; 
+const cookieParser = require('cookie-parser');
 const {
   insertTelegram,
   insertTelegramSygnal,
@@ -17,6 +18,17 @@ const {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+app.use(cors(
+  {
+      origin: "*",  
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true,
+      exposedHeaders: ['x-auth-token', "acceptCookies"]
+      
+  }
+));
 
 app.get('/', (req, res) => {
     console.log(req.headers);
@@ -76,7 +88,7 @@ app.post('/api/v1/loginadm', async(req, res) => {
 app.post("/api/v1/*", async (req, res, next) => {
     const token = req.headers['x-auth-adm'];
     console.log(token);
-      const user = await checkTokenUsers(token);
+      const user = await checkToken(token);
       console.log(user)
       if(user){
        next();
