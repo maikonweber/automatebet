@@ -32,8 +32,7 @@ app.post("/api/v2/*", async (req, res, next) => {
 
 app.post('/api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
-    const { email, password, lastname,name, username, phone, address, product} = req.body;
-    const is_admin = false;
+    const { email, password,name, username, phone, address, product} = req.body;
     try {
     const user = await createUsers(username, name, email, password, phone, address, product);
         res.send(user);
@@ -67,6 +66,7 @@ app.post('/api/v1/loginadm', async(req, res) => {
 app.post("/api/v1/*", async (req, res, next) => {
     const token = req.headers['x-auth-adm'];
       const user = await checkTokenUsers(token);
+      console.log(user)
       if(user){
        next();
       } else{
@@ -77,7 +77,7 @@ app.post("/api/v1/*", async (req, res, next) => {
 
 app.get("/api/v1/telegramresult", async (req, res) => {
     const result = await countAllSygnal();
-    res.json(result).status(200);
+    res.json(result.rows).status(200);
 }
 );
 
