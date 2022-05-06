@@ -59,7 +59,7 @@ async function countAllSygnal() {
     return result;
 }
 
-async function createUsers(username, name, email, password, phone, address, product) {
+async function createUsers(email, password, name, username, phone, address, product) {
     
     const hash = hasher.hasher(password, "")
 
