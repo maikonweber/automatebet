@@ -39,10 +39,11 @@ app.get('/', (req, res) => {
 app.post('/api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
-
+    console.log(email, password, name, username, phone, address, product)
     try {
     const user = await createUsers(username, name, email, password, phone, address, product);
-        res.send(user);
+        	console.log(users)
+	    res.send(user);
     } catch (error) {
         res.sendStatus(500);
     }
