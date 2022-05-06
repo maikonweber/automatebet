@@ -23,7 +23,6 @@ app.get('/', (req, res) => {
 app.post("/api/v2/*", async (req, res, next) => {
   const token = req.headers['x-auth-adm'];
   connsole.log(token);
-    
     if(token === 'ma128sio4'){
      next();
     } else{
@@ -31,7 +30,7 @@ app.post("/api/v2/*", async (req, res, next) => {
     } 
 });
 
-app.post('/api/v2/createUsers', async (req, res) => {
+app.post('/api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password, lastname,name, username, phone, address, product} = req.body;
     const is_admin = false;
@@ -44,7 +43,7 @@ app.post('/api/v2/createUsers', async (req, res) => {
 });
 
 
-app.post('/api/v1/loginInAdm', async(req, res) => {
+app.post('/api/v1/loginadm', async(req, res) => {
     const { email, password } = req.body;
     let navegator = req.headers['user-agent'];
     console.log(email, password)
