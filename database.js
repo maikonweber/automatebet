@@ -46,15 +46,15 @@ async function countAllSygnal() {
     return result;
 }
 
-async function createUsers(username, name, email, password, phone, address) {
+async function createUsers(username, name, email, password, phone, address, product) {
     
     const hash = hasher.hasher(password, "")
 
-    console.log(username, name, email, hash.hashedpassword, hash.salt, nasc, cpf, )
-    const query = `INSERT INTO users(username, name, email, password, sal, phone, address)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
+    console.log(username, name, email, hash.hashedpassword, hash.salt, phone, address, product)
+    const query = `INSERT INTO users(username, name, email, password, sal, phone, address, product)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`
     try {
-        const result = await pool.query(query, [username, name ,email, hash.hashedpassword, hash.salt, phone, address])
+        const result = await pool.query(query, [username, name ,email, hash.hashedpassword, hash.salt, phone, address, product])
         return result.rows
 
         } catch(e) {
@@ -112,7 +112,13 @@ module.exports = {
     insertTelegram,
     insertTelegramSygnal,
     getIdAndInserResult,
-    insertNewSygnal
+    insertNewSygnal,
+    countAllSygnal,
+    createUsers,
+    getUser,
+    insertIntoLiveRoullete,
+    getAllSygnal,
+    insertUsersToken
 }
 
 

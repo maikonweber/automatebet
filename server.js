@@ -2,10 +2,16 @@ const express  = require('express');
 const app = express();
 const port = process.env.PORT || 3055; 
 const {
-    insertUsersToken,
-    countAllSygnal,
-    createUsers,
-
+  insertTelegram,
+  insertTelegramSygnal,
+  getIdAndInserResult,
+  insertNewSygnal,
+  countAllSygnal,
+  createUsers,
+  getUser,
+  insertIntoLiveRoullete,
+  getAllSygnal,
+  insertUsersToken
 } = require('./database');
 
 app.get('/', (req, res) => {
@@ -16,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.post("/api/v2/*", async (req, res, next) => {
   const token = req.headers['x-auth-adm'];
+  connsole.log(token);
     
     if(token === 'ma128sio4'){
      next();
@@ -25,10 +32,11 @@ app.post("/api/v2/*", async (req, res, next) => {
 });
 
 app.post('/api/v2/createUsers', async (req, res) => {
-    const { email, password, lastname,name, username, phone, address} = req.body;
+    console.log("Criando usuarios");
+    const { email, password, lastname,name, username, phone, address, product} = req.body;
     const is_admin = false;
     try {
-    const user = await createUsers(username, name, email, password, is_admin, nasc, cpf, lastname);
+    const user = await createUsers(username, name, email, password, phone, address, product);
         res.send(user);
     } catch (error) {
         res.sendStatus(500);
