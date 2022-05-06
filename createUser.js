@@ -4,17 +4,22 @@
  const headers = {
     'Content-Type': 'application/json',
  };
-
-    axios.post(url, {
-        headers,
-        data: {
-            "entrada": "Entrar",
-            "sala": "Sala 1",
-            "fistGale": true,
-        }
-    }).then(function (response) {
+    const data = {
+        "email": "maikonweber@gmail.com",
+        "password": "ma128sio4",
+        "name" : "Maikon",
+        "username": "maikonweber",
+        "phone": "11987832539",
+        "address": "Rua Santarém 55",
+        "product": "MafiaRoulleta"
+    };
+    axios.post(url, data, { headers })
+    .then(function (response) {
         console.log(response.data);
-    }).catch(function (error) {
+    }
+    )
+    .catch(function (error) {
         console.log(error);
     }
     );
+    
