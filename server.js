@@ -14,6 +14,9 @@ const {
   insertUsersToken
 } = require('./database');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
     console.log(req.headers);
     console.log("Bateu");

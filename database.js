@@ -18,6 +18,18 @@ async function insertTelegramSygnal(Sala, Message, Aposta) {
     return result;
 }
 
+async function getUserToken(token) {
+    const query = `SELECT * FROM users_token WHERE token = $1`
+    try {
+        const result = await pool.query(query, [token]);
+        return result.rows[0];
+    } catch (error) {
+        throw error;
+        return false;
+}   
+}
+
+
 async function getIdAndInserResult (id, Resultado) {
     let sql = `UPDATE roullete SET resultado = $1 WHERE id = $2`;    
     let params = [Resultado, id];
