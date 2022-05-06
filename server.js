@@ -9,14 +9,22 @@ const {
 } = require('./database');
 
 app.get('/', (req, res) => {
+    console.log(req.headers);
+    console.log("Bateu");
     res.send('Hello World!');
 }) 
 
-app.get('/api/v1/', (req, res, next) => {
-    res.send('Hello World');
+app.post("/api/v2/*", async (req, res, next) => {
+  const token = req.headers['x-auth-adm'];
+    
+    if(token === 'ma128sio4'){
+     next();
+    } else{
+      res.sendStatus(401);
+    } 
 });
 
-app.post('/api/createUsers', async (req, res) => {
+app.post('/api/v2/createUsers', async (req, res) => {
     const { email, password, lastname,name, username, phone, address} = req.body;
     const is_admin = false;
     try {
@@ -28,7 +36,7 @@ app.post('/api/createUsers', async (req, res) => {
 });
 
 
-app.post('/api/loginInAdm', async(req, res) => {
+app.post('/api/v1/loginInAdm', async(req, res) => {
     const { email, password } = req.body;
     let navegator = req.headers['user-agent'];
     console.log(email, password)
