@@ -43,7 +43,8 @@ app.get('/api', (req, res) => {
 app.use('/api/v1/*', (req, res, next) => {
   console.log(req.headers);
   if (req.headers.token === '555215667') {
-  next();
+    console.log("Bateu");
+    next();
   } else {
     res.send('You need to accept cookies');
   }
