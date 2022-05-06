@@ -78,7 +78,7 @@ app.post('/api/loginadm', async(req, res) => {
     let navegator = req.headers['user-agent'];
     console.log(email, password)
     try {
-        const user = await getUser(email, password);pm
+        const user = await getUser(email, password)
         console.log(user)
         if (user) {
           console.log("Aqui")
