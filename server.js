@@ -24,6 +24,12 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
+app.get('/api', (req, res)  => {
+  console.log(req.headers);
+  console.log("Bateu");
+
+})
+
 app.post("/api/v2/*", async (req, res, next) => {
   const token = req.headers['x-auth-adm'];
   connsole.log(token);
