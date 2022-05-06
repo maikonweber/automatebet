@@ -53,7 +53,7 @@ app.post("/api/v2/*", async (req, res, next) => {
     } 
 });
 
-app.post('/api/v2/createusers', async (req, res) => {
+app.post('/api/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
     try {
@@ -87,6 +87,7 @@ app.post('/api/v1/loginadm', async(req, res) => {
 
 
 app.post("/api/v1/*", async (req, res, next) => {
+
     const token = req.headers['x-auth-adm'];
     console.log(token);
       const user = await checkToken(token);
@@ -94,13 +95,12 @@ app.post("/api/v1/*", async (req, res, next) => {
       if(user){
        next();
       } else{
-        res.sendStatus(401);
+        res.json({ status: "401" }).status(401);
       } 
 });
 
 
 app.get("/api/v1/telegramresult", async (req, res) => {
-    console.log("Bateu");
     const result = await countAllSygnal();
     res.json(result.rows).status(200);
 }
