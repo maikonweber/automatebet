@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 
 
 app.post("/api/v2/*", async (req, res, next) => {
-  const token = req.headers['x-auth-adm'];
+  const token = req.headers['x-auth-token'];
   connsole.log(token);
     if(token === 'ma128sio4'){
      next();

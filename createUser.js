@@ -1,6 +1,6 @@
 // post a fetch with axios
  const axios = require('axios');
- const url = 'https://api.muttercorp.online/api/v2';
+ const url = 'https://api.muttercorp.online/api';
  const headers = {
     'Content-Type': 'application/json',
     'x-auth-token' : "ma128sio4"
@@ -16,7 +16,7 @@ const data = {
         "product": "MafiaRoulleta"
     }
     console.log(data)
-    axios.post(url + '/createusers', data, {headers: headers})
+    axios.post(url, data, {headers: headers})
     .then(function (response) {
         console.log(response.data);
     }
@@ -27,4 +27,3 @@ const data = {
     }
     );
     console.log("Fim")
-    
