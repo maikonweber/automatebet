@@ -40,7 +40,7 @@ async function insertNewSygnal(sala , aposta, resultado, fistGale, secondGale, z
 }
 
 async function countAllSygnal() {
-    let sql = `SELECT COUNT(*) FROM roullete`;    
+    let sql = `SELECT COUNT(*) FROM roullete_new`;    
     let params = [];
     let result = await pool.query(sql, params);
     return result;
