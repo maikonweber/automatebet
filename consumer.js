@@ -46,6 +46,8 @@ conn.createChannel( async (err, ch) => {
       let gale2 = /Vamos para o 2° Gale/g;
       let ZERO =  /ZEROOOOO!!!/g;
       let red = /Esse não deu!"/g;
+      let red2 = /Dê um tempo e volte mais tarde!"/g;
+
       if (regEx.test(message)) {
         console.log("Entrada", message);
         //Break lines of message
@@ -64,22 +66,18 @@ conn.createChannel( async (err, ch) => {
         console.log(insertObject);
         swh = true;
       } else {
-        console.log("Não é entrada", message);
+        console.log("Possível Entrada ou Mensagem não é reconhecida")
       }
       if (swh === true) {
         if (green.test(message) || ZERO.test(message)) {
-          console.log("Green", message);
+          console.log("Green")
           if (ZERO.test(message)) {
             insertObject.zero = true;
           }
           insertObject.result = true;
-          swh = false;
-          // Clean object
-          console.log(insertObject, 'Insert Object');
-          // Save in Redis
-          console.log("Saved in Redis");
+        
           let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
-          console.log(result, 'Result');
+          console.log(result.rows[0].id, 'Result');
           insertObject = {
             entrada: "",
             sala: "",
@@ -88,30 +86,23 @@ conn.createChannel( async (err, ch) => {
             result: false,
             zero: false
         }
-        if (gale.test(message)) {
+            swh = false;
+       } else if (gale.test(message)) {
           console.log("1° Gale ", message);
           insertObject.fistGale = true;
           swh = true;
-
-        }
-        if (gale2.test(message)) {
+        } else if (gale2.test(message)) {
           console.log("2 Galee", message);
           insertObject.secondGale = true;
           swh = true;
           console.log(insertObject);
 
-        }
-        if (red.test(message)) {
-          console.log("Red", message);
-          insertObject.result = false;
+        } else if (red.test(message) || red2.test(message)) {
           if (ZERO.test(message)) {
             insertObject.zero = true;
           }
-          swh = false;
-
-          console.log(insertObject, 'Insert Object');
-          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
-          console.log(result, 'Result');
+          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, false, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
+          console.log(result.rows[0].id, 'Result');
           insertObject = {
             entrada: "",
             sala: "",
@@ -120,11 +111,12 @@ conn.createChannel( async (err, ch) => {
             result: false,
             zero: false
           };
-          console.log("Cleaned Object", insertObject);
-        }
-        console.log(insertObject);
-      }
 
+          console.log("Resultado Negativo")
+          swh = false;
+        } else {
+          console.log("Não é reconhecido");
+      }
     }
 }, { noAck: true });
 
