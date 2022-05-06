@@ -63,7 +63,6 @@ async function createUsers(email, password, name, username, phone, address, prod
     
     const hash = hasher.hasher(password, "")
 
-    console.log(username, name, email, hash.hashedpassword, hash.salt, phone, address, product)
     const query = `INSERT INTO users(username, name, email, password, sal, phone, address, product)
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`
     try {
