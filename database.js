@@ -1,4 +1,5 @@
-// initialize database pg
+const hasher = require('./hasher')
+
 var pg = require('pg');
 let client = {
     host: 'localhost',
