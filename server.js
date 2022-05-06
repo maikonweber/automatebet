@@ -36,20 +36,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
-
-app.post("/api/v2/*", async (req, res, next) => {
-  const token = req.headers['x-auth-token'];
-  connsole.log(token);
-    if(token === 'ma128sio4'){
-     next();
-    } else{
-      res.sendStatus(401);
-    } 
-});
-
 app.post('/api/v2/createusers', async (req, res) => {
     console.log("Criando usuarios");
     const { email, password,name, username, phone, address, product} = req.body;
+
     try {
     const user = await createUsers(username, name, email, password, phone, address, product);
         res.send(user);
