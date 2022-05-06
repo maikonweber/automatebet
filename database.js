@@ -77,14 +77,17 @@ async function createUsers(email, password, name, username, phone, address, prod
 
 
 async function getUser(username, password) {
-    const query = `SELECT * FROM users WHERE email = $1 AND password = $2`
+    const query = `SELECT * FROM users WHERE email = $1`
     try {
-
-        const result = await pool.query(query, [username, password]);
-        return result.rows[0]
-
-    } catch(e) {
-        console.log(e)
+        const result = await pool.query(query, [username]);
+        const password = hasher.hasher(password, result.rows[0].salt);
+        if (password.hashedpassword === result.rows[0].password) {
+            return result.rows[0];
+        }
+        return false;
+    } catch (error) {
+        throw error;
+        return false;
     }
 }
 
