@@ -84,6 +84,7 @@ app.post('/api/loginadm', async(req, res) => {
         if (user) {
           console.log("Aqui")
           const response = await insertUsersToken(user.id, navegator, true);
+          console.log(response)
           res.json(response.token).status(200);
         } else {
           res.sendStatus(402);
