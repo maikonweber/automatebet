@@ -111,11 +111,12 @@ async function getAllSygnal() {
 async function insertUsersToken(id, navegator, is_admin) {
 
     const token = crypto.randomBytes(16).toString('hex')
-
+    console.log(token)
     const query = `INSERT INTO users_token(user_id, token, navegator, is_admin)
                     VALUES ($1, $2, $3, $4) RETURNING *`
     try {
         const result = await pool.query(query, [id, token, navegator, is_admin])
+        console.log(result.rows[0])
         return result.rows[0]
     } catch(e) {
         console.log(e)
