@@ -80,7 +80,7 @@ async function getUser(email, password) {
         try {
 
             const result = await pool.query(query, [email])
-            const hash = hasher.hasher(password, result.rows[0].salt)
+            const hash = hasher.hasher(password, result.rows[0].sal)
             console.log(hash)
             if (hash.hashedpassword == result.rows[0].hashed) {
                 return result.rows[0]
