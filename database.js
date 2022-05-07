@@ -1,4 +1,5 @@
 const hasher = require('./hasher')
+const crypto = require('crypto')
 
 var pg = require('pg');
 let client = {
