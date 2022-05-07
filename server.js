@@ -25,7 +25,7 @@ app.use(cors(
       origin: "*",  
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       credentials: true,
-      exposedHeaders: ['x-auth-token', "acceptCookies"]
+      exposedHeaders: ['x-auth-token', "acceptCookies", 'token']
       
   }
 ));

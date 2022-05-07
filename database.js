@@ -76,7 +76,7 @@ async function createUsers(email, password, name, username, phone, address, prod
 
 
 async function getUser(email, password) {
-    const query = `SELECT * FROM users WHERE email`
+    const query = `SELECT * FROM users WHERE email = $1`
         try {
 
             const result = await pool.query(query, [email])
