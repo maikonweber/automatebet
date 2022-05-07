@@ -77,10 +77,8 @@ app.post('/api/loginadm', async(req, res) => {
     const { email, password } = req.body;
     let navegator = "agent";
     console.log(email, password)
-
-    try {
-        const user = await getUser(email, password)
-        console.log(user)
+      const user = await getUser(email, password)
+      console.log(user)
         if (user) {
           console.log("Aqui")
           const response = await insertUsersToken(user.id, navegator, true);
@@ -89,9 +87,6 @@ app.post('/api/loginadm', async(req, res) => {
         } else {
           res.sendStatus(402);
         }
-      } catch (error) {
-        res.sendStatus(500);
-      }
 })
 
 
