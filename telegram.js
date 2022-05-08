@@ -7,7 +7,7 @@ var amqp = require('amqplib/callback_api');
 
 const apiId = 17228434;
 const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
-const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTQBu6Cot9z8LEumwKaribM4vBZaDBoTSjuYcd+6cJ9pNAdNvPWjhYOQtxBl/VS6uOKawb7KHN9aH/ImIuV3ExfJliWSF/wIXfo48YGzXPUiiDybPISeaxqfgAYeA5KmFH3zCjUcyJI6UK72M2Hw8CMCLPuPbWAycLGDlOkEf1jD0lzlkNPH6CrjzzHVkgI4wKPShiB0F5Ei5pG45mUknHEuP16jrVc4hhvfVGW3GoGf0r2Dk/GsZX+Qn1AUp5mfNJYrglIh8sN8nsBrh9IyMouP3imOob+AgehnBmk0Kf4XKWRUvqctsslBYXfn+FFhlFRcprufmyMt6gQ4x4yd6AX+sFI=");
+const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTIBuyQumXHrrEazI1qW67uMjnbsM8CgI/GHy4nrzJjOIXalXrWwlnLwfLoypAPX75Mz+IvQgRIECVnnS/aGoe03mMZksfaFokDA9v7gfbkCGSlh/ryfT0qyRnhLb+fPLZWpFCLtyT/bbq3pxnU/O7/cs1rEvp3uUAJTWZUz5prpU86Voux3aJJQ4yqax+0lfmtPNsmrYGgR8n69QUkdtfea5OQq1/mFycltxwcjIW5yD92yMxlrzU0HeSswVX6K2fcbMdoluSs6VlWn+T+tp/RXHpl7wHJpWl0vZXXARr9RhxHc7GRCAB//UX71fqcYJq0qQqY6si8Ag6SBgvWcvOb4rWY=");
 
 (async () => {
 var queue = "RoulletBet365";
