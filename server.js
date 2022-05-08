@@ -4,14 +4,9 @@ const port = process.env.PORT || 3055;
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const {
-  insertTelegram,
-  insertTelegramSygnal,
-  getIdAndInserResult,
-  insertNewSygnal,
+  checkToken,
   countAllSygnal,
   createUsers,
-  insertIntoLiveRoullete,
-  getAllSygnal,
   insertUsersToken,
   getUser
 } = require('./database');
