@@ -103,24 +103,61 @@ async function insertIntoLiveRoullete(result) {
 
 
 async function getAllSygnal() {
-    let trueSql = `SELECT count(*) FROM roullete_new Where result = true;`
-    let falseSql = `SELECT count(*) FROM roullete_new Where result = false;`
-    let firstgaleSql = `SELECT count(*) FROM roullete_new Where firstgale = true and result = true and secondgale = false;`
-    let secondgaleSql = `SELECT count(*) FROM roullete_new Where secondgale = true and result = true and firstgale = true;`
-    let zeroSql = `SELECT count(*) FROM roullete_new Where zero = true and result = true;`
+    let trueSql = `SELECT count(*) FROM roullete_new Where 
+    aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna
+    AND result = true;`
+    let falseSql = `SELECT count(*) FROM roullete_new Where 
+    aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna
+    AND result = false;`
+    let firstgaleSql = `SELECT count(*) FROM roullete_new Where 
+    aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna
+    AND firstgale = true 
+    and result = true 
+    and secondgale = false;`
+    let secondgaleSql = `SELECT count(*) FROM roullete_new Where 
+    aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna
+    AND 
+    secondgale = true and result = true and firstgale = true;`
+    let zeroSql = `SELECT count(*) FROM roullete_new Where 
+    aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna
+    AND 
+    zero = true and result = true;`
+    let Total = `SELECT count(*) FROM roullete_new Where
+    aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna;`	
+
     let trueResult = await pool.query(trueSql);
     let falseResult = await pool.query(falseSql);
     let firstgaleResult = await pool.query(firstgaleSql);
     let secondgaleResult = await pool.query(secondgaleSql);
     let zeroResult = await pool.query(zeroSql);
+    let totalResult = await pool.query(Total);
+
+
     return {
-        true: trueResult.rows,
-        false: falseResult.rows,
-        firstgale: firstgaleResult.rows,
-        secondgale: secondgaleResult.rows,
-        zero: zeroResult.rows
+        total: totalResult.rows[0].count,
+        true: trueResult.rows[0].count,
+        false: falseResult.rows[0].count,
+        firstgale: firstgaleResult.rows[0].count,
+        secondgale: secondgaleResult.rows[0].count,
+        zero: zeroResult.rows[0].count,
     }
- 
+}
+
+async function getColSygnal() {
+    let sql = `SELECT * FROM roullete_new
+    WHERE aposta ~ 'Bloco'
+    OR aposta ~ 'Coluna';
+
+
+             `;
+    let result = await pool.query(sql);
+    return result.rows  
 }
     
 async function insertUsersToken(id, navegator, is_admin) {
