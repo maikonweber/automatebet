@@ -77,7 +77,7 @@ conn.createChannel( async (err, ch) => {
           insertObject.result = true;
         
           let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
-          console.log(result.rows[0].id, 'Result');
+        
           insertObject = {
             entrada: "",
             sala: "",
@@ -88,16 +88,17 @@ conn.createChannel( async (err, ch) => {
         }
             swh = false;
        } else if (gale.test(message)) {
-          console.log("1° Gale ", message);
+       
           insertObject.fistGale = true;
           swh = true;
         } else if (gale2.test(message)) {
-          console.log("2 Galee", message);
+         
           insertObject.secondGale = true;
           swh = true;
-          console.log(insertObject);
+        
 
         } else if (red.test(message) || red2.test(message)) {
+          console.log("Red")
           if (ZERO.test(message)) {
             insertObject.zero = true;
           }
