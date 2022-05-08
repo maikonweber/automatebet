@@ -40,150 +40,74 @@ conn.createChannel( async (err, ch) => {
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
 
     ch.consume(queue, async (msg) => {
+      
       let message = msg.content.toString();
-      let regEx = /Entrar/g;
-      let green = /GREEN PAPAI/g;
-      let gale = /Vamos para o 1° Gale/g;
-      let gale2 = /Vamos para o 2° Gale/g;
-      let ZERO =  /ZEROOOOO!!!/g;
-      let red = /Esse não deu!"/g;
-      let red2 = /Dê um tempo e volte mais tarde!"/g;
-      console.log(message);
-      if (swh = false) {
-        if (message.match(regEx)) {
-          let lines = message.split("\n");
-          let line1 = lines[0];
-          let line2 = lines[1];
-          let line3 = lines[2];
-          let salEx = /Sala: /g;
-          let salEx2 = /Entrar no: /g;
-          let sal = line1.replace(salEx, "");
-          let sal2 = line2.replace(salEx2, "");
-          insertObject.sala = sal;
-          insertObject.entrada = sal2;
-          console.log(insertObject);
-          swh = true;
+      let lines = message.split("\n");
+      let obj = {};
+      for(let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        obj[i] = line;
+      }
+      let regEx = /Entrar no:/g;
+      if(swh == false) {
+      if(regEx.test(obj[1])) {
+        let entrada = obj[0].replace(/Entrar no:/g, "");
+        insertObject.entrada = entrada;
+        let sala = obj[1].replace(/Sala:/g, "");
+        insertObject.sala = sala;
+        swh = true;
       } else {
-        console.log("Não é entrada esperada", message, "lines 66");
+        console.log(obj, "não é entrada");
       }
     } else {
-      if (gale = false ) {
-      if (message.match(green)) {
+      console.log(obj)
+      let green = /GREEN/g
+      let red = /Esse não deu/g
+      let firstgale = /1º Gale/g
+      let secondgale = /2º Gale/g
+      let zero = /ZEROOO/g
+      if(green.test(obj[0]) || zero.test(obj[0])) {
+        if (obj[0].includes("ZERO")) {
+          insertObject.zero = true;
+        }
         insertObject.result = true;
-        // Insert into database
-        let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, true, false, false, false);
-        console.log("Green", "lines 73", insertObject.entrada, insertObject.sala);
-        swh = false;
-        gale = false;
+        console.log('Insert Object Win')
+        console.log(insertObject)
+        await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
         insertObject.entrada = "";
         insertObject.sala = "";
         insertObject.fistGale = false;
         insertObject.secondGale = false;
         insertObject.result = false;
         insertObject.zero = false;
+        swh = false;
+     
+      }
+      if(red.test(obj[0])) {
+        insertObject.result = false;
+        console.log('Insert Object Lose')
+        console.log(insertObject)
+        await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
+        // Clean Object
+        insertObject.entrada = "";
+        insertObject.sala = "";
+        insertObject.fistGale = false;
+        insertObject.secondGale = false;
+        insertObject.result = false;
+        insertObject.zero = false;
+        swh = false;
 
-
-      } else if (message.match(gale)) {
+      }
+      if(firstgale.test(obj[0])) {
         insertObject.fistGale = true;
-        gale = true;
-      } else {
-        if (message.match(ZERO)) {
-          insertObject.zero = true;
-          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, true, false, false, true);
-          console.log("Zero", "lines 83", insertObject.entrada, insertObject.sala);
-          swh = false;
-          gale = false;
-          // Clear Object 
-          insertObject.entrada = "";
-          insertObject.sala = "";
-          insertObject.fistGale = false;
-          insertObject.secondGale = false;
-          insertObject.result = false;
-          insertObject.zero = false;
-        }
       }
-    } else {
-      if (gale2 = false) {
-      if (message.match(green)) {
-        insertObject.result = true;
-        result = await insertNewSygnal(insertObject.sala, insertObject.entrada, true, true, false, false);
-        gale = false;
-        swh = false;
-
-        insertObject.entrada = "";
-        insertObject.sala = "";
-        insertObject.fistGale = false;
-        insertObject.secondGale = false;
-        insertObject.result = false;
-
-
-      } else if (message.match(gale2)) {
+      if(secondgale.test(obj[0])) {
         insertObject.secondGale = true;
-        gale2 = true;
-      } else {
-        if (message.match(ZERO)) {
-          insertObject.zero = true;
-          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, true, true, false, true);
-          swh = false;
-          gale = false;
-
-          insertObject.entrada = "";
-          insertObject.sala = "";
-          insertObject.fistGale = false;
-          insertObject.secondGale = false;
-          insertObject.result = false;
-
-        } 
-    }
-  } else {
-      if (message.match(red)) {
-        insertObject.result = false;
-        let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, false, true, true, false);
-        console.log("Red", "lines 89", insertObject.entrada, insertObject.sala);
-        swh = false;
-        gale = false;
-        gale2 = false;
-
-        // Clear Object
-        insertObject.entrada = "";
-        insertObject.sala = "";
-        insertObject.fistGale = false;
-        insertObject.secondGale = false;
-        insertObject.result = false;
-
-      } else if (message.match(green)) {
-        insertObject.result = true;
-        let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, true, true, true, false);
-        console.log("Green", "lines 94", insertObject.entrada, insertObject.sala);
-        swh = false;
-        gale = false;
-        gale2 = false;
-
-        insertObject.entrada = "";
-        insertObject.sala = "";
-        insertObject.fistGale = false;
-        insertObject.secondGale = false;
-        insertObject.result = false;
-
-      } else {
-        if (message.match(ZERO)) {
-          insertObject.zero = true;
-          let result = await insertNewSygnal(insertObject.sala, insertObject.entrada, true, true, true, false);
-          swh = false;
-          gale = false;
-          gale2 = false;
-
-          insertObject.entrada = "";
-          insertObject.sala = "";
-          insertObject.fistGale = false;
-          insertObject.secondGale = false;
-          insertObject.result = false;
-        }
       }
     }
-  }
-}      
-}, { noAck: true });
+     
+      
+    }, { noAck: true });
 })
 
 });
