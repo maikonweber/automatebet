@@ -88,7 +88,8 @@ app.post('/api/loginadm', async(req, res) => {
 
 app.get("/api/v2/telegramresult", async (req, res) => {
     const result = await getAllSygnal();
-    res.json(result.rows).status(200);
+    res.send(result);
+    
 }
 );
 
