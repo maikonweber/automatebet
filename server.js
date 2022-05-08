@@ -8,7 +8,8 @@ const {
   countAllSygnal,
   createUsers,
   insertUsersToken,
-  getUser
+  getUser,
+  getAllSygnal
 } = require('./database');
 
 app.use(express.json());
@@ -86,7 +87,7 @@ app.post('/api/loginadm', async(req, res) => {
 
 
 app.get("/api/v1/telegramresult", async (req, res) => {
-    const result = await countAllSygnal();
+    const result = await getAllSygnal();
     res.json(result.rows).status(200);
 }
 );

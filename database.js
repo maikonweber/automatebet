@@ -162,7 +162,9 @@ module.exports = {
     insertIntoLiveRoullete,
     getAllSygnal,
     insertUsersToken,
-    checkToken
+    checkToken,
+    
+
 }
 
 
