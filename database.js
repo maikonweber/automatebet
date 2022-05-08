@@ -102,13 +102,26 @@ async function insertIntoLiveRoullete(result) {
 
 
 async function getAllSygnal() {
-    let sql = `SELECT * FROM roullete`;    
-    let params = [];
-    let result = await pool.query(sql, params);
-    return result;
-
+    let trueSql = `SELECT count(*) FROM roullete_new Where result = true;`
+    let falseSql = `SELECT count(*) FROM roullete_new Where result = false;`
+    let firstgaleSql = `SELECT count(*) FROM roullete_new Where firstgale = true and result = true and secondgale = false;`
+    let secondgaleSql = `SELECT count(*) FROM roullete_new Where secondgale = true and result = true and firstgale = true;`
+    let zeroSql = `SELECT count(*) FROM roullete_new Where zero = true and result = true;`
+    let trueResult = await pool.query(trueSql);
+    let falseResult = await pool.query(falseSql);
+    let firstgaleResult = await pool.query(firstgaleSql);
+    let secondgaleResult = await pool.query(secondgaleSql);
+    let zeroResult = await pool.query(zeroSql);
+    return {
+        true: trueResult.rows,
+        false: falseResult.rows,
+        firstgale: firstgaleResult.rows,
+        secondgale: secondgaleResult.rows,
+        zero: zeroResult.rows
+    }
+ 
 }
-
+    
 async function insertUsersToken(id, navegator, is_admin) {
 
     const token = crypto.randomBytes(16).toString('hex')
