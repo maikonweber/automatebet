@@ -80,6 +80,7 @@ async function getUser(email, password) {
     const query = `SELECT * FROM users WHERE email = $1`
         try {
             const result = await pool.query(query, [email])
+            console.log(result)
             const hash = hasher.hasher(password, result.rows[0].sal)
             console.log(hash)
             if (hash.hashedpassword == result.rows[0].password) {
@@ -163,8 +164,6 @@ module.exports = {
     getAllSygnal,
     insertUsersToken,
     checkToken,
-    
-
 }
 
 
