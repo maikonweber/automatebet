@@ -74,6 +74,7 @@ conn.createChannel( async (err, ch) => {
         console.log('Insert Object Win')
         console.log(insertObject)
         let result =  await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
+        if(result) {
         insertObject.entrada = "";
         insertObject.sala = "";
         insertObject.fistGale = false;
@@ -81,7 +82,7 @@ conn.createChannel( async (err, ch) => {
         insertObject.result = false;
         insertObject.zero = false;
         swh = false;
-     
+        }
       }
       if(red.test(obj[0])) {
         insertObject.result = false;
@@ -89,6 +90,7 @@ conn.createChannel( async (err, ch) => {
         console.log(insertObject)
         let result = await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
         // Clean Object
+        if(result) {
         insertObject.entrada = "";
         insertObject.sala = "";
         insertObject.fistGale = false;
@@ -96,12 +98,14 @@ conn.createChannel( async (err, ch) => {
         insertObject.result = false;
         insertObject.zero = false;
         swh = false;
-
+        }
       }
       if(firstgale.test(obj[0])) {
+        console.log('Insert Object FirstGale')
         insertObject.fistGale = true;
       }
       if(secondgale.test(obj[0])) {
+        console.log('Insert Object FirstGale')
         insertObject.secondGale = true;
       }
     }
