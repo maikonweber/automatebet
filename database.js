@@ -105,31 +105,43 @@ async function insertIntoLiveRoullete(result) {
 async function getAllSygnal() {
     let trueSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~ 'Bloco'
-    OR aposta ~ 'Coluna'
-    AND result = true;`
+    AND aposta ~ 'Coluna'
+    AND result = true;
+    `
     let falseSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~ 'Bloco'
-    OR aposta ~ 'Coluna'
+    AND aposta ~ 'Coluna'
     AND result = false;`
+
     let firstgaleSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~ 'Bloco'
     OR aposta ~ 'Coluna'
     AND firstgale = true 
     and result = true 
     and secondgale = false;`
+
     let secondgaleSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~ 'Bloco'
-    OR aposta ~ 'Coluna'
+    AND aposta ~ 'Coluna'
     AND 
     secondgale = true and result = true and firstgale = true;`
+    
     let zeroSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~ 'Bloco'
-    OR aposta ~ 'Coluna'
+    AND aposta ~ 'Coluna'
     AND 
     zero = true and result = true;`
+    
+    let secondGaleLoss = `SELECT count(*) FROM roullete_new Where
+    aposta ~ 'Bloco'
+    AND aposta ~ 'Coluna'
+    AND
+    secondgale = true and result = false;
+    `
+
     let Total = `SELECT count(*) FROM roullete_new Where
     aposta ~ 'Bloco'
-    OR aposta ~ 'Coluna';`	
+    AND aposta ~ 'Coluna';`	
 
     let trueResult = await pool.query(trueSql);
     let falseResult = await pool.query(falseSql);
@@ -137,6 +149,7 @@ async function getAllSygnal() {
     let secondgaleResult = await pool.query(secondgaleSql);
     let zeroResult = await pool.query(zeroSql);
     let totalResult = await pool.query(Total);
+    let secondGaleLossResult = await pool.query(secondGaleLoss);
 
 
     return {
@@ -146,6 +159,7 @@ async function getAllSygnal() {
         firstgale: firstgaleResult.rows[0].count,
         secondgale: secondgaleResult.rows[0].count,
         zero: zeroResult.rows[0].count,
+        secondGaleLoss: secondGaleLossResult.rows[0].count
     }
 }
 
