@@ -9,7 +9,8 @@ const {
   createUsers,
   insertUsersToken,
   getUser,
-  getAllSygnal
+  getAllSygnal,
+  getAllRows
 } = require('./database');
 
 app.use(express.json());
@@ -89,6 +90,12 @@ app.post('/api/loginadm', async(req, res) => {
 app.get("/api/v2/telegramresult", async (req, res) => {
     const result = await getAllSygnal();
     res.json(result).status(200);
+}
+);
+
+app.get("/api/v2/getTable", async (req, res) => {
+  const result = await getAllRows();
+  res.json(result).status(200);
 }
 );
 

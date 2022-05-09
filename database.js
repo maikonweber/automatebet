@@ -149,6 +149,13 @@ async function getAllSygnal() {
     }
 }
 
+
+async function getAllRows() {
+    let sql = `SELECT * FROM roullete_new`;
+    let result = await pool.query(sql);
+    return result.rows;
+}
+
 async function getColSygnal() {
     let sql = `SELECT * FROM roullete_new
     WHERE aposta ~ 'Bloco'
@@ -201,6 +208,7 @@ module.exports = {
     getAllSygnal,
     insertUsersToken,
     checkToken,
+    getAllRows
 }
 
 

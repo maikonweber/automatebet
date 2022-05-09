@@ -73,7 +73,7 @@ conn.createChannel( async (err, ch) => {
         insertObject.result = true;
         console.log('Insert Object Win')
         console.log(insertObject)
-        await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
+        let result =  await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
         insertObject.entrada = "";
         insertObject.sala = "";
         insertObject.fistGale = false;
@@ -87,7 +87,7 @@ conn.createChannel( async (err, ch) => {
         insertObject.result = false;
         console.log('Insert Object Lose')
         console.log(insertObject)
-        await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
+        let result = await insertNewSygnal(insertObject.entrada, insertObject.sala, insertObject.result, insertObject.fistGale, insertObject.secondGale, insertObject.zero);
         // Clean Object
         insertObject.entrada = "";
         insertObject.sala = "";
