@@ -102,10 +102,12 @@ conn.createChannel( async (err, ch) => {
       }
       if(firstgale.test(obj[0])) {
         console.log('Insert Object FirstGale')
+        console.log(insertObject)
         insertObject.fistGale = true;
       }
       if(secondgale.test(obj[0])) {
         console.log('Insert Object FirstGale')
+        console.log(insertObject)
         insertObject.secondGale = true;
       }
     }
