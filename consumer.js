@@ -63,8 +63,8 @@ conn.createChannel( async (err, ch) => {
       console.log(obj)
       let green = /GREEN/g
       let red = /Esse não deu/g
-      let firstgale = /1º Gale/g
-      let secondgale = /2º Gale/g
+      let firstgale = /Vamos para o 1° Gale/g
+      let secondgale = /Vamos para o 2° Gale/g
       let zero = /ZEROOO/g
       if(green.test(obj[0]) || zero.test(obj[0])) {
         if (obj[0].includes("ZERO")) {
