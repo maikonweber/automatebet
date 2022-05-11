@@ -104,14 +104,16 @@ async function insertIntoLiveRoullete(result) {
 
 async function getAllSygnal() {
     let trueSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~* 'Bloco'
+    aposta ~* 'Bloco' and result = 'true' and firstgale = 'false' and secondgale = 'false' and zero = 'false'
     OR aposta ~* 'Coluna'
-    AND result = true;
+    AND result = true and firstgale = 'false' and secondgale = 'false' and zero = 'false';
     `
     let falseSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~ 'Bloco' and result = false
+    aposta ~ 'Bloco' and result = false and firstgale = false 
+    and secondgale = false and zero = false
     or aposta ~ 'Coluna'
-    AND result = false;`
+    AND result = false and firstgale = false and secondgale = false and zero = false;
+    `
 
     let firstgaleSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~ 'Bloco'
@@ -126,11 +128,11 @@ async function getAllSygnal() {
     let secondgaleSql = `SELECT count(*) FROM roullete_new Where 
     aposta ~* 'Bloco' and secondgale = true and result = true
     OR aposta ~* 'Coluna'
-    AND  secondgale = true and result = true;`
+    AND secondgale = true and result = true;`
     
     let zeroSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~* 'Bloco'
-    AND aposta ~* 'Coluna'
+    aposta ~* 'Bloco' AND zero = true and result = true
+    OR aposta ~* 'Coluna'
     AND 
     zero = true and result = true;`
     
@@ -144,6 +146,7 @@ async function getAllSygnal() {
     let Total = `SELECT count(*) FROM roullete_new Where
     aposta ~ 'Bloco'
     OR aposta ~ 'Coluna';`	
+
 
     let trueResult = await pool.query(trueSql);
     let falseResult = await pool.query(falseSql);
