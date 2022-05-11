@@ -117,7 +117,7 @@ async function getAllSygnal() {
     aposta ~ 'Bloco'
     AND firstgale = true 
     and result = true
-    amd secondgale = false
+    and secondgale = false
     OR aposta ~ 'Coluna'
     AND firstgale = true 
     and result = true
