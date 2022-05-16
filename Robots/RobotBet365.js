@@ -96,10 +96,6 @@ class RoulleteBot {
         const root = document.querySelector('#root');
         console.log(root)
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> 82f8245cdf4eda4c558bc5891f1e440c87d1dd33
       })
     
 
