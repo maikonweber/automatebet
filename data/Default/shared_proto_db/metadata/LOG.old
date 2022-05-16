@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2022/05/14-16:21:14.392 33c0 Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\shared_proto_db\metadata/MANIFEST-000001
 2022/05/14-16:21:14.393 33c0 Recovering log #3
 2022/05/14-16:21:14.394 33c0 Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\shared_proto_db\metadata/000003.log 
+=======
+2022/05/11-13:10:53.176 11803 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/shared_proto_db/metadata/MANIFEST-000001
+2022/05/11-13:10:53.187 11803 Recovering log #3
+2022/05/11-13:10:53.189 11803 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/shared_proto_db/metadata/000003.log 
+>>>>>>> 3ccaba8d (add)

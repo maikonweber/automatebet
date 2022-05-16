@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "input": "^1.0.1",
+    "moment": "^2.29.3",
     "pg": "^8.7.3",
     "puppeteer": "^13.5.2",
     "puppeteer-cluster": "^0.23.0",
