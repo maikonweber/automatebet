@@ -4,6 +4,7 @@ const sharp = require("sharp");
 const T = require("tesseract.js");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
+var amqp = require('amqplib/callback_api');
 
 
 class RoulleteBot {
