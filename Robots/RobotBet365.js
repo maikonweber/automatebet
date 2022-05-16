@@ -4,6 +4,7 @@ const sharp = require("sharp");
 const T = require("tesseract.js");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
+var amqp = require('amqplib/callback_api');
 
 
 class RoulleteBot {
@@ -57,10 +58,8 @@ class RoulleteBot {
       devTools: true, 
         
     });
-    this.browser = browser;
-    const page = await this.browser.newPage();
+    const page = await browser.newPage();
     this.page = page
-    console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
    
@@ -76,6 +75,7 @@ class RoulleteBot {
   }
 
   async login() {
+    await this.page.waitForTimeout(7000) 
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     if (username && password) {
@@ -96,7 +96,10 @@ class RoulleteBot {
         const root = document.querySelector('#root');
         console.log(root)
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> 82f8245cdf4eda4c558bc5891f1e440c87d1dd33
       })
     
 
@@ -111,7 +114,5 @@ class RoulleteBot {
   }
 }
 
-const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
-bot.init();
-
+const bot = new RoulleteBot("Ma128sio4", "maikonweber", 'LiveRoulette');
 bot.init();

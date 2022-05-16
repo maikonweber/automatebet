@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 {"user_experience_metrics.stability.exited_cleanly":true,"variations_crash_streak":2}
+=======
+<<<<<<< HEAD
+{"user_experience_metrics.stability.exited_cleanly":true,"variations_crash_streak":7}
+=======
+{"user_experience_metrics.stability.exited_cleanly":true,"variations_crash_streak":2}
+>>>>>>> 3ccaba8d (add)
+>>>>>>> 82f8245cdf4eda4c558bc5891f1e440c87d1dd33

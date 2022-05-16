@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 2022/05/11-13:11:25.669 20027 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/IndexedDB/https_casino.bet365.com_0.indexeddb.leveldb/MANIFEST-000001
 2022/05/11-13:11:25.669 20027 Recovering log #3
 2022/05/11-13:11:25.669 20027 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/IndexedDB/https_casino.bet365.com_0.indexeddb.leveldb/000003.log 
+=======
+<<<<<<< HEAD
+2022/05/14-16:20:21.759 1758 Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\IndexedDB\https_casino.bet365.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/14-16:20:21.760 1758 Recovering log #3
+2022/05/14-16:20:21.761 1758 Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\IndexedDB\https_casino.bet365.com_0.indexeddb.leveldb/000003.log 
+=======
+2022/05/11-13:11:25.669 20027 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/IndexedDB/https_casino.bet365.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/11-13:11:25.669 20027 Recovering log #3
+2022/05/11-13:11:25.669 20027 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/IndexedDB/https_casino.bet365.com_0.indexeddb.leveldb/000003.log 
+>>>>>>> 3ccaba8d (add)
+>>>>>>> 82f8245cdf4eda4c558bc5891f1e440c87d1dd33

@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 2022/05/11-13:10:52.230 14103 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Site Characteristics Database/MANIFEST-000001
 2022/05/11-13:10:52.231 14103 Recovering log #3
 2022/05/11-13:10:52.231 14103 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Site Characteristics Database/000003.log 
+=======
+<<<<<<< HEAD
+2022/05/14-16:21:13.761 37b0 Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\Site Characteristics Database/MANIFEST-000001
+2022/05/14-16:21:13.762 37b0 Recovering log #3
+2022/05/14-16:21:13.763 37b0 Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\Site Characteristics Database/000003.log 
+=======
+2022/05/11-13:10:52.230 14103 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Site Characteristics Database/MANIFEST-000001
+2022/05/11-13:10:52.231 14103 Recovering log #3
+2022/05/11-13:10:52.231 14103 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Site Characteristics Database/000003.log 
+>>>>>>> 3ccaba8d (add)
+>>>>>>> 82f8245cdf4eda4c558bc5891f1e440c87d1dd33

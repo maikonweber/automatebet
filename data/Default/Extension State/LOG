@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 2022/05/11-13:22:27.199 440f Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Extension State/MANIFEST-000001
 2022/05/11-13:22:27.199 440f Recovering log #3
 2022/05/11-13:22:27.200 440f Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Extension State/000003.log 
+=======
+<<<<<<< HEAD
+2022/05/14-16:22:51.795 392c Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\Extension State/MANIFEST-000001
+2022/05/14-16:22:51.796 392c Recovering log #3
+2022/05/14-16:22:51.797 392c Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\Extension State/000003.log 
+=======
+2022/05/11-13:22:27.199 440f Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Extension State/MANIFEST-000001
+2022/05/11-13:22:27.199 440f Recovering log #3
+2022/05/11-13:22:27.200 440f Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/data/Default/Extension State/000003.log 
+>>>>>>> 3ccaba8d (add)
+>>>>>>> 82f8245cdf4eda4c558bc5891f1e440c87d1dd33
