@@ -19,10 +19,9 @@ class RoulleteBot {
     } 
 
     async init() {
-    console.log('Abrindo Pagina');
+    
      await this.preLoad();
-     console.log('Aguardando o sinal');
-     await this.getSygnal();
+     
 
 
   }
@@ -32,8 +31,6 @@ class RoulleteBot {
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     this.page.waitForTimeout(5000);
     const frames = await this.page.frames();
-    // get frame content of frame[2]
- 
   
 }
 
@@ -41,7 +38,6 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      userDataDir: './data',
       headless: false,
       dumpio: true,
       defaultViewport: {
@@ -67,7 +63,7 @@ class RoulleteBot {
     console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-    await this.login();
+   
   
 
 }
@@ -91,19 +87,20 @@ class RoulleteBot {
       // enter the page
       await this.page.waitForTimeout(5000);
       await this.page.keyboard.press('Enter');
-      await this.page.waitForTimeout(20000);
-      const button = await this.page.$('.regulatory-last-login-modal__button');
+      await this.page.waitForTimeout(15000);
+
       if (button) {
         await button.click();
       }
-      await this.page.waitForTimeout(8000);
       await this.page.evaluate(() => {
-        document.querySelectorAll('iframe').forEach(iframe => {
-          console  
-        })
+        const root = document.querySelector('#root');
+        console.log(root)
 
-      });
-      
+        
+      })
+    
+
+
       await this.page.waitForTimeout(8000);
     }
   }

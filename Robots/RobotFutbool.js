@@ -1,29 +1,14 @@
 const puppeteer = require('puppeteer-extra')
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-const cheerio = require('cheerio');
-const moment = require('moment');
-const { table } = require('console');
-const redis = require('redis');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-const console = require('console');
 puppeteer.use(StealthPlugin())
 
 class FootBoolScrap {
-    constructor(password, username) {
-        this.password = password;
-        this.username = username;
-        this.redis = redis;
-
+    constructor() {
+    
     }
 
     async init() {
-        this.redis = redis.createClient({
-            host: 'localhost',
-            port: 6379,
-            password: "roullet"
-        });
+      
         
         const browser = await puppeteer.launch({
             headless: true,
@@ -274,7 +259,8 @@ class FootBoolScrap {
                 obj._2 = box[1];
                 obj._3 = box[2];
               
-                this.redis = await this.redis.set(`${obj.Time}/${obj.Time}`, JSON.stringify(obj)); 
+                console.log(obj)
+                
                 
               };
         }
@@ -291,5 +277,11 @@ class FootBoolScrap {
         }
       } 
 
+let robot = new FootBoolScrap()
+robot.start()
+
+
 module.exports = FootBoolScrap;
+
+
 
