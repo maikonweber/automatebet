@@ -1,2 +1,3 @@
-2022/04/30-11:38:44.811 1d64 Creating DB C:\Users\Maikon\desktop\projetos\bot\automatebet\data\Default\Sync Data\LevelDB since it was missing.
-2022/04/30-11:38:44.860 1d64 Reusing MANIFEST C:\Users\Maikon\desktop\projetos\bot\automatebet\data\Default\Sync Data\LevelDB/MANIFEST-000001
+2022/05/14-16:21:13.759 393c Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\Sync Data\LevelDB/MANIFEST-000001
+2022/05/14-16:21:13.761 393c Recovering log #3
+2022/05/14-16:21:13.762 393c Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\Sync Data\LevelDB/000003.log 

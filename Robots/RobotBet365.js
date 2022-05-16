@@ -30,9 +30,63 @@ class RoulleteBot {
   async getSygnal() {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
-    this.page.waitForTimeout(5000);
-    const frames = await this.page.frames();
-    // get frame content of frame[2]
+    this.page.waitForTimeout(45000);
+
+    setInterval(async () => {
+    // const orange = await this.page.evaluate(() => {
+    //   let menuIcon = document.querySelectorAll('lobby-category-item__icon_dynamic')[0];
+    //   console.log(menuIcon);
+    //   let menuIconRoullete = document.querySelectorAll('lobby-category-item__icon')[0].click();
+    //   console.log(menuIconRoullete);
+      await this.page.reload();
+      await this.page.waitForTimeout(5000);
+
+    // });
+
+
+
+    const glee = await this.page.evaluate(() => {
+        let dophin = document.querySelectorAll('.roulette-historyfOmuwAaXbwHRa3HTIjFP.roulette-history_lobbyDxuTPpg3FmAO6mbqrAe7');
+        const glee = []
+        let elefant = document.querySelectorAll('.lobby-table__name-container')
+        // Mouse over of all elements
+        elefant.forEach(element => {
+          element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+        });
+
+        for (let i = 0; i < dophin.length; i++) {
+           // Get all text nodes
+            glee.push({
+                name: elefant[i].innerText,
+                number: dophin[i].innerText
+            });
+        }
+        return glee;
+      });
+      for (let i = 0; i < glee.length; i++) {
+        // Split \n line into array
+        let number = glee[i].number.split('\n');
+        for (let i = 0; i < number.length; i++) {
+          // Replace if number is have a  regEx  x[0-9]* in string 
+          let regEx = /x[0-9]*/g;
+          for (let i = 0; i < number.length; i++) {
+              if (number[i].match(regEx)) {
+                  number[i] = number[i].replace(regEx, '');
+              }
+          }
+      }
+      // removing of array the empty string
+      number = number.filter(Boolean);
+      for (let i = 0; i < number.length; i++) {
+         // parse to int
+           number[i] = parseInt(number[i]); 
+      }
+      glee[i].number = number;
+      console.log(glee);
+      };
+
+
+    }, 11000);
  
   
 }
@@ -41,7 +95,6 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      userDataDir: './data',
       headless: false,
       dumpio: true,
       defaultViewport: {
@@ -61,14 +114,12 @@ class RoulleteBot {
       devTools: true, 
         
     });
-    this.browser = browser;
-    const page = await this.browser.newPage();
+    const page = await browser.newPage();
     this.page = page
-    console.log('Abrindo a página');
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
-    await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
+    await this.page.waitForTimeout(5000) //https://casino.bet365.com/Play/en-gb/
     await this.login();
-  
+    
 
 }
 
@@ -80,6 +131,7 @@ class RoulleteBot {
   }
 
   async login() {
+    await this.page.waitForTimeout(7000) 
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     if (username && password) {
@@ -96,14 +148,7 @@ class RoulleteBot {
       if (button) {
         await button.click();
       }
-      await this.page.waitForTimeout(8000);
-      await this.page.evaluate(() => {
-        document.querySelectorAll('iframe').forEach(iframe => {
-          console  
-        })
-
-      });
-      
+      await this.page.waitForTimeout(35000);
       await this.page.waitForTimeout(8000);
     }
   }
@@ -114,7 +159,5 @@ class RoulleteBot {
   }
 }
 
-const bot = new RoulleteBot("ma128sio4", "maikonwdc2", 'LiveRoulette');
-bot.init();
-
+const bot = new RoulleteBot("Ma128sio4", "maikonweber", 'LiveRoulette');
 bot.init();

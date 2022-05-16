@@ -1,2 +1,3 @@
-2022/04/30-11:38:45.073 344 Creating DB C:\Users\Maikon\desktop\projetos\bot\automatebet\data\Default\shared_proto_db\metadata since it was missing.
-2022/04/30-11:38:45.080 344 Reusing MANIFEST C:\Users\Maikon\desktop\projetos\bot\automatebet\data\Default\shared_proto_db\metadata/MANIFEST-000001
+2022/05/14-16:21:14.392 33c0 Reusing MANIFEST C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\shared_proto_db\metadata/MANIFEST-000001
+2022/05/14-16:21:14.393 33c0 Recovering log #3
+2022/05/14-16:21:14.394 33c0 Reusing old log C:\Users\Maikon\Desktop\projetos\bot\automatebet\data\Default\shared_proto_db\metadata/000003.log 
