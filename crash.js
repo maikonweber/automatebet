@@ -5,15 +5,19 @@ puppeteer.use(StealthPlugin());
 
 
 
-class Blaze (username, password, horario) {
+class Blaze {
     // Initial puppeter
-    constructor () {
+    constructor (username, password, horario) {
         this.browser = null;
         this.page = null;
         this.username = username;
         this.password = password;
         this.horario = horario;
+    
     }
+
+
+    async init() {
     puppeteer.launch({
         headless: false,
         args: [
@@ -37,7 +41,6 @@ class Blaze (username, password, horario) {
 
         try {
             // Send Key to input
-            
             await page.waitForTimeout(10000)
             await input[1].type(username)
             await input[2].type(password)
@@ -45,10 +48,16 @@ class Blaze (username, password, horario) {
             await page.keyboard.press('Enter')
             await page.waitForTimeout(15000)
             await page.goto('https://blaze.com/pt/games/crash');
+
+            this.page = page;
+
         } catch (error) {
             console.log('Erro', error)
         }
-        
+    })
+
+
+    
 
 
         
@@ -62,8 +71,6 @@ class Blaze (username, password, horario) {
 
         // await page.waitFor(5000);
 
-    
-    })
 }
 
 module.exports = blaze;
