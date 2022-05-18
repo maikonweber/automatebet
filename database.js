@@ -111,20 +111,20 @@ async function getAllSygnal() {
     AND zero = 'false'
     AND created > (now() - interval '1 day')
     OR aposta ~* 'Coluna'
-    AND result = true AND firstgale = 'false' AND secondgale = 'false' AND zero = 'false' 
+    AND result = true 
+    AND firstgale = 'false'
+    AND secondgale = 'false' 
+    AND zero = 'false' 
     AND created > (now() - interval '1 day');`
 
 
     let falseSql = `SELECT count(*) FROM roullete_new 
     Where 
     aposta ~ 'Bloco' 
-    AND result = false 
-    AND firstgale = false 
-    AND secondgale = false
-    AND zero = false 
+    AND result = false  
     AND created > (now() - interval '1 day')
     or aposta ~ 'Coluna'
-    AND result = false AND firstgale = false AND secondgale = false AND zero = false 
+    AND result = false  
     AND created > (now() - interval '1 day');`
 
     let firstgaleSql = `SELECT count(*) FROM roullete_new 
@@ -142,26 +142,31 @@ async function getAllSygnal() {
 
     let secondgaleSql = `SELECT count(*) FROM roullete_new 
     Where 
-    aposta ~* 'Bloco' AND secondgale = true 
+    aposta ~* 'Bloco' 
+    AND secondgale = true 
     AND result = true 
     AND created > now() - interval '1 day'
     OR aposta ~* 'Coluna'
-    AND secondgale = true AND result = true 
+    AND secondgale = true 
+    AND result = true 
     AND created > now() - interval '1 day'`
     
     let zeroSql = `SELECT count(*) FROM roullete_new 
     Where 
-    aposta ~* 'Bloco' AND zero = true 
+    aposta ~* 'Bloco' 
+    AND zero = true 
     AND result = true 
     AND created > now() - interval '1 day'
     OR aposta ~* 'Coluna'
     AND 
-    zero = true AND result = true 
+    zero = true 
+    AND result = true 
     AND created > now() - interval '1 day'`
     
     let secondGaleLoss = `SELECT count(*) FROM roullete_new 
     Where
-    aposta ~* 'Bloco' AND secondgale = true 
+    aposta ~* 'Bloco' 
+    AND secondgale = true 
     AND result = false 
     AND created > now() - interval '1 day'
     OR aposta ~* 'Coluna'
