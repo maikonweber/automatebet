@@ -151,7 +151,7 @@ async function getAllSygnal() {
     OR aposta ~* 'Coluna'
     AND
     secondgale = true and result = false
-    and created > (now() - interval '1 day)'
+    and created > (now() - interval '1 day')
     `
 
     let Total = `SELECT count(*) FROM roullete_new Where
