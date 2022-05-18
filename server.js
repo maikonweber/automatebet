@@ -3,7 +3,6 @@ const app = express();
 const port = process.env.PORT || 3055; 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const botQueue = require('./lib/queue');
 const blaze = require('./crash');
 
 
@@ -35,7 +34,6 @@ app.use(cors(
 app.post('/setblaze', async (req, res) => {
   const horario = req.body.horario
   await blaze('m.carvalho@grouplinknetwork.com', 'ma128sio4', horario)
-
   res.json('You have set the blaze at ')
 })
 

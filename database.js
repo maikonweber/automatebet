@@ -174,6 +174,7 @@ async function getAllRows() {
     Where aposta ~ 'Bloco' AND created_at > (now() - interval '1 day')
     OR aposta ~ 'Coluna' AND created_at > (now() - interval '1 day')
         `;
+        
     let result = await pool.query(sql);
     return result.rows;
 }
