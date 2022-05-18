@@ -5,9 +5,15 @@ puppeteer.use(StealthPlugin());
 
 
 
-function blaze (username, password, horario) {
+class Blaze (username, password, horario) {
     // Initial puppeter
-    
+    constructor () {
+        this.browser = null;
+        this.page = null;
+        this.username = username;
+        this.password = password;
+        this.horario = horario;
+    }
     puppeteer.launch({
         headless: false,
         args: [

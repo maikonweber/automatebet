@@ -170,7 +170,10 @@ async function getAllSygnal() {
 
 
 async function getAllRows() {
-    let sql = `SELECT * FROM roullete_new`;
+    let sql = `SELECT * FROM roullete_new
+    Where aposta ~ 'Bloco' AND created_at > (now() - interval '1 day')
+    OR aposta ~ 'Coluna' AND created_at > (now() - interval '1 day')
+        `;
     let result = await pool.query(sql);
     return result.rows;
 }

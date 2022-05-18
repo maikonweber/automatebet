@@ -7,8 +7,6 @@ const botQueue = require('./lib/queue');
 const blaze = require('./crash');
 
 
-
-
 const {
   checkToken,
   countAllSygnal,
