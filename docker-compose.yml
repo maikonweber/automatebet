@@ -19,7 +19,7 @@ services:
     container_name: roullet_redis
     image: redis:5.0.5-alpine
     restart: always
-    command: redis-server --appendonly yes --requirepass roullet
+    command: redis-server --appendonly yes
     ports:
       - "6379:6379"
   rabbitmq:
