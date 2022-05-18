@@ -32,7 +32,7 @@ async function getUserToken(token) {
 }
 
 
-async function getIdAndInserResult (id, Resultado) {
+async function getIdANDInserResult (id, Resultado) {
     let sql = `UPDATE roullete SET resultado = $1 WHERE id = $2`;    
     let params = [Resultado, id];
     let result = await pool.query(sql, params);
@@ -103,62 +103,76 @@ async function insertIntoLiveRoullete(result) {
 
 
 async function getAllSygnal() {
-    let trueSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~* 'Bloco' and result = 'true' and firstgale = 'false' and secondgale = 'false' and zero = 'false'
+    let trueSql = `SELECT count(*) FROM roullete_new 
+    Where aposta ~* 'Bloco' 
+    AND result = 'true' 
+    AND firstgale = 'false' 
+    AND secondgale = 'false' 
+    AND zero = 'false'
     AND created > (now() - interval '1 day')
     OR aposta ~* 'Coluna'
-    AND result = true and firstgale = 'false' and secondgale = 'false' and zero = 'false' 
-    AND created > (now() - interval '1 day')
+    AND result = true AND firstgale = 'false' AND secondgale = 'false' AND zero = 'false' 
+    AND created > (now() - interval '1 day');
     `
-    let falseSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~ 'Bloco' and result = false and firstgale = false 
-    and secondgale = false and zero = false and created > (now() - interval '1 day')
-    or aposta ~ 'Coluna'
-    AND result = false and firstgale = false and secondgale = false and zero = false 
+    let falseSql = `SELECT count(*) FROM roullete_new 
+    Where aposta ~ 'Bloco' 
+    AND result = false 
+    AND firstgale = false 
+    AND secondgale = false
+    AND zero = false 
     AND created > (now() - interval '1 day')
+    or aposta ~ 'Coluna'
+    AND result = false AND firstgale = false AND secondgale = false AND zero = false 
+    AND created > (now() - interval '1 day');
     `
 
-    let firstgaleSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~ 'Bloco'
+    let firstgaleSql = `SELECT count(*) FROM roullete_new 
+    Where aposta ~ 'Bloco'
     AND firstgale = true 
-    and result = true
-    and secondgale = false
-    and created > (now() - interval '1 day')
+    AND result = true
+    AND secondgale = false
+    AND created > (now() - interval '1 day')
     OR aposta ~ 'Coluna'
     AND firstgale = true 
-    and result = true
-    and secondgale = false
-    and created > (now() - interval '1 day')`
+    AND result = true
+    AND secondgale = false
+    AND created > (now() - interval '1 day')`
 
-    let secondgaleSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~* 'Bloco' and secondgale = true and result = true 
-    and created > (now() - interval '1 day')
+    let secondgaleSql = `SELECT count(*) FROM roullete_new 
+    Where aposta ~* 'Bloco' 
+    AND secondgale = true 
+    AND result = true 
+    AND created > (now() - interval '1 day')
     OR aposta ~* 'Coluna'
-    AND secondgale = true and result = true 
-    and created > (now() - interval '1 day')`
+    AND secondgale = true AND result = true 
+    AND created > (now() - interval '1 day')`
     
-    let zeroSql = `SELECT count(*) FROM roullete_new Where 
-    aposta ~* 'Bloco' AND zero = true and result = true 
-    and created > (now() - interval '1 day')
+    let zeroSql = `SELECT count(*) FROM roullete_new 
+    Where 
+    aposta ~* 'Bloco' AND zero = true 
+    AND result = true 
+    AND created > (now() - interval '1 day')
     OR aposta ~* 'Coluna'
     AND 
-    zero = true and result = true 
-    and created > (now() - interval '1 day')`
+    zero = true AND result = true 
+    AND created > (now() - interval '1 day')`
     
-    let secondGaleLoss = `SELECT count(*) FROM roullete_new Where
-    aposta ~* 'Bloco' AND secondgale = true and result = false 
-    and created > (now() - interval '1 day')
+    let secondGaleLoss = `SELECT count(*) FROM roullete_new 
+    Where
+    aposta ~* 'Bloco' AND secondgale = true 
+    AND result = false 
+    AND created > (now() - interval '1 day')
     OR aposta ~* 'Coluna'
     AND
-    secondgale = true and result = false
-    and created > (now() - interval '1 day')
+    secondgale = true AND result = false
+    AND created > (now() - interval '1 day')
     `
 
-    let Total = `SELECT count(*) FROM roullete_new Where
-    aposta ~ 'Bloco 
-    and created > (now() - interval '1 day')
+    let Total = `SELECT count(*) FROM roullete_new 
+    Where aposta ~ 'Bloco 
+    AND created > (now() - interval '1 day')
     OR aposta ~ 'Coluna' 
-    and created > (now() - interval '1 day')`	
+    AND created > (now() - interval '1 day')`	
 
 
     let trueResult = await pool.query(trueSql);
@@ -205,7 +219,7 @@ async function getColSygnal() {
     
 async function insertUsersToken(id, navegator, is_admin) {
 
-    const token = crypto.randomBytes(16).toString('hex')
+    const token = crypto.rANDomBytes(16).toString('hex')
     console.log(token)
     const query = `INSERT INTO users_token(user_id, token, navegator, is_admin)
                     VALUES ($1, $2, $3, $4) RETURNING *`
@@ -235,7 +249,7 @@ async function checkToken(token) {
 module.exports = {
     insertTelegram,
     insertTelegramSygnal,
-    getIdAndInserResult,
+    getIdANDInserResult,
     insertNewSygnal,
     countAllSygnal,
     createUsers,
