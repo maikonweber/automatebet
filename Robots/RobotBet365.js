@@ -83,8 +83,13 @@ class RoulleteBot {
            number[i] = parseInt(number[i]); 
       }
       glee[i].number = number;
-      console.log(glee);
+      // transforme of into string
+    
       };
+
+      this.publisher(glee)
+
+      
 
 
     }, 11000);
@@ -97,7 +102,6 @@ class RoulleteBot {
   async preLoad() {
     const browser = await puppeteer.launch({
       headless: false,
-      dumpio: true,
       defaultViewport: {
         width: 1100,
         height: 980
@@ -125,10 +129,19 @@ class RoulleteBot {
 }
 
   async publisher(message) {
-    
-    
-  
-  
+
+    amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
+      let queue = 'bet365Roullet'
+      conn.createChannel(function(err, ch) {
+          ch.assertQueue(queue, {durable: false});
+          ch.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+          console.log(" [x] Sent %s", message);
+          setTimeout(function() {
+              conn.close();
+          }, 500);
+     
+        });
+      });
   }
 
   async login() {
