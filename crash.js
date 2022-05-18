@@ -73,19 +73,13 @@ class Blaze {
             if (rows[0] == time) {
         
 
-                    });
-                });
-            });
-
-
-   
-    
-
+       
 
 
     }
-
-    
+    }
+})
+ }
 
 
         
@@ -98,8 +92,6 @@ class Blaze {
         
 
         // await page.waitFor(5000);
-
-}
 }
 
 
