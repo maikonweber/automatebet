@@ -2,6 +2,7 @@
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const puppeteer = require("puppeteer-extra");
 puppeteer.use(StealthPlugin());
+const moment = require('moment');
 
 
 
@@ -55,7 +56,34 @@ class Blaze {
             console.log('Erro', error)
         }
     })
+}
 
+ async getEntry(horario) {
+    const page = this.page;
+    console.log('Interval');
+    let date = new Date();
+    let hour = date.getHours().toString();
+    let minute = date.getMinutes().toString().padStart(2, '0');
+    let second = date.getSeconds();
+    let time = hour + ':' + minute 
+    console.log(time);
+    listRow.forEach(function(row) {
+        let rows = row.match(/[0-9][0-9]\:[0-9][0-9]/g);
+        if (rows != null) {
+            if (rows[0] == time) {
+        
+
+                    });
+                });
+            });
+
+
+   
+    
+
+
+
+    }
 
     
 
