@@ -72,5 +72,8 @@ class Blaze {
         // await page.waitFor(5000);
 
 }
+}
 
-module.exports = blaze;
+
+module.exports = Blaze;
+
