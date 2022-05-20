@@ -31,7 +31,7 @@ app.use(cors(
 ));
 
 
-app.post('/setblaze', async (req, res) => {
+app.post('/api/v2/setblaze', async (req, res) => {
   const horario = req.body.horario
   // await blaze('m.carvalho@grouplinknetwork.com', 'ma128sio4', horario)
   res.json('You have set the blaze at ')
