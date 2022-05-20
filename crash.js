@@ -26,6 +26,7 @@ class Blaze {
     async init() {
     puppeteer.launch({
         headless: false,
+        ignoreHTTPSErrors: true,
         args: [
             '--disable-gpu',
             '--disable-dev-shm-usage',
@@ -34,7 +35,13 @@ class Blaze {
             '--no-sandbox',
             '--no-zygote',
             '--single-process',
+            '--window-size=920,850'
+
         ],
+        defaultViewport: {
+            width: 920,
+            height: 850
+        }
     }).then(async browser => {
         const page = await browser.newPage();
         await page.goto('https://blaze.com/pt/games/crash');
@@ -103,7 +110,7 @@ async Entry() {
         // await page.waitFor(5000);
 }
 
-const blaze = new Blaze(2 , 'mateusv.aranha@gmail.com', '#100210aranhA', [
+const blaze = new Blaze('2' , 'mateusv.aranha@gmail.com', '#100210aranhA', [
     '13:51',
     '13:52',
     '13:53',
