@@ -7,7 +7,7 @@ var amqp = require('amqplib/callback_api');
 
 const apiId = 17228434;
 const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
-const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTIBuyQumXHrrEazI1qW67uMjnbsM8CgI/GHy4nrzJjOIXalXrWwlnLwfLoypAPX75Mz+IvQgRIECVnnS/aGoe03mMZksfaFokDA9v7gfbkCGSlh/ryfT0qyRnhLb+fPLZWpFCLtyT/bbq3pxnU/O7/cs1rEvp3uUAJTWZUz5prpU86Voux3aJJQ4yqax+0lfmtPNsmrYGgR8n69QUkdtfea5OQq1/mFycltxwcjIW5yD92yMxlrzU0HeSswVX6K2fcbMdoluSs6VlWn+T+tp/RXHpl7wHJpWl0vZXXARr9RhxHc7GRCAB//UX71fqcYJq0qQqY6si8Ag6SBgvWcvOb4rWY=");
+const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTkBu56ALdSaYUL23O5CFsgt2+z5IxJET8cjyhEeB2j+7YBtgUQvbVHh8+BhMN1+IZs/nnFtEwFpxwZnHm7P59qvCh7epulQG51Mbhw3/mO5V2xUL/vhoeYBwc5PZwrDxZ38MiYox8Y3CTK/rpvn4oKK8BbXJoJ4+XWO+5+uQj4TOQmzWM9ahDxAaFjPj9IWFqiN3LvcAJFJ1k3Q8TdSTaJQghTRIP1afQ7TdD8o5DQozl307Lg/s05Q+neNey1QghMvsUXwWfyrvzkQAqx2ma5Nl7ZhVtRhr7GxzSXQmoLtLcZGdlVky/fBtq2XsyKqXvs1GKQWftURsUb6uCdSN/XSx+w=");
 
 (async () => {
 var queue = "RoulletBet365";
@@ -35,45 +35,84 @@ const result = await client.invoke( new Api.messages.GetAllChats({
         exceptIds : [43]
     }) );
 
- 
-const thx = await client.getInputEntity(-1575582320);
+    for(let i = 0; i < result.chats.length; i++){
+        console.log(result.chats[i].id, result.chats[i].title)
+    
+    }
 
-const chat = await client.getMessages(thx, {
-            limit : 1
-        });
+
+
+const chatInvest = await client.getInputEntity(-1785323314)
+const mafiaRoleta = await client.getInputEntity(-1267429660)
+
+const lastMessage = await client.getMessages(chatInvest, {
+    limit: 1,
+});
+
 let last;
-chat.forEach(
-(chat, index) => {
-last = chat.message.toString()
-            }   
-        )
 
-        console.log(chat);
+lastMessage.forEach(
+    (chat, index) => {
+        last = chat.message.toString();
+    })
 
-setInterval(async () => {   
-const chat2 = await client.getMessages(thx, {
-                limit : 1,
-            }
-        )
-chat2.forEach(
-    async (chat, index) => {   
-        if(chat.message.toString() != last) {
-            const lastMessage = chat.message.toString()
-            console.log(lastMessage)
-            last = lastMessage
-        amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
-                conn.createChannel(function(err, ch) {
-                    ch.assertQueue(queue, {durable: false});
-                    ch.sendToQueue(queue, Buffer.from(lastMessage));
-                    console.log(" [x] Sent %s", lastMessage);
-                    setTimeout(function() {
-                        conn.close();
-                    }, 500);
-                });
-            });
+const lastMsg = await client.getMessages(
+    chatInvest, {
+        limit: 1,
+    }
+)
+
+lastMsg.forEach(
+    (chat, index) => {
+        if(chat.message.toString() != last){
+            console.log(chat.message.toString())
+            client.invoke(new Api.messages.SendMessage({
+                peer: mafiaRoleta,
+                message: chat.message.toString()
+            }))
         }
     }
 )
-}, 5000);
+
+
+
+
+// const chat = await client.getMessages(thx, {
+//             limit : 1
+//         });
+// let last;
+// chat.forEach(
+// (chat, index) => {
+// last = chat.message.toString()
+//             }   
+//         )
+
+//         console.log(chat);
+
+// setInterval(async () => {   
+// const chat2 = await client.getMessages(thx, {
+//                 limit : 1,
+//             }
+//         )
+// chat2.forEach(
+//     async (chat, index) => {   
+//         if(chat.message.toString() != last) {
+//             const lastMessage = chat.message.toString()
+//             console.log(lastMessage)
+//             last = lastMessage
+//         amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
+//                 conn.createChannel(function(err, ch) {
+//                     ch.assertQueue(queue, {durable: false});
+//                     ch.sendToQueue(queue, Buffer.from(lastMessage));
+//                     console.log(" [x] Sent %s", lastMessage);
+//                     setTimeout(function() {
+//                         conn.close();
+//                     }, 500);
+//                 });
+//             });
+//         }
+//     }
+// )
+// }, 5000);
 
 })()

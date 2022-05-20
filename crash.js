@@ -53,28 +53,28 @@ class Blaze {
             await page.waitForTimeout(500)
             await page.keyboard.press('Enter')
             await page.waitForTimeout(5000)
-            let button = await page.$$('a')[19]
-            await button.click()
-            await page.waitForTimeout(5000)
-            let inputGame = await page.$$('input')
-            await inputGame[0].type(this.valor)
-            await inputGame[1].type(this.autoretirar)
-            await page.waitForTimeout(5000)
-            await page.$$('button')[4].click()
-            console.log('Aposta Feita')
-            await page.waitForTimeout(5000)
-            await page.close()
-            await browser.close()
-
+            await page.goto('https://blaze.com/pt/games/crash');
+            this.page = page
+            this.page.reload()
         } catch (error) {
             console.log('Erro', error)
         }
     })
 }
 
+async Entry() {
+    let inputGame = await this.page.$$('input')
+    await inputGame[0].type(this.valor)
+    await inputGame[1].type(this.autoretirar)
+    await this.page.waitForTimeout(5000)
+    await this.page.$$('button')[4].click()
+    console.log('Aposta Feita')
+    await this.page.waitForTimeout(5000)
+}
+
  async getEntry() {
     // Moment now timezone Sao Paulo
-    
+    this.init()
     setInterval(async () => {   
         let time = moment().tz('America/Sao_Paulo');
 
@@ -82,11 +82,8 @@ class Blaze {
     this.horario.forEach(element => {
         if(element == time.format('HH:mm')) {
             console.log('Entre agora ')
-            // Remove this item from the array this.horario
             this.horario.splice(this.horario.indexOf(element), 1);
-            this.init()
-
-
+            this.Entry()
     }
 
 }, 5000);
@@ -130,10 +127,12 @@ const blaze = new Blaze(2 , 'mateusv.aranha@gmail.com', '#100210aranhA', [
     '14:11',
     '15:00',
     '15:50',
-    '16:30',
-    '17:15',
-    '18:00',
-    '18:45',
+    '16:57',
+    '17:25',
+    '17:26',
+    '17:30',
+    '17:36',
+    '17:45',
 
 
 ], '1,90');
