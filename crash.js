@@ -2,18 +2,23 @@
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const puppeteer = require("puppeteer-extra");
 puppeteer.use(StealthPlugin());
-const moment = require('moment');
+// Moment timezone Sao Paulo
+const moment = require('moment-timezone');
+ 
+
 
 
 
 class Blaze {
     // Initial puppeter
-    constructor (username, password, horario) {
+    constructor (valor, username, password, horario, autoretirar) {
         this.browser = null;
         this.page = null;
         this.username = username;
         this.password = password;
         this.horario = horario;
+        this.valor = valor;
+        this.autoretirar = autoretirar;
     
     }
 
@@ -42,15 +47,24 @@ class Blaze {
 
         try {
             // Send Key to input
-            await page.waitForTimeout(10000)
-            await input[1].type(username)
-            await input[2].type(password)
-            await page.waitForTimeout(10000)
+            await page.waitForTimeout(500)
+            await input[1].type(this.username)
+            await input[2].type(this.password)
+            await page.waitForTimeout(500)
             await page.keyboard.press('Enter')
-            await page.waitForTimeout(15000)
-            await page.goto('https://blaze.com/pt/games/crash');
-
-            this.page = page;
+            await page.waitForTimeout(5000)
+            let button = await page.$$('a')[19]
+            await button.click()
+            await page.waitForTimeout(5000)
+            let inputGame = await page.$$('input')
+            await inputGame[0].type(this.valor)
+            await inputGame[1].type(this.autoretirar)
+            await page.waitForTimeout(5000)
+            await page.$$('button')[4].click()
+            console.log('Aposta Feita')
+            await page.waitForTimeout(5000)
+            await page.close()
+            await browser.close()
 
         } catch (error) {
             console.log('Erro', error)
@@ -58,27 +72,25 @@ class Blaze {
     })
 }
 
- async getEntry(horario) {
-    const page = this.page;
-    console.log('Interval');
-    let date = new Date();
-    let hour = date.getHours().toString();
-    let minute = date.getMinutes().toString().padStart(2, '0');
-    let second = date.getSeconds();
-    let time = hour + ':' + minute 
-    console.log(time);
-    listRow.forEach(function(row) {
-        let rows = row.match(/[0-9][0-9]\:[0-9][0-9]/g);
-        if (rows != null) {
-            if (rows[0] == time) {
-        
+ async getEntry() {
+    // Moment now timezone Sao Paulo
+    
+    setInterval(async () => {   
+        let time = moment().tz('America/Sao_Paulo');
 
-       
+    // horario for 
+    this.horario.forEach(element => {
+        if(element == time.format('HH:mm')) {
+            console.log('Entre agora ')
+            // Remove this item from the array this.horario
+            this.horario.splice(this.horario.indexOf(element), 1);
+            this.init()
 
 
     }
-    }
-})
+
+}, 5000);
+    });
  }
 
 
@@ -93,6 +105,40 @@ class Blaze {
 
         // await page.waitFor(5000);
 }
+
+const blaze = new Blaze(2 , 'mateusv.aranha@gmail.com', '#100210aranhA', [
+    '13:51',
+    '13:52',
+    '13:53',
+    '13:54',
+    '13:55',
+    '13:56',
+    '13:57',
+    '13:58',
+    '13:59',
+    '14:00',
+    '14:01',
+    '14:02',
+    '14:03',
+    '14:04',
+    '14:05',
+    '14:06',
+    '14:07',
+    '14:08',
+    '14:09',
+    '14:10',
+    '14:11',
+    '15:00',
+    '15:50',
+    '16:30',
+    '17:15',
+    '18:00',
+    '18:45',
+
+
+], '1,90');
+
+blaze.getEntry();
 
 
 module.exports = Blaze;
