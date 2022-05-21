@@ -95,6 +95,7 @@ async Entry() {
     this.init()
 
     setInterval(async () => {   
+        
     let time = moment().tz('America/Sao_Paulo');
     if (this.page != null) {
     this.horario.forEach(element => {
