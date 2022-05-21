@@ -23,7 +23,7 @@ class Blaze {
     }
 
 
-    async init() {
+async init() {
     puppeteer.launch({
         headless: false,
         ignoreHTTPSErrors: true,
@@ -43,7 +43,9 @@ class Blaze {
             height: 850
         }
     }).then(async browser => {
+     
         const page = await browser.newPage();
+        this.page = page
         await page.goto('https://blaze.com/pt/games/crash');
         await page.waitForTimeout(5000);
         let a = await page.$$('a')
@@ -61,7 +63,6 @@ class Blaze {
             await page.keyboard.press('Enter')
             await page.waitForTimeout(5000)
             await page.goto('https://blaze.com/pt/games/crash');
-            this.page = page
             this.page.reload()
         } catch (error) {
             console.log('Erro', error)
@@ -70,81 +71,49 @@ class Blaze {
 }
 
 async Entry() {
+    try {
     let inputGame = await this.page.$$('input')
     await inputGame[0].type(this.valor)
     await inputGame[1].type(this.autoretirar)
+    await this.page.waitForTimeout(15000)
+    let button = await this.page.$$('button')
+    console.log(button)
+    await button[6].click()
     await this.page.waitForTimeout(5000)
-    await this.page.$$('button')[4].click()
     console.log('Aposta Feita')
-    await this.page.waitForTimeout(5000)
+    await this.page.waitForTimeout(15000)
+    if (this.horario.length === 0) {
+        this.browser.close()
+    }
+    } catch (error) {
+        console.log('Erro', error)
+    }
 }
 
  async getEntry() {
     // Moment now timezone Sao Paulo
     this.init()
-    setInterval(async () => {   
-        let time = moment().tz('America/Sao_Paulo');
 
-    // horario for 
+    setInterval(async () => {   
+    let time = moment().tz('America/Sao_Paulo');
+    if (this.page != null) {
     this.horario.forEach(element => {
         if(element == time.format('HH:mm')) {
             console.log('Entre agora ')
             this.horario.splice(this.horario.indexOf(element), 1);
             this.Entry()
+            return
     }
 
 }, 5000);
-    });
+
+ }});
  }
 
+ 
 
-        
-       
-        // await page.waitFor(5000);
-        // Select all input of page
-        // const divCount = await page.$$('input');
-        // console.log(divCount[0]);
-        // divCount[0].type('2');
-        
-
-        // await page.waitFor(5000);
 }
 
-const blaze = new Blaze('2' , 'mateusv.aranha@gmail.com', '#100210aranhA', [
-    '13:51',
-    '13:52',
-    '13:53',
-    '13:54',
-    '13:55',
-    '13:56',
-    '13:57',
-    '13:58',
-    '13:59',
-    '14:00',
-    '14:01',
-    '14:02',
-    '14:03',
-    '14:04',
-    '14:05',
-    '14:06',
-    '14:07',
-    '14:08',
-    '14:09',
-    '14:10',
-    '14:11',
-    '15:00',
-    '15:50',
-    '16:57',
-    '17:25',
-    '17:26',
-    '17:30',
-    '17:36',
-    '17:45',
-
-
-], '1,90');
-
-blaze.getEntry();
 
 
 module.exports = Blaze;

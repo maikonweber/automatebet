@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3055; 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const blaze = require('./crash');
+const Blaze = require('./crash');
 
 
 const {
@@ -33,7 +33,12 @@ app.use(cors(
 
 app.post('/api/v2/setblaze', async (req, res) => {
   const horario = req.body.horario
-  // await blaze('m.carvalho@grouplinknetwork.com', 'ma128sio4', horario)
+  const valor = req.body.valor
+  const username = req.body.username
+  const password = req.body.password
+  const autoretirar = req.body.autoretirar
+  const blaze = new Blaze(valor, username, password, horario, autoretirar)
+  await blaze.getEntry()
   res.json('You have set the blaze at ')
 })
 
