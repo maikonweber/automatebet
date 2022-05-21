@@ -25,7 +25,7 @@ class Blaze {
 
 async init() {
     puppeteer.launch({
-        headless: false,
+        headless: true,
         ignoreHTTPSErrors: true,
         args: [
             '--disable-gpu',
