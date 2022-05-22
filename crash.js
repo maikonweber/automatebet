@@ -25,7 +25,7 @@ class Blaze {
 
 async init() {
     puppeteer.launch({
-        headless: true,
+        headless: false,
         ignoreHTTPSErrors: true,
         args: [
             '--no-sandbox',
