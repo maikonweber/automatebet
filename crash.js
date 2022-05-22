@@ -26,7 +26,7 @@ class Blaze {
 async init() {
     puppeteer.launch({
         executablePath: '/usr/bin/google-chrome',
-        headless: false,
+        headless: true,
         ignoreHTTPSErrors: true,
         args: [
             '--no-sandbox',
