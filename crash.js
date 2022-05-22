@@ -46,23 +46,23 @@ async init() {
      
         const page = await browser.newPage();
         this.page = page
-        await page.goto('https://blaze.com/pt/games/crash');
-        await page.waitForTimeout(5000);
-        let a = await page.$$('a')
+        await this.page.goto('https://blaze.com/pt/games/crash');
+        await this.page.waitForTimeout(5000);
+        let a = await this.page.$$('a')
         console.log(a[1], '\n', a[0])
-        await page.goto('https://blaze.com/pt?modal=auth&tab=login');
-        let input =  await page.$$('input')
+        await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
+        let input =  await this.page.$$('input')
         console.log(input[0], '\n', input[1])
-
+        
         try {
             // Send Key to input
-            await page.waitForTimeout(500)
+            await this.page.waitForTimeout(7500)
             await input[1].type(this.username)
             await input[2].type(this.password)
-            await page.waitForTimeout(500)
-            await page.keyboard.press('Enter')
-            await page.waitForTimeout(5000)
-            await page.goto('https://blaze.com/pt/games/crash');
+            await this.page.waitForTimeout(500)
+            await this.page.keyboard.press('Enter')
+            await this.page.waitForTimeout(5000)
+            await this.page.goto('https://blaze.com/pt/games/crash');
             this.page.reload()
         } catch (error) {
             console.log('Erro', error)
@@ -106,7 +106,7 @@ async Entry() {
             return
     }
 
-}, 5000);
+    }, 7000);
 
  }});
  }
