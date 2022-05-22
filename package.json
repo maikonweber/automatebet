@@ -26,7 +26,7 @@
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "pg": "^8.7.3",
-    "puppeteer": "^13.5.2",
+    "puppeteer": "^14.1.1",
     "puppeteer-cluster": "^0.23.0",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "redis": "^4.1.0",
