@@ -24,8 +24,8 @@ class Blaze {
 
 
 async init() {
-    puppeteer.launch({
-        executablePath: '/usr/bin/google-chrome',
+    this.browser = await puppeteer.launch({
+        // executablePath: '/usr/bin/google-chrome',
         headless: true,
         ignoreHTTPSErrors: true,
         args: [
@@ -37,13 +37,12 @@ async init() {
             width: 920,
             height: 850
         }
-    }).then(async browser => {
-     
-        const page = await browser.newPage();
-        this.page = page
-        await this.page.goto('https://blaze.com/pt/games/crash');
-        await this.page.waitForTimeout(5000);
-        let a = await this.page.$$('a')
+    });
+
+    this.page = await this.browser.newPage();
+    await this.page.goto('https://blaze.com/pt/games/crash');
+    await this.page.waitForTimeout(5000)
+    let a = await this.page.$$('a')
         console.log(a[1], '\n', a[0])
         await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
         let input =  await this.page.$$('input')
@@ -62,7 +61,6 @@ async init() {
         } catch (error) {
             console.log('Erro', error)
         }
-    })
 }
 
 async Entry() {
