@@ -41,7 +41,8 @@ async init() {
 
     this.page = await this.browser.newPage();
     await this.page.goto('https://blaze.com/pt/games/crash');
-    await this.page.waitForTimeout(5000)
+    setTimeout(async () => {
+    } , 5000)
     let a = await this.page.$$('a')
         console.log(a[1], '\n', a[0])
         await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
@@ -50,12 +51,15 @@ async init() {
         
         try {
             // Send Key to input
-            await this.page.waitForTimeout(7500)
+            setTimeout(async () => {
+            } , 5000)
             await input[1].type(this.username)
             await input[2].type(this.password)
-            await this.page.waitForTimeout(500)
+            setTimeout(async () => {
+            } , 5000)
             await this.page.keyboard.press('Enter')
-            await this.page.waitForTimeout(5000)
+            setTimeout(async () => {
+            } , 5000)
             await this.page.goto('https://blaze.com/pt/games/crash');
             this.page.reload()
         } catch (error) {
@@ -68,13 +72,16 @@ async Entry() {
     let inputGame = await this.page.$$('input')
     await inputGame[0].type(this.valor)
     await inputGame[1].type(this.autoretirar)
-    await this.page.waitForTimeout(15000)
+    setTimeout(async () => {
+    } , 5000)
     let button = await this.page.$$('button')
     console.log(button)
     await button[6].click()
-    await this.page.waitForTimeout(5000)
+    setTimeout(async () => {
+    } , 5000)
     console.log('Aposta Feita')
-    await this.page.waitForTimeout(15000)
+    setTimeout(async () => {
+    } , 5000)
     if (this.horario.length === 0) {
         this.browser.close()
     }
