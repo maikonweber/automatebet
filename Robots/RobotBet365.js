@@ -1,8 +1,9 @@
 const puppeteer = require("puppeteer");
-const cheerio = require("cheerio");
-const sharp = require("sharp");
-const T = require("tesseract.js");
-var amqp = require('amqplib/callback_api');
+const redis = require("redis");
+const client = redis.createClient({
+  host: "localhost",
+  port: 6379
+});
 
 
 class RoulleteBot {
@@ -30,6 +31,8 @@ class RoulleteBot {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     this.page.waitForTimeout(45000);
+    let site  = await this.page.url();
+    console.log(site);
 
     setInterval(async () => {
     // const orange = await this.page.evaluate(() => {
@@ -99,7 +102,7 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       dumpio: true,
       defaultViewport: {
         width: 1100,
@@ -126,25 +129,19 @@ class RoulleteBot {
 }
 
   async publisher(message) {
+    client.connect();
+    // 
+    client.publish(this.room, JSON.stringify(message));
 
-    amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
-      let queue = 'bet365Roullet'
-      conn.createChannel(function(err, ch) {
-          ch.assertQueue(queue, {durable: false});
-          ch.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
-          console.log(" [x] Sent %s", message);
-          setTimeout(function() {
-              conn.close();
-          }, 500);
-     
-        });
-      });
   }
 
   async login() {
     await this.page.waitForTimeout(7000) 
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
+    console.log("Try to login");
+    let site  = await this.page.url();
+    console.log(site);
     if (username && password) {
       // Clean username
        // Clear the input field

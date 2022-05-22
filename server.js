@@ -37,6 +37,7 @@ app.post('/api/v2/setblaze', async (req, res) => {
   const username = req.body.username
   const password = req.body.password
   const autoretirar = req.body.autoretirar
+  console.log(horario, valor, username, password, autoretirar)
   const blaze = new Blaze(valor, username, password, horario, autoretirar)
   await blaze.getEntry()
   res.json('You have set the blaze at ')
