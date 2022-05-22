@@ -48,7 +48,10 @@ async init() {
         await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
         setTimeout(async () => {
         } , 8000)
+        let body = await this.page.$$('body')
+        console.log(body)
         let input =  await this.page.$$('input')
+
         console.log(input[0], '\n', input[1])
         
         try {
