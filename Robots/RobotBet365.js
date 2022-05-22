@@ -5,6 +5,8 @@ const client = redis.createClient({
   port: 6379
 });
 
+client.connect();
+
 
 class RoulleteBot {
     constructor(password, username, room) {
@@ -129,9 +131,7 @@ class RoulleteBot {
 }
 
   async publisher(message) {
-    client.connect();
-    // 
-    client.publish(this.room, JSON.stringify(message));
+    client.publish('roulleteBet365', JSON.stringify(message));
 
   }
 
