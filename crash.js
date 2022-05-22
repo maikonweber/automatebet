@@ -28,15 +28,9 @@ async init() {
         headless: true,
         ignoreHTTPSErrors: true,
         args: [
-            '--disable-gpu',
-            '--disable-dev-shm-usage',
-            '--disable-setuid-sandbox',
-            '--no-first-run',
             '--no-sandbox',
-            '--no-zygote',
             '--single-process',
             '--window-size=920,850'
-
         ],
         defaultViewport: {
             width: 920,
