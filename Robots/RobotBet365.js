@@ -1,9 +1,7 @@
-const puppeteer = require("puppeteer-extra");
+const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const sharp = require("sharp");
 const T = require("tesseract.js");
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-puppeteer.use(StealthPlugin());
 var amqp = require('amqplib/callback_api');
 
 
@@ -102,17 +100,16 @@ class RoulleteBot {
   async preLoad() {
     const browser = await puppeteer.launch({
       headless: true,
+      dumpio: true,
       defaultViewport: {
         width: 1100,
         height: 980
       },
       args: [
         '--no-sandbox',
-        '--disable-web-security',
-        '--disable-features=IsolateOrigins,site-per-process',
-        '--disable-extensions',
         "--window-size=1110,980",
         "--window-position=500,0",
+        '--use-gl=angle' 
 
 
       ],  
