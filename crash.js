@@ -41,10 +41,9 @@ async init() {
 
     this.page = await this.browser.newPage();
     await this.page.goto('https://blaze.com/pt/games/crash');
-    setTimeout(async () => {
-    } , 5000)
+    await this.page.waitForTimeout(7000)
     let a = await this.page.$$('a')
-        console.log(a[1], '\n', a[0])
+        console.log(a[1], '\n', a[0], "logging in")
         await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
         setTimeout(async () => {
         } , 8000)
