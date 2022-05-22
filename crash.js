@@ -41,29 +41,29 @@ async init() {
 
     this.page = await this.browser.newPage();
     await this.page.goto('https://blaze.com/pt/games/crash');
-    await this.page.waitForTimeout(7000)
+    await this.page.setTimeout(7000)
     let a = await this.page.$$('a')
         console.log(a[1], '\n', a[0], "logging in")
         await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
-        setTimeout(async () => {
-        } , 8000)
+        await this.page.waitForTimeout(7000)
         let body = await this.page.$$('body')
-        console.log(body)
+        // get body text
+        let text = await body[0].getProperty('innerText')
+        // get body text
+        let text2 = await text.jsonValue()
+        console.log(text2)
         let input =  await this.page.$$('input')
-
-        console.log(input[0], '\n', input[1])
+        await this.page.waitForTimeout(7000)
+        console.log(input[0], '\n', input[1], "input");
         
         try {
             // Send Key to input
-            setTimeout(async () => {
-            } , 5000)
+            await this.page.waitForTimeout(7000)
             await input[1].type(this.username)
             await input[2].type(this.password)
-            setTimeout(async () => {
-            } , 5000)
+            await this.page.waitForTimeout(7000)
             await this.page.keyboard.press('Enter')
-            setTimeout(async () => {
-            } , 5000)
+            await this.page.waitForTimeout(7000)
             await this.page.goto('https://blaze.com/pt/games/crash');
             this.page.reload()
         } catch (error) {
@@ -76,16 +76,13 @@ async Entry() {
     let inputGame = await this.page.$$('input')
     await inputGame[0].type(this.valor)
     await inputGame[1].type(this.autoretirar)
-    setTimeout(async () => {
-    } , 5000)
+    await this.page.waitForTimeout(7000)
     let button = await this.page.$$('button')
     console.log(button)
     await button[6].click()
-    setTimeout(async () => {
-    } , 5000)
+    await this.page.waitForTimeout(7000)
     console.log('Aposta Feita')
-    setTimeout(async () => {
-    } , 5000)
+    await this.page.waitForTimeout(7000)
     if (this.horario.length === 0) {
         this.browser.close()
     }
