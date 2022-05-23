@@ -1,11 +1,15 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const redis = require("redis");
 const client = redis.createClient({
   host: "localhost",
   port: 6379
 });
-
 client.connect();
+puppeteer.use(StealthPlugin());
+// Adblock
+const Adblocker = require("puppeteer-extra-plugin-adblocker");
+puppeteer.use(Adblocker.plugin());
 
 
 
@@ -213,7 +217,6 @@ class RoulleteBot {
   async preLoad() {
     const browser = await puppeteer.launch({
       headless: false,
-      dumpio: true,
       defaultViewport: {
         width: 1100,
         height: 980
@@ -223,7 +226,6 @@ class RoulleteBot {
         '--no-sandbox',
         "--window-size=1110,980",
         "--window-position=500,0",
-        '--use-gl=angle' 
 
 
       ],  
@@ -246,6 +248,11 @@ class RoulleteBot {
 
   async login() {
     await this.page.waitForTimeout(7000) 
+    // Get body
+    const bodyHandle = await this.page.$('body');
+    // get innet HTML
+    const bodyHTML = await this.page.evaluate(body => body.innerHTML, bodyHandle);
+    console.log(bodyHTML)
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     console.log("Try to login");

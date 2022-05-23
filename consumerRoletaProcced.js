@@ -143,6 +143,7 @@ function AusenciaDuzia(json) {
             // get value from redis
             const value = await redisClient.get(key)
             let jsonRoullet = JSON.parse(value)
+            console.log(jsonRoullet)
             colunasAlternat(jsonRoullet)
             colunasDuzia(jsonRoullet)
             AusenciaDuzia(jsonRoullet)
