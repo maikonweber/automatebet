@@ -112,14 +112,14 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       dumpio: true,
       defaultViewport: {
         width: 1100,
         height: 980
       },
       args: [
-        '--proxy-server=177.141.99.50:8080',
+        '--proxy-server=45.190.249.100:8080',
         '--no-sandbox',
         "--window-size=1110,980",
         "--window-position=500,0",
@@ -160,13 +160,13 @@ class RoulleteBot {
       // enter the page
       await this.page.waitForTimeout(5000);
       await this.page.keyboard.press('Enter');
-      await this.page.waitForTimeout(20000);
+      await this.page.waitForTimeout(5000);
       const button = await this.page.$('.regulatory-last-login-modal__button');
       if (button) {
         await button.click();
       }
-      await this.page.waitForTimeout(35000);
-      await this.page.waitForTimeout(8000);
+      await this.page.waitForTimeout(5000);
+      await this.page.waitForTimeout(5000);
     }
   }
 
