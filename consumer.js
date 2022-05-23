@@ -36,7 +36,6 @@ conn.createChannel( async (err, ch) => {
     let swh = false;
     let gale = false;
     let gale2 = false;
-    ch.assertQueue(queue, { durable: false });
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
 
     ch.consume(queue, async (msg) => {

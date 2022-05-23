@@ -1,38 +1,13 @@
-var amqp = require('amqplib/callback_api');
 
-
-// Connect to redis to used cached
 var redis = require('redis');
-var redisClient = redis.createClient({
+var client = redis.createClient({
     host: 'localhost',
     port: 6379
 });
 
-// 
-
-
-
-let queue = 'bet365Roullet'
-amqp.connect('amqp://roullet:roullet@localhost:5672', function(err, conn) {
-    if(err) {
-    throw err;
-   }
-
-conn.createChannel( async (err, ch) => {
-if (err) {
-throw err;
-}
-
-await redisClient.connect()
-
-ch.assertQueue(queue, { durable: false });
-
-
-ch.consume(queue, async (msg) => {
-// buffer to msg
-    const lol = JSON.parse(msg.content)
-   
-    
+// Get msg
+client.on('message', function (channel, message) {
+    console.log(channel + ': ' + message);
     for(let i = 0; i < lol.length; i++) {
         for(let j = 0; j < lol[i].number.length; j++) {      
 
@@ -132,23 +107,11 @@ ch.consume(queue, async (msg) => {
         }
     }
 
-    ch.sendToQueue('bet365RoulletProcced', Buffer.from(JSON.stringify(lol)), { persistent: true });
-    
-    
     lol.forEach(async (element) => {
         await redisClient.set(element.name, JSON.stringify(element))
         console.log("Set Element", element.name)
     });
 
 
-
-}, { noAck : true })
-
-
-
-
-
-})
-
-
-})
+});
+})();
