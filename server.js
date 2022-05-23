@@ -31,7 +31,7 @@ app.use(cors(
 ));
 
 
-app.post('/api/v2/setblaze', async (req, res) => {
+app.post('/api/v1/setblaze', async (req, res) => {
   console.log(req)
   const horario = req.body.horario
   const valor = req.body.valor
