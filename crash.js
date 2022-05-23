@@ -24,9 +24,9 @@ class Blaze {
 
 
 async init() {
-    let proxy = '45.164.188.145'
+    
     this.browser = await puppeteer.launch({
-        executablePath: '/usr/bin/google-chrome',
+        // executablePath: '/usr/bin/google-chrome',
         headless: true,
         ignoreHTTPSErrors: true,
         // Set Proxy for IP address BRAZIL
