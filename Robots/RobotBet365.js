@@ -104,7 +104,7 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       dumpio: true,
       defaultViewport: {
         width: 1100,
