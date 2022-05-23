@@ -111,6 +111,7 @@ class RoulleteBot {
         height: 980
       },
       args: [
+        '--proxy-server=187.60.166.58:8080',
         '--no-sandbox',
         "--window-size=1110,980",
         "--window-position=500,0",
