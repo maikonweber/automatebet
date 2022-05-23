@@ -32,7 +32,15 @@ class RoulleteBot {
   async getSygnal() {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
-    this.page.waitForTimeout(45000);
+    console.log('Aguardando Sinal');
+    console.log(await this.page.url());
+    // take body
+    const body = await this.page.evaluate(() => {
+      return document.body.innerText;
+    });
+    console.log(body);
+    
+    this.page.waitForTimeout(15000);
     let site  = await this.page.url();
     console.log(site);
 
