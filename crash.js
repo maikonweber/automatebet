@@ -47,7 +47,7 @@ async init() {
     await this.page.waitForTimeout(7000)
     let a = await this.page.$$('a')
         console.log(a[1], '\n', a[0], "logging in")
-        await this.page.goto('https://blaze.com/pt?modal=auth&tab=login');
+        await this.page.goto('https://blaze.com/pt/?modal=auth&tab=login');
         await this.page.waitForTimeout(7000)
         let body = await this.page.$$('body')
         // get body text
