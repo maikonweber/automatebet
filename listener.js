@@ -1,5 +1,5 @@
 var cron = require('node-cron');
-const  FootBoolScrap = require('./RobotFutbool.js');
+const  FootBoolScrap = require('./Robots/RobotFutbool.js');
 
 cron.schedule('3 * * * * *', async () => {
     console.log('start');

@@ -1,6 +1,5 @@
 
 var redis = require('redis');
-const { on } = require('telegram/client/updates');
 var redisClient = redis.createClient({
     host: 'localhost',
     port: 6379

@@ -1,9 +1,19 @@
 module.exports = {
   apps : [{
-    name: 'Telegram-Routelet',
-    script: 'node telegram.js',
-  }, {
     name: 'RobotObserverRoullet',
-    script: 'node server.js',
-  }],
+    script: 'server.js',
+  },
+  {
+    name: 'RobotObserverRoulletScrapper',
+    script: 'RobotBet365.js',
+  },
+  {
+    name : 'RobotFutebolCron',
+    script : 'listener.js',
+  },
+  {
+    name : 'RobotConsumerProcced',
+    script : 'consumerRoletaProcced.js',
+  }
+],
 };

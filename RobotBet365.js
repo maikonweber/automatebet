@@ -7,9 +7,7 @@ const client = redis.createClient({
 });
 client.connect();
 puppeteer.use(StealthPlugin());
-// Adblock
-const Adblocker = require("puppeteer-extra-plugin-adblocker");
-puppeteer.use(Adblocker.plugin());
+
 
 
 
@@ -205,7 +203,9 @@ class RoulleteBot {
     glee.forEach(async (element) => {
       await client.set(element.name, JSON.stringify(element))
       console.log("Set Element", element.name)
-  });
+     });
+
+     await this.publisher(glee)
 
     }, 11000);
  

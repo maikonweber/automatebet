@@ -1,11 +1,23 @@
 const puppeteer = require('puppeteer-extra')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin())
+const redis = require('redis');
+const client = redis.createClient({
+  host: "localhost",
+  port: 6379
+});
+
+client.connect();
 
 class FootBoolScrap {
     constructor() {
     
     }
+
+    async publisher(message) {
+      client.publish('roulleteBet365', JSON.stringify(message));
+    }
+
 
     async init() {
       
@@ -259,8 +271,6 @@ class FootBoolScrap {
                 obj._2 = box[1];
                 obj._3 = box[2];
               
-                console.log(obj)
-                
                 
               };
         }
