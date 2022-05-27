@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const Blaze = require('./crash');
 
-
 const {
   checkToken,
   countAllSygnal,
