@@ -50,8 +50,61 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
-app.get('/api', (req, res) => {
-  console.log(req.headers);
+app.post('/api/bet365', (req, res) => {
+    const body = req.body;
+    const { name, number, preload, strategyDuziaRepeat, 
+    strategyColumnReapeat, strategyAlternateColum, strategy19to36, strategyImparReapeat
+  , strategyParReapeat , strategyGreen, strategyRed, strategyOneTo18 } = body;
+
+    const jsonbStrategy = {
+      "strategy19to39" : strategy19to36,
+      "strategyAlternateColum" : strategyAlternateColum,
+      "strategyColumnReapeat" : strategyColumnReapeat,
+      "strategyDuziaRepeat" : strategyDuziaRepeat,
+      "strategyImparReapeat" : strategyImparReapeat,
+      "strategyParReapeat" : strategyParReapeat,
+      "strategyGreen" : strategyGreen,
+      "strategyRed" : strategyRed,
+      "strategyOneTo18" :strategyOneTo18
+    }
+    
+    const { colunas, duzias, impares, pares, green, red, oneto18, nineteenTo36 } = jsonb;
+
+    const jsonPreload = {
+      "colunas" : colunas,
+      "duzias" : duzias,
+      "impares" : impares,
+      "pares" : pares,
+      "green" : green,
+      "red" : red,
+      "oneto18" : oneto18,
+      "nineteenTo36" : nineteenTo36
+    }
+
+
+    let name_ = name.replace(/\s/g, '_');
+    console.log(name, name_);
+    console.log(number, "number");
+    pool.query(`Select number from ${name_}
+    order by created desc limit 1`, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(200).send("O seu nome não existe");
+        } else {
+            if (result.rows[0].number === number) {
+                res.status(200).send("O seu número já calculado");
+            } else {
+                pool.query(`INSERT INTO ${name_} (number, jsobPreload, jsobStrategy) VALUES ($1, $2, $3)`, [number, jsonPreload, jsonbStrategy], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(200).send("O seu nome não existe");
+                    } else {
+                        res.status(200).send("O seu número foi calculado");
+                    }
+                })
+                }
+            }
+    
 })
 
 app.use('/api/v1/*', (req, res, next) => {

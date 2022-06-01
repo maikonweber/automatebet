@@ -5,6 +5,7 @@ const redisClient = redis.createClient({
     host: 'localhost',
     port: 6379
 });
+const axios = require('axios');
 (async () => {
 
 const subscriber = redisClient.duplicate();
@@ -238,7 +239,7 @@ function colunasAlternat(json) {
                 impar : preload[i].impar,
                 oneTo18 : preload[i].oneTo18,
                 nineteenTo36 : preload[i].nineteenTo36,
-
+                preload : preload[i]
              }
 
                 obj.strategyDuziaRepeat = getStrategy(strategyDuziaRepeat, obj.bloco, "6");
@@ -251,54 +252,26 @@ function colunasAlternat(json) {
                 obj.strategyRed = getStrategy(strategyColorReapeat, obj.red, "10");
                 obj.strategyOneTo18 = getStrategy(strategyOneTo18, obj.oneTo18, "10");
                 
-                console.log(obj.name, "name");
-                console.log(obj.number, "number");
-                console.log(obj.strategyAlternateColum, "strategyAlternateColum");
-                console.log(obj.strategy19to36, "strategy19to36");
-                console.log(obj.strategyColumnReapeat, "strategyColumnReapeat");
-                console.log(obj.strategyDuziaRepeat, "strategyDuziaRepeat");
-                console.log(obj.strategyGreen, "strategyGreen");
-                console.log(obj.strategyImparReapeat, "strategyImparReapeat");
-                console.log(obj.strategyOneTo18, "strategyOneTo18");
-                console.log(obj.strategyParReapeat, "strategyParReapeat");
-                console.log(obj.strategyRed, "strategyRed");
-                console.log("-----------------------------------------------------");
+                // console.log(obj.name, "name");
+                // console.log(obj.number, "number");
+                // console.log(obj.strategyAlternateColum, "strategyAlternateColum");
+                // console.log(obj.strategy19to36, "strategy19to36");
+                // console.log(obj.strategyColumnReapeat, "strategyColumnReapeat");
+                // console.log(obj.strategyDuziaRepeat, "strategyDuziaRepeat");
+                // console.log(obj.strategyGreen, "strategyGreen");
+                // console.log(obj.strategyImparReapeat, "strategyImparReapeat");
+                // console.log(obj.strategyOneTo18, "strategyOneTo18");
+                // console.log(obj.strategyParReapeat, "strategyParReapeat");
+                // console.log(obj.strategyRed, "strategyRed");
+                // console.log("-----------------------------------------------------");
+
+                // Make a post with axios for localhost:3000/api/bet365
+                axios.post('http://localhost:3055/api/bet365', obj)
+                .then(function (response) {
+                    console.log(response);
+                })                    
 
         }
-
-        
-
-        // preload.forEach(async (element, index) => {
-        //     let colunas = element.colunas;
-        //     let bloco = element.bloco;
-        //     let par = element.par;
-                
-        //     let strategyColumnRepeat = getStrategy(strategyColumnReapeat, colunas, "10");
-        //     let strategyDuzia = getStrategy(strategyDuziaRepeat, bloco, "10");
-        //     let strategy = getStrategy(strategyAlternateColum, colunas, "10");
-
-        //     obj = {
-        //         name : element.name,
-        //         number: element.number,
-        //         colunas: colunas,
-        //         bloco : bloco,
-        //         par : element.par,
-        //         impar : element.impar,
-        //         green : element.green,
-        //         red : element.red,
-        //         oneTo18 : element.oneTo18,
-        //         nineteenTo36 : element.nineteenTo36,
-        //         strategyAlternateColum : strategy,
-        //         strategyDuzia : strategyDuzia,
-        //         strategyColumnRepeat : strategyColumnRepeat,
-        //     }  
-
-        //     console.log(obj);
-        // });
-
-
-
-    
     });
 
         
