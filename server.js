@@ -52,6 +52,7 @@ app.get('/', (req, res) => {
 
 app.post('/api/bet365', (req, res) => {
     const body = req.body;
+
     const { name, number, preload, strategyDuziaRepeat, 
     strategyColumnReapeat, strategyAlternateColum, strategy19to36, strategyImparReapeat
   , strategyParReapeat , strategyGreen, strategyRed, strategyOneTo18 } = body;
