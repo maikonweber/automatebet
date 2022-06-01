@@ -86,8 +86,10 @@ app.post('/api/bet365', (req, res) => {
     let name_ = name.replace(/\s/g, '_');
     console.log(name, name_);
     console.log(number, "number");
-    pool.query(`Select number from ${name_}
-    order by created desc limit 1`, (err, result) => {
+    pool.query(`Select number 
+                from robotBetPayload where 
+                order by created  
+                desc limit $1`, [name_]), (err, result) => {
         if (err) {
             console.log(err);
             res.status(200).send("O seu nome não existe");
@@ -95,7 +97,7 @@ app.post('/api/bet365', (req, res) => {
             if (result.rows[0].number === number) {
                 res.status(200).send("O seu número já calculado");
             } else {
-                pool.query(`INSERT INTO ${name_} (number, jsobPreload, jsobStrategy) VALUES ($1, $2, $3)`, [number, jsonPreload, jsonbStrategy], (err, result) => {
+                pool.query(`INSERT INTO robotBetPayload (name, number, jsobPreload, jsobStrategy) VALUES ($1, $2, $3, $4)`, [name ,number, jsonPreload, jsonbStrategy], (err, result) => {
                     if (err) {
                         console.log(err);
                         res.status(200).send("O seu nome não existe");
