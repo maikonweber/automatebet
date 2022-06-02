@@ -84,12 +84,16 @@ app.post('/api/bet365', async (req, res) => {
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
-    console.log(resultado.numberjson.toString())
-    console.log(numberJson.toString())
+    const lastNumber = JSON.parse(resultado.numberjson)
+    const lastNumberString = lastNumber.toString()
+    const numberJsonParse = JSON.parse(numberJson)
+    const numberJsonString = numberJsonParse.toString()
+
+
 
 
     
-    if (resultado.numberjson.toString() === numberJson.toString()) {
+    if (lastNumberString === numberJsonString.toString()) {
       console.log('Não é o mesmo numero')
       const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
       res.json(result);
