@@ -225,7 +225,7 @@ async function getColSygnal() {
 
 async function getLastNumber (name) {
     let sql = `Select numberJson 
-    from robotBetPayload where 
+    from robotBetPayload where name = $1
     order by created  
     desc limit $1`;
 
