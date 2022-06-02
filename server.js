@@ -91,7 +91,7 @@ app.post('/api/bet365', async (req, res) => {
       const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
       res.json(result);
     } else if (
-      result.number.toString() === number.toString()
+      result.numberjson.toString() === number.toString()
     ) 
     {
       res.json('You already bet this number');  
