@@ -88,8 +88,8 @@ app.post('/api/bet365', async (req, res) => {
     const result = await getLastNumber(name_);
     console.log(result, "result", result.length,'Number' ,number, );
     if (typeof result == 'undefined') {
-        return 
-        
+        return console.log( 'Não existe nenhum usuário com esse nome');
+
     } else if (
       result.numberjson === number
     ) 
