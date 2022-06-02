@@ -90,13 +90,13 @@ app.post('/api/bet365', async (req, res) => {
     console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
     console.log(lastNumberString, ":: Numbers LastNumber :: Type Of ::", typeof lastNumberString)
     console.log(lastNumberString === numberJsonString, ':: LastNumber =  NumberJson')
-    if (&& lastNumberString === numberJsonString) {
+    if (lastNumberString === numberJsonString) {
       console.log('Já existe um número igual ao que está tentando inserir')
       res.json("Numero não inserido")
     } else {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result.rows, "ID :", name_, number);
-      res.json('You have set the blaze at ')
+      res.json('You have set the blqaze at ')
     } 
   } else {
     console.log("Nao existe este registro ::" , number, name_ )
