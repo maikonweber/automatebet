@@ -84,7 +84,7 @@ app.post('/api/bet365', async (req, res) => {
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
-    if (typeof resultado.numberJson != 'undefined') {
+    if (typeof resultado.numberjson != 'undefined') {
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
     console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
