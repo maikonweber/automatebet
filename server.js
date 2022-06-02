@@ -83,22 +83,13 @@ app.post('/api/bet365', async (req, res) => {
 
 
     let name_ = name.replace(/\s/g, '_');
-    console.log(name, name_);
-    console.log(number, "number");
     const result = await getLastNumber(name_);
-    if (typeof result == 'undefined') {
-      console.log("Não existe nenhum numero");
-      const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
-      return res.json({
-        message: 'Roulette created',
-      });
+    console.log(result.numberJson, number)
+    console.log(result.numberJson === numberJson)
 
-    } else if (
-      result.numberjson === number
-    ) 
-    {
-      console.log('Já existe um Registros com esse nome');
-      res.json('You already bet this number');  
+    if (!result) {
+      console.log('Não existe')
+      
     } else {
       const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
       res.json(result);
