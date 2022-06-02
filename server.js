@@ -86,19 +86,14 @@ app.post('/api/bet365', async (req, res) => {
     const resultado = await getLastNumber(name_);
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
-
-   
+    console.log(lastNumberString === numberJsonString)
     if (lastNumberString === numberJsonString) {
-      console.log('Não é o mesmo numero')
-      const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
-      res.json(result);
+      console.log('Já existe um número igual ao que está tentando inserir')
     } else {
-      console.log('É o mesmo numero')
-      res.json({
-        "message" : "Já existe uma aposta com esse numero"
-      });
+      const result = await InsertRoullete(name, number, jsonbStrategy, jsonPreload);
+      console.log(result);
     }
-
+    res.json('You have set the blaze at ')
 })
 
 app.use('/api/v1/*', (req, res, next) => {
