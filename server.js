@@ -87,7 +87,11 @@ app.post('/api/bet365', async (req, res) => {
     console.log(number, "number");
     const result = await getLastNumber(name_);
     if (typeof result == 'undefined') {
-        return console.log( 'Não existe nenhum usuário com esse nome');
+      console.log("Não existe nenhum numero");
+      const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
+      return res.json({
+        message: 'Roulette created',
+      });
 
     } else if (
       result.numberjson === number
