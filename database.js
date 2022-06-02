@@ -224,8 +224,8 @@ async function getColSygnal() {
 }
 
 async function getLastNumber (name) {
-    let sql = `Select numberJson 
-    from robotBetPayload where name = $1
+    let sql = `Select numberjson 
+    from robotbetpayload where name = $1
     order by created  
     desc limit 1;`;
 
@@ -235,7 +235,7 @@ async function getLastNumber (name) {
 }
 
 async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
-    let sql = `insert into robotBetPayload (name, numberJson, jsonPreload, jsonbStrategy) 
+    let sql = `insert into robotbetpayload (name, numberjson, jsonpreload, jsonbstrategy) 
     values ($1, $2, $3, $4, $5)`;
 
     let result = await pool.query(sql, [name, numberJson, jsonPreload, jsonbStrategy]);
