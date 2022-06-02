@@ -87,7 +87,7 @@ app.post('/api/bet365', async (req, res) => {
     console.log(number, "number");
     const result = await getLastNumber(name_);
     console.log(result.rows[0].number);
-    if(result.rows[0].number === numberJson){
+    if(result.rows[0] === numberJson){
       console.log("Já existe");
       res.json({
         "status" : "Já existe"
