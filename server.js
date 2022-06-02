@@ -84,7 +84,8 @@ app.post('/api/bet365', async (req, res) => {
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
-    const lastNumberString = resultado.numberjson.toString()
+    const lastNumberString = resultado.toString()
+    console.log(resultado)
     const numberJsonString = number.toString()
     console.log(lastNumberString === numberJsonString)
     if (lastNumberString === numberJsonString) {
