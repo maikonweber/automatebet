@@ -86,13 +86,13 @@ app.post('/api/bet365', async (req, res) => {
     const resultado = await getLastNumber(name_);
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
-    console.log(numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
+    console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
     console.log(lastNumberString, ":: Numbers LastNumber :: Type Of ::", typeof lastNumberString)
       console.log(lastNumberString === numberJsonString, ':: LastNumber =  NumberJson')
     if (lastNumberString === numberJsonString) {
       console.log('Já existe um número igual ao que está tentando inserir')
     } else {
-      const result = await InsertRoullete(name, numberJson, jsonbStrategy, jsonPreload);
+      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result);
     }
     res.json('You have set the blaze at ')
