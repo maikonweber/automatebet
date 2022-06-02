@@ -233,7 +233,7 @@ async function getStrategyByRoullet (name) {
                Order by Created 
                LIMIT 1) Select * from d
                ;` // Roleta_Brasileira
-    const result = await pool.query(sql, name)
+    const result = await pool.query(sql, [name])
     return result.rows[0]   
 }
 
