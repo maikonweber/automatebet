@@ -94,7 +94,7 @@ app.post('/api/bet365', async (req, res) => {
       })
     } else {
       console.log("Não existe");
-      const result = await InsertRoullete(name, numberJson, jsonPreload, jsonbStrategy);
+      const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
       res.json({
         "status" : "Ok"
       })
