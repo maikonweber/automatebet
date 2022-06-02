@@ -89,9 +89,7 @@ app.post('/api/bet365', async (req, res) => {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result.rows, "ID :", name_, number);
       res.json('You have set the blqaze at ')
-      return
-    }
-
+    } else {
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
     console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
@@ -105,6 +103,7 @@ app.post('/api/bet365', async (req, res) => {
       console.log(result.rows, "ID :", name_, number);
       res.json('You have set the blqaze at ')
     } 
+  }
   
     
 })
