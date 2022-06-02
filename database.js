@@ -222,6 +222,24 @@ async function getColSygnal() {
     let result = await pool.query(sql);
     return result.rows  
 }
+
+async function getLastNumber (name) {
+    let sql = `Select numberJson 
+    from robotBetPayload where 
+    order by created  
+    desc limit $1`;
+
+    let result = await pool.query(sql, [name]);
+    return result.rows[0].number
+
+}
+
+async function InsertRoullete (name, numberJson, preload, jsonbStrategy) {
+    let sql = `insert into robotBetPayload (name, numberJson, preload, jsonbStrategy) 
+    values ($1, $2, $3, $4, $5)`;
+
+    let result = await pool.query(sql, [name, numberJson, preload, jsonbStrategy]);
+}
     
 async function insertUsersToken(id, navegator, is_admin) {
 
@@ -264,7 +282,10 @@ module.exports = {
     getAllSygnal,
     insertUsersToken,
     checkToken,
-    getAllRows
+    getAllRows,
+    InsertRoullete,
+    getLastNumber
+
 }
 
 

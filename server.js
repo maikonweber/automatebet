@@ -83,10 +83,7 @@ app.post('/api/bet365', async (req, res) => {
     let name_ = name.replace(/\s/g, '_');
     console.log(name, name_);
     console.log(number, "number");
-    const result = await pool.query(`Select number 
-                from robotBetPayload where 
-                order by created  
-                desc limit $1`, [name_])
+    const result = await getLastNumber(name_);
     console.log(result.rows[0].number);
     if(result.rows[0].number === numberJson){
       console.log("Já existe");
@@ -95,8 +92,7 @@ app.post('/api/bet365', async (req, res) => {
       })
     } else {
       console.log("Não existe");
-      await pool.query(`insert into robotBetPayload (name, numberJson, preload, jsonbStrategy) 
-      values ($1, $2, $3, $4, $5)`, [name, numberJson, jsonPreload, jsonbStrategy, jsonbStrategy])
+      const result = await InsertRoullete(name, numberJson, jsonPreload, jsonbStrategy);
       res.json({
         "status" : "Ok"
       })
