@@ -1,57 +1,45 @@
 const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
+const getStrategyByRoullet = require('./database')
+
 
 var amqp = require('amqplib/callback_api');
 
-
-const =  "UK_Roulette"
-const = "Roleta_Brasileira"
- Football_French_Roulette"
- Who_Wants_To_Be_a_Millionaire?_Roulette
- Speed_Auto_Roulette
- Prestige_Roulette
- Age_Of_The_Gods_Bonus_Roulette
- Roulette_Italiana
- Who_Wants_To_Be_a_Millionaire?_Roulette
- Triumph_French_Roulette
- French_Roulette
- American_Roulette
- Triumph_Roulette
- Turkish_Roulette
- Hindi_Roulette
- Mega_Fire_Blaze_Roulette_Live
- Spread_Bet_Roulette
- Roulette
- Auto_Roulette
- Deutsches_Roulette
- Greek_Roulette
- Super_Spin_Roulette
- bet365_Roulette
- Greek_Quantum_Roulette
- Roleta_Brasileira
- Football_Roulette
- Speed_Roulette
- Prestige_Roulette
- Speed_Auto_Roulette
- French_Roulette
- Football_French_Roulette
- Roulette
- Roulette_Italiana
- Who_Wants_To_Be_a_Millionaire?_Roulette
- UK_Roulette
- bet365_Dutch_Roulette
- Roulette
- Deutsches_Roulette
- Auto_Roulette
- French_Roulette
- Who_Wants_To_Be_a_Millionaire?_Roulette
- Age_Of_The_Gods_Bonus_Roulette
- Quantum_Roulette_Live
- Turkish_Roulette
- American_Roulette
- Quantum_Auto_Roulette
-*/
+const arrayName = [
+"UK_Roulette",
+"Roleta_Brasileira",
+ "Football_French_Roulette",
+ "Who_Wants_To_Be_a_Millionaire?_Roulette",
+ "Speed_Auto_Roulette",
+ "Prestige_Roulette",
+ "Age_Of_The_Gods_Bonus_Roulette",
+ "Roulette_Italiana",
+ "Triumph_French_Roulette",
+ "French_Roulette",
+ "American_Roulette",
+ "Triumph_Roulette",
+ "Turkish_Roulette",
+ "Hindi_Roulette",
+ "Mega_Fire_Blaze_Roulette_Live",
+ "Spread_Bet_Roulette",
+ "Roulette",
+ "Auto_Roulette",
+ "Deutsches_Roulette",
+ "Greek_Roulette",
+ "Super_Spin_Roulette",
+ "bet365_Roulette",
+ "Greek_Quantum_Roulette",
+ "Roleta_Brasileira",
+ "Football_Roulette",
+ "Speed_Roulette",
+ "Prestige_Roulette",
+ "Speed_Auto_Roulette",
+ "UK_Roulette",
+ "bet365_Dutch_Roulette",
+ "Deutsches_Roulette"
+]
+// */
 
 
 const apiId = 17228434;
@@ -78,7 +66,6 @@ const obj = {
           ${estrategia.fistNumber} | ${estrategia.secondNumber} | ${estrategia.threeNumber} 
           🎯 Cobrir o zero"`
      }
-
 }
 
 
@@ -121,7 +108,19 @@ const result = await client.invoke( new Api.messages.GetAllChats({
 // Integer { value: 1581808712n } NOVA MINING INVESTMENT
 // Integer { value: 1614635356n } Mesa VIP | Bot Cassino 🎰
 // Integer { value: 1629499483n } RoosterBattle - Brazilian Community
+setInterval(() => {
+     arrayName.forEach(async (Element) => {
+          const result = getStrategyByRoullet(Element)
+          if (typeof result != 'undefined') {
+               console.log("result undefined")
+          } else {
+               console.log(result)
+          }
+     })
 
+
+
+}, 35000 / 2)
 
 
 const MESAVIP = await client.getInputEntity(-1614635356)
