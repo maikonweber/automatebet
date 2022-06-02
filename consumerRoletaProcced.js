@@ -267,18 +267,17 @@ function colunasAlternat(json) {
 
                 // Make a post with axios for localhost:3000/api/bet365
                 console.log(obj);
-                try {
-                    axios.post('https://api.muttercorp.online/api/bet365', obj).then(
+          
+                axios.post('https://api.muttercorp.online/api/bet365', obj).then(
                         res => {
                             console.log(res);
                         }
-
+                    ).catch(
+                        err => {
+                            console.log(err);
+                        }
                     )
-                }       
-                catch(err) {    
-                    console.log(err);
-                }
-                
+
 
         }
     });
