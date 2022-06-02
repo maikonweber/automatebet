@@ -86,10 +86,10 @@ app.post('/api/bet365', async (req, res) => {
     console.log(name, name_);
     console.log(number, "number");
     const result = await getLastNumber(name_);
-    console.log(result);
+    console.log(result, "result", result.length,'Number' ,number, );
     if (typeof result == 'undefined') {
-      const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
-      res.json(result,'result : number', number);
+        return 
+        
     } else if (
       result.numberjson === number
     ) 
