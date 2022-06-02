@@ -1,2 +1,1 @@
-Alternando entre as Colunas 
-Aucencia de Colunas
+Teoria dos Jogos Aplicada no Footbol
