@@ -1,49 +1,144 @@
-// const { TelegramClient, Api } = require("telegram");
-// const { StringSession } = require("telegram/sessions");
-// const input = require("input"); // npm i input
+const { TelegramClient, Api } = require("telegram");
+const { StringSession } = require("telegram/sessions");
+const input = require("input"); // npm i input
 
-// var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
 
-// const apiId = 17228434;
-// const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
-// const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTkBu56ALdSaYUL23O5CFsgt2+z5IxJET8cjyhEeB2j+7YBtgUQvbVHh8+BhMN1+IZs/nnFtEwFpxwZnHm7P59qvCh7epulQG51Mbhw3/mO5V2xUL/vhoeYBwc5PZwrDxZ38MiYox8Y3CTK/rpvn4oKK8BbXJoJ4+XWO+5+uQj4TOQmzWM9ahDxAaFjPj9IWFqiN3LvcAJFJ1k3Q8TdSTaJQghTRIP1afQ7TdD8o5DQozl307Lg/s05Q+neNey1QghMvsUXwWfyrvzkQAqx2ma5Nl7ZhVtRhr7GxzSXQmoLtLcZGdlVky/fBtq2XsyKqXvs1GKQWftURsUb6uCdSN/XSx+w=");
+const =  "UK_Roulette"
+const = "Roleta_Brasileira"
+ Football_French_Roulette"
+ Who_Wants_To_Be_a_Millionaire?_Roulette
+ Speed_Auto_Roulette
+ Prestige_Roulette
+ Age_Of_The_Gods_Bonus_Roulette
+ Roulette_Italiana
+ Who_Wants_To_Be_a_Millionaire?_Roulette
+ Triumph_French_Roulette
+ French_Roulette
+ American_Roulette
+ Triumph_Roulette
+ Turkish_Roulette
+ Hindi_Roulette
+ Mega_Fire_Blaze_Roulette_Live
+ Spread_Bet_Roulette
+ Roulette
+ Auto_Roulette
+ Deutsches_Roulette
+ Greek_Roulette
+ Super_Spin_Roulette
+ bet365_Roulette
+ Greek_Quantum_Roulette
+ Roleta_Brasileira
+ Football_Roulette
+ Speed_Roulette
+ Prestige_Roulette
+ Speed_Auto_Roulette
+ French_Roulette
+ Football_French_Roulette
+ Roulette
+ Roulette_Italiana
+ Who_Wants_To_Be_a_Millionaire?_Roulette
+ UK_Roulette
+ bet365_Dutch_Roulette
+ Roulette
+ Deutsches_Roulette
+ Auto_Roulette
+ French_Roulette
+ Who_Wants_To_Be_a_Millionaire?_Roulette
+ Age_Of_The_Gods_Bonus_Roulette
+ Quantum_Roulette_Live
+ Turkish_Roulette
+ American_Roulette
+ Quantum_Auto_Roulette
+*/
 
-// (async () => {
-// var queue = "RoulletBet365";
-// console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
-// console.log("Loading interactive example...");
+
+const apiId = 17228434;
+const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
+const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aIIxTP3DyN8TpvvFzvhWTNyZpI9ab3wx4v99YYIosj0cYMeDFccmzjoAPIVlVgs/cpb+7J7hoablPmB6hQNqCJJfJgy1RgFy711OSiphW1BqXPaa8wwk2Bib+vWTcyPN88TL87cE2lbRHe/Nm8URGzoybg3HqXC6WFPtaRqpy0QJVgIS3vzxg3VskhnThUsRhVpB7cfi1+08TCCWXN0CzHk9m7Nq37BImjQv0+/xThM+8apPNMRH0Q6gtN7IEehczT0MSeDTG2S3vrmuZiRnR/NvpjP3+fjjRHsP8VzERZXu4nhW+GQL6NuY0KcdtEzHuIyUQPbD+fUM=");
+
+(async () => {
+var queue = "RoulletBet365";
+console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+console.log("Loading interactive example...");
   
-// const client = new TelegramClient(stringSession, apiId, apiHash, {
-//     connectionRetries: 5,
-//   });
-                                                                                                                                                                                                                                                                                                                                                                   
-// await client.start({
-//     phoneNumber: async () => await input.text("Please enter your number: "),
-//     password: async () => await input.text("Please enter your password: "),
-//     phoneCode: async () =>
-//       await input.text("Please enter the code you received: "),
-//     onError: (err) => console.log(err),
-//   });
-// console.log("You should now be connected.");
-// console.log(client.session.save()); // Save this string to avoid logging in again
-//   await client.connect();
-//     console.log("You should now be logged in.");
-
-
-// const result = await client.invoke( new Api.messages.GetAllChats({
-//         exceptIds : [43]
-//     }) );
-
-//     for(let i = 0; i < result.chats.length; i++){
-//         console.log(result.chats[i].id, result.chats[i].title)
-    
-//     }
+const client = new TelegramClient(stringSession, apiId, apiHash, {
+    connectionRetries: 5,
+  })
 
 
 
-// const chatInvest = await client.getInputEntity(-1785323314)
+const obj = {
+     "MesaVip" : function (estrategia) {
+          return `✅ ENTRADA CONFIRMADA ✅
+          🎰 Roleta 🎰: ${estrategia.name}
+          🚀 Estratégia 🚀: ${estrategia.typestregia}
+          👉🏻 Entrada 👈🏻: ${estrategia} 
+          ${estrategia.fistNumber} | ${estrategia.secondNumber} | ${estrategia.threeNumber} 
+          🎯 Cobrir o zero"`
+     }
+
+}
+
+
+async function clientSendMsgGrupo (client, grupoId, mensagem) {
+     const sala = await client.getInputEntity(messageId)
+     
+     return   client.invoke(new Api.messages.SendMessage({
+                          peer: sala,
+                          message: chat.message.toString()
+                      }))
+
+}
+
+
+await client.start({
+    phoneNumber: async () => await input.text("Please enter your number: "),
+    password: async () => await input.text("Please enter your password: "),
+    phoneCode: async () =>
+      await input.text("Please enter the code you received: "),
+    onError: (err) => console.log(err),
+  });
+console.log("You should now be connected.");
+console.log(client.session.save()); // Save this string to avoid logging in again
+  await client.connect();
+    console.log("You should now be logged in.");
+
+
+const result = await client.invoke( new Api.messages.GetAllChats({
+        exceptIds : [43]
+    }) );
+
+
+    for(let i = 0; i < result.chats.length; i++){
+        console.log(result.chats[i].id, result.chats[i].title)
+    }
+
+// 1150553286n } MÁFIA DA ROLETA - [VIP] 🎰💰
+// Integer { value: 1266295662n } VR BOT
+// Integer { value: 1267429660n } MÁFIA DA ROLETA - [FREE] 🎰💰
+// Integer { value: 1581808712n } NOVA MINING INVESTMENT
+// Integer { value: 1614635356n } Mesa VIP | Bot Cassino 🎰
+// Integer { value: 1629499483n } RoosterBattle - Brazilian Community
+
+
+
+const MESAVIP = await client.getInputEntity(-1614635356)
+
+})()
+
+
+
+
+
+
 // const mafiaRoleta = await client.getInputEntity(-1267429660)
+
+// setInterval(async () => {
+
+
+//                }, 5000)
 
 // const lastMessage = await client.getMessages(chatInvest, {
 //     limit: 1,
@@ -115,4 +210,3 @@
 // // )
 // // }, 5000);
 
-// })()
