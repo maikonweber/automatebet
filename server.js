@@ -19,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+/// Cors 
+
 
 
 
@@ -64,7 +66,7 @@ app.post('/api/bet365', async (req, res) => {
       "strategyOneTo18" :strategyOneTo18
     }
     
-    const { colunas, duzias, impares, pares, green, red, oneto18, nineteenTo36 } = jsonb;
+    const { colunas, duzias, impares, pares, green, red, oneto18, nineteenTo36 } = preload;
 
     const jsonPreload = {
       "colunas" : colunas,
