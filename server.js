@@ -84,12 +84,15 @@ app.post('/api/bet365', async (req, res) => {
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
-    const lastNumber = JSON.parse(resultado.numberjson)
     const lastNumberString = lastNumber.toString()
-    const numberJsonParse = JSON.parse(numberJson)
     const numberJsonString = numberJsonParse.toString()
 
-
+    console.log(lastNumberString, numberJsonString)
+    if (lastNumberString === numberJsonString) {
+      console.log('Já existe um número igual ao último número')
+    } else {
+      console.log('Número diferente do último número')
+    }
 
 
     
