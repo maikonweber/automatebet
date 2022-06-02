@@ -83,9 +83,9 @@ app.post('/api/bet365', async (req, res) => {
 
 
     let name_ = name.replace(/\s/g, '_');
-    const result = await getLastNumber(name_);
-    console.log(result.numberJson, number)
-    console.log(result.numberJson === numberJson)
+    const resultado = await getLastNumber(name_);
+    console.log(resultado.numberjson, number)
+    console.log(resultado.numberjson === numberJson)
 
     if (!result) {
       console.log('Não existe')
