@@ -229,7 +229,7 @@ async function getStrategyByRoullet (name) {
                jsonbstrategy->>'strategy19to36' as to36, jsonbstrategy->>'strategyOneTo18' as to18,
                jsonbstrategy->>'strategyParReapeat' as parRepeat, jsonbstrategy->>'strategyDuziaRepeat' as BlocoRepeat,
                jsonbstrategy->>'strategyColumnsRepeat' as ColumnsRepeat, jsonbstrategy->>'strategyAlternateColum' as AlternateColumn 
-               FROM robotbetpayload where name ~ 1$
+               FROM robotbetpayload where name ~ $1
                Order by Created 
                LIMIT 1) Select * from d
                ;` // Roleta_Brasileira
