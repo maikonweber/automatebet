@@ -101,8 +101,8 @@ app.post('/api/bet365', async (req, res) => {
   } else {
     console.log("Nao existe este registro ::" , number, name_ )
     res.json({
-      "error"
-  })
+      "error" : "Error", name_
+    })
   }
   
     
