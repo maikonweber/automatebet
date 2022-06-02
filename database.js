@@ -236,7 +236,7 @@ async function getLastNumber (name) {
 
 async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
     let sql = `insert into robotbetpayload (name, numberjson, jsonbpreload, jsonbstrategy) 
-    values ($1, $2, $3, $4, $5)`;
+    values ($1, $2, $3, $4)`;
 
     let result = await pool.query(sql, [name, numberJson, jsonPreload, jsonbStrategy]);
 }
