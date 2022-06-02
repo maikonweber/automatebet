@@ -84,18 +84,28 @@ app.post('/api/bet365', async (req, res) => {
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
+    if (typeof resultado.numberJson != 'undefined') {
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
     console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
     console.log(lastNumberString, ":: Numbers LastNumber :: Type Of ::", typeof lastNumberString)
-      console.log(lastNumberString === numberJsonString, ':: LastNumber =  NumberJson')
-    if (lastNumberString === numberJsonString) {
+    console.log(lastNumberString === numberJsonString, ':: LastNumber =  NumberJson')
+    if (&& lastNumberString === numberJsonString) {
       console.log('Já existe um número igual ao que está tentando inserir')
+      res.json("Numero não inserido")
     } else {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
-      console.log(result);
-    }
-    res.json('You have set the blaze at ')
+      console.log(result.rows, "ID :", name_, number);
+      res.json('You have set the blaze at ')
+    } 
+  } else {
+    console.log("Nao existe este registro ::" , number, name_ )
+    res.json({
+      "error"
+    ])
+  }
+  
+    
 })
 
 app.use('/api/v1/*', (req, res, next) => {
