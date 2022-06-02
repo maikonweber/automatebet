@@ -227,7 +227,7 @@ async function getLastNumber (name) {
     let sql = `Select numberJson 
     from robotBetPayload where name = $1
     order by created  
-    desc limit $1`;
+    desc limit 1;`;
 
     let result = await pool.query(sql, [name]);
     return result.rows[0].number
