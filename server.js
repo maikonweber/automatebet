@@ -85,7 +85,7 @@ app.post('/api/bet365', async (req, res) => {
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
-    if (typeof resultado != 'undefined') {
+    if (typeof resultado === 'undefined') {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result.rows, "ID :", name_, number);
       res.json('You have set the blqaze at ')
