@@ -230,7 +230,7 @@ async function getLastNumber (name) {
     desc limit 1;`;
 
     let result = await pool.query(sql, [name]);
-    return result.rows[0].number
+    return result.rows[0].numberJson
 
 }
 
