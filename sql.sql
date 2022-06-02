@@ -3,6 +3,27 @@ Create Table telegramBot {
     jsonb jsonb not null
 }
 
+CREATE TABLE robotBetPayload (
+    id serial primary key,
+    name varchar(255) not null,
+    numberJson jsonb not null,
+    jsonbPreload jsonb not null,
+    created timestamp default now(),
+    jsonbStrategy jsonb not null
+);
+
+CREATE TABLE robotBetSygnal (
+    id serial primary key,
+    number jsonb not null,
+    created timestamp default now(),
+    detectStretegy jsonb not null,
+    result boolean,
+    martingale boolean,
+    martingale2 boolean,
+    martingale3 boolean
+);
+
+
 
 CREATE TABLE roullete (
 id serial PRIMARY KEY,

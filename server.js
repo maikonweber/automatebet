@@ -50,12 +50,15 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 }) 
 
-app.post('/api/bet365', (req, res) => {
+app.post('/api/bet365', async (req, res) => {
     const body = req.body;
 
     const { name, number, preload, strategyDuziaRepeat, 
     strategyColumnReapeat, strategyAlternateColum, strategy19to36, strategyImparReapeat
   , strategyParReapeat , strategyGreen, strategyRed, strategyOneTo18 } = body;
+
+      // Convert number type array to jsonb
+    const numberJson = JSON.stringify(number);
 
     const jsonbStrategy = {
       "strategy19to39" : strategy19to36,
@@ -86,28 +89,24 @@ app.post('/api/bet365', (req, res) => {
     let name_ = name.replace(/\s/g, '_');
     console.log(name, name_);
     console.log(number, "number");
-    pool.query(`Select number 
+    const result = await pool.query(`Select number 
                 from robotBetPayload where 
                 order by created  
-                desc limit $1`, [name_]), (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(200).send("O seu nome não existe");
-        } else {
-            if (result.rows[0].number === number) {
-                res.status(200).send("O seu número já calculado");
-            } else {
-                pool.query(`INSERT INTO robotBetPayload (name, number, jsobPreload, jsobStrategy) VALUES ($1, $2, $3, $4)`, [name ,number, jsonPreload, jsonbStrategy], (err, result) => {
-                    if (err) {
-                        console.log(err);
-                        res.status(200).send("O seu nome não existe");
-                    } else {
-                        res.status(200).send("O seu número foi calculado");
-                    }
-                })
-                }
-            }
-    
+                desc limit $1`, [name_])
+    console.log(result.rows[0].number);
+    if(result.rows[0].number === numberJson){
+      console.log("Já existe");
+      res.json({
+        "status" : "Já existe"
+      })
+    } else {
+      console.log("Não existe");
+      await pool.query(`insert into robotBetPayload (name, numberJson, preload, jsonbStrategy) 
+      values ($1, $2, $3, $4, $5)`, [name, numberJson, jsonPreload, jsonbStrategy, jsonbStrategy])
+      res.json({
+        "status" : "Ok"
+      })
+    }
 })
 
 app.use('/api/v1/*', (req, res, next) => {
