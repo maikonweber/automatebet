@@ -224,6 +224,8 @@ async function getColSygnal() {
 }
 
 async function getStrategyByRoullet (name) {
+    console.log(name)
+
     let sql = `With d as (Select name, numberjson, jsonbpreload, jsonbstrategy->>'strategyRed' as strategyred,
                jsonbstrategy->>'strategyGreen' as strategygreen, jsonbstrategy->>'strategyGreen' as strategyGreen,
                jsonbstrategy->>'strategy19to36' as to36, jsonbstrategy->>'strategyOneTo18' as to18,
@@ -233,7 +235,7 @@ async function getStrategyByRoullet (name) {
                Order by Created 
                LIMIT 1) Select * from d;` // Roleta_Brasileira
     const result = await pool.query(sql, [name])
-    return result.rows[0]   
+    return result.rows   
 }
 
 
