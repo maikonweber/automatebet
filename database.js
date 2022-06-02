@@ -238,7 +238,7 @@ async function InsertRoullete (name, numberJson, preload, jsonbStrategy) {
     let sql = `insert into robotBetPayload (name, numberJson, preload, jsonbStrategy) 
     values ($1, $2, $3, $4, $5)`;
 
-    let result = await pool.query(sql, [name, numberJson, preload, jsonbStrategy]);
+    let result = await pool.query(sql, [name, numberJson, jsonPreload, jsonbStrategy]);
 }
     
 async function insertUsersToken(id, navegator, is_admin) {
