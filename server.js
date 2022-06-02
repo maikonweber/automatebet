@@ -72,12 +72,13 @@ app.post('/api/bet365', async (req, res) => {
 
     const jsonPreload = {
       "colunas" : colunas,
-      "duzias" : duzias,
+      "colunas2" : colunas2,
+      "duzias" : bloco,
       "impares" : impares,
       "pares" : pares,
       "green" : green,
       "red" : red,
-      "oneto18" : oneto18,
+      "oneto18" : oneTo18,
       "nineteenTo36" : nineteenTo36
     }
 
