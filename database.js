@@ -239,6 +239,7 @@ async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
     values ($1, $2, $3, $4)`;
 
     let result = await pool.query(sql, [name, numberJson, jsonPreload, jsonbStrategy]);
+    return result;
 }
     
 async function insertUsersToken(id, navegator, is_admin) {

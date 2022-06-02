@@ -87,19 +87,19 @@ app.post('/api/bet365', async (req, res) => {
     console.log(number, "number");
     const result = await getLastNumber(name_);
     console.log(result);
-    
-    if(!result && result.numberJson === numberJson){
-      console.log("Já existe");
-      res.json({
-        "status" : "Já existe"
-      })
-    } else {
-      console.log("Não existe");
+    if (typeof result == 'undefined') {
       const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
-      res.json({
-        "status" : "Ok"
-      })
+      res.json(result);
+    } else if (
+      result.number.toString() === number.toString()
+    ) 
+    {
+      res.json('You already bet this number');  
+    } else {
+      const result = await InsertRoullete(name_, numberJson, jsonPreload, jsonbStrategy);
+      res.json(result);
     }
+
 })
 
 app.use('/api/v1/*', (req, res, next) => {
