@@ -238,7 +238,7 @@ async function getStrategyByRoullet (name) {
 
 
                 const result = await pool.query(sql, [name])
-                console.log(result)
+                console.log(result.rows)
                 return result.rows   
 }
 
