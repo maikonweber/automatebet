@@ -12,7 +12,9 @@ const {
   insertUsersToken,
   getUser,
   getAllSygnal,
-  getAllRows
+  getAllRows,
+  InsertRoullete,
+  getLastNumber
 } = require('./database');
 
 app.use(express.json());
