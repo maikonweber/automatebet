@@ -87,7 +87,7 @@ app.post('/api/bet365', async (req, res) => {
     console.log(resultado.numberjson, number)
     console.log(resultado.numberjson === numberJson)
 
-    if (!result) {
+    if (!resultado.numberjson) {
       console.log('Não existe')
       
     } else {
