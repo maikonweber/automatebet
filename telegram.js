@@ -72,7 +72,7 @@ const obj = {
 
 
 async function clientSendMsgGrupo (client, grupoId, mensagem) {
-     const sala = await client.getInputEntity(messageId)
+     const sala = await client.getInputEntity(grupoId)
      
      return   client.invoke(new Api.messages.SendMessage({
                           peer: sala,
@@ -116,7 +116,10 @@ setInterval(() => {
      arrayName.forEach(async (Element) => {
           console.log(Element)
           const result = await getStrategyByRoullet(Element)
-          console.log(result[0].strategyred)
+          await clientSendMsg(client, '-1266295662', result)
+          await clientSendMsgGrupo(client, '-1267429660', result)
+          await clientSendMsg(client, '-1581808712', result)
+          await clientSendMsg(client, '-1614635356', result)
           if (typeof result != 'undefined') {
                console.log('result undefined')
           } else {
