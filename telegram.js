@@ -73,11 +73,10 @@ const obj = {
 
 async function clientSendMsgGrupo (client, grupoId, mensagem) {
      const sala = await client.getInputEntity(grupoId)
-     console.log(sala)
-
-     return  client.invoke(new Api.messages.SendMessage({
+     console.log(sala) 
+     return   client.invoke(new Api.messages.SendMessage({
                           peer: sala,
-                          message: message.toString()
+                          message: mensagem.toString()
                       }))
 
 }
@@ -121,7 +120,7 @@ setInterval(() => {
           const result = await getStrategyByRoullet(Element)
           // Match RegEx Nao Indenticado for Result strategy
           console.log(result)
-          
+
           
 
           if (typeof result != 'undefined') {
