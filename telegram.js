@@ -110,10 +110,13 @@ const result = await client.invoke( new Api.messages.GetAllChats({
 // Integer { value: 1581808712n } NOVA MINING INVESTMENT
 // Integer { value: 1614635356n } Mesa VIP | Bot Cassino 🎰
 // Integer { value: 1629499483n } RoosterBattle - Brazilian Community
+
+
 setInterval(() => {
      arrayName.forEach(async (Element) => {
           console.log(Element)
           const result = await getStrategyByRoullet(Element)
+          console.log(result[0].strategyred)
           if (typeof result != 'undefined') {
                console.log('result undefined')
           } else {
