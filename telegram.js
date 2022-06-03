@@ -116,10 +116,10 @@ setInterval(() => {
      arrayName.forEach(async (Element) => {
           console.log(Element)
           const result = await getStrategyByRoullet(Element)
-          await clientSendMsg(client, '-1266295662', result)
+          await clientSendMsgGrupo(client, '-1266295662', result)
           await clientSendMsgGrupo(client, '-1267429660', result)
-          await clientSendMsg(client, '-1581808712', result)
-          await clientSendMsg(client, '-1614635356', result)
+          await clientSendMsgGrupo(client, '-1581808712', result)
+          await clientSendMsgGrupo(client, '-1614635356', result)
           if (typeof result != 'undefined') {
                console.log('result undefined')
           } else {
