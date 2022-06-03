@@ -73,10 +73,11 @@ const obj = {
 
 async function clientSendMsgGrupo (client, grupoId, mensagem) {
      const sala = await client.getInputEntity(grupoId)
-     
-     return   client.invoke(new Api.messages.SendMessage({
+     console.log(sala)
+
+     return  client.invoke(new Api.messages.SendMessage({
                           peer: sala,
-                          message: chat.message.toString()
+                          message: message.toString()
                       }))
 
 }
@@ -99,6 +100,8 @@ const result = await client.invoke( new Api.messages.GetAllChats({
         exceptIds : [43]
     }) );
 
+    
+
 
     for(let i = 0; i < result.chats.length; i++){
         console.log(result.chats[i].id, result.chats[i].title)
@@ -116,10 +119,11 @@ setInterval(() => {
      arrayName.forEach(async (Element) => {
           console.log(Element)
           const result = await getStrategyByRoullet(Element)
-          await clientSendMsgGrupo(client, '-1266295662', result)
-          await clientSendMsgGrupo(client, '-1267429660', result)
-          await clientSendMsgGrupo(client, '-1581808712', result)
-          await clientSendMsgGrupo(client, '-1614635356', result)
+          // Match RegEx Nao Indenticado for Result strategy
+          console.log(result)
+          
+          
+
           if (typeof result != 'undefined') {
                console.log('result undefined')
           } else {
