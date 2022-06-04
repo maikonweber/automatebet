@@ -233,13 +233,13 @@ async function getStrategyByRoullet (name) {
                jsonbstrategy->>'strategyColumnsRepeat' as ColumnsRepeat, jsonbstrategy->>'strategyAlternateColum' as AlternateColumn 
                FROM robotbetpayload where name ~ $1
                Order by Created 
-               LIMIT 1) 
-               Select * from d;` // Roleta_Brasileira
+               LIMIT 1)` 
 
 
-                const result = await pool.query(sql, [name])
-                console.log(result.rows)
-                return result.rows   
+            const result = await pool.query(sql, [name])
+            console.log(result.rows[0])
+            
+            return result.rows   
 }
 
 

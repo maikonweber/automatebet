@@ -2,6 +2,13 @@ const { TelegramClient, Api } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
 const { getStrategyByRoullet } = require('./database')
+// Redis
+const redis = require('redis');
+const client = redis.createClient({
+     host: 'localhost',
+     port: 6379
+});
+
 
 
 var amqp = require('amqplib/callback_api');
@@ -70,6 +77,84 @@ const obj = {
      }
 }
 
+function strategyProced (estrategia) {
+     If (estrategia.typestregia === 'MesaVip') {
+          
+          return 
+     }
+     
+     let obj = {
+          'Color RED REPEAT' : function (estrategiaParse, msg, ) {
+               return `✅ ENTRADA CONFIRMADA ✅
+               🎰 Roleta 🎰: ${estrategia.name}
+               🚀 Estratégia 🚀: ${estrategia.typestregia}
+               👉🏻 Entrada 👈🏻: ${estrategia}
+               ${estrategia.fistNumber} | ${estrategia.secondNumber} | ${estrategia.threeNumber}
+               🎯 Cobrir o zero'`
+          },
+          'Alternancia da Coluna 1 e 2' : function (estrategia) {
+          },
+          'Alternancia da Coluna 3 e 1' : function (estrategia) {
+          },
+          'Alternancia da Coluna 1 e 3' : function (estrategia) {
+          },
+          'Alternancia da Coluna 3 e 1' : function (estrategia) {
+          },
+          'Alternancia da Coluna 2 e 1' : function (estrategia) {
+          },
+          'Alternancia da Coluna 3 e 2' : function (estrategia) {
+          },
+          'Impar Reapeat' : function (estrategia) {
+          },
+          'Par Reapeat' : function (estrategia) {
+          },
+          'Duzia Reapeat' : function (estrategia) {
+          },
+          'Color Green REPEAT' : function (estrategia) {
+          
+          },
+          'One to 18' : function (estrategia) {
+          },
+          'One to 36' : function (estrategia) {
+          },
+          'Duzia de 1' : function (estrategia) {
+          },
+          'Duzia de 2' : function (estrategia) {
+          },
+          'Duzia de 3' : function (estrategia) {
+          },
+          'Coluna 1' : function (estrategia) {
+          },
+          'Coluna 2' : function (estrategia) {
+          },
+          'Coluna 3' : function (estrategia) {
+          },
+
+
+
+
+
+     }
+
+
+     return obj[estrategia.typestregia](estrategia)
+
+}
+
+
+function strategyMemory(number, estrategiaDetect, numberJson, lastNumber) {
+
+          
+}
+
+function strategyConsult(number, estrategiaDetect, numberJson, lastNumbet) {
+
+
+
+
+}
+
+
 
 async function clientSendMsgGrupo (client, grupoId, mensagem) {
      const sala = await client.getInputEntity(grupoId)
@@ -120,8 +205,8 @@ setInterval(() => {
           const result = await getStrategyByRoullet(Element)
           // Match RegEx Nao Indenticado for Result strategy
           console.log(result)
-
-          
+          if(result.length > 0){
+               result.r
 
           if (typeof result != 'undefined') {
                console.log('result undefined')

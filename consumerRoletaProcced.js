@@ -54,20 +54,20 @@ const strategyAlternateColum = {
     }
 
     const strategyGreenRepeat = {
-        'true,true,true,true,true,true,true,true' : function(){
-            return "Color Red";
+        'false,false,false,false,false,false,false,false' : function(){
+            return "Color Green REPEAT";
         }
     }
 
     const strategyOneTo18 = {
         'true,true,true,true,true,true,true,true' : function(){
-            return "Color Red";
+            return "One to 18";
         }
     }
 
     const strategy19to36 = {
         'true,true,true,true,true,true,true,true' : function(){
-            return "One to 18";
+            return "19 to 36";
         }
     }
 
