@@ -15,13 +15,13 @@ services:
     
     ports:
       - "5532:5432"
-  redisDb: 
-    container_name: roullet_redis
-    image: 'redis:6.0.6'
+  redis:
+    image: redislabs/redismod
     ports:
-      - '127.0.0.1:6379:6379/tcp'
-    healthcheck:
-      test: redis-cli ping
-      interval: 3s
-      timeout: 5s
-      retries: 5
+      - 6379:6379
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - '8001:8001'
+    volumes:
+      - ./Users/ajeetraina/data/redisinsight:/db 

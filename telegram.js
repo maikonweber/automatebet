@@ -6,7 +6,8 @@ const { getStrategyByRoullet } = require('./database')
 const redis = require('redis');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
-     port: 6379
+     port: 6379,
+     expire: 180
 });
 console.log(clientRedis);
 clientRedis.connect();
@@ -348,22 +349,20 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
      }
      
      const verifyEstrategia = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
-     console.log(verifyEstrategia)
      strategyConsult(rouletteName, estrategiaDetect, number, expectNumber, objetoRolleta)
      
      if (verifyEstrategia) {
-          console.log('Estratégia já foi usada')
           return 'Estratégia já foi usada'
-
 
      } else {
 
-          const setMemory = await clientRedis.set(`${rouletteName}_${estrategiaDetect}`, JSON.stringify(objetoRolleta, number, expectNumber, estrategiaDetect), 'EX', 80)
+          const setMemory = await clientRedis.set(`${rouletteName}_${estrategiaDetect}`, JSON.stringify({objetoRolleta, number, expectNumber, estrategiaDetect}), {
+          EX: 180
+          })
           console.log('Setando a memória: ', setMemory)
-
           await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
+          await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
      }
     
 
@@ -420,20 +419,20 @@ function strategyProced (objetoRolleta) {
      
 
 
-async function strategyConsult(rouletteName, estrategiaDetect, number, expectNumber, objetoRolleta) {
-     console.log(`${rouletteName}_${estrategiaDetect}`)
-     console.log(number, 'number')
+async function strategyConsult(rouletteName, estrategiaDetect, number) {
+     const result = await getStrategyByRoullet(rouletteName)
      const client = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
-     const clientJson = JSON.parse(client)
-     console.log(await clientRedis.select(1))
-     
-     await clientRedis.keys('*', function(err, keys) {
-          console.log(keys);
-     });
-     console.log('Estratégia: ', clientJson)
-
-
-
+     const parseClient = JSON.parse(client)
+     const lastResult = result[0].numberjson[0]
+     console.log(lastResult, 'last')
+     const expectNumberArray = parseClient.expectNumber
+     console.log(expectNumber, 'number')
+     if (parseClient.expectNumber.includes(lastResult)) {
+          clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
+          await sendMsg('-1266295662', `${rouletteName}, GREEN, ${result[0].numberjson[0]}`)
+     } else {
+          console.log('Nao Dectectado')
+     }    
 }
 
 
@@ -455,7 +454,7 @@ const result = await client.invoke( new Api.messages.GetAllChats({
         exceptIds : [43]
     }) );
 
- async function sendMsg (sala, msg) {
+ async function sendMsg(sala, msg) {
      const salaEntity = await client.getEntity(sala)
      await client.invoke( new Api.messages.SendMessage({
           peer: salaEntity,
