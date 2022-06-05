@@ -2,7 +2,7 @@
 // redis io
 const redis = require('redis');
 const redisClient = redis.createClient({
-    host: 'localhost',
+    host: '127.0.0.1',
     port: 6379
 });
 const axios = require('axios');
@@ -87,7 +87,16 @@ const strategyDuziaRepeat = {
     },
     '3,3,3,3,3,3' : function(){
         return "Duzia de 3";
-    } 
+    },
+}
+
+const strategyRed4Time = {
+    'true,true,true,true' : function(){
+        return "Red 4 Time"
+    },
+    'false,false,false,false' : function(){
+        return "White 4 Time";
+    }
 }
 
 const strategyColumnReapeat = { 
@@ -191,7 +200,7 @@ function getStrategy(strategy, value, number){
     if(strategy[`${StringValue}`]){
         return strategy[`${StringValue}`]();
     }
-    return `Não identificado; ${StringValue}`;
+    return `Não identificado`;
 }
 
 function colunasAlternat(json) {
@@ -234,6 +243,7 @@ function colunasAlternat(json) {
                 colunas2 : preload[i].colunas2,
                 bloco : preload[i].bloco,
                 red : preload[i].red,
+                red2 : preload[i].red,
                 green : preload[i].green,
                 par : preload[i].par,
                 impar : preload[i].impar,
@@ -251,7 +261,7 @@ function colunasAlternat(json) {
                 obj.strategyGreen = getStrategy(strategyGreenRepeat, obj.green, "10");
                 obj.strategyRed = getStrategy(strategyColorReapeat, obj.red, "10");
                 obj.strategyOneTo18 = getStrategy(strategyOneTo18, obj.oneTo18, "10");
-                
+                obj.strategyRed4Time = getStrategy(strategyRed4Time, obj.red2, "4");
                 // console.log(obj.name, "name");
                 // console.log(obj.number, "number");
                 // console.log(obj.strategyAlternateColum, "strategyAlternateColum");
@@ -267,10 +277,10 @@ function colunasAlternat(json) {
 
                 // Make a post with axios for localhost:3000/api/bet365
                 console.log(obj);
-          
-                axios.post('https://api.muttercorp.online/api/bet365', obj).then(
+             // 'https://api.muttercorp.online/api/bet365'
+                axios.post('http://localhost:3055/api/bet365', obj).then(
                         res => {
-                            console.log(res);
+                           
                         }
                     ).catch(
                         err => {

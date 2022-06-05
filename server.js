@@ -51,7 +51,7 @@ app.post('/api/bet365', async (req, res) => {
 
     const { name, number, preload, strategyDuziaRepeat, 
     strategyColumnReapeat, strategyAlternateColum, strategy19to36, strategyImparReapeat
-  , strategyParReapeat , strategyGreen, strategyRed, strategyOneTo18 } = body;
+  , strategyParReapeat , strategyGreen, strategyRed, strategyOneTo18, strategyRed4Time } = body;
 
       // Convert number type array to jsonb
     const numberJson = JSON.stringify(number);
@@ -65,13 +65,15 @@ app.post('/api/bet365', async (req, res) => {
       "strategyParReapeat" : strategyParReapeat,
       "strategyGreen" : strategyGreen,
       "strategyRed" : strategyRed,
-      "strategyOneTo18" :strategyOneTo18
+      "strategyOneTo18" :strategyOneTo18,
+      "strategyRed4Time" : strategyRed4Time
     }
     
     const { colunas, bloco, impares, pares, green, red, oneTo18, nineteenTo36, colunas2 } = preload;
 
     const jsonPreload = {
       "colunas" : colunas,
+
       "colunas2" : colunas2,
       "duzias" : bloco,
       "impares" : impares,
@@ -87,7 +89,7 @@ app.post('/api/bet365', async (req, res) => {
     const resultado = await getLastNumber(name_);
     if (typeof resultado === 'undefined') {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
-      console.log(result.rows, "ID :", name_, number);
+      console.log(result.rows, "ID :", name_, number, jsonbStrategy);
       res.json('You have set the blqaze at ')
     } else {
     const lastNumberString = resultado.numberjson.toString()

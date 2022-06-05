@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const redis = require("redis");
 const client = redis.createClient({
-  host: "localhost",
+  host: "127.0.0.1",
   port: 6379
 });
 
@@ -214,7 +214,7 @@ class RoulleteBot {
   
 
 
-    }, 35000 / 2);
+    }, 35000 / 2 / 2);
  
   
 }

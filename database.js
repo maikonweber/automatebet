@@ -224,21 +224,13 @@ async function getColSygnal() {
 }
 
 async function getStrategyByRoullet (name) {
-    console.log(name)
-
-    let sql = `With d as (Select name, numberjson, jsonbpreload, jsonbstrategy->>'strategyRed' as strategyred,
-               jsonbstrategy->>'strategyGreen' as strategygreen, jsonbstrategy->>'strategyGreen' as strategyGreen,
-               jsonbstrategy->>'strategy19to36' as to36, jsonbstrategy->>'strategyOneTo18' as to18,
-               jsonbstrategy->>'strategyParReapeat' as parRepeat, jsonbstrategy->>'strategyDuziaRepeat' as BlocoRepeat,
-               jsonbstrategy->>'strategyColumnsRepeat' as ColumnsRepeat, jsonbstrategy->>'strategyAlternateColum' as AlternateColumn 
+    let sql = `Select name, numberjson, jsonbpreload, jsonbstrategy, created, id 
                FROM robotbetpayload where name ~ $1
-               Order by Created 
-               LIMIT 1)` 
+               Order by created 
+               Desc LIMIT 1;` 
 
 
             const result = await pool.query(sql, [name])
-            console.log(result.rows[0])
-            
             return result.rows   
 }
 
