@@ -41,7 +41,73 @@ const arrayName = [
  'Bucharest_Roulette',
  'American_Roulette',
 ]
-// */
+
+const jsonRoullete = {
+     'Turkish_Roulette' : function () {
+          return ``
+     },
+     'UK_Roulette' : function () {
+
+          return ``
+     },
+     'Roulette' : function () {
+          return
+     },
+     'Football_French_Roulette': () => {
+          return 
+     },
+     'Spread_Bet_Roulette': () => {
+          return
+     },
+     'Greek_Quantum_Roulette': () => {
+          return
+     }, 
+     'Deutsches_Roulette': () => {
+          return
+     }, 
+     'Speed_Roulette': () => {
+          return
+     },
+     'Prestige_Roulette': () => {
+          return
+     },
+     'Mega_Fire_Blaze_Roulette_Live': () => {
+          return
+     },
+     'Football_Roulette': () => {
+          return
+     },
+     'Quantum_Roulette_Live': () => {
+          return
+     },
+     'Greek_Roulette': () => {
+          return
+     },
+     'Roleta_Brasileira': () => {
+          return
+     }, 
+     'Auto_Roulette': () => {
+          return
+     },
+     'French_Roulette': () => {
+          return
+     },
+     'Quantum_Auto_Roulette': () => {
+          return
+     },
+     'Hindi_Roulette': () => {
+          return
+     },
+     'Roulette_Italiana': () => {
+          return
+     },
+     'Bucharest_Roulette': () => {
+          return
+     },
+     'American_Roulette': () => {
+          return
+     }
+}
 
 
 const apiId = 17228434;
@@ -67,32 +133,38 @@ const expectNumber = {
      'Alternancia da Coluna 1 e 2' : function () {
           const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
           const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
-          return [col1, col2]    
+          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+          return col3.concat(col2)
      },
      'Alternancia da Coluna 3 e 1' : function () {
           const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
           const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
-          return [col3, col1]
+          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+          return col2.concat(col1)
      },
      'Alternancia da Coluna 1 e 3' : function () {
           const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
           const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
-          return [col1, col3]
+          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+          return col2.concat(col3)
      },
      'Alternancia da Coluna 3 e 1' : function () {
           const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
           const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
-          return [col3, col1]
+          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+          return col2.concat(col1)
      },
      'Alternancia da Coluna 2 e 1' : function () {
           const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
           const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
-          return [col2, col1]
+          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+          return col3.concat(col1)
      },
      'Alternancia da Coluna 3 e 2' : function () {
           const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
           const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
-          return [col3, col2]
+          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+          return col1.concat(col2)
      },
      'Impar Reapeat' : function () {
           const impar = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35]
@@ -103,7 +175,9 @@ const expectNumber = {
           return par
      },
      'Duzia Reapeat' : function () {
-          const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+          const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+          const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+          const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
           return duzia
      },
      'One to 18' : function () {
@@ -123,33 +197,46 @@ const expectNumber = {
           return white
      },
      'Duzia de 1' : function () {
-          const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
-          return duzia
+          const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+          const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+          const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+          return duzia2.concat(duzia3)
      },
      'Duzia de 2' : function () {
-          const duzia = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
-          return duzia
+          const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+          const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+          const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+          return duzia.concat(duzia3)
      },
      'Duzia de 3' : function () {
-          const duzia = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+          const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+          const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+          const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
           return duzia
      },
      'Coluna 1' : function () {
+          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
           const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
-          return col1
+          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+          return col2.concat(col3)
      },
      'Coluna 2' : function () {
-          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
-         return col2
-     },
-        'Coluna 3' : function () {
           const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
-          return col3
+          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+         return col3.concat(col1)
+     },
+     'Coluna 3' : function () {
+          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+          return col2.concat(col1)
      },
      'Alternancia da Coluna 2 e 3' : function () {
           const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
           const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
-          return [col2, col3]
+          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+          return col1.concat(col3)
      }
 }
 
@@ -175,22 +262,25 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
           'Color RED REPEAT' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
+               🚀 Estratégia 🚀:  Repiticao de Vermelhos
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
                👉🏻 Entrada 👈🏻: ${expectNumber}
                🎯 Cobrir o zero'`
           },
           'Alternancia da Coluna 1 e 2' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Alternancia da Coluna 1 e 2
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Colunas 3 -  ${expectNumber}
                🎯 Cobrir o zero'`
           },
           'Alternancia da Coluna 3 e 1' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Colunas 2 -  ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
@@ -198,7 +288,8 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Colunas 2 ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
@@ -206,7 +297,8 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Colunas 2 ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
@@ -214,36 +306,40 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               👉🏻 Entrada 👈🏻: Colunas 3
                🎯 Cobrir o zero'`
           },
           'Alternancia da Coluna 3 e 2' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Coluna 1 ${expectNumber}
                🎯 Cobrir o zero'`
           },
           'Impar Reapeat' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repiticao de Numeros Impar
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Qualquer numero par ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
           'Par Reapeat' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repeti'cao do numeros Par
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Qualquer numero impar ${expectNumber}
                🎯 Cobrir o zero'`
           },
           'Duzia Reapeat' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: ${expectNumber} - 
                🎯 Cobrir o zero'`
 
           },
@@ -251,15 +347,17 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Entrar da Vermelha
                🎯 Cobrir o zero'`
 
           },
           'One to 18' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repeticao dos numero menores
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Qualquer numero maior ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
@@ -267,31 +365,35 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Entrada nos Numeros Menores ${expectNumber}
                🎯 Cobrir o zero'`
 
            },
           'Duzia de 1' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repiticao da 1 Duzia
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Entrada na 2 Duzia ou 3 duzia ${expectNumber}
                🎯 Cobrir o zero'`
 
                    },
           'Duzia de 2' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repiticao da 2 Duzia.
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Duzia 1 ou Duzia 3 ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
           'Duzia de 3' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repiticao de Duzia 3 ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Duzia 2 ou 1
                🎯 Cobrir o zero'`
 
           },
@@ -299,8 +401,9 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
           
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repiticao da Coluna 1
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: Entrada na 2 colunas ou 3 Colunas ${expectNumber}
                🎯 Cobrir o zero'`
 
            },
@@ -308,42 +411,27 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
           
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               🚀 Estratégia 🚀: Repiti'cao da 2 Colunas 
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
+               👉🏻 Entrada 👈🏻: : Colunas 1 ou Colunas 3 ${expectNumber}
                🎯 Cobrir o zero'`
 
           },
           'Coluna 3' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
-               ${number[0]} | ${number[1]} | ${number[0]}
+               🚀 Estratégia 🚀: Repeticao da 3 Colunas
+               👉🏻 Entrada 👈🏻: Colunas 2 ou Colunas 1 ${expectNumber}
+               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
                🎯 Cobrir o zero'`
                
-          },
-          'Red 4 Time' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
-               return `✅ ENTRADA CONFIRMADA ✅
-               🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
-               🎯 Cobrir o zero'`
-          },
-          'White 4 Time' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
-               return `✅ ENTRADA CONFIRMADA ✅
-               🎰 Roleta 🎰: ${rouletteName}
-               🚀 Estratégia 🚀: ${estrategiaDetect}
-               LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
-               🎯 Cobrir o zero'`
           },
           'Alternancia da Coluna 2 e 3' : function (number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect) {
                return `✅ ENTRADA CONFIRMADA ✅
                🎰 Roleta 🎰: ${rouletteName}
                🚀 Estratégia 🚀: ${estrategiaDetect}
                LastNumber : ${number[0]} | ${number[1]} | ${number[2]} | ${number[3]}
-               👉🏻 Entrada 👈🏻: ${expectNumber}
+               👉🏻 Entrada 👈🏻: Colunas 1  ${expectNumber}
                🎯 Cobrir o zero'`
           }
      }
@@ -355,14 +443,15 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
           return 'Estratégia já foi usada'
 
      } else {
-
           const setMemory = await clientRedis.set(`${rouletteName}_${estrategiaDetect}`, JSON.stringify({objetoRolleta, number, expectNumber, estrategiaDetect}), {
-          EX: 180
+          EX: 360
           })
           console.log('Setando a memória: ', setMemory)
+          // await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
+          // await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
+          // await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
+          await sendMsg('-703391126', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
      }
     
 
@@ -385,6 +474,7 @@ function regExe(string, objetoRolleta, strategyArg) {
 
 
 function strategyProced (objetoRolleta) {
+     console.log('Consultando Strategia Proced')
      const strategRed = objetoRolleta.jsonbstrategy.strategyRed
      const strategGree = objetoRolleta.jsonbstrategy.strategyGreen
      const s18to39 = objetoRolleta.jsonbstrategy.strategy19to39
@@ -405,34 +495,33 @@ function strategyProced (objetoRolleta) {
           regExe(imparReapt, objetoRolleta, 'imparReapt')
           regExe(columnsReapt, objetoRolleta, 'columnsReapt')
           regExe(alternateColumns, objetoRolleta, 'alternateColumns')
-          regExe(red4time, objetoRolleta, 'red4time')
           
 }
 
-
-
-
-
-     
-
-    
      
 
 
 async function strategyConsult(rouletteName, estrategiaDetect, number) {
+     setTimeout( async () => {
+     console.log('Consultando Strategia')
      const result = await getStrategyByRoullet(rouletteName)
      const client = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
+
      const parseClient = JSON.parse(client)
-     const lastResult = result[0].numberjson[0]
-     console.log(lastResult, 'last')
+     const lastResult = result[0].numberjson
      const expectNumberArray = parseClient.expectNumber
-     console.log(expectNumber, 'number')
-     if (parseClient.expectNumber.includes(lastResult)) {
+     console.log(expectNumberArray, 'number')
+
+     if (parseClient.expectNumber.includes(lastResult[0])) {
           clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          await sendMsg('-1266295662', `${rouletteName}, GREEN, ${result[0].numberjson[0]}`)
+          await sendMsg('-703391126', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
+          await sendMsg('-1266295662', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
      } else {
-          console.log('Nao Dectectado')
+          clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
+          await sendMsg('-703391126', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
+          await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)     
      }    
+     }, 40000)  
 }
 
 
@@ -492,7 +581,7 @@ setInterval(() => {
           })
      })
 
-}, 35000 / 2)
+}, 35000)
 
 
 

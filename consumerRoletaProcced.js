@@ -20,22 +20,22 @@ const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
 const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTkBu56ALdSaYUL23O5CFsgt2+z5IxJET8cjyhEeB2j+7YBtgUQvbVHh8+BhMN1+IZs/nnFtEwFpxwZnHm7P59qvCh7epulQG51Mbhw3/mO5V2xUL/vhoeYBwc5PZwrDxZ38MiYox8Y3CTK/rpvn4oKK8BbXJoJ4+XWO+5+uQj4TOQmzWM9ahDxAaFjPj9IWFqiN3LvcAJFJ1k3Q8TdSTaJQghTRIP1afQ7TdD8o5DQozl307Lg/s05Q+neNey1QghMvsUXwWfyrvzkQAqx2ma5Nl7ZhVtRhr7GxzSXQmoLtLcZGdlVky/fBtq2XsyKqXvs1GKQWftURsUb6uCdSN/XSx+w=");
 
 const strategyAlternateColum = {
-    "1,2,1,2,1" : function(){
+    "1,2,1,2,1,2,1" : function(){
         return "Alternancia da Coluna 1 e 2";
     },
-    '2,1,2,1,2' : function(){
+    '2,1,2,1,2,1,2' : function(){
         return "Alternancia da Coluna 2 e 1";
     },
-    '1,3,1,3,1' : function(){
+    '1,3,1,3,1,3,1' : function(){
         return "Alternancia da Coluna 3 e 1";
     },
-    '3,1,3,1,3' : function(){
+    '3,1,3,1,3,1,3' : function(){
         return "Alternancia da Coluna 3 e 1";
     },
-    '3,2,3,2,3' : function(){
+    '3,2,3,2,3,2,3' : function(){
         return "Alternancia da Coluna 3 e 2";
     },
-    '2,3,2,3,1' : function(){
+    '2,3,2,3,2,3,2' : function(){
         return "Alternancia da Coluna 2 e 3";
     },
     };  
@@ -253,7 +253,7 @@ function colunasAlternat(json) {
 
                 obj.strategyDuziaRepeat = getStrategy(strategyDuziaRepeat, obj.bloco, "6");
                 obj.strategyColumnReapeat = getStrategy(strategyColumnReapeat, obj.colunas2, "8");
-                obj.strategyAlternateColum = getStrategy(strategyAlternateColum, obj.colunas, "5");
+                obj.strategyAlternateColum = getStrategy(strategyAlternateColum, obj.colunas, "7");
                 obj.strategy19to36 = getStrategy(strategy19to36, obj.nineteenTo36, "10");
                 obj.strategyImparReapeat = getStrategy(strategyImparReapeat, obj.impar, "10");
                 obj.strategyParReapeat = getStrategy(strategyParRepeat, obj.par, "10");
