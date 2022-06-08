@@ -15,7 +15,6 @@ clientRedis.connect();
 
 
 
-
 var amqp = require('amqplib/callback_api');
 
 const arrayName = [
@@ -450,8 +449,8 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
           // await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           // await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           // await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          await sendMsg('-703391126', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
+          
      }
     
 
@@ -514,12 +513,12 @@ async function strategyConsult(rouletteName, estrategiaDetect, number) {
 
      if (parseClient.expectNumber.includes(lastResult[0])) {
           clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          await sendMsg('-703391126', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
           await sendMsg('-1266295662', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
+          
      } else {
           clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          await sendMsg('-703391126', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-          await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)     
+          await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
+          
      }    
      }, 40000)  
 }
@@ -545,6 +544,9 @@ const result = await client.invoke( new Api.messages.GetAllChats({
 
  async function sendMsg(sala, msg) {
      const salaEntity = await client.getEntity(sala)
+
+     console.log(salaEntity)
+
      await client.invoke( new Api.messages.SendMessage({
           peer: salaEntity,
           message: msg.toString()
