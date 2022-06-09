@@ -9,13 +9,9 @@ const clientRedis = redis.createClient({
      port: 6379,
      expire: 180
 });
-console.log(clientRedis);
-clientRedis.connect();
-// get all key in redis
 
 
-
-var amqp = require('amqplib/callback_api');
+clientRedis.publish('TelegramCallFilter', message)
 
 const arrayName = [
  'Turkish_Roulette',
@@ -109,20 +105,20 @@ const jsonRoullete = {
 }
 
 
-const apiId = 17228434;
-const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aIIxTP3DyN8TpvvFzvhWTNyZpI9ab3wx4v99YYIosj0cYMeDFccmzjoAPIVlVgs/cpb+7J7hoablPmB6hQNqCJJfJgy1RgFy711OSiphW1BqXPaa8wwk2Bib+vWTcyPN88TL87cE2lbRHe/Nm8URGzoybg3HqXC6WFPtaRqpy0QJVgIS3vzxg3VskhnThUsRhVpB7cfi1+08TCCWXN0CzHk9m7Nq37BImjQv0+/xThM+8apPNMRH0Q6gtN7IEehczT0MSeDTG2S3vrmuZiRnR/NvpjP3+fjjRHsP8VzERZXu4nhW+GQL6NuY0KcdtEzHuIyUQPbD+fUM=');
+// const apiId = 17228434;
+// const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
+// const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aIIxTP3DyN8TpvvFzvhWTNyZpI9ab3wx4v99YYIosj0cYMeDFccmzjoAPIVlVgs/cpb+7J7hoablPmB6hQNqCJJfJgy1RgFy711OSiphW1BqXPaa8wwk2Bib+vWTcyPN88TL87cE2lbRHe/Nm8URGzoybg3HqXC6WFPtaRqpy0QJVgIS3vzxg3VskhnThUsRhVpB7cfi1+08TCCWXN0CzHk9m7Nq37BImjQv0+/xThM+8apPNMRH0Q6gtN7IEehczT0MSeDTG2S3vrmuZiRnR/NvpjP3+fjjRHsP8VzERZXu4nhW+GQL6NuY0KcdtEzHuIyUQPbD+fUM=');
 
 
 
-(async () => {
-var queue = 'RoulletBet365';
-console.log(' [*] Waiting for messages in %s. To exit press CTRL+C', queue);
-console.log('Loading interactive example...');
+// (async () => {
+// var queue = 'RoulletBet365';
+// console.log(' [*] Waiting for messages in %s. To exit press CTRL+C', queue);
+// console.log('Loading interactive example...');
   
-const client = new TelegramClient(stringSession, apiId, apiHash, {
-    connectionRetries: 5,
-  })
+// const client = new TelegramClient(stringSession, apiId, apiHash, {
+//     connectionRetries: 5,
+//   })
 
 const expectNumber = {
      'Color RED REPEAT' : function () {
@@ -449,8 +445,8 @@ async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteNa
           // await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           // await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           // await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
+          await sendMsg('-703391126', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
           await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          
      }
     
 
@@ -510,53 +506,49 @@ async function strategyConsult(rouletteName, estrategiaDetect, number) {
      const lastResult = result[0].numberjson
      const expectNumberArray = parseClient.expectNumber
      console.log(expectNumberArray, 'number')
-     
 
      if (parseClient.expectNumber.includes(lastResult[0])) {
           clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
+          await sendMsg('-703391126', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
           await sendMsg('-1266295662', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-          
      } else {
           clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-          
+          await sendMsg('-703391126', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
+          await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)     
      }    
      }, 40000)  
 }
 
 
 
-await client.start({
-    phoneNumber: async () => await input.text('Please enter your number: '),
-    password: async () => await input.text('Please enter your password: '),
-    phoneCode: async () =>
-      await input.text('Please enter the code you received: '),
-    onError: (err) => console.log(err),
-  });
-console.log('You should now be connected.');
-console.log(client.session.save()); // Save this string to avoid logging in again
-  await client.connect();
-    console.log('You should now be logged in.');
+// await client.start({
+//     phoneNumber: async () => await input.text('Please enter your number: '),
+//     password: async () => await input.text('Please enter your password: '),
+//     phoneCode: async () =>
+//       await input.text('Please enter the code you received: '),
+//     onError: (err) => console.log(err),
+//   });
+// // console.log('You should now be connected.');
+// // console.log(client.session.save()); // Save this string to avoid logging in again
+//   await client.connect();
+//     console.log('You should now be logged in.');
 
 
-const result = await client.invoke( new Api.messages.GetAllChats({
-        exceptIds : [43]
-    }) );
+// const result = await client.invoke( new Api.messages.GetAllChats({
+//         exceptIds : [43]
+//     }) );
 
- async function sendMsg(sala, msg) {
-     const salaEntity = await client.getEntity(sala)
+//  async function sendMsg(sala, msg) {
+//      const salaEntity = await client.getEntity(sala)
+//      await client.invoke( new Api.messages.SendMessage({
+//           peer: salaEntity,
+//           message: msg.toString()
+//      }) );
+//      }
 
-     console.log(salaEntity)
-
-     await client.invoke( new Api.messages.SendMessage({
-          peer: salaEntity,
-          message: msg.toString()
-     }) );
-     }
-
-    for(let i = 0; i < result.chats.length; i++){
-        console.log(result.chats[i].id, result.chats[i].title)
-    }
+//     for(let i = 0; i < result.chats.length; i++){
+//         console.log(result.chats[i].id, result.chats[i].title)
+//     }
 
 // -1150553286 } MÁFIA DA ROLETA - [VIP] 🎰💰
 // Integer { value: 1266295662n } VR BOT
@@ -565,11 +557,9 @@ const result = await client.invoke( new Api.messages.GetAllChats({
 // Integer { value: 1614635356n } Mesa VIP | Bot Cassino 🎰
 // Integer { value: 1629499483n } RoosterBattle - Brazilian Community
 
-
-setInterval(() => {
+async function callProcedStrate() {
      arrayName.forEach(async (Element) => {
           const result = await getStrategyByRoullet(Element)
-          
           
           // Match RegEx Nao Indenticado for Result strateg
           result.forEach(async (estrategia) => {
@@ -583,9 +573,12 @@ setInterval(() => {
                strategyProced(obj)
           })
      })
-
-}, 35000 / 2)
-
+}
 
 
-})()
+
+
+
+module.exports = {
+     callProcedStrate,
+}
