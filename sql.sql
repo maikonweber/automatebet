@@ -15,7 +15,7 @@ CREATE TABLE robotBetPayload (
 CREATE TABLE robotBetSygnal (
     id serial primary key,
     number jsonb not null,
-    created timestamp default now(),
+    created timestamp default now(), bvvvvvvvvvvvvvvvvvc
     detectStretegy jsonb not null,
     result boolean,
     martingale boolean,
@@ -58,4 +58,12 @@ phone varchar(200) not null,
 address varchar(200) not null
 );
 
-CREATE TABLE 
+CREATE TABLE users_filters (
+    id serial PRIMARY KEY,
+    user_id integer not null references users(id),
+    games jsonb not null,
+    created timestamp default now(),
+    string_msg text not null,
+    string_msg_green text not null,
+    string_msg_red text not null
+);

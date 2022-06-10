@@ -2,23 +2,15 @@
 // redis io
 const redis = require('redis');
 const redisClient = redis.createClient({
-    host: '127.0.0.1',
+    host: "127.0.0.1",
     port: 6379
-});
+  });
 const axios = require('axios');
 (async () => {
 
 const subscriber = redisClient.duplicate();
 await subscriber.connect();
 
-const { TelegramClient, Api } = require("telegram");
-const { StringSession } = require("telegram/sessions");
-const input = require("input"); // npm i input
-
-
-const apiId = 17228434;
-const apiHash = "b05e1c84ad4dd7c77e9965204c016a36";
-const stringSession = new StringSession("1AQAOMTQ5LjE1NC4xNzUuNTkBu56ALdSaYUL23O5CFsgt2+z5IxJET8cjyhEeB2j+7YBtgUQvbVHh8+BhMN1+IZs/nnFtEwFpxwZnHm7P59qvCh7epulQG51Mbhw3/mO5V2xUL/vhoeYBwc5PZwrDxZ38MiYox8Y3CTK/rpvn4oKK8BbXJoJ4+XWO+5+uQj4TOQmzWM9ahDxAaFjPj9IWFqiN3LvcAJFJ1k3Q8TdSTaJQghTRIP1afQ7TdD8o5DQozl307Lg/s05Q+neNey1QghMvsUXwWfyrvzkQAqx2ma5Nl7ZhVtRhr7GxzSXQmoLtLcZGdlVky/fBtq2XsyKqXvs1GKQWftURsUb6uCdSN/XSx+w=");
 
 const strategyAlternateColum = {
     "1,2,1,2,1,2,1" : function(){
@@ -278,9 +270,9 @@ function colunasAlternat(json) {
                 // Make a post with axios for localhost:3000/api/bet365
                 console.log(obj);
              // 'https://api.muttercorp.online/api/bet365'
-                axios.post('https://api.muttercorp.online/api/bet365', obj).then(
+                axios.post('http://localhost:3055/api/bet365', obj).then(
                         res => {
-                           
+                           console.log(res.data);
                         }
                     ).catch(
                         err => {

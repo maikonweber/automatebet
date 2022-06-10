@@ -66,8 +66,11 @@ class RoulleteBot {
         const glee = []
         let elefant = document.querySelectorAll('.lobby-table__name-container')
         // Mouse over of all elements
+        let url;
         elefant.forEach(element => {
           element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+          // Get any url in the element
+            
         });
 
         for (let i = 0; i < dophin.length; i++) {

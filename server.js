@@ -11,9 +11,9 @@ const {
   createUsers,
   insertUsersToken,
   getUser,
-  getAllSygnal,
   getAllRows,
   InsertRoullete,
+  getLastNumber18,
   getLastNumber
 } = require('./database');
 
@@ -70,10 +70,9 @@ app.post('/api/bet365', async (req, res) => {
     }
     
     const { colunas, bloco, impares, pares, green, red, oneTo18, nineteenTo36, colunas2 } = preload;
-
+   
     const jsonPreload = {
-      "colunas" : colunas,
-
+      "colunas" : colunas,      
       "colunas2" : colunas2,
       "duzias" : bloco,
       "impares" : impares,
@@ -81,12 +80,15 @@ app.post('/api/bet365', async (req, res) => {
       "green" : green,
       "red" : red,
       "oneto18" : oneTo18,
-      "nineteenTo36" : nineteenTo36
+      "nineteenTo36" : nineteenTo36, // last 18 numbers
     }
-
+    
 
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
+    const last18 = await getLastNumber18(name_);
+
+    jsonPreload.last18 = last18;
     if (typeof resultado === 'undefined') {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result.rows, "ID :", name_, number, jsonbStrategy);

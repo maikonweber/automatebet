@@ -2,6 +2,7 @@ const hasher = require('./hasher')
 const crypto = require('crypto')
 
 var pg = require('pg');
+const { fromLine } = require('telegram/tl/generationHelpers');
 let client = {
     host: 'localhost',
     port: 5532,
@@ -102,106 +103,6 @@ async function insertIntoLiveRoullete(result) {
 }
 
 
-async function getAllSygnal() {
-    let trueSql = `SELECT count(*) FROM roullete_new 
-    Where aposta ~* 'Bloco' 
-    AND result = 'true' 
-    AND firstgale = 'false' 
-    AND secondgale = 'false' 
-    AND zero = 'false'
-    AND created > (now() - interval '1 day')
-    OR aposta ~* 'Coluna'
-    AND result = true 
-    AND firstgale = 'false'
-    AND secondgale = 'false' 
-    AND zero = 'false' 
-    AND created > (now() - interval '1 day');`
-
-
-    let falseSql = `SELECT count(*) FROM roullete_new 
-    Where 
-    aposta ~ 'Bloco' 
-    AND result = false  
-    AND created > (now() - interval '1 day')
-    or aposta ~ 'Coluna'
-    AND result = false  
-    AND created > (now() - interval '1 day');`
-
-    let firstgaleSql = `SELECT count(*) FROM roullete_new 
-    Where 
-    aposta ~ 'Bloco'
-    AND firstgale = true 
-    AND result = true
-    AND secondgale = false
-    AND created > (now() - interval '1 day')
-    OR aposta ~ 'Coluna'
-    AND firstgale = true 
-    AND result = true
-    AND secondgale = false
-    AND created > (now() - interval '1 day');`
-
-    let secondgaleSql = `SELECT count(*) FROM roullete_new 
-    Where 
-    aposta ~* 'Bloco' 
-    AND secondgale = true 
-    AND result = true 
-    AND created > now() - interval '1 day'
-    OR aposta ~* 'Coluna'
-    AND secondgale = true 
-    AND result = true 
-    AND created > now() - interval '1 day'`
-    
-    let zeroSql = `SELECT count(*) FROM roullete_new 
-    Where 
-    aposta ~* 'Bloco' 
-    AND zero = true 
-    AND result = true 
-    AND created > now() - interval '1 day'
-    OR aposta ~* 'Coluna'
-    AND 
-    zero = true 
-    AND result = true 
-    AND created > now() - interval '1 day'`
-    
-    let secondGaleLoss = `SELECT count(*) FROM roullete_new 
-    Where
-    aposta ~* 'Bloco' 
-    AND secondgale = true 
-    AND result = false 
-    AND created > now() - interval '1 day'
-    OR aposta ~* 'Coluna'
-    AND
-    secondgale = true AND result = false
-    AND created > now() - interval '1 day';`
-
-    let Total = `SELECT count(*) FROM roullete_new 
-    Where aposta ~ 'Bloco'
-    AND created > (now() - interval '1 day')
-    OR aposta ~ 'Coluna' 
-    AND created > (now() - interval '1 day');`	
-
-
-    let trueResult = await pool.query(trueSql);
-    let falseResult = await pool.query(falseSql);
-    let firstgaleResult = await pool.query(firstgaleSql);
-    let secondgaleResult = await pool.query(secondgaleSql);
-    let zeroResult = await pool.query(zeroSql);
-    let totalResult = await pool.query(Total);
-    let secondGaleLossResult = await pool.query(secondGaleLoss);
-
-
-    return {
-        total: totalResult.rows[0].count,
-        true: trueResult.rows[0].count,
-        false: falseResult.rows[0].count,
-        firstgale: firstgaleResult.rows[0].count,
-        secondgale: secondgaleResult.rows[0].count,
-        zero: zeroResult.rows[0].count,
-        secondGaleLoss: secondGaleLossResult.rows[0].count
-    }
-}
-
-
 async function getAllRows() {
     let sql = `SELECT * FROM roullete_new
     Where aposta ~ 'Bloco' AND created > (now() - interval '1 day')
@@ -216,8 +117,6 @@ async function getColSygnal() {
     let sql = `SELECT * FROM roullete_new
     WHERE aposta ~ 'Bloco'
     OR aposta ~ 'Coluna';
-
-
              `;
     let result = await pool.query(sql);
     return result.rows  
@@ -229,21 +128,38 @@ async function getStrategyByRoullet (name) {
                Order by created 
                Desc LIMIT 1;` 
 
-
             const result = await pool.query(sql, [name])
             return result.rows   
 }
 
-
-async function getLastNumber (name) {
-    let sql = `Select numberjson 
-    from robotbetpayload where name ~ $1
+async function getLastNumber(name) {
+    let sql = `SELECT numberjson 
+    FROM robotbetpayload where name ~ $1
     order by created  
     desc limit 1;`;
 
     let result = await pool.query(sql, [name]);
-    return result.rows[0]
+    return result.rows[0];
+}
 
+async function getUsuariosActivosPadroes (id) {
+    let query = `Select * FROM users where id = $1`
+
+} 
+
+
+async function getLastNumber18(name) {
+    let sql = `SELECT numberjson 
+    FROM robotbetpayload where name ~ $1
+    order by created  
+    desc limit 10;`;
+
+    let result = await pool.query(sql, [name]);
+    console.log(result)
+    return obj = {
+        fistRow : result.rows[0],
+        lastRow : result.rows[9]
+    }
 }
 
 async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
@@ -293,12 +209,12 @@ module.exports = {
     createUsers,
     getUser,
     insertIntoLiveRoullete,
-    getAllSygnal,
     insertUsersToken,
     checkToken,
     getAllRows,
     InsertRoullete,
-    getLastNumber,
+    getLastNumber18,
+    getLastNumber,  
     getStrategyByRoullet
 }
 
