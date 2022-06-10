@@ -92,19 +92,64 @@ async function strategyConsultFor18(newArray)  {
      const x19To36 = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 0]
 
      let colunas = []
+     let blocos = []
+     let reds = []
+     let greens = []
+     let OneTo18s = []
+     let x19To36s = []
+
      for(let i = 0; i < newArray.length; i++) {
           if (columa1.includes(newArray[i])) {
-               return colunas.push(columa1)
+               colunas.push(1)
           } else if (coluna2.includes(newArray[i])) {
-               return colunas.push(coluna2)
+               colunas.push(2)
           } else if (coluna3.includes(newArray[i])) {
-               return colunas.push(coluna3)
+               colunas.push(3)
           } else {
-               return colunas.push(newArray[i])
-           }
-     } 
+               colunas.push(0)
+          }
+     }
+     for(let i = 0; i < newArray.length; i++) {
+          if (bloco1.includes(newArray[i])) {
+               blocos.push(1)
+          } else if (bloco2.includes(newArray[i])) {
+               blocos.push(2)
+          } else if (bloco3.includes(newArray[i])) {
+               blocos.push(3)
+          } else {
+               blocos.push(0)
+          }
+     }
+
+     for(let i = 0; i < newArray.length; i++) {
+          if (red.includes(newArray[i])) {
+               reds.push(1)
+          } else {
+               reds.push(0)
+          }
+     }
+     for(let i = 0; i < newArray.length; i++) {
+          if (green.includes(newArray[i])) {
+               greens.push(1)
+          } else {
+               greens.push(0)
+          }
+     }
+     for(let i = 0; i < newArray.length; i++) {
+          if (OneTo18.includes(newArray[i])) {
+               OneTo18s.push(1)
+          } else if (x19To36.includes(newArray[i])) {
+               OneTo18s.push(2)
+          } else {
+               OneTo18s.push(0)
+          }
+     }
      let strategyProccess  = { 
           colunas : colunas,
+          blocos : blocos,
+          reds : reds,
+          greens : greens,
+          OneTo18s : OneTo18s,
      }
 
      return strategyProccess
@@ -121,10 +166,10 @@ async function strategyProced (objetoRolleta) {
      // Remove every time the 10th element of array and make a new array com rest of elements
      const newArray = concat.filter((item, index) => index % 10 !== 9)
 
-     strategyConsultFor18(newArray)
-
+     const strategyProcess = await strategyConsultFor18(newArray)
+     console.log(strategyProcess)
+     objetoRolleta.strategyProcess = strategyProcess
      const nineteenTo36 = objetoRolleta.jsonbstrategy.nineteenTo36    
-     console.log('Consultando Strategia Proced', nineteenTo36)
      const strategRed = objetoRolleta.jsonbstrategy.strategyRed
      const strategGree = objetoRolleta.jsonbstrategy.strategyGreen
      const s18to39 = objetoRolleta.jsonbstrategy.strategy19to39
@@ -225,7 +270,7 @@ setInterval(() => {
           // Match RegEx Nao Indenticado for Result strateg
           
           result.forEach(async (estrategia) => {
-          if(estrategia.jsonbstrategy.last18.fistRow.numberjson) {
+          if(estrategia.jsonbstrategy.last18.fistRow) {
                let obj = {
                'roulletename' : estrategia.name,
                'jsonbstrategy'  :   estrategia.jsonbpreload,
