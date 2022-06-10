@@ -180,7 +180,7 @@ async function strategyConsultFor18(newArray)  {
 
 }
 
-const {
+var {
      BlocosRepeat,
      ColunasRepeat,
      redReapeat,
@@ -189,10 +189,11 @@ const {
      on18or36
 } = require('./jsonObjects/jsonStrategy.js')
 
+
 function getStrategy(strategy, value, number){
      // Received the number of element need remove to value array
      // Return the array with the element removed
-     console.log(strategy)
+     console.log(strategy, value, number)
      const array = value
      const arrayRemove = value.slice(0, value.length - number)
      const StringValue = arrayRemove.toString()
