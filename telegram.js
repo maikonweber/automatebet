@@ -155,8 +155,26 @@ async function strategyConsultFor18(newArray)  {
      return strategyProccess
 }
 
-async function strategy18Procced () {
+
+function getStrategy(strategy, value, number){
+     // Received the number of element need remove to value array
+     // Return the array with the element removed
+     const array = value
      
+     
+     if(strategy[`${StringValue}`]){
+         return strategy[`${StringValue}`]();
+     }
+     return `Não identificado`;
+
+}
+
+async function strategy18Procced (strategy) {
+     const stringColunas = strategy.colunas.toString()
+     const stringBlocos = strategy.blocos.toString()
+     const stringRed = strategy.greens.toString()
+     const stringOneTo18 = strategy.oneTo18.toString()
+     // Convert array to string
 }
 
 
@@ -173,6 +191,7 @@ async function strategyProced (objetoRolleta) {
      console.log(strategyProcess)
      objetoRolleta.strategyProcess = strategyProcess
      strategy18ProccedResult = await strategy18Procced(objetoRolleta.strategyProccess)
+
      const nineteenTo36 = objetoRolleta.jsonbstrategy.nineteenTo36    
      const strategRed = objetoRolleta.jsonbstrategy.strategyRed
      const strategGree = objetoRolleta.jsonbstrategy.strategyGreen
@@ -285,6 +304,7 @@ setInterval(() => {
           //console.log(obj)  
                strategyProced(obj)
           } else {
+
           console.log(`Payload nao esta comprometido ${estrategia.name}`)
           
      }

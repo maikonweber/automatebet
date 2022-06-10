@@ -24,8 +24,6 @@ app.use(cookieParser());
 /// Cors 
 
 
-
-
 app.post('/api/v1/setblaze', async (req, res) => {
   console.log(req)
   const horario = req.body.horario

@@ -15,7 +15,6 @@ const arrayName = [
     'Roleta_Brasileira',
     'Auto_Roulette',
     'French_Roulette',
-    'Quantum_Auto_Roulette',
     'Hindi_Roulette',
     'Roulette_Italiana',
     'Bucharest_Roulette',
