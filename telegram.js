@@ -155,6 +155,9 @@ async function strategyConsultFor18(newArray)  {
      return strategyProccess
 }
 
+async function strategy18Procced () {
+     
+}
 
 
 async function strategyProced (objetoRolleta) {
@@ -169,6 +172,7 @@ async function strategyProced (objetoRolleta) {
      const strategyProcess = await strategyConsultFor18(newArray)
      console.log(strategyProcess)
      objetoRolleta.strategyProcess = strategyProcess
+     strategy18ProccedResult = await strategy18Procced(objetoRolleta.strategyProccess)
      const nineteenTo36 = objetoRolleta.jsonbstrategy.nineteenTo36    
      const strategRed = objetoRolleta.jsonbstrategy.strategyRed
      const strategGree = objetoRolleta.jsonbstrategy.strategyGreen
