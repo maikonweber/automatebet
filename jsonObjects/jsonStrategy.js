@@ -547,9 +547,10 @@ const parOuImpar = {
 }
 
 module.exports = {
-     BlocosRepeat,
+     blocosRepeat,
      ColunasRepeat,
      redReapeat,
      parOuImpar,
-     on18or36
+     on18or36,
+     blackRepeat
 }
