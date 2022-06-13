@@ -74,7 +74,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
      setTimeout(() => {
           resolve()
          
-     }, 5000);
+     }, 15000);
      })
 
 }
