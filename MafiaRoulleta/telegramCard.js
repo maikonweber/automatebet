@@ -40,9 +40,12 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
               console.log(result.chats[i].id, result.chats[i].title)
           }
 
+
      const lastMessage = await client.getMessages(junior, {
                limit: 1,
            });
+
+     console.log(lastMessage[0].message)
            
      let last;
 
@@ -59,6 +62,8 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
                     peer: mafiaCardFree,
                     message: chat.message.toString()
                 }))
+                   last = chat.message.toString()
+
                  }
 
                }
