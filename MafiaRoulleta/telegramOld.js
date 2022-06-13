@@ -49,16 +49,17 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
      console.log(last[0].message)
      setInterval(async () => {
      console.log("Thick ")
+
      const lastMessage = await client.getMessages(junior, {
           limit: 1,
       });
 
      console.log(lastMessage[0].message)
-
+     console.log(last[0].message)
      lastMessage.forEach(
           (chat, index) => {
               if(chat.message.toString() != last[0].message){
-                    console.log("Match new Msg")
+                  console.log("Match new Msg")
                   console.log(chat.message.toString())
                   client.invoke(new Api.messages.SendMessage({
                       peer: mafiaCard,
