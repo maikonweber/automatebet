@@ -34,63 +34,51 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
       
      const mafiaCard = -1745267675;
      const junior = -1418171934;
-     const mafiaCardFree = -1734065719;
+     const mafiaFree = -1734065719
 
-     for(let i = 0; i < result.chats.length; i++){
+          for(let i = 0; i < result.chats.length; i++){
               console.log(result.chats[i].id, result.chats[i].title)
-     }
+          }
 
-     async function sendMsg(sala, msg) {
-      const salaEntity = await client.getEntity(sala)
- 
-     console.log(salaEntity)
- 
-     await client.invoke( new Api.messages.SendMessage({
-          peer: salaEntity,
-          message: msg.toString()
-     }) );
-    }
-
+     
+           
      let last = await client.getMessages(junior, {
-            limit: 1,
-     })
-
-     const lastMessage = last[0].message.toString()
-     console.log(lastMessage)
-
+          limit : 1,
+     });
 
      while (true) {
+     const lastMessage = await client.getMessages(junior, {
+          limit: 1,
+      }); 
+     lastMessage.forEach(
+          (chat, index) => {
+              if(chat.message.toString() != last[0].message){
+                  console.log(chat.message.toString())
+                  client.invoke(new Api.messages.SendMessage({
+                      peer: mafiaCard,
+                      message: chat.message.toString()
+                  }))
+               setTimeout(() => {
+                  client.invoke(new Api.messages.SendMessage({
+                    peer: mafiaFree,
+                    message: chat.message.toString()
+                     }))
+                    }, 8000)
+                  last = lastMessage
+                 }
 
-          let lastMessage = await client.getMessages(junior, {
-               limit: 1,
-          });
-
-          console.log(typeof last[0].message)
-
-          console.log(last[0].message, lastMessage[0].message)
-          console.log(lastMessage[0].message != last[0].message)
-
-    if(lastMessage[0].message.text != last[0].message.text){
-      console.log("New Message")
-      const lastmsg = lastMessage[0].message
-      console.log(lastmsg)
-      sendMsg(mafiaCard, lastmsg)
-      sendMsg(mafiaCardFree, lastmsg)
-
-
-      last = lastMessage
-     }
-
+               }
+          )
 
      const p = new Promise((resolve, reject) => {
-          setTimeout(() => {
-              resolve();
-          }, 15000);
-      }
-     );
+     setTimeout(() => {
+          resolve()
+         
+     }, 5000);
+     })
 
-     await p;
+}
 
-     }
-
+     
      })();
+
