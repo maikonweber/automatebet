@@ -34,25 +34,30 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
       
      const mafiaCard = -1745267675;
      const junior = -1418171934;
-     const mafiaCardFree = -1267429660;
+     const mafiaCardFree = -1734065719;
 
-          for(let i = 0; i < result.chats.length; i++){
+     for(let i = 0; i < result.chats.length; i++){
               console.log(result.chats[i].id, result.chats[i].title)
-          }
+     }
+
+     let last = await client.getMessages(junior, {
+            limit: 1,
+     })
 
 
-     const lastMessage = await client.getMessages(junior, {
+     while (true) {
+
+          const lastMessage = await client.getMessages(junior, {
                limit: 1,
-           });
+          });
+          console.log(typeof last[0].message)
 
-     console.log(lastMessage[0].message)
-           
-     let last;
-
+          console.log(last[0].message, lastMessage[0].message)
+          console.log(lastMessage[0].message != last[0].message)
 
      lastMessage.forEach(
           (chat, index) => {
-              if(chat.message.toString() != last){
+              if(lastMessage[0].message != last[0].message){
                   console.log(chat.message.toString())
                   client.invoke(new Api.messages.SendMessage({
                       peer: mafiaCard,
@@ -62,7 +67,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
                     peer: mafiaCardFree,
                     message: chat.message.toString()
                 }))
-                   last = chat.message.toString()
+                   last = lastMessage[0].message
 
                  }
 
@@ -70,5 +75,16 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
      )
 
 
+     const p = new Promise((resolve, reject) => {
+          setTimeout(() => {
+              resolve();
+          }, 5000);
+      }
+     );
+
+     await p;
+
+
+     }
 
      })();
