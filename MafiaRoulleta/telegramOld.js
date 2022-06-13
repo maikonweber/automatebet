@@ -65,12 +65,11 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
                       peer: mafiaCard,
                       message: chat.message.toString()
                   }))
-               setTimeout(() => {
                   client.invoke(new Api.messages.SendMessage({
                     peer: mafiaFree,
                     message: chat.message.toString()
-                     }))
-                    }, 8000)
+                  }))
+               
                   
                   last = lastMessage
                  }
