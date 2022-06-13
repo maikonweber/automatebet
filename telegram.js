@@ -219,50 +219,52 @@ async function strategy18Procced (strategy) {
      const stringX19To36 = strategy.x19To36
      const stringParOuImpar = strategy.parOrImpar
 
+
      console.table(stringColunas);
-
-     const colunas = getStrategy(ColunasRepeat, stringColunas, 1)
-     const colunas18 = getStrategy(ColunasRepeat, stringColunas, 0)
-     const colunas17 = getStrategy(ColunasRepeat, stringColunas, 2)
-     const colunas16 = getStrategy(ColunasRepeat, stringColunas, 3)
-     const colunas15 = getStrategy(ColunasRepeat, stringColunas, 4)
-     const colunas14 = getStrategy(ColunasRepeat, stringColunas, 5)
-     const colunas13 = getStrategy(ColunasRepeat, stringColunas, 6)
-     const colunas12 = getStrategy(ColunasRepeat, stringColunas, 7)
-     const colunas11 = getStrategy(ColunasRepeat, stringColunas, 8)
-     const colunas10 = getStrategy(ColunasRepeat, stringColunas, 9)
-     const colunas9 = getStrategy(ColunasRepeat, stringColunas, 10)
-     const colunas8 = getStrategy(ColunasRepeat, stringColunas, 11)
-     const colunas7 = getStrategy(ColunasRepeat, stringColunas, 12)
-     const colunas6 = getStrategy(ColunasRepeat, stringColunas, 13)
-     const colunas5 = getStrategy(ColunasRepeat, stringColunas, 14)
-     const colunas4 = getStrategy(ColunasRepeat, stringColunas, 15)
-     const colunas3 = getStrategy(ColunasRepeat, stringColunas, 16)
-     const colunas2 = getStrategy(ColunasRepeat, stringColunas, 17)
-     const colunas1 = getStrategy(ColunasRepeat, stringColunas, 18)
-
-
+          
      let strategyProced = {
-          Repetição17Coluas : colunas,
-          Repetição18Coluas : colunas18,
-          Repetição16Coluas : colunas16,
-          Repetição15Coluas : colunas15,
-          Repetição14Coluas : colunas14,
-          Repetição13Coluas : colunas13,
-          Repetição12Coluas : colunas12,
-          Repetição11Coluas : colunas11,
-          Repetição10Coluas : colunas10,
-          Repetição9Coluas : colunas9,
-          Repetição8Coluas : colunas8,
-          Repetição7Coluas : colunas7,
-          Repetição6Coluas : colunas6,
-          Repetição5Coluas : colunas5,
-          Repetição4Coluas : colunas4,
-          Repetição3Coluas : colunas3,
-          Repetição2Coluas : colunas2,
-          Repetição1Coluas : colunas1,
 
      }    
+
+     const RepeatColuna = {
+
+     }
+
+     const redReapeat = {
+
+     }
+     
+
+
+     let times = 17
+     let array = []
+     for(let i = 0; i < times; i++) {
+          let value = getStrategy(ColunasRepeat, stringColunas, i)
+          array.push({
+               coluna : value,
+               index : i
+          })
+     }    
+
+     let array2 = []
+     for(let i = 0; i < times; i++) {
+          let value = getStrategy(stringRed, stringBlocos, i)
+          array2.push({
+               bloco : value,
+               index : i
+          })
+     }
+
+
+     
+     redReapeat.red = array2
+     RepeatColuna.coluna = array
+
+     console.log(RepeatColuna)
+     strategyProced.redReapeat = redReapeat
+     strategyProced.RepeatColuna = RepeatColuna
+
+
      // Convert array to string
      console.log(strategyProced)
      return strategyProced;
