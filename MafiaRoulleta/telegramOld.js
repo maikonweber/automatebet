@@ -46,7 +46,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
           limit : 1,
      });
 
-     while (true) {
+     setInterval(async () => {
      const lastMessage = await client.getMessages(junior, {
           limit: 1,
       }); 
@@ -69,15 +69,8 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
 
                }
           )
-
-     const p = new Promise((resolve, reject) => {
-     setTimeout(() => {
-          resolve()
-         
-     }, 15000);
-     })
-
-}
+     }
+     i, 15000)
 
      
      })();
