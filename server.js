@@ -80,8 +80,8 @@ app.post('/api/bet365', async (req, res) => {
       "oneto18" : oneTo18,
       "nineteenTo36" : nineteenTo36, // last 18 numbers
     }
-    
-
+  
+  
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
     const last18 = await getLastNumber18(name_);
