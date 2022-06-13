@@ -34,6 +34,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
       
      const mafiaCard = -1745267675;
      const junior = -1418171934;
+     const mafiaCardFree = -1267429660;
 
           for(let i = 0; i < result.chats.length; i++){
               console.log(result.chats[i].id, result.chats[i].title)
@@ -54,6 +55,10 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
                       peer: mafiaCard,
                       message: chat.message.toString()
                   }))
+                  client.invoke(new Api.messages.SendMessage({
+                    peer: mafiaCardFree,
+                    message: chat.message.toString()
+                }))
                  }
 
                }
