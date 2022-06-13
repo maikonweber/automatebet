@@ -1,4 +1,31 @@
 const ColunasRepeat = {
+     '3' : () => {
+          return 'Repitição de 1x a Coluna'
+     },
+     '3,3,3' : () => {
+          return 'Repitição de 1x Colunas'
+     },
+     '3,3'  : () => {
+          return 'Repitição de 3x Colunas '
+     },
+     '2,2,2' : () => {
+          return 'Repetição de 3x Colunas 2'
+     },
+     '2,2' : () => {
+          return 'Repitição de x2 a Coluna 2'
+     },
+     '2' : () => {
+          return 'Repitição de x2 a Coluna 1'
+     }, 
+     '1,1,1' : () => {
+          return 'Repetição de 3x a Coluna 1'
+     },
+     '1' : () => {
+            return 'Repetição de 3x a Coluna 1'
+     },
+     '1,1' : () => {
+          return 'Repetição de x2 a Coluna 1'
+     },
      '1,1,1,1' : () => {
            return 'Repei=tiçao de 4 vezes da Coluna 1';
 

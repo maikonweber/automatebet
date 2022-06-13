@@ -1,4 +1,5 @@
-const redis = require('redis')
+const redis = require('redis');
+const { users, message } = require('telegram/client');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
@@ -17,13 +18,42 @@ const input = require("input"); // npm i input
 
 const subcribe =  await clientRedis.duplicate()
 
+(async () => {
+
 await subcribe.connect();
+
+async function replaceMsg(msg, bodyToReplace) {
+     const msgToReplace = msg.replace(/\$\{(.*?)\}/g, (match, p1) => {
+          return bodyToReplace[p1];
+     }
+     );
+     return msgToReplace;
+}
+
+
+
+async function sendMensagem(message, messageBody, chatId) {
+     const telegramClient = new TelegramClient(apiId, apiHash, stringSession);
+     const api = new Api(telegramClient);
+     messageReplace = replaceMsg(messagem, messageBody);
+     const chat = await api.invoke("sendMessage", {
+          chat_id: chatId,
+          text: message
+     });
+     console.log(chat);
+
+}
 
 await subcribe.subscribe('BetRollet', (message) => {
      const msg = JSON.parse(message)
-     console.log(msg)
-     console.log('Recebido a msg de processamento para canal' - "---")
-     // Redis channel bet
-});
+     
+    // message.header recebe um filtro para o tipo de mensagem
+     // message.body recebe o corpo da mensage
+     for(let i = 0; i < User.length; i++){
+          if(header.msg.roullete.include(User[i].roulletPermit) && header.msg.strategy.include(User[i].strategyPermit) ){
+               User[i].sendMessage(message.body)
+          }
+     }
+}
 
 })();

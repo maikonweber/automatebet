@@ -6,8 +6,8 @@ const {
      BlocosRepeat,
      ColunasRepeat,
      redReapeat,
+     on18or36,
      parOuImpar,
-     on18or36
 } = require('./jsonObjects/jsonStrategy.js')
 
 // Redis
@@ -193,118 +193,79 @@ var {
 function getStrategy(strategy, value, number){
      // Received the number of element need remove to value array
      // Return the array with the element removed
-     console.log(strategy, value, number)
-     const array = value
-     const arrayRemove = value.slice(0, value.length - number)
-     const StringValue = arrayRemove.toString()
-     console.log(StringValue)
+
+     const array = new Array(...value)  // Copy the array     
+     // remove the element from the array
+     for(number; number > 0; number--) {
+          array.pop()     
+     }
+
+     const StringValue = array.toString()
 
      if(strategy[`${StringValue}`]) {
          return strategy[`${StringValue}`]();
      } 
-     return `Não identificado`;
+     return `Não identificado ${StringValue}` ;
      }
 
 
 
 async function strategy18Procced (strategy) {
-    console.log(strategy)
-
+     
      const stringColunas = strategy.colunas
      const stringBlocos = strategy.blocos
      const stringRed = strategy.greens
-     const stringOneTo18 = strategy.oneTo18
+     const stringOneTo18 = strategy.oneTo18s
      const stringX19To36 = strategy.x19To36
-     const stringParOuImpar = strategy.parOuImpar
-     
-     const bloco17 = getStrategy(BlocosRepeat, stringBlocos, 1)
-     const colunas17 = getStrategy(ColunasRepeat, stringColunas, 1)
-     const redReapeat17 = getStrategy(redReapeat, stringRed, 1)
-     const parOuImpar17 = getStrategy(parOuImpar, stringParOuImpar, 1)
-     const one19or3617 = getStrategy(on18or36, stringOneTo18, 1)
-     const blackRepeat = getStrategy(blackRepeat, stringX19To36, 1)
-     
-     const bloco16 = getStrategy(BlocosRepeat, stringBlocos, 2)
-     const colunas16 = getStrategy(ColunasRepeat, stringColunas, 2)
-     const redReapeat16 = getStrategy(redReapeat, stringRed, 2)
-     const parOuImpar16 = getStrategy(parOuImpar, stringParOuImpar, 2)
-     const one19or3616 = getStrategy(on18or36, stringOneTo18, 2)
-     const blackRepeat16 = getStrategy(blackRepeat, stringX19To36, 2)
+     const stringParOuImpar = strategy.parOrImpar
 
-     const bloco15 = getStrategy(BlocosRepeat, stringBlocos, 3)
-     const colunas15 = getStrategy(ColunasRepeat, stringColunas, 3)
-     const redReapeat15 = getStrategy(redReapeat, stringRed, 3)
-     const parOuImpar15 = getStrategy(parOuImpar, stringParOuImpar, 3)
-     const one19or3615 = getStrategy(on18or36, stringOneTo18, 3)
-     const blackRepeat15 = getStrategy(blackRepeat, stringX19To36, 3)
+     console.table(stringColunas);
+
+     const colunas = getStrategy(ColunasRepeat, stringColunas, 1)
+     const colunas18 = getStrategy(ColunasRepeat, stringColunas, 0)
+     const colunas17 = getStrategy(ColunasRepeat, stringColunas, 2)
+     const colunas16 = getStrategy(ColunasRepeat, stringColunas, 3)
+     const colunas15 = getStrategy(ColunasRepeat, stringColunas, 4)
+     const colunas14 = getStrategy(ColunasRepeat, stringColunas, 5)
+     const colunas13 = getStrategy(ColunasRepeat, stringColunas, 6)
+     const colunas12 = getStrategy(ColunasRepeat, stringColunas, 7)
+     const colunas11 = getStrategy(ColunasRepeat, stringColunas, 8)
+     const colunas10 = getStrategy(ColunasRepeat, stringColunas, 9)
+     const colunas9 = getStrategy(ColunasRepeat, stringColunas, 10)
+     const colunas8 = getStrategy(ColunasRepeat, stringColunas, 11)
+     const colunas7 = getStrategy(ColunasRepeat, stringColunas, 12)
+     const colunas6 = getStrategy(ColunasRepeat, stringColunas, 13)
+     const colunas5 = getStrategy(ColunasRepeat, stringColunas, 14)
+     const colunas4 = getStrategy(ColunasRepeat, stringColunas, 15)
+     const colunas3 = getStrategy(ColunasRepeat, stringColunas, 16)
+     const colunas2 = getStrategy(ColunasRepeat, stringColunas, 17)
+     const colunas1 = getStrategy(ColunasRepeat, stringColunas, 18)
 
 
-     const bloco14 = getStrategy(BlocosRepeat, stringBlocos, 4)
-     const colunas14 = getStrategy(ColunasRepeat, stringColunas, 4)
-     const redReapeat14 = getStrategy(redReapeat, stringRed, 4)
-     const parOuImpar14 = getStrategy(parOuImpar, stringParOuImpar, 4)
-     const one19or3614 = getStrategy(on18or36, stringOneTo18, 4)
-     
-     const bloco13 = getStrategy(BlocosRepeat, stringBlocos, 5)
-     const colunas13 = getStrategy(ColunasRepeat, stringColunas, 5)
-     const redReapeat13 = getStrategy(redReapeat, stringRed, 5)
-     const parOuImpar13 = getStrategy(parOuImpar, stringParOuImpar, 5)
-     const one19or3613 = getStrategy(on18or36, stringOneTo18, 5)
+     let strategyProced = {
+          Repetição17Coluas : colunas,
+          Repetição18Coluas : colunas18,
+          Repetição16Coluas : colunas16,
+          Repetição15Coluas : colunas15,
+          Repetição14Coluas : colunas14,
+          Repetição13Coluas : colunas13,
+          Repetição12Coluas : colunas12,
+          Repetição11Coluas : colunas11,
+          Repetição10Coluas : colunas10,
+          Repetição9Coluas : colunas9,
+          Repetição8Coluas : colunas8,
+          Repetição7Coluas : colunas7,
+          Repetição6Coluas : colunas6,
+          Repetição5Coluas : colunas5,
+          Repetição4Coluas : colunas4,
+          Repetição3Coluas : colunas3,
+          Repetição2Coluas : colunas2,
+          Repetição1Coluas : colunas1,
 
-     const bloco12 = getStrategy(BlocosRepeat, stringBlocos, 6)
-     const colunas12 = getStrategy(ColunasRepeat, stringColunas, 6)
-     const redReapeat12 = getStrategy(redReapeat, stringRed, 6)
-     const parOuImpar12 = getStrategy(parOuImpar, stringParOuImpar, 6)
-     const one19or3612 = getStrategy(on18or36, stringOneTo18, 6)
-
-     const bloco11 = getStrategy(BlocosRepeat, stringBlocos, 7)
-     const colunas11 = getStrategy(ColunasRepeat, stringColunas, 7)
-     const redReapeat11 = getStrategy(redReapeat, stringRed, 7)
-     const parOuImpar11 = getStrategy(parOuImpar, stringParOuImpar, 7)
-     const one19or3611 = getStrategy(on18or36, stringOneTo18, 7)
-
-     let obj = {
-          blackRepeat : blackRepeat,
-          blackRepeat16 : blackRepeat16,
-          bloco17 : bloco17,
-          colunas17 : colunas17,
-          redReapeat : redReapeat,
-          parOuImpar : parOuImpar,
-          one19or36 : one19or36,
-          bloco16 : bloco16,
-          colunas16 : colunas16,
-          redReapeat16 : redReapeat16,
-          parOuImpar16 : parOuImpar16,
-          one19or3616 : one19or3616,
-          bloco15 : bloco15,
-          colunas15 : colunas15,
-          redReapeat15 : redReapeat15,
-          parOuImpar15 : parOuImpar15,
-          one19or3615 : one19or3615,
-          bloco14 : bloco14,
-          colunas14 : colunas14,
-          redReapeat14 : redReapeat14,
-          parOuImpar14 : parOuImpar14,
-          one19or3614 : one19or3614,
-          bloco13 : bloco13,
-          colunas13 : colunas13,
-          redReapeat13 : redReapeat13,
-          parOuImpar13 : parOuImpar13,
-          one19or3613 : one19or3613,
-          bloco12 : bloco12,
-          colunas12 : colunas12,
-          redReapeat12 : redReapeat12,
-          parOuImpar12 : parOuImpar12,
-          one19or3612 : one19or3612,
-          bloco11 : bloco11,
-          colunas11 : colunas11,
-          redReapeat11 : redReapeat11,
-          parOuImpar11 : parOuImpar11,
-          one19or3611 : one19or3611
-     }
+     }    
      // Convert array to string
-     console.log(obj)
-     return obj;
+     console.log(strategyProced)
+     return strategyProced;
 }
 
 
