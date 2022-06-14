@@ -1,4 +1,31 @@
 const ColunasRepeat = {
+     '3' : () => {
+          return 'Repitição de 1x a Coluna'
+     },
+     '3,3,3' : () => {
+          return 'Repitição de 1x Colunas'
+     },
+     '3,3'  : () => {
+          return 'Repitição de 3x Colunas '
+     },
+     '2,2,2' : () => {
+          return 'Repetição de 3x Colunas 2'
+     },
+     '2,2' : () => {
+          return 'Repitição de x2 a Coluna 2'
+     },
+     '2' : () => {
+          return 'Repitição de x2 a Coluna 1'
+     }, 
+     '1,1,1' : () => {
+          return 'Repetição de 3x a Coluna 1'
+     },
+     '1' : () => {
+            return 'Repetição de 3x a Coluna 1'
+     },
+     '1,1' : () => {
+          return 'Repetição de x2 a Coluna 1'
+     },
      '1,1,1,1' : () => {
            return 'Repei=tiçao de 4 vezes da Coluna 1';
 
@@ -134,14 +161,14 @@ const ColunasRepeat = {
 
      const blocosRepeat = {
           '1,1,1,1' : () => {
-                return 'Repei=tiçao de 4 vezes da Bloco 1';
+                return 'Repetiçao de 4 vezes da Bloco 1';
      
           },
           '2,2,2,2' : () => {
-                    return 'Repei=tiçao de 4 vezes da Bloco 2';
+                    return 'Repeitiçao de 4 vezes da Bloco 2';
           },
           '3,3,3,3' : () => {
-                    return 'Repei=tiçao de 4 vezes da Bloco 3';
+                    return 'Repeitiçao de 4 vezes da Bloco 3';
           },
           '1,1,1,1,1' : () => {
                 return 'Repetiçao de 5 vezes da Bloco 1';
@@ -311,6 +338,51 @@ const redReapeat = {
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Repetição 18 vezes da Red 1';
+     },
+     '0,0,0,0' : () => {
+          return 'Repetição 4 vezes da Black 1';
+     },
+     '0,0,0,0,0' : () => {
+          return 'Repetição 5 vezes da Black 1';
+     },
+     '0,0,0,0,0,0' : () => {
+          return 'Repetição 6 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0' : () => {
+          return 'Repetição 7 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 8 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 9 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 10 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 11 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 12 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 13 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 14 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 15 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 16 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 17 vezes da Black 1';
+     },
+     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+          return 'Repetição 18 vezes da Black 1';
      }
 }
 
@@ -363,6 +435,18 @@ const blackRepeat = {
 }
 
 const on18or36 = {
+     '0,0' : () => {
+          return 'Repitição 18 vezes da Blocos 1';
+     },
+     '1,1' :  () => {
+          return 'Reptição 2 vezes da 1 ao 18';
+     },
+     '1,1,1' : (    ) => {    
+          return 'Repitição 1 ou 18';
+     },
+     '0,0,0' : () => {
+          return 'Repetição 3 vezes da do 19 ao 36';
+     },
      '1,1,1,1' : () => {
           return 'Repetição 4 vezes da 1 ou 18';
      },
@@ -454,6 +538,23 @@ const on18or36 = {
 }
 
 const parOuImpar = {
+     '1,1' : () => {
+          return 'Impar 2 vezez';
+     },
+     '0,0' : () => {
+          return 'Par 2 vezes';
+     },
+     '0,0,0,' : () => {
+          return 'Par 3 vezez';
+
+     },
+
+     '1,1' : () => {
+          return 'Impar 2 vezez';
+     },
+     '1,1,1' : () => {
+          return 'Impar 3 vezez';
+     },
      '0,0,0,0' : () => {
           return 'Par 4 vezes';
      },

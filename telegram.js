@@ -3,11 +3,11 @@ const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
 const { getStrategyByRoullet } = require('./database')
 const {
-     BlocosRepeat,
+     blocosRepeat,
      ColunasRepeat,
      redReapeat,
+     on18or36,
      parOuImpar,
-     on18or36
 } = require('./jsonObjects/jsonStrategy.js')
 
 // Redis
@@ -19,7 +19,9 @@ const clientRedis = redis.createClient({
      port: 6379,
      expire: 180
 });
+
 const expectNumber = require('./jsonObjects/strategy.js');
+
 clientRedis.connect();
 // get all key in redis
 (async () => {
@@ -46,46 +48,10 @@ async function SendMessage(msg) {
 
 
 
-async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteName, objetoRolleta) {
-     // Is Strategia for detectado criar um chave no redis com o número do jso
-     
-     console.log("Stratey Memory...");
-     const date = new Date().getTime()
-
-   
-     const verifyEstrategia = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
-     strategyConsult(rouletteName, estrategiaDetect, number, expectNumber, objetoRolleta)
-     
-     if (verifyEstrategia) {
-          return 'Estratégia já foi usada'
-
-     } else {
-          const setMemory = await clientRedis.set(`${rouletteName}_${estrategiaDetect}`, JSON.stringify({objetoRolleta, number, expectNumber, estrategiaDetect}), {
-          EX: 360
-          })
-          console.log('Setando a memória: ', setMemory)
-          // await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          // await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          // await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))     
-          }
-    
-
-}
 
 
 
-function regExe(string, objetoRolleta, strategyArg) {
-     // RegEx Nao Intendificado
-     // if true return false
-   
-     const regEx = /Não identificado/g;
-     if (regEx.test(string)) {
-          return false
-     } else {
-          strategyMemory(objetoRolleta.numberjson, expectNumber[`${string}`](), string, objetoRolleta.roulletename, objetoRolleta) 
-     return true
-     }
-}
+
 
 async function strategyConsultFor18(newArray)  {
      const columa1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
@@ -173,143 +139,123 @@ async function strategyConsultFor18(newArray)  {
           greens : greens,
           OneTo18s : OneTo18s,
           parOrImpar : parx,
+          imparOrPar : imparx
      }
+
 
      return strategyProccess
 
 
 }
 
-var {
-     BlocosRepeat,
-     ColunasRepeat,
-     redReapeat,
-     blackRepeat,
-     parOuImpar,
-     on18or36
-} = require('./jsonObjects/jsonStrategy.js')
-
 
 function getStrategy(strategy, value, number){
      // Received the number of element need remove to value array
      // Return the array with the element removed
-     console.log(strategy, value, number)
-     const array = value
-     const arrayRemove = value.slice(0, value.length - number)
-     const StringValue = arrayRemove.toString()
-     console.log(StringValue)
+
+     const array = new Array(...value)  // Copy the array     
+     // remove the element from the array
+     for(number; number > 0; number--) {
+          array.pop()     
+     }
+
+     const StringValue = array.toString()
 
      if(strategy[`${StringValue}`]) {
          return strategy[`${StringValue}`]();
      } 
-     return `Não identificado`;
+     return `Não identificado ${StringValue}` ;
      }
 
 
 
 async function strategy18Procced (strategy) {
-    console.log(strategy)
-
+     
      const stringColunas = strategy.colunas
      const stringBlocos = strategy.blocos
      const stringRed = strategy.greens
-     const stringOneTo18 = strategy.oneTo18
-     const stringX19To36 = strategy.x19To36
-     const stringParOuImpar = strategy.parOuImpar
+     const stringOneTo18 = strategy.OneTo18s
+     const stringParOuImpar = strategy.parOrImpar
+
+
+          
+     let strategyProced = {
+
+     }    
+
+
+
+     //blocosRepeat,
+     //ColunasRepeat,
+     //redReapeat,
+     //on18or36,
+     //parOuImpar,
      
-     const bloco17 = getStrategy(BlocosRepeat, stringBlocos, 1)
-     const colunas17 = getStrategy(ColunasRepeat, stringColunas, 1)
-     const redReapeat17 = getStrategy(redReapeat, stringRed, 1)
-     const parOuImpar17 = getStrategy(parOuImpar, stringParOuImpar, 1)
-     const one19or3617 = getStrategy(on18or36, stringOneTo18, 1)
-     const blackRepeat = getStrategy(blackRepeat, stringX19To36, 1)
-     
-     const bloco16 = getStrategy(BlocosRepeat, stringBlocos, 2)
-     const colunas16 = getStrategy(ColunasRepeat, stringColunas, 2)
-     const redReapeat16 = getStrategy(redReapeat, stringRed, 2)
-     const parOuImpar16 = getStrategy(parOuImpar, stringParOuImpar, 2)
-     const one19or3616 = getStrategy(on18or36, stringOneTo18, 2)
-     const blackRepeat16 = getStrategy(blackRepeat, stringX19To36, 2)
-
-     const bloco15 = getStrategy(BlocosRepeat, stringBlocos, 3)
-     const colunas15 = getStrategy(ColunasRepeat, stringColunas, 3)
-     const redReapeat15 = getStrategy(redReapeat, stringRed, 3)
-     const parOuImpar15 = getStrategy(parOuImpar, stringParOuImpar, 3)
-     const one19or3615 = getStrategy(on18or36, stringOneTo18, 3)
-     const blackRepeat15 = getStrategy(blackRepeat, stringX19To36, 3)
 
 
-     const bloco14 = getStrategy(BlocosRepeat, stringBlocos, 4)
-     const colunas14 = getStrategy(ColunasRepeat, stringColunas, 4)
-     const redReapeat14 = getStrategy(redReapeat, stringRed, 4)
-     const parOuImpar14 = getStrategy(parOuImpar, stringParOuImpar, 4)
-     const one19or3614 = getStrategy(on18or36, stringOneTo18, 4)
-     
-     const bloco13 = getStrategy(BlocosRepeat, stringBlocos, 5)
-     const colunas13 = getStrategy(ColunasRepeat, stringColunas, 5)
-     const redReapeat13 = getStrategy(redReapeat, stringRed, 5)
-     const parOuImpar13 = getStrategy(parOuImpar, stringParOuImpar, 5)
-     const one19or3613 = getStrategy(on18or36, stringOneTo18, 5)
+     let times = 17
+     let array = []
+     for(let i = 0; i < times; i++) {
+          let value = getStrategy(ColunasRepeat, stringColunas, i)
+          array.push({
+               coluna : value,
+               index : i
+          })
+     }    
 
-     const bloco12 = getStrategy(BlocosRepeat, stringBlocos, 6)
-     const colunas12 = getStrategy(ColunasRepeat, stringColunas, 6)
-     const redReapeat12 = getStrategy(redReapeat, stringRed, 6)
-     const parOuImpar12 = getStrategy(parOuImpar, stringParOuImpar, 6)
-     const one19or3612 = getStrategy(on18or36, stringOneTo18, 6)
-
-     const bloco11 = getStrategy(BlocosRepeat, stringBlocos, 7)
-     const colunas11 = getStrategy(ColunasRepeat, stringColunas, 7)
-     const redReapeat11 = getStrategy(redReapeat, stringRed, 7)
-     const parOuImpar11 = getStrategy(parOuImpar, stringParOuImpar, 7)
-     const one19or3611 = getStrategy(on18or36, stringOneTo18, 7)
-
-     let obj = {
-          blackRepeat : blackRepeat,
-          blackRepeat16 : blackRepeat16,
-          bloco17 : bloco17,
-          colunas17 : colunas17,
-          redReapeat : redReapeat,
-          parOuImpar : parOuImpar,
-          one19or36 : one19or36,
-          bloco16 : bloco16,
-          colunas16 : colunas16,
-          redReapeat16 : redReapeat16,
-          parOuImpar16 : parOuImpar16,
-          one19or3616 : one19or3616,
-          bloco15 : bloco15,
-          colunas15 : colunas15,
-          redReapeat15 : redReapeat15,
-          parOuImpar15 : parOuImpar15,
-          one19or3615 : one19or3615,
-          bloco14 : bloco14,
-          colunas14 : colunas14,
-          redReapeat14 : redReapeat14,
-          parOuImpar14 : parOuImpar14,
-          one19or3614 : one19or3614,
-          bloco13 : bloco13,
-          colunas13 : colunas13,
-          redReapeat13 : redReapeat13,
-          parOuImpar13 : parOuImpar13,
-          one19or3613 : one19or3613,
-          bloco12 : bloco12,
-          colunas12 : colunas12,
-          redReapeat12 : redReapeat12,
-          parOuImpar12 : parOuImpar12,
-          one19or3612 : one19or3612,
-          bloco11 : bloco11,
-          colunas11 : colunas11,
-          redReapeat11 : redReapeat11,
-          parOuImpar11 : parOuImpar11,
-          one19or3611 : one19or3611
+     let array3 = []
+     for(let i = 0; i < times; i++) {
+          let value = getStrategy(parOuImpar, stringParOuImpar, i)
+          array3.push({
+               parOuImpar : value,
+               index : i
+          })
      }
+
+     let array4 = []
+     for(let i = 0; i < times; i++) {
+
+          let values = getStrategy(on18or36, stringOneTo18, i)
+          array4.push({
+               on18or36 : values,
+               index : i
+          })
+
+     }
+
+     let array5 =  []
+     for(let i = 0; i < times; i++) {
+          let values = getStrategy(redReapeat, stringRed, i)
+          array5.push({
+               x19To36 : values,
+               index : i
+          })
+
+     }
+
+     let array6 = []
+     for(let i = 0; i < times; i++) {
+          let values = getStrategy(blocosRepeat, stringBlocos, i)
+          array6.push({
+               blocosRepeat : values,
+               index : i
+          }    
+          )
+     }
+
+     strategyProced.blocosRepeat = array6
+     strategyProced.minorMajor = array4
+     strategyProced.parOrImpar = array3
+     strategyProced.colorRepeat = array5
+     strategyProced.colunasRepeat = array
+
+
      // Convert array to string
-     console.log(obj)
-     return obj;
+     return strategyProced;
 }
 
 
 async function strategyProced (objetoRolleta) {
-     console.log('Consultando Strategia Proced')
 
      // Strategy Proced
      const last18 = objetoRolleta.last18
@@ -332,38 +278,13 @@ async function strategyProced (objetoRolleta) {
      const alternateColumns = objetoRolleta.jsonbstrategy.strategyAlternateColum
      const red4time = objetoRolleta.jsonbstrategy.strategyRed4Time
 
+     console.log(objetoRolleta)
      await SendMessage(objetoRolleta)
 
           
 }
 
      
-
-
-async function strategyConsult(rouletteName, estrategiaDetect, number) {
-      //setTimeout( async () => {
-     //console.log('Consultando Strategia')
-     //console.log('Timeout Resolve Strategy')
-     //const result = await getStrategyByRoullet(rouletteName)
-     //const client = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
-     // const parseClient = JSON.parse(client)
-     // const lastResult = result[0].numberjson
-     //const expectNumberArray = parseClient.expectNumber
-     //console.log(expectNumberArray, 'number')
-     
-
-     //if (parseClient.expectNumber.includes(lastResult[0])) {
-        //  clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          //await sendMsg('-1266295662', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-          
-     // } else {
-       //   clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          //await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-     //}    
-    // }, 40000)  
-}
-
-
 
 //await client.start({
  //   phoneNumber: async () => await input.text('Please enter your number: '),
