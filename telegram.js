@@ -3,7 +3,7 @@ const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
 const { getStrategyByRoullet } = require('./database')
 const {
-     BlocosRepeat,
+     blocosRepeat,
      ColunasRepeat,
      redReapeat,
      on18or36,
@@ -19,7 +19,9 @@ const clientRedis = redis.createClient({
      port: 6379,
      expire: 180
 });
+
 const expectNumber = require('./jsonObjects/strategy.js');
+
 clientRedis.connect();
 // get all key in redis
 (async () => {
@@ -46,46 +48,10 @@ async function SendMessage(msg) {
 
 
 
-async function strategyMemory(number, expectNumber, estrategiaDetect, rouletteName, objetoRolleta) {
-     // Is Strategia for detectado criar um chave no redis com o número do jso
-     
-     console.log("Stratey Memory...");
-     const date = new Date().getTime()
-
-   
-     const verifyEstrategia = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
-     strategyConsult(rouletteName, estrategiaDetect, number, expectNumber, objetoRolleta)
-     
-     if (verifyEstrategia) {
-          return 'Estratégia já foi usada'
-
-     } else {
-          const setMemory = await clientRedis.set(`${rouletteName}_${estrategiaDetect}`, JSON.stringify({objetoRolleta, number, expectNumber, estrategiaDetect}), {
-          EX: 360
-          })
-          console.log('Setando a memória: ', setMemory)
-          // await sendMsg('-1266295662', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          // await sendMsg('-1614635356', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))
-          // await sendMsg('-1267429660', objSend[`${estrategiaDetect}`](number, expectNumber, rouletteName, objetoRolleta, estrategiaDetect))     
-          }
-    
-
-}
 
 
 
-function regExe(string, objetoRolleta, strategyArg) {
-     // RegEx Nao Intendificado
-     // if true return false
-   
-     const regEx = /Não identificado/g;
-     if (regEx.test(string)) {
-          return false
-     } else {
-          strategyMemory(objetoRolleta.numberjson, expectNumber[`${string}`](), string, objetoRolleta.roulletename, objetoRolleta) 
-     return true
-     }
-}
+
 
 async function strategyConsultFor18(newArray)  {
      const columa1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
@@ -173,21 +139,14 @@ async function strategyConsultFor18(newArray)  {
           greens : greens,
           OneTo18s : OneTo18s,
           parOrImpar : parx,
+          imparOrPar : imparx
      }
+
 
      return strategyProccess
 
 
 }
-
-var {
-     BlocosRepeat,
-     ColunasRepeat,
-     redReapeat,
-     blackRepeat,
-     parOuImpar,
-     on18or36
-} = require('./jsonObjects/jsonStrategy.js')
 
 
 function getStrategy(strategy, value, number){
@@ -215,24 +174,22 @@ async function strategy18Procced (strategy) {
      const stringColunas = strategy.colunas
      const stringBlocos = strategy.blocos
      const stringRed = strategy.greens
-     const stringOneTo18 = strategy.oneTo18s
-     const stringX19To36 = strategy.x19To36
+     const stringOneTo18 = strategy.OneTo18s
      const stringParOuImpar = strategy.parOrImpar
 
 
-     console.table(stringColunas);
           
      let strategyProced = {
 
      }    
 
-     const RepeatColuna = {
 
-     }
 
-     const redReapeat = {
-
-     }
+     //blocosRepeat,
+     //ColunasRepeat,
+     //redReapeat,
+     //on18or36,
+     //parOuImpar,
      
 
 
@@ -246,33 +203,59 @@ async function strategy18Procced (strategy) {
           })
      }    
 
-     let array2 = []
+     let array3 = []
      for(let i = 0; i < times; i++) {
-          let value = getStrategy(stringRed, stringBlocos, i)
-          array2.push({
-               bloco : value,
+          let value = getStrategy(parOuImpar, stringParOuImpar, i)
+          array3.push({
+               parOuImpar : value,
                index : i
           })
      }
 
+     let array4 = []
+     for(let i = 0; i < times; i++) {
 
-     
-     redReapeat.red = array2
-     RepeatColuna.coluna = array
+          let values = getStrategy(on18or36, stringOneTo18, i)
+          array4.push({
+               on18or36 : values,
+               index : i
+          })
 
-     console.log(RepeatColuna)
-     strategyProced.redReapeat = redReapeat
-     strategyProced.RepeatColuna = RepeatColuna
+     }
+
+     let array5 =  []
+     for(let i = 0; i < times; i++) {
+          let values = getStrategy(redReapeat, stringRed, i)
+          array5.push({
+               x19To36 : values,
+               index : i
+          })
+
+     }
+
+     let array6 = []
+     for(let i = 0; i < times; i++) {
+          let values = getStrategy(blocosRepeat, stringBlocos, i)
+          array6.push({
+               blocosRepeat : values,
+               index : i
+          }    
+          )
+     }
+
+     strategyProced.blocosRepeat = array6
+     strategyProced.minorMajor = array4
+     strategyProced.parOrImpar = array3
+     strategyProced.colorRepeat = array5
+     strategyProced.colunasRepeat = array
 
 
      // Convert array to string
-     console.log(strategyProced)
      return strategyProced;
 }
 
 
 async function strategyProced (objetoRolleta) {
-     console.log('Consultando Strategia Proced')
 
      // Strategy Proced
      const last18 = objetoRolleta.last18
@@ -295,38 +278,13 @@ async function strategyProced (objetoRolleta) {
      const alternateColumns = objetoRolleta.jsonbstrategy.strategyAlternateColum
      const red4time = objetoRolleta.jsonbstrategy.strategyRed4Time
 
+     console.log(objetoRolleta)
      await SendMessage(objetoRolleta)
 
           
 }
 
      
-
-
-async function strategyConsult(rouletteName, estrategiaDetect, number) {
-      //setTimeout( async () => {
-     //console.log('Consultando Strategia')
-     //console.log('Timeout Resolve Strategy')
-     //const result = await getStrategyByRoullet(rouletteName)
-     //const client = await clientRedis.get(`${rouletteName}_${estrategiaDetect}`)
-     // const parseClient = JSON.parse(client)
-     // const lastResult = result[0].numberjson
-     //const expectNumberArray = parseClient.expectNumber
-     //console.log(expectNumberArray, 'number')
-     
-
-     //if (parseClient.expectNumber.includes(lastResult[0])) {
-        //  clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          //await sendMsg('-1266295662', `${rouletteName}, ✅ GREEEN BATEU A META VAZA!, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-          
-     // } else {
-       //   clientRedis.del(`${rouletteName}_${estrategiaDetect}`)
-          //await sendMsg('-1266295662', `${rouletteName}, 🔴 REED, RESPIRA E VOLTA MAIS TARDE, ${lastResult[0]} || ${lastResult[1]} || ${lastResult[2]}`)
-     //}    
-    // }, 40000)  
-}
-
-
 
 //await client.start({
  //   phoneNumber: async () => await input.text('Please enter your number: '),
