@@ -15,8 +15,8 @@ CREATE TABLE robotBetPayload (
 CREATE TABLE robotBetSygnal (
     id serial primary key,
     number jsonb not null,
-    created timestamp default now(), bvvvvvvvvvvvvvvvvvc
-    detectStretegy jsonb not null,
+    created timestamp default now(), 
+    detectStretegy text not null,
     result boolean,
     martingale boolean,
     martingale2 boolean,

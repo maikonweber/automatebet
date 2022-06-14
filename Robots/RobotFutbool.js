@@ -1,26 +1,29 @@
 const puppeteer = require('puppeteer-extra')
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-puppeteer.use(StealthPlugin())
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+const cheerio = require('cheerio');
+const moment = require('moment');
+const { table } = require('console');
 const redis = require('redis');
-const client = redis.createClient({
-  host: "localhost",
-  port: 6379
-});
-
-client.connect();
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const console = require('console');
+puppeteer.use(StealthPlugin())
 
 class FootBoolScrap {
-    constructor() {
-    
-    }
+    constructor(password, username) {
+        this.password = password;
+        this.username = username;
+        this.redis = redis;
 
-    async publisher(message) {
-      client.publish('roulleteBet365', JSON.stringify(message));
     }
-
 
     async init() {
-      
+        this.redis = redis.createClient({
+            host: 'localhost',
+            port: 6379,
+            password: "roullet"
+        });
         
         const browser = await puppeteer.launch({
             headless: true,
@@ -270,8 +273,8 @@ class FootBoolScrap {
                 obj._1 = box[0];
                 obj._2 = box[1];
                 obj._3 = box[2];
-              
                 
+                console.log(obj)
               };
         }
 
@@ -287,11 +290,8 @@ class FootBoolScrap {
         }
       } 
 
-let robot = new FootBoolScrap()
-robot.start()
-
+      const scrap = new FootBoolScrap();
+      scrap.start();
 
 module.exports = FootBoolScrap;
-
-
 

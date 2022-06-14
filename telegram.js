@@ -20,6 +20,13 @@ const clientRedis = redis.createClient({
      expire: 180
 });
 
+/*
+     @dev Maikon Weber
+     @logic Processa o ultimo resultado da rolleta
+     e envia para um canal redis   
+*/
+
+
 const expectNumber = require('./jsonObjects/strategy.js');
 
 clientRedis.connect();
@@ -207,7 +214,7 @@ async function strategy18Procced (strategy) {
      for(let i = 0; i < times; i++) {
           let value = getStrategy(parOuImpar, stringParOuImpar, i)
           array3.push({
-               parOuImpar : value,
+               parOrImpar : value,
                index : i
           })
      }
@@ -217,7 +224,7 @@ async function strategy18Procced (strategy) {
 
           let values = getStrategy(on18or36, stringOneTo18, i)
           array4.push({
-               on18or36 : values,
+               minorMajor : values,
                index : i
           })
 
@@ -227,7 +234,7 @@ async function strategy18Procced (strategy) {
      for(let i = 0; i < times; i++) {
           let values = getStrategy(redReapeat, stringRed, i)
           array5.push({
-               x19To36 : values,
+               color : values,
                index : i
           })
 

@@ -197,6 +197,18 @@ async function checkToken(token) {
     }
 }
 
+async function insertSygnal (number, detectStrategy, name) {
+    // convert number to json
+    let numberJson = JSON.stringify(number);
+    let queryString = `INSERT INTO robotbetsygnal  (number, detectstretegy, roulletname)
+    VALUES ($1, $2, $3)
+    ON CONFLICT ON CONSTRAINT sygnal DO UPDATE
+    SET (number, detectstretegy) = (EXCLUDED.number, EXCLUDED.detectstretegy) RETURNING *`
+    ;
+    let result = await pool.query(queryString, [numberJson, detectStrategy, name]);
+    console.log(result.rows[0])
+    return result;
+}
 
 
 
@@ -215,7 +227,8 @@ module.exports = {
     InsertRoullete,
     getLastNumber18,
     getLastNumber,  
-    getStrategyByRoullet
+    getStrategyByRoullet,
+    insertSygnal
 }
 
 
