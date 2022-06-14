@@ -21,5 +21,4 @@ const arrayName = [
     'American_Roulette',
    ]
 
-
    module.exports = arrayName;

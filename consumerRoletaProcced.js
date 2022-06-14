@@ -280,6 +280,16 @@ function colunasAlternat(json) {
                         }
                     )
 
+                    axios.post('https://api.muttercorp.online/api/bet365', obj).then(
+                        res => {
+                           console.log(res.data);
+                        }
+                    ).catch(
+                        err => {
+                            console.log(err);
+                        }
+                    )
+
 
         }
     });

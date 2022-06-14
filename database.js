@@ -200,19 +200,56 @@ async function checkToken(token) {
 async function insertSygnal (number, detectStrategy, name) {
     // convert number to json
     let numberJson = JSON.stringify(number);
-    let queryString = `INSERT INTO robotbetsygnal  (number, detectstretegy, roulletname)
-    VALUES ($1, $2, $3)
+    let queryString = `INSERT INTO robotbetsygnal  (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     ON CONFLICT ON CONSTRAINT sygnal DO UPDATE
     SET (number, detectstretegy) = (EXCLUDED.number, EXCLUDED.detectstretegy) RETURNING *`
     ;
-    let result = await pool.query(queryString, [numberJson, detectStrategy, name]);
+    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false]);
     console.log(result.rows[0])
     return result;
+}
+
+async function getUsersFilter (email) {
+    let query = `With d as 
+    (Select id, email
+    from users
+    ) Select * 
+      from users_filter
+      JOIN d
+      ON d.id = users_id;`
+    let result = await pool.query(query);
+    return result.rows
+}
+
+async function getStrategyFilter(roulletName, nameStrategy) {
+    let query =  `Select * from robotbetsygnal
+                  Where roulletname ~ $1
+                  AND result = false
+                  AND detectstretegy ~ $2
+                  Order by created 
+                  Desc;`
+    let result = await pool.query(query, [roulletName, nameStrategy]);
+    return result.rows[0]
+}   
+
+async function updateStrategy(id, result) {
+    let object = {
+        'martingale': 'martingale',
+        'martingale2': 'martingale2',
+        'martingale3': 'martingale3',
+        'result': 'result'
+    }
+
+    let query = `UPDATE robotbetsygnal SET ${result} = true WHERE id = $1`
+    let result = await pool.query(query, [result, id])
+    return result
 }
 
 
 
 module.exports = {
+    getStrategyFilter,
     insertTelegram,
     insertTelegramSygnal,
     getIdANDInserResult,
@@ -228,7 +265,8 @@ module.exports = {
     getLastNumber18,
     getLastNumber,  
     getStrategyByRoullet,
-    insertSygnal
+    insertSygnal,
+    getUsersFilter
 }
 
 
