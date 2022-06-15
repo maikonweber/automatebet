@@ -233,7 +233,7 @@ async function getStrategyFilter(roulletName, nameStrategy) {
     return result.rows[0]
 }   
 
-async function updateStrategy(id, result) {
+async function updateStrategy(id, result = 'result') {
     let object = {
         'martingale': 'martingale',
         'martingale2': 'martingale2',
@@ -241,9 +241,9 @@ async function updateStrategy(id, result) {
         'result': 'result'
     }
 
-    let query = `UPDATE robotbetsygnal SET ${result} = true WHERE id = $1`
-    let result = await pool.query(query, [result, id])
-    return result
+    let query = `UPDATE robotbetsygnal SET ${object[`${result}`]} = true WHERE id = $1`
+    let res = await pool.query(query, [id])
+    return res
 }
 
 
