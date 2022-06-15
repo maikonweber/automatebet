@@ -25,6 +25,8 @@ function proccedRoulletAndSend(sygnalBase, string, users) {
 
 
 function setMemoryResult(sygnalBase, users) {
+     const promise = new Promise((resolve, reject) => {
+          setTimeout(() => {
      const result = await clientRedis.get(`${users}_${detectstretegy}`)
      if (result) {
           const result = getLastNumber18(result)
@@ -35,14 +37,23 @@ function setMemoryResult(sygnalBase, users) {
           } else {
                sendMessage(Lose)
                clientRedis.del(`${users}_${detectstretegy}`)
-               clientRedis.set(`${users}_${detectstretegy}_${martingale}`, result.numberjson[0])
+               resolve(true)
+               //clientRedis.set(`${users}_${detectstretegy}_${martingale}`, result.numberjson[0])
           }
 
      } else {
           clientRedis.set(`${users}_${sygnalBase}_${roulleta}`, JSON.stringify(sygnalBase))
-          
+          resolve(true)
      }
+     }, 35000)
+     })
+
+     return promise.then(() => {
+          console.log('done')     
+     })
+
 }
+
 
 function stringReplace(string) {
 
