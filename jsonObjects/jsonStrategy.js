@@ -1,12 +1,12 @@
 const ColunasRepeat = {
      '3' : () => {
-          return 'Repitição de 1x a Coluna'
+          return 'Repitição de 1x a Coluna 3'
      },
      '3,3,3' : () => {
-          return 'Repitição de 1x Colunas'
+          return 'Repitição de 3x da  Colunas 3'
      },
      '3,3'  : () => {
-          return 'Repitição de 3x Colunas '
+          return 'Repitição de 2x Colunas  3'
      },
      '2,2,2' : () => {
           return 'Repetição de 3x Colunas 2'
@@ -442,7 +442,7 @@ const on18or36 = {
           return 'Reptição 2 vezes da 1 ao 18';
      },
      '1,1,1' : (    ) => {    
-          return 'Repitição 1 ou 18';
+          return 'Repitição 3x 1 ou 18';
      },
      '0,0,0' : () => {
           return 'Repetição 3 vezes da do 19 ao 36';

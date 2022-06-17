@@ -14,7 +14,8 @@ const {
   getAllRows,
   InsertRoullete,
   getLastNumber18,
-  getLastNumber
+  getLastNumber,
+  usersFilters
 } = require('./database');
 
 app.use(express.json());
@@ -136,8 +137,8 @@ app.use('/api/v2/*', (req, res, next) => {
 })
 
 app.post("/api/v1/createus", async (req, res) => {
-  const { email, password, name, username, phone, address, product } = req.body;
-  let result = await createUsers(email, password, name, username, phone, address, product);
+  const { email, password, name, username, phone, address } = req.body;
+  let result = await createUsers(email, password, name, username, phone, address);
   res.send(result);
   
 })
@@ -157,6 +158,15 @@ app.post('/api/loginadm', async(req, res) => {
         } else {
           res.sendStatus(402);
         }
+})
+
+app.post('/api/v1/setFilter', async (req, res) => {
+  let { games, string_msg, string_msg_green, string_msg_red, rollets_permit, user_id } = req.body;
+  const result = await usersFilters(1, games, string_msg, string_msg_green, string_msg_red, rollets_permit);
+  if(!result) {
+    res.sendStatus(400);
+  }
+    res.send(result);
 })
 
 

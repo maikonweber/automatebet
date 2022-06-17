@@ -1,0 +1,38 @@
+  id   |                  number                  |          created           |           detectstretegy           | result | martingale | martingale2 | martingale3 |          roulletname          
+-------+------------------------------------------+----------------------------+------------------------------------+--------+------------+-------------+-------------+-------------------------------
+ 34496 | [5, 15, 7, 26, 29, 15, 2, 1, 31, 13]     | 2022-06-17 01:29:20.541402 | Reptição 2 vezes da 1 ao 18        | f      | f          | f           | f           | Turkish_Roulette
+ 34509 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.008775 | Impar 5 vezes                      | f      | f          | f           | f           | Deutsches_Roulette
+ 34497 | [5, 15, 7, 26, 29, 15, 2, 1, 31, 13]     | 2022-06-17 01:29:20.541415 | Par 2 vezes                        | f      | f          | f           | f           | Turkish_Roulette
+ 34501 | [27, 31, 13, 34, 15, 35, 13, 19, 33, 32] | 2022-06-17 01:29:20.772687 | Par 2 vezes                        | f      | f          | f           | f           | Spread_Bet_Roulette
+ 34504 | [3, 19, 22, 7, 28, 12, 30, 28, 11, 0]    | 2022-06-17 01:29:20.887503 | Repetição de x2 a Coluna 1         | f      | f          | f           | f           | Football_French_Roulette
+ 34510 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.008656 | Impar 6 vezes                      | f      | f          | f           | f           | Deutsches_Roulette
+ 34498 | [19, 1, 19, 3, 24, 14, 0, 28, 14, 9]     | 2022-06-17 01:29:20.552713 | Repetição de x2 a Coluna 1         | f      | f          | f           | f           | Greek_Quantum_Roulette
+ 34503 | [27, 31, 13, 34, 15, 35, 13, 19, 33, 32] | 2022-06-17 01:29:20.782494 | Repetição de x2 a Coluna 1         | f      | f          | f           | f           | Spread_Bet_Roulette
+ 34506 | [3, 19, 22, 7, 28, 12, 30, 28, 11, 0]    | 2022-06-17 01:29:20.890134 | Repei=tiçao de 4 vezes da Coluna 1 | f      | f          | f           | f           | Football_French_Roulette
+ 34508 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.008219 | Repitição de x2 a Coluna 2         | f      | f          | f           | f           | Deutsches_Roulette
+ 34499 | [19, 1, 19, 3, 24, 14, 0, 28, 14, 9]     | 2022-06-17 01:29:20.560309 | Par 2 vezes                        | f      | f          | f           | f           | Greek_Quantum_Roulette
+ 34500 | [36, 3, 35, 15, 16, 18, 2, 3, 5, 18]     | 2022-06-17 01:29:20.723215 | Par 2 vezes                        | f      | f          | f           | f           | Mega_Fire_Blaze_Roulette_Live
+ 34502 | [27, 31, 13, 34, 15, 35, 13, 19, 33, 32] | 2022-06-17 01:29:20.778501 | Repetição de 3x a Coluna 1         | f      | f          | f           | f           | Spread_Bet_Roulette
+ 34505 | [3, 19, 22, 7, 28, 12, 30, 28, 11, 0]    | 2022-06-17 01:29:20.887063 | Repetição de 3x a Coluna 1         | f      | f          | f           | f           | Football_French_Roulette
+ 34507 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.007917 | Impar 7 vezes                      | f      | f          | f           | f           | Deutsches_Roulette
+ 34511 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.010382 | Reptição 2 vezes da 1 ao 18        | f      | f          | f           | f           | Deutsches_Roulette
+ 34512 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.043031 | Repitição 1 ou 18                  | f      | f          | f           | f           | Deutsches_Roulette
+ 34513 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.046947 | Repetição 4 vezes da 1 ou 18       | f      | f          | f           | f           | Deutsches_Roulette
+ 34514 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.048064 | Impar 3 vezez                      | f      | f          | f           | f           | Deutsches_Roulette
+ 34520 | [16, 34, 14, 32, 26, 9, 15, 29, 6, 2]    | 2022-06-17 01:29:21.089291 | Impar 2 vezez                      | f      | f          | f           | f           | Greek_Roulette
+ 34522 | [26, 24, 30, 13, 28, 15, 24, 24, 1, 23]  | 2022-06-17 01:29:21.278369 | Repitição de 3x Colunas            | f      | f          | f           | f           | Football_Roulette
+ 34523 | [2, 5, 22, 13, 32, 33, 0, 15, 12, 29]    | 2022-06-17 01:29:21.417426 | Impar 2 vezez                      | f      | f          | f           | f           | Auto_Roulette
+ 34524 | [11, 17, 34, 17, 24, 1, 22, 29, 34, 3]   | 2022-06-17 01:29:21.43118  | Repetição de x2 a Coluna 1         | f      | f          | f           | f           | French_Roulette
+ 34526 | [14, 0, 29, 19, 11, 13, 8, 1, 36, 0]     | 2022-06-17 01:29:21.454935 | Par 5 vezes                        | f      | f          | f           | f           | Roleta_Brasileira
+ 34529 | [14, 26, 32, 3, 2, 29, 11, 16, 1, 26]    | 2022-06-17 01:29:21.754504 | Repitição de x2 a Coluna 2         | f      | f          | f           | f           | Roulette_Italiana
+ 34515 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.04983  | Repetição 5 vezes da 1 ou 18       | f      | f          | f           | f           | Deutsches_Roulette
+ 34516 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.051766 | Impar 2 vezez                      | f      | f          | f           | f           | Deutsches_Roulette
+ 34518 | [16, 34, 14, 32, 26, 9, 15, 29, 6, 2]    | 2022-06-17 01:29:21.08865  | Impar 3 vezez                      | f      | f          | f           | f           | Greek_Roulette
+ 34527 | [14, 0, 29, 19, 11, 13, 8, 1, 36, 0]     | 2022-06-17 01:29:21.455336 | Par 2 vezes                        | f      | f          | f           | f           | Roleta_Brasileira
+ 34528 | [14, 26, 32, 3, 2, 29, 11, 16, 1, 26]    | 2022-06-17 01:29:21.754572 | Impar 2 vezez                      | f      | f          | f           | f           | Roulette_Italiana
+ 34517 | [22, 14, 8, 18, 10, 12, 20, 32, 9, 36]   | 2022-06-17 01:29:21.060941 | Impar 4 vezes                      | f      | f          | f           | f           | Deutsches_Roulette
+ 34519 | [16, 34, 14, 32, 26, 9, 15, 29, 6, 2]    | 2022-06-17 01:29:21.089106 | Impar 4 vezes                      | f      | f          | f           | f           | Greek_Roulette
+ 34521 | [26, 24, 30, 13, 28, 15, 24, 24, 1, 23]  | 2022-06-17 01:29:21.278475 | Impar 2 vezez                      | f      | f          | f           | f           | Football_Roulette
+ 34525 | [14, 0, 29, 19, 11, 13, 8, 1, 36, 0]     | 2022-06-17 01:29:21.454797 | Par 4 vezes                        | f      | f          | f           | f           | Roleta_Brasileira
+(34 rows)
+

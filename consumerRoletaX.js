@@ -1,9 +1,8 @@
 
 
-const { TelegramClient, Api } = require("telegram");
+const { TelegramClient, Api, client } = require("telegram");
 const redis = require('redis');
 const { StringSession } = require("telegram/sessions");
-const { getUsersFilter } = requre('./database');
 const input = require("input"); // npm i input
 const { sendMessage } = require("telegram/client/messages");
 const { strategy } = require("sharp");
@@ -17,47 +16,106 @@ const clientRedis = redis.createClient({
      port: 6379,
 });
 
+const roleta = 
+     [
+     'Turkish_Roulette',
+    'UK_Roulette',
+    'Roulette',
+    'Football_French_Roulette',
+    'Spread_Bet_Roulette',
+    'Greek_Quantum_Roulette',
+    'Deutsches_Roulette',
+    'Speed_Roulette',
+    'Prestige_Roulette',
+    'Mega_Fire_Blaze_Roulette_Live',
+    'Football_Roulette',
+    'Quantum_Roulette_Live',
+    'Greek_Roulette',
+    'Roleta_Brasileira',
+    'Auto_Roulette',
+    'French_Roulette',
+    'Hindi_Roulette',
+    'Roulette_Italiana',
+    'Bucharest_Roulette',
+    'American_Roulette',
+     ]
+
+const strategyx = [
+     'Repitição de x2 a Coluna 2',
+   
+     'Repetição 5 vezes da 1 ou 18',
+     'Reptição 2 vezes da 1 ao 18',
+     'Repitição de 3x Colunas',
+     'Par 4 vezes',
+     'Repetiçao de 6 vezes da Colunas 1',
+     'Repetição de x2 a Coluna 1',   
+     'Repei=tiçao de 4 vezes da Coluna 1',
+     'Impar 3 vezez',
+     'Repetição de 3x a Coluna 1',
+     'Reptição 2 vezes da 1 ao 18',
+     'Repetição de 3x a Coluna 1',
+     'Repetição 5 vezes da 1 ou 18',
+     'Repitição de 3x Colunas',
+     'Par 4 vezes',
+     'Repetiçao de 6 vezes da Colunas 1',
+      'Repei=tiçao de 4 vezes da Coluna 1',
+      'Impar 3 vezez',
+      'Reptição 2 vezes da 1 ao 18',
+      'Repetição de 3x a Coluna 1',
+      'Par 2 vezes'
+
+]
+
 function proccedRoulletAndSend(sygnalBase, string, users) {
+     console.log(sygnalBase, "Sygnal")
      const replace = stringReplace(string, sygnalBase)
-     setMemoryResult(sygnalBase, users)
-     sendMessage(replace)
+     //sendMessage(replace)
+     console.log(replace, "replace")
+     const p = setMemoryResult(sygnalBase, users)
+     p.then(result => {  console.log('SetMsg')}
+     ).catch(err => { console.log(err) })
+     
 }
 
 
 function setMemoryResult(sygnalBase, users) {
-     const promise = new Promise((resolve, reject) => {
+    // clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.strategy}_${users}`, JSON.stringify(sygnalBase))
+     const p = new Promise((resolve, reject) => {
           setTimeout(() => {
-     const result = await clientRedis.get(`${users}_${detectstretegy}`)
-     if (result) {
-          const result = getLastNumber18(result)
-          if (expectNumber[`${sygnalBase}`](result.numberjson[0])) {
-               sendMessage(Win)
-               clientRedis.del(`${users}_${detectstretegy}`)
-               return true
-          } else {
-               sendMessage(Lose)
-               clientRedis.del(`${users}_${detectstretegy}`)
-               resolve(true)
-               //clientRedis.set(`${users}_${detectstretegy}_${martingale}`, result.numberjson[0])
-          }
-
-     } else {
-          clientRedis.set(`${users}_${sygnalBase}_${roulleta}`, JSON.stringify(sygnalBase))
-          resolve(true)
-     }
-     }, 35000)
+               console.log('Timeout 2') 
+              // const result = clientRedis.get(`${roulleteName}_${sygnalBase.strategy}_${users}`)
+              // const getLastOne = getLastNumber(sygnalBase.roulleteName)
+              // console.log(getLastOne.includes(expectNumber[`${result.strategy}`]()))
+              //if(getLastOne.includes(expectNumber[`${sygnalBase.strategy}`]())){
+                    const setWin = updateStrategy(sygnalBase.roulleteName, sygnalBase.strategy, sygnalBase.users)
+                    // Delete Set of Redis
+                   // clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.strategy}_${users}`)
+                //    resolve(setWin)
+              // } else {
+                 //   const setLose = setLosers(sygnalBase.roulleteName, sygnalBase.strategy, sygnalBase.users)
+                  setTimeout(() => {
+                       console.log('Timeout 2') 
+                 //        const getLastOne2 = getLastNumber(sygnalBase.roulleteName)
+                 //        if(getLastOne2.includes(expectNumber[`${sygnalBase.strategy}`])){
+                  //            const setWin = updateStrategy(sygnalBase.roulleteName, sygnalBase.strategy, sygnalBase.users)
+                  //            resolve(setWin)
+                   //      } else {
+                    //          const setLose = updateStrategy(sygnalBase.roulleteName, sygnalBase.strategy, sygnalBase.users)
+                    //          resolve(setLose)
+                   //      }
+                  }, 30000);
+          }, 30000)
      })
 
-     return promise.then(() => {
-          console.log('done')     
-     })
-
+    
+     return p
 }
 
 
 function stringReplace(string) {
-
-
+     // take all $ and replace with space
+     const replace = string.replace(/\$/g, "Strategya")
+     return replace
 }    
 
 
@@ -87,19 +145,21 @@ const result = await client.invoke( new Api.messages.GetAllChats({
     }
   
 
-    const users = await getUsersFilter();
-    console.log(users);
-
+   
 
 
   
 
 while (true) {
-     const users = await getUsersFilter(email);
-     for(let i = 0; i < roulleta.length; i++) {
-          for(let j = 0; j < strategy.length; j++){
-               const sygnalBase = await getStrategyFilter(strategy[j], roulleta[i])
-               proccedRoulletAndSend(sygnalBase, users[0].string, users[0].id)
+    // const users = await getUsersFilter(email);
+     for(let i = 0; i < roleta.length; i++) {
+          console.log(roleta[i])
+          for(let j = 0; j < strategyx.length; j++){
+               console.log(strategyx[j])
+               const sygnalBase = await getStrategyFilter(strategyx[j], roleta[i])
+               if(!sygnalBase.length > 0){
+               proccedRoulletAndSend(sygnalBase, "msg", 1)
+               }
           }
      }
 

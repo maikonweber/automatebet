@@ -61,14 +61,14 @@ async function countAllSygnal() {
     return result;
 }
 
-async function createUsers(email, password, name, username, phone, address, product) {
+async function createUsers(email, password, name, username, phone, address) {
     
     const hash = hasher.hasher(password, "")
 
-    const query = `INSERT INTO users(username, name, email, password, sal, phone, address, product)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`
+    const query = `INSERT INTO users(username, name, email, password, sal, phone, address)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
     try {
-        const result = await pool.query(query, [username, name ,email, hash.hashedpassword, hash.salt, phone, address, product])
+        const result = await pool.query(query, [username, name ,email, hash.hashedpassword, hash.salt, phone, address])
         return result.rows
 
         } catch(e) {
@@ -210,6 +210,25 @@ async function insertSygnal (number, detectStrategy, name) {
     return result;
 }
 
+async function usersFilters(user_id, games, roullet_permit, string_msg, string_msg_green, string_msg_red) {
+    let query = `INSERT INTO users_filters 
+                 (user_id, games, rollets_permit, string_msg , string_msg_green, string_msg_red)
+                 VALUES ($1, $2, $3, $4, $5, $6)
+                 RETURNING *`
+
+    // Convert games to jsonb and rollets_permit to jsonb
+    let gamesJson = JSON.stringify(games);
+    let rollets_permitJson = JSON.stringify(roullet_permit);
+
+    try {
+    let result = await pool.query(query, [user_id, gamesJson, rollets_permitJson, string_msg, string_msg_green, string_msg_red]);
+    return result.rows
+    } catch(e) {
+        console.log(e)
+    }   
+ 
+}
+
 async function getUsersFilter (email) {
     let query = `With d as 
     (Select id, email
@@ -225,12 +244,13 @@ async function getUsersFilter (email) {
 async function getStrategyFilter(roulletName, nameStrategy) {
     let query =  `Select * from robotbetsygnal
                   Where roulletname ~ $1
-                  AND result = false
                   AND detectstretegy ~ $2
-                  Order by created 
-                  Desc;`
+                  Order by created desc
+                  Limit 1;`
+                    
     let result = await pool.query(query, [roulletName, nameStrategy]);
-    return result.rows[0]
+    console.log(result.rows)
+    return result.rows
 }   
 
 async function updateStrategy(id, result = 'result') {
@@ -266,7 +286,8 @@ module.exports = {
     getLastNumber,  
     getStrategyByRoullet,
     insertSygnal,
-    getUsersFilter
+    getUsersFilter,
+    usersFilters
 }
 
 

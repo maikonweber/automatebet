@@ -6,13 +6,6 @@ const clientRedis = redis.createClient({
      port: 6379,
 });
 
-const redisPublisher = redis.createClient({
-     host: '127.0.0.1',
-     port: 6379,
-});
-
-
-
 
 const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions");
