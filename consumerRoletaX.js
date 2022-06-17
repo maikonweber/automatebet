@@ -153,11 +153,9 @@ const result = await client.invoke( new Api.messages.GetAllChats({
 while (true) {
     // const users = await getUsersFilter(email);
      for(let i = 0; i < roleta.length; i++) {
-          console.log(roleta[i])
           for(let j = 0; j < strategyx.length; j++){
-               console.log(strategyx[j])
                const sygnalBase = await getStrategyFilter(strategyx[j], roleta[i])
-               if(!sygnalBase.length > 0){
+               if(sygnalBase.length > 0){
                proccedRoulletAndSend(sygnalBase, "msg", 1)
                }
           }
@@ -166,7 +164,7 @@ while (true) {
     const p = new Promise((resolve, reject) => {
             setTimeout(() => {
                resolve();
-            }, 8000);
+            }, 30000);
           }    
      );
      await p;

@@ -249,7 +249,6 @@ async function getStrategyFilter(roulletName, nameStrategy) {
                   Limit 1;`
                     
     let result = await pool.query(query, [roulletName, nameStrategy]);
-    console.log(result.rows)
     return result.rows
 }   
 
