@@ -9,7 +9,7 @@ module.exports = {
   },
   {
     name : 'RobotBet',
-    script: 'telegram.js'
+    script: 'consumer18strategy.js'
   },
   {
     name : 'ConsumerToTelegram',

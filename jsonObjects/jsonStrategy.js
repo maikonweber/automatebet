@@ -160,6 +160,27 @@ const ColunasRepeat = {
      }
 
      const blocosRepeat = {
+          '1' : () => {
+               return 'Repetição 1 vez do Bloco 1';
+          },
+          '1,1' : () => {
+               return 'Repetição 2 vezes da Bloco 1';
+          },
+          '2,2' : () => {
+               return 'Repetição 2 vezes da Bloco 2';
+          },
+          '3,3' : () => {
+               return 'Repetição 2 vezes da Bloco 3';
+          },
+          '1,1,1' : () => {
+               return 'Repetição 3 vezes da Bloco 1';
+          },
+          '2,2,2' : () => {
+               return 'Repetição 3 vezes da Bloco 2';
+          },
+          '3,3,3' : () => {
+               return 'Repetição 3 vezes da Bloco 3';
+          },
           '1,1,1,1' : () => {
                 return 'Repetiçao de 4 vezes da Bloco 1';
      
@@ -336,6 +357,21 @@ const redReapeat = {
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Repetição 18 vezes da Red 1';
      },
+     '1,1,1' : () => {
+          return 'Repetição 4 vezes da Red 2';
+     },
+     '1,1' : () => {
+          return 'Repetição 2 vezes da Red 2';
+     },
+     '1' : () => {
+          return 'Repetição 1 vezes da Black 2';
+     },
+     '0,0' : () => {
+          return 'Repetição 2 vezes da Black 3';
+     },
+     '0' : () => {
+          return 'Repetição 1 vezes da Black 3';
+     },
      '0,0,0,0' : () => {
           return 'Repetição 4 vezes da Black 1';
      },
@@ -383,63 +419,21 @@ const redReapeat = {
      }
 }
 
-const blackRepeat = {
-     '1,1,1,1' : () => {
-          return 'Repetição 4 vezes da Black 1';
-     },
-     '1,1,1,1,1' : () => {
-          return 'Repetição 5 vezes da Black 1';
-     },
-     '1,1,1,1,1,1' : () => {
-          return 'Repetição 6 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1' : () => {
-          return 'Repetição 7 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 8 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 9 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 10 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 11 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 12 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 13 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 14 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 15 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 16 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 17 vezes da Black 1';
-     },
-     '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 18 vezes da Black 1';
-     }
-}
-
 const on18or36 = {
+     '1' : () => {
+          return 'Repetição 1 vezes do 19 ao 36';
+     },
+     '2' : () => {
+          return 'Repetição 2 vezes do 19 ao 36';
+     },
      '2,2' : () => {
-          return 'Repitição 2 vezes do 19 ou 36';
+          return 'Repetição 2 vezes do 19 ou 36';
      },
      '1,1' :  () => {
-          return 'Reptição 2 vezes da 1 ou 18';
+          return 'Repetição 2 vezes da 1 ou 18';
      },
      '1,1,1' : (    ) => {    
-          return 'Repitição 3x 1 ou 18';
+          return 'Repetição 3x 1 ou 18';
      },
      '2,2,2' : () => {
           return 'Repetição 3 vezes da 19 ou 36';
@@ -538,18 +532,19 @@ const on18or36 = {
 }
 
 const parOuImpar = {
-     '1,1' : () => {
-          return 'Par 2 vezez';
+     '1' : () => {
+          return 'Par';
+     }
+     ,'0' : () => {
+          return 'Impar';
      },
      '0,0' : () => {
           return 'Impar 2 vezes';
      },
      '0,0,0,' : () => {
           return 'Impar 3 vezez';
-
      },
-
-     '1,1' : () => {
+     '1,1,' : () => {
           return 'Par 2 vezez';
      },
      '1,1,1' : () => {

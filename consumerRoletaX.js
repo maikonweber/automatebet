@@ -19,21 +19,9 @@ const expectNumber = require("./jsonObjects/strategy");
 (async () => {
 const roleta = 
      [
-    'Turkish_Roulette',
-    'UK_Roulette',
-    'Roulette',
-    'Football_French_Roulette',
-    'Spread_Bet_Roulette',
-    'Greek_Quantum_Roulette',
-    'Deutsches_Roulette',
-    'Speed_Roulette',
-    'Prestige_Roulette',
-    'Mega_Fire_Blaze_Roulette_Live',
-    'Football_Roulette',
-    'Quantum_Roulette_Live',
     'Greek_Roulette',
     'Roleta_Brasileira',
-    'Auto_Roulette',
+    'Roulette_Italiana',
     'French_Roulette',
     'Hindi_Roulette',
     'Roulette_Italiana',
@@ -42,15 +30,10 @@ const roleta =
      ]
 
 const strategyx = [
-     'Repetição 13 vezes da 1 ou 18',
-     'Repetiçao de 6 vezes da Coluna 1', 
-     'Repetiçao de 6 vezes da Bloco 1', 
-     'Reptição 8 vezes da 1 ou 18',
-     'Repitição 6 vezes da Colunas 2',
-     'Alternar colunas 1 e 2 - 4x vezes',
-     'Repetição de 6 vezes da Coluna 2',
-     'Repetição de 6 vezes da Coluna 3',
-     'Par 7 vezes'
+     'Alternar colunas 1 e 2 - 2x vezes',
+     'Alternar colunas 2 e 3 - 2x vezes',
+     'Alternar colunas 3 e 1 - 2x vezes',
+
 ]
 
 
@@ -72,9 +55,10 @@ Ultimos Resultados : {last}
 `
 
 function testStrategy(estrategiaDetect, lastNumber) {
-     if(estrategiaDetect.match(/Coluna 1/g)) {
+     if(estrategiaDetect.match(/Repetição da Coluna '/)) {
           console.log('Repetição')
-          return {   "expect" : "Quebra na Colunas 3 ou 2",
+          return { 
+               "expect" : "Quebra na Colunas 3 ou 2",
                "array" : expectNumber['Coluna 1 Repeat']()
                }
      } else if (estrategiaDetect.match(/Par/g)) {
@@ -319,13 +303,11 @@ const sala1 = result.chats[0].id
 await sub.subscribe('msg', async (message) => {
 
 
-      const strig =  JSON.parse(message); // 'message'
+     const strig =  JSON.parse(message); // 'message'
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(await clientRedis.get(`${string.roulleteName}_${string.estrategiaDetect}`))
           return proccedRoulletAndSend(strig, string)
           }
-
-
 
 });
    
