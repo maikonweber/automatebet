@@ -162,6 +162,7 @@ app.post('/api/loginadm', async(req, res) => {
 
 app.post('/api/v1/setFilter', async (req, res) => {
   let { games, string_msg, string_msg_green, string_msg_red, rollets_permit, user_id } = req.body;
+  console.log(games, string_msg, string_msg_green, string_msg_red, rollets_permit, user_id)
   const result = await usersFilters(1, games, string_msg, string_msg_green, string_msg_red, rollets_permit);
   if(!result) {
     res.sendStatus(400);

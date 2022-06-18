@@ -47,23 +47,13 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
               console.log(result.chats[i].id, result.chats[i].title)
      }
 
-     async function sendMsg(sala, msg, reply) {
-    const salaEntity = await client.getEntity(sala);
-    console.log(reply)
-    if(reply == false){
-   
-   
-    } else {
-      const salaJunior = await client.getEntity(-1418171934);
-      console.log(reply.replyToMsgId)
-      const result = await client.invoke( new Api.messages.GetReplies({
-          peer: salaJunior,
-          msgId: reply.replyToMsgId,          
+     async function sendMsg(sala, msg) {
+      const salaJunior = await client.getEntity(sala);
+      const result = await client.invoke( new Api.messages.SendMessage({
+          peer: sala,
+          message: msg.toString(),      
      }));
-      console.log(result.messages)
-
-
-  }
+     console.log(result);
 }
 
 
@@ -88,7 +78,13 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
             return newMsg; 
           }
 
-        async  function seeIfHaveObjectInsideMsg(msg) {
+          function replaceRed(msg) {
+            // Search for string replace the string 'Então Júnior Cards' and Replace to Mafia da Cartas"
+            let newMsg = msg.replace(/Redzin/g, '- RED -');
+            return newMsg;
+          }
+
+        function seeIfHaveObjectInsideMsg(msg) {
       
               if(msg[0].replyTo) {
                 
@@ -97,6 +93,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
               }
                 return false;
           }
+
 
     if(lastMessage[0].date != last[0].date){
           console.log('New message')
@@ -115,25 +112,23 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
             clientRedis.set(`${lastMessageid}`, lastmsg)
             console.log('-------------------------------------------------------')
             console.log('=======================================================')
+            sendMsg(mafiaCard, replace(lastmsg))
+            sendMsg(mafiaCardFree,  replace(lastmsg))
+
           } else if (lastmsg.match(regEx2)){
             console.log('GREEN')
             const see = await seeIfHaveObjectInsideMsg(lastMessage)
             if(see){ 
               const seeId = see.replyToMsgId
               const string = await clientRedis.get(`${seeId}`)
-              console.log(string)
+              
               // Concat the string with the new string
-              const newString2 = string + newString
+              const newString2 = string + '\n' + lastmsg
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
             }
-
             console.log('-------------------------------------------------------')
             console.log('=======================================================')
-              const result = await client.getMessages(junior, {
-              id : [see.replyToMsgId],
-              })
-            console.log(result)
-              
-      
             console.log('-------------------------------------------------------')
             console.log('=======================================================')
          
@@ -141,19 +136,55 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
             console.log('Atenção')
             console.log('-------------------------------------------------------')
             console.log('=======================================================')
-         
+            sendMsg(mafiaCard, replace(lastmsg))
+
           } else if (lastmsg.match(/Redzin/g)){
             console.log('Redzin')
             console.log('-------------------------------------------------------')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              console.log(string)
+              replaceRed(lastmsg)
+              // Concat the string with the new string
+              const newString2 = string + '\n' + lastmsg
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
+
             console.log('=======================================================')
             
           } else if (lastmsg.match(/Vamos para primeiro martingale/g)){ 
             console.log('Vamos para primeiro martingale')
             console.log('-------------------------------------------------------')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              console.log(string)
+              // Concat the string with the new string
+              const newString2 = string + '\n' + lastmsg
+              console.log(newString2)
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
             console.log('=======================================================')
           } else if (lastmsg.match(/Vamos para o segundo martingale/g)) {
+
             console.log('Vamos para o segundo martingale')
             console.log('-------------------------------------------------------')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              console.log(string)
+              // Concat the string with the new string
+              const newString2 = string + lastmsg
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
+            
             console.log('=======================================================')
           }
           console.log('=======================================================')

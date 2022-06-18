@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build_database": "sudo docker-compose -f docker-compose.yml up -d",
     "pm2Mafia" : "pm2 start ./mafiaRoulleta/mafiaRoulleta.js --name mafiaRoulleta",
-    "pm2_start": "pm2 start ecosystem.config.js"
+    "pm2_start": "pm2 start ecosystem.config.js",
+    "startR" : "node RobotBet365.js && node consumerRoletaProcced && node server.js && node telegram.js node consumerToTelegram.js"   
   },
   "keywords": [],
   "author": "",

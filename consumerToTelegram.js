@@ -5,6 +5,14 @@ const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
 });
+const clientPublisher = redis.createClient({
+     host: '127.0.0.1',
+     port: 6379,
+})
+const clientMemory = redis.createClient({
+     host: '127.0.0.1',
+     port: 6379,
+})
 
 
 const { TelegramClient, Api } = require("telegram");
@@ -16,10 +24,11 @@ const input = require("input"); // npm i input
 const expectNumber = require('./jsonObjects/strategy');
 const { sendMessage } = require('telegram/client/messages');
 const {
-     insertSygnal
+     insertSygnal,
+     updateStrategy,
+     updateStrategyFilter
+
 } = require('./database')
-
-
 
 async function regExe(string, objetoRolleta, strategyArg) {
           // RegEx Nao Intendificado
@@ -34,7 +43,25 @@ async function regExe(string, objetoRolleta, strategyArg) {
                    payload : objetoRolleta,
                    created : new Date().getTime()
                }
-               await insertSygnal(objetoRolleta.numberjson, string, strategyArg)
+               const result = await insertSygnal(objetoRolleta.numberjson, string, strategyArg);
+               
+               const created = estrategiaDetect.created;
+               // Make division mock 1 minutes
+               const mock = created / 1000 / 60;
+               const mockDivision = Math.floor(mock);
+               console.log(mockDivision);
+               clientMemory.set(
+                    `${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_${mockDivision}`, 
+                     JSON.stringify(estrategiaDetect),
+                     {
+                     EX: 100,
+                     NX: true
+                     }
+               );               
+               clientPublisher.publish('msg', JSON.stringify(estrategiaDetect));
+               console.table(estrategiaDetect.payload.numberjson, "Resultado")
+               console.table(estrategiaDetect.estrategiaDetect, "Estrategia Detectada")
+               console.table(estrategiaDetect.roulleteName, "Rolleta Name")             
                return true
           }
 
@@ -51,6 +78,8 @@ async function regExe(string, objetoRolleta, strategyArg) {
      
 const subcribe =  await clientRedis.duplicate()
 await subcribe.connect();
+await clientPublisher.connect();
+// uPublicar esta msg no redis
 
 
 await subcribe.subscribe('BetRollet', (message) => {
@@ -71,6 +100,13 @@ await subcribe.subscribe('BetRollet', (message) => {
 
      msg.detectStrategy.minorMajor.forEach(async (minorMajor) => {
      await  regExe(minorMajor.minorMajor, msg.objsResult, msg.objsResult.name) 
+     })
+
+     msg.detectStrategy.alternateColumns.forEach(
+     async (alternateColumns) => {
+          console.log(alternateColumns)
+          await regExe(alternateColumns.alternateColumns, msg.objsResult, msg.objsResult.name)
+     
      })
 
 

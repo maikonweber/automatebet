@@ -155,7 +155,7 @@ async function getLastNumber18(name) {
     desc limit 10;`;
 
     let result = await pool.query(sql, [name]);
-    console.log(result)
+
     return obj = {
         fistRow : result.rows[0],
         lastRow : result.rows[9]
@@ -200,15 +200,12 @@ async function checkToken(token) {
 async function insertSygnal (number, detectStrategy, name) {
     // convert number to json
     let numberJson = JSON.stringify(number);
-    let queryString = `INSERT INTO robotbetsygnal  (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
-    ON CONFLICT ON CONSTRAINT sygnal DO UPDATE
-    SET (number, detectstretegy) = (EXCLUDED.number, EXCLUDED.detectstretegy) RETURNING *`
-    ;
-    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false]);
-    console.log(result.rows[0])
+    let queryString = `INSERT INTO robotbetsygnal (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3, process)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false, false]);
     return result;
 }
+
 
 async function usersFilters(user_id, games, roullet_permit, string_msg, string_msg_green, string_msg_red) {
     let query = `INSERT INTO users_filters 
@@ -242,6 +239,8 @@ async function getUsersFilter (email) {
 }
 
 async function getStrategyFilter(roulletName, nameStrategy) {
+
+    console.log(roulletName, nameStrategy)
     let query =  `Select * from robotbetsygnal
                   Where roulletname ~ $1
                   AND detectstretegy ~ $2
@@ -252,7 +251,7 @@ async function getStrategyFilter(roulletName, nameStrategy) {
     return result.rows
 }   
 
-async function updateStrategy(id, result = 'result') {
+async function updateStrategy(id, result = 'result', value) {
     let object = {
         'martingale': 'martingale',
         'martingale2': 'martingale2',
@@ -260,7 +259,13 @@ async function updateStrategy(id, result = 'result') {
         'result': 'result'
     }
 
-    let query = `UPDATE robotbetsygnal SET ${object[`${result}`]} = true WHERE id = $1`
+    let query = `UPDATE robotbetsygnal SET ${object[`${result}`]} = $2 WHERE id = $1`
+    let res = await pool.query(query, [id, value])
+    return res
+}
+
+async function updateStrategyFilter(id, value) {
+    let query = `UPDATE robotbetsygnal SET process = true WHERE id = $1`
     let res = await pool.query(query, [id])
     return res
 }
@@ -286,7 +291,9 @@ module.exports = {
     getStrategyByRoullet,
     insertSygnal,
     getUsersFilter,
-    usersFilters
+    usersFilters,
+    updateStrategy,
+    updateStrategyFilter
 }
 
 

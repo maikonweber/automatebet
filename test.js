@@ -1,2 +1,0 @@
-const { getLimitTem } = require('./database')
-

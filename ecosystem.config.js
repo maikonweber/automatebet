@@ -7,10 +7,18 @@ module.exports = {
     name: 'RobotObserverRoulletScrapper',
     script: 'RobotBet365.js',
   },
- // {
-   // name : 'RobotFutebolCron',
-   // script : 'listener.js',
-  //},
+  {
+    name : 'RobotBet',
+    script: 'telegram.js'
+  },
+  {
+    name : 'ConsumerToTelegram',
+    script: 'consumerToTelegram.js'
+  },
+  {
+    name : "ConsumerEX",
+    script: "consumerRoletaX.js"
+  },
   {
     name : 'RobotConsumerProcced',
     script : 'consumerRoletaProcced.js',
