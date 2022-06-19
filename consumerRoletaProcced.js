@@ -279,8 +279,7 @@ function colunasAlternat(json) {
                             console.log(err);
                         }
                     )
-
-
+                    
         }
     });
 

@@ -208,17 +208,26 @@ async function insertSygnal (number, detectStrategy, name) {
 
 
 async function usersFilters(user_id, games, roullet_permit, string_msg, string_msg_green, string_msg_red) {
+    console.log(user_id, games, roullet_permit, string_msg, string_msg_green, string_msg_red)
+    // Parse games to jsonb 
+    let gamesJson = JSON.stringify(games);
+    // parse roullet_permit to jsonb
+    let roulletPermitJson = JSON.stringify(roullet_permit);
+
     let query = `INSERT INTO users_filters 
                  (user_id, games, rollets_permit, string_msg , string_msg_green, string_msg_red)
                  VALUES ($1, $2, $3, $4, $5, $6)
-                 RETURNING *`
-
-    // Convert games to jsonb and rollets_permit to jsonb
-    let gamesJson = JSON.stringify(games);
-    let rollets_permitJson = JSON.stringify(roullet_permit);
-
+                 ON CONFLICT (user_id) DO UPDATE SET    
+                    games = $2,
+                    rollets_permit = $3,
+                    string_msg = $4,
+                    string_msg_green = $5,
+                    string_msg_red = $6
+                    Where users_filters.user_id = $1 RETURNING *`
     try {
-    let result = await pool.query(query, [user_id, gamesJson, rollets_permitJson, string_msg, string_msg_green, string_msg_red]);
+
+    let result = await pool.query(query, [user_id, gamesJson, roulletPermitJson, string_msg, string_msg_green, string_msg_red]);
+    
     return result.rows
     } catch(e) {
         console.log(e)
