@@ -80,13 +80,13 @@ const ColunasRepeat = {
                return 'Repetiçao de 9 vezes da Coluna 2';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 10 vezes da Coluna 1';
+          return 'Repetição 12 vezes da Coluna 1';
      },
      '2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 10 vezes da Coluna 2';
+          return 'Repetição 12 vezes da Coluna 2';
      },
      '3,3,3,3,3,3,3,3,3,3,3' : () => {
-          return 'Repetição 10 vezes da Coluna 3';        
+          return 'Repetição 12 vezes da Coluna 3';        
      },
      '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Repetição 11 vezes da Coluna 1';
@@ -235,13 +235,13 @@ const ColunasRepeat = {
                     return 'Repetiçao de 9 vezes da Bloco 2';
           },
           '1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 10 vezes da Bloco 1';
+               return 'Repetição 12 vezes da Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 10 vezes da Bloco 2';
+               return 'Repetição 12 vezes da Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 10 vezes da Bloco 3';        
+               return 'Repetição 12 vezes da Bloco 3';        
           },
           '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
                return 'Repetição 11 vezes da Bloco 1';
@@ -331,7 +331,7 @@ const redReapeat = {
           return 'Repetição 9 vezes da Red 1';
      },
      '1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 10 vezes da Red 1';
+          return 'Repetição 12 vezes da Red 1';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Repetição 11 vezes da Red 1';
@@ -366,55 +366,55 @@ const redReapeat = {
      '1' : () => {
           return 'Repetição 1 vezes da Black 2';
      },
-     '0,0' : () => {
+     '2,2' : () => {
           return 'Repetição 2 vezes da Black 3';
      },
-     '0' : () => {
+     '2' : () => {
           return 'Repetição 1 vezes da Black 3';
      },
-     '0,0,0,0' : () => {
+     '2,2,2,2' : () => {
           return 'Repetição 4 vezes da Black 1';
      },
-     '0,0,0,0,0' : () => {
+     '2,2,2,2,2' : () => {
           return 'Repetição 5 vezes da Black 1';
      },
-     '0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2' : () => {
           return 'Repetição 6 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2' : () => {
           return 'Repetição 7 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 8 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 9 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0' : () => {
-          return 'Repetição 10 vezes da Black 1';
-     },
-     '0,0,0,0,0,0,0,0,0,0,0' : () => {
-          return 'Repetição 11 vezes da Black 1';
-     },
-     '0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 12 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2' : () => {
+          return 'Repetição 11 vezes da Black 1';
+     },
+     '2,2,2,2,2,2,2,2,2,2,2,2' : () => {
+          return 'Repetição 12 vezes da Black 1';
+     },
+     '2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 13 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 14 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 15 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 16 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 17 vezes da Black 1';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Repetição 18 vezes da Black 1';
      }
 }
@@ -475,10 +475,10 @@ const on18or36 = {
           return 'Repetição 9 vezes da 19 ou 36';
      },
      '1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 10 vezes da 1 ou 18';
+          return 'Repetição 12 vezes da 1 ou 18';
      },
      '2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 10 vezes da 19 ou 36';
+          return 'Repetição 12 vezes da 19 ou 36';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Repetição 11 vezes da 1 ou 18';
@@ -535,13 +535,13 @@ const parOuImpar = {
      '1' : () => {
           return 'Par';
      }
-     ,'0' : () => {
+     ,'2' : () => {
           return 'Impar';
      },
-     '0,0' : () => {
+     '2,2' : () => {
           return 'Impar 2 vezes';
      },
-     '0,0,0,' : () => {
+     '2,2,2,' : () => {
           return 'Impar 3 vezez';
      },
      '1,1,' : () => {
@@ -550,91 +550,91 @@ const parOuImpar = {
      '1,1,1' : () => {
           return 'Par 3 vezez';
      },
-     '0,0,0,0' : () => {
+     '2,2,2,2' : () => {
           return 'Impar 4 vezes';
      },
      '1,1,1,1' : () => {
           return 'Par 4 vezes';
      },
-     '0,0,0,0,0' : () => {
+     '2,2,2,2,2' : () => {
           return 'Impar 5 vezes';
      },
      '1,1,1,1,1' : () => {
           return 'Par 5 vezes';
      },
-     '0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2' : () => {
           return 'Impar 6 vezes';
      },
      '1,1,1,1,1,1' : () => {
           return 'Par 6 vezes';
      },
-     '0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2' : () => {
           return 'Impar 7 vezes';
      },
      '1,1,1,1,1,1,1' : () => {
           return 'Par 7 vezes';
      },
-     '0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2' : () => {
           return 'Impar 8 vezes';
      },
      '1,1,1,1,1,1,1,1' : () => {
           return 'Par 8 vezes';
      },
-     '0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 9 vezes';
      },
      '1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 9 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0' : () => {
-          return 'Impar 10 vezes';
+     '2,2,2,2,2,2,2,2,2,2' : () => {
+          return 'Impar 12 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Par 10 vezes';
+          return 'Par 12 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 11 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 11 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 12 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 12 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 13 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 13 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 14 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 14 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 15 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 15 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 16 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 16 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 17 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Par 17 vezes';
      },
-     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' : () => {
+     '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
           return 'Impar 18 vezes';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
@@ -830,27 +830,27 @@ const parOuImpar = {
           }
           ,
           '1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 10x vezes';
+               return 'Alternar colunas 1 e 2 - 12x vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 10x vezes';
+               return 'Alternar colunas 2 e 1 - 12x vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 10x vezes';
+               return 'Alternar colunas 1 e 3 - 12x vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 10x vezes';
+               return 'Alternar colunas 3 e 1 - 12x vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 10x vezes';
+               return 'Alternar colunas 2 e 3 - 12x vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 10x vezes';
+               return 'Alternar colunas 3 e 2 - 12x vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1' : () => {
@@ -1042,5 +1042,4 @@ module.exports = {
      parOuImpar,
      on18or36,
      alternateColumns,
-     blackRepeat
 }

@@ -19,21 +19,36 @@ const expectNumber = require("./jsonObjects/strategy");
 (async () => {
 const roleta = 
      [
-    'Greek_Roulette',
-    'Roleta_Brasileira',
-    'Roulette_Italiana',
-    'French_Roulette',
-    'Hindi_Roulette',
-    'Roulette_Italiana',
-    'Bucharest_Roulette',
-    'American_Roulette',
+          'Roulette',
+          'Football_French_Roulette',
+          'Deutsches_Roulette',
+          'Speed_Roulette',
+          'Prestige_Roulette',
+          'Mega_Fire_Blaze_Roulette_Live',
+          'Greek_Roulette',
+          'Roleta_Brasileira',
+          'Auto_Roulette',
+          'French_Roulette',
+          'Hindi_Roulette',
+          'Roulette_Italiana',
+          'Bucharest_Roulette',
+          'American_Roulette',
      ]
 
 const strategyx = [
-     'Alternar colunas 1 e 2 - 2x vezes',
-     'Alternar colunas 2 e 3 - 2x vezes',
-     'Alternar colunas 3 e 1 - 2x vezes',
-
+     'Alternar colunas 1 e 2 - 7x vezes',
+     'Alternar colunas 2 e 3 - 7x vezes',
+     'Alternar colunas 3 e 1 - 7x vezes',
+     'Alternar colunas 1 e 3 - 7x vezes',
+     'Alternar colunas 2 e 1 - 7x vezes',
+     'Alternar colunas 3 e 2 - 7x vezes',
+     'Repetiçao de 7 vezes da Bloco 3',
+     'Repetiçao de 7 vezes da Bloco 2',
+     'Repetiçao de 7 vezes da Bloco 1',
+     'Repetiçao de 7 vezes da Coluna 1',
+     'Repetiçao de 7 vezes da Coluna 2',
+     'Repetiçao de 7 vezes da Coluna 3',
+     
 ]
 
 
@@ -155,6 +170,13 @@ function testStrategy(estrategiaDetect, lastNumber) {
                "expect" : "Quebra na Colunas 2 ou Colunas 3",
                "array" : expectNumber['Alternancia da Coluna 2 e 3']()
           }
+
+     }    else if (estrategiaDetect.match(/Alternar colunas 3 e 1/g)) {
+          console.log('Não encontrado')
+          return {
+               "expect" : "Quebra na Colunas 3 ou Colunas 1",
+               "array" : expectNumber['Alternancia da Coluna 3 e 1']()
+          }
      }
 
  
@@ -244,7 +266,6 @@ async function sendMsg(sala, msg) {
                console.log(estrategiaDetect, payload.numberjson, "estrategiaDetect", roulleteName)
 
                const test = testStrategy(estrategiaDetect)
-               console.log(test.expect, "-----------------------------------------------")
 
                const last1 = payload.numberjson[0].toString()
                const last2 = payload.numberjson[1].toString()

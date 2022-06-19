@@ -83,6 +83,7 @@ async function strategyConsultFor18(newArray)  {
      let imparx = []
      let parx = []
 
+     console.log(newArray)
      for(let i = 0; i < newArray.length; i++) {
           if (columa1.includes(newArray[i])) {
                colunas.push(1)
@@ -110,16 +111,16 @@ async function strategyConsultFor18(newArray)  {
           if (red.includes(newArray[i])) {
                reds.push(1)
           } else if (green.includes(newArray[i])) {
-               reds.push(0)
-          } else {  
                reds.push(2)
+          } else {  
+               reds.push(3)
           }
      }
      for(let i = 0; i < newArray.length; i++) {
           if (green.includes(newArray[i])) {
                greens.push(1)
           } else if (red.includes(newArray[i])) {
-               greens.push(0)
+               greens.push(2)
           }
           else {
                greens.push(3)
@@ -158,7 +159,7 @@ async function strategyConsultFor18(newArray)  {
           imparOrPar : imparx
      }
 
-
+     console.log(strategyProccess)
 
 
      return strategyProccess
@@ -176,13 +177,14 @@ function getStrategy(strategy, value, number){
      for(number; number > 0; number--) {
           array.pop()     
      }
-
      const StringValue = array.toString()
-     console.log(StringValue)
+
      if(strategy[`${StringValue}`]) {
+     console.log('---------------------------------')
+     console.log(strategy[`${StringValue}`]())
          return strategy[`${StringValue}`]();
      } 
-     return `Não identificado ${StringValue}` ;
+     return `Não identificado` ;
      }
 
 
@@ -211,7 +213,7 @@ async function strategy18Procced (strategy) {
      
 
 
-     let times = 17
+     let times = 16
      let array = []
      for(let i = 0; i < times; i++) {
           let value = getStrategy(ColunasRepeat, stringColunas, i)
@@ -225,7 +227,7 @@ async function strategy18Procced (strategy) {
      let array3 = []
      for(let i = 0; i < times; i++) {
           let value = getStrategy(parOuImpar, stringParOuImpar, i)
-          console.log(value)
+       
           array3.push({
                parOrImpar : value,
                index : i
@@ -235,7 +237,7 @@ async function strategy18Procced (strategy) {
      const array7 = []
      for(let i = 0; i < times; i++) {
           let value = getStrategy(alternateColumns, stringColunas, i)
-          console.log(value)
+      
           array7.push({
                alternateColumns : value,
           })
@@ -243,8 +245,8 @@ async function strategy18Procced (strategy) {
 
      let array4 = []
      for(let i = 0; i < times; i++) {
-          console.log(value)
           let values = getStrategy(on18or36, stringOneTo18, i)
+       
           array4.push({
                minorMajor : values,
                index : i
@@ -370,7 +372,7 @@ setInterval(() => {
                 }
           //console.log(obj)  
                strategyProced(obj)
-               console.log(obj.roulletename, obj.numberjson)
+               
           } else {
           console.log(`Payload esta comprometido ${estrategia.name}`)
           
