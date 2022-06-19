@@ -38,7 +38,6 @@ async function regExe(string, objetoRolleta, strategyArg) {
                    payload : objetoRolleta,
                    created : new Date().getTime()
                }
-               const result = await insertSygnal(objetoRolleta.numberjson, string, strategyArg);
                
                const created = estrategiaDetect.created;
                // Make division mock 1 minutes
