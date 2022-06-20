@@ -1,13 +1,14 @@
 const { TelegramClient, Api } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
-const { getStrategyByRoullet } = require('./database')
+const { getStrategyByRoullet , getLastNumber18,} = require('./database')
 const {
      blocosRepeat,
      ColunasRepeat,
      redReapeat,
      alternateColumns,
      on18or36,
+     
      parOuImpar,
 } = require('./jsonObjects/jsonStrategy.js')
 
@@ -29,6 +30,7 @@ const clientRedis = redis.createClient({
 
 
 const expectNumber = require('./jsonObjects/strategy.js');
+const { last } = require('cheerio/lib/api/traversing');
 
 clientRedis.connect();
 // get all key in redis
@@ -358,8 +360,10 @@ async function strategyProced (objetoRolleta) {
 setInterval(() => {
      console.log('thick')
      arrayName.forEach(async (Element) => {
-          const result = await getStrategyByRoullet(Element)
-          // Match RegEx Nao Indenticado for Result strateg
+     const result = await getStrategyByRoullet(Element)
+     const last18 = await getLastNumber18(Element);
+              // Match RegEx Nao Indenticado for Result strateg
+          console.log(last18)
           
           result.forEach(async (estrategia) => {
           if(estrategia.jsonbstrategy.last18.fistRow && estrategia.jsonbstrategy.last18.lastRow)  {
@@ -368,7 +372,7 @@ setInterval(() => {
                'jsonbstrategy'  :   estrategia.jsonbpreload,
                'numberjson'   :  estrategia.numberjson,
                'objsResult' : estrategia,
-               'last18' : [estrategia.jsonbstrategy.last18.fistRow.numberjson, estrategia.jsonbstrategy.last18.lastRow.numberjson], 
+               'last18' : [estrategia.numberjson, last18.lastRow.numberjson],
                 }
           //console.log(obj)  
                strategyProced(obj)

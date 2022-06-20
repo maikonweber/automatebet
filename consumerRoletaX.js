@@ -51,16 +51,46 @@ const strategyx = [
      
 ]
 
+const spectStrategy = [
+     'Alternar colunas 1 e 2 - 6x vezes',
+     'Alternar colunas 2 e 3 - 6x vezes',
+     'Alternar colunas 3 e 1 - 6x vezes',
+     'Alternar colunas 1 e 3 - 6x vezes',
+     'Alternar colunas 2 e 1 - 6x vezes',
+     'Alternar colunas 3 e 2 - 6x vezes',
+     'Repetiçao de 6 vezes da Bloco 3',
+     'Repetiçao de 6 vezes da Bloco 2',
+     'Repetiçao de 6 vezes da Bloco 1',
+     'Repetiçao de 6 vezes da Coluna 1',
+     'Repetiçao de 6 vezes da Coluna 2',
+     'Repetiçao de 6 vezes da Coluna 3',
+     
+]
 
 const string = 
+`✅ ENTRADA CONFIRMADA ✅
+🎰 ROLETA: {rouletteName}
+💎 ESTRATÉGIA: {strategy}
+✅ENTRAR: {strategyName}
+🔄POSSÍVEL GALE: {possibleGale} 
+🎯COBRIR O ZERO`
+
+
+const string2 = 
 `
 ✅ ENTRADA CONFIRMADA ✅
 🎰 Roleta 🎰: {rouletteName}
-🚀 Estratégia 🚀: {strategyName}
+💎 ESTRATÉGIA: {strategyName}
 LastNumber : {last}
 👉🏻 Entrada 👈🏻: : {expect}
 🎯 Cobrir o zero'
 `
+
+const possivelAlert = `⚠️POSSÍVEL ENTRADA⚠️
+
+🎰 ROLETA: {rouletteName}
+💎 ESTRATÉGIA: {strategyName}`
+
 
 const stringred = `
 🎰 Roleta 🎰: {rouletteName}
@@ -211,17 +241,31 @@ async function sendMsg(sala, msg) {
           function consultMemory (sygnalBase, string) {
                console.log(sygnalBase)
                setTimeout(async () => {
-               try {
+
                  const last = await clientRedis.get(`${sygnalBase.roulletname}_${string.estrategiaDetect}`)
-                    console.log('lst', last)
+                 console.log(last, "redis memory")
+
                  const {
                       array,
                       expect
                  } = testStrategy(sygnalBase.estrategiaDetect)
-               console.log(array, expect, "expect")
+                    console.log(array, expect, "expect")
+
                  let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+
+                
                  console.log(sygnalBase)
                  console.log(resultadoAtual.numberjson, "resultadoAtual")
+                 if (sygnalBase.numberjson == resultadoAtual.numberjson) {
+                    new Promise(async () => {
+                         setTimeout(async () => {
+                         
+                         }, 6000)
+                    })
+
+                    return await p;
+                 }
+
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
                       await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
@@ -251,14 +295,11 @@ async function sendMsg(sala, msg) {
                       function martingale(sygnalBase, string, lastResult) {
 
                       }   
-                 }
-               } catch (error) {
-                    console.log(error)
-               }
+                     }
+               }, 28700)
 
-               }, 22000 )
-          
           }
+
           
           
           function stringReplace(string, sygnalBase) {
@@ -301,6 +342,23 @@ await client.start({
      onError: (err) => console.log(err),
    });
 
+
+const proccedAlert = async (sygnalBase, string) => {
+     console.log(sygnalBase, string)
+
+     const {
+          array,
+          expect
+     } = testStrategy(sygnalBase.estrategiaDetect)
+
+     const replace = string.replace(/{rouletteName}/g, roulleteName)
+     const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
+     const replace4 = replace2.replace(/{last}/g, last)
+     const replace5 = replace4.replace(/{expect}/g, test.expect)
+     return replace5
+}
+
+
  
 
 
@@ -323,8 +381,14 @@ const sala1 = result.chats[0].id
           
 await sub.subscribe('msg', async (message) => {
 
-
+     console.log(message)
      const strig =  JSON.parse(message); // 'message'
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulletname)) {
+          console.log(strig)
+          return proccedAlert(strig, possivelAlert)
+
+     }
+
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(await clientRedis.get(`${string.roulleteName}_${string.estrategiaDetect}`))
           return proccedRoulletAndSend(strig, string)
