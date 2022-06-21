@@ -84,8 +84,6 @@ async function strategyConsultFor18(newArray)  {
      let OneTo18s = []
      let imparx = []
      let parx = []
-
-     console.log(newArray)
      for(let i = 0; i < newArray.length; i++) {
           if (columa1.includes(newArray[i])) {
                colunas.push(1)
@@ -161,7 +159,6 @@ async function strategyConsultFor18(newArray)  {
           imparOrPar : imparx
      }
 
-     console.log(strategyProccess)
 
 
      return strategyProccess
@@ -182,8 +179,7 @@ function getStrategy(strategy, value, number){
      const StringValue = array.toString()
 
      if(strategy[`${StringValue}`]) {
-     console.log('---------------------------------')
-     console.log(strategy[`${StringValue}`]())
+     
          return strategy[`${StringValue}`]();
      } 
      return `Não identificado` ;
@@ -215,11 +211,11 @@ async function strategy18Procced (strategy) {
      
 
 
-     let times = 16
+     let times = 18
      let array = []
      for(let i = 0; i < times; i++) {
           let value = getStrategy(ColunasRepeat, stringColunas, i)
-          console.log(value)
+     
           array.push({
                coluna : value,
                index : i
@@ -293,11 +289,11 @@ async function strategyProced (objetoRolleta) {
 
      // Strategy Proced
      const last18 = objetoRolleta.last18
+     console.log(last18)
      const concat = last18[0].concat(last18[1])
      // Remove every time the 10th element of array and make a new array com rest of elements
-     const newArray = concat.filter((item, index) => index % 10 !== 9)
-
-     const strategyProcess = await strategyConsultFor18(newArray)
+     // Get the strategy
+     const strategyProcess = await strategyConsultFor18(concat)
      objetoRolleta.detectStrategy = await strategy18Procced(strategyProcess)
 
      const nineteenTo36 = objetoRolleta.jsonbstrategy.nineteenTo36    
@@ -311,6 +307,9 @@ async function strategyProced (objetoRolleta) {
      const columnsReapt = objetoRolleta.jsonbstrategy.strategyColumnReapeat
      const alternateColumns = objetoRolleta.jsonbstrategy.strategyAlternateColum
      const red4time = objetoRolleta.jsonbstrategy.strategyRed4Time
+
+     objetoRolleta.concat = concat
+
      await SendMessage(objetoRolleta)
       
 }
@@ -363,10 +362,13 @@ setInterval(() => {
      const result = await getStrategyByRoullet(Element)
      const last18 = await getLastNumber18(Element);
               // Match RegEx Nao Indenticado for Result strateg
-          console.log(last18)
-          
           result.forEach(async (estrategia) => {
-          if(estrategia.jsonbstrategy.last18.fistRow && estrategia.jsonbstrategy.last18.lastRow)  {
+
+               console.log(estrategia.name)
+               console.log(last18)
+               console.log(estrategia.numberjson)
+
+
                let obj = {
                'roulletename' : estrategia.name,
                'jsonbstrategy'  :   estrategia.jsonbpreload,
@@ -374,15 +376,12 @@ setInterval(() => {
                'objsResult' : estrategia,
                'last18' : [estrategia.numberjson, last18.lastRow.numberjson],
                 }
-          //console.log(obj)  
+
                strategyProced(obj)
                
-          } else {
-          console.log(`Payload esta comprometido ${estrategia.name}`)
-          
-     }
+          })
      })
-})
-}, 29000)
+
+}, 15000)
 
 })()

@@ -43,13 +43,16 @@ async function regExe(string, objetoRolleta, strategyArg) {
                // Make division mock 1 minutes
                const mock = created / 1000 / 60;
                const mockDivision = Math.floor(mock);
-               console.log(estrategiaDetect);              
-
-               clientPublisher.publish('msg', JSON.stringify(estrategiaDetect));
+               
+               console.log('=========================================================================')
+               console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+               return await clientPublisher.publish('msg', JSON.stringify(estrategiaDetect));
+               
                return true
           }
 
 }
+
 
 
 
@@ -68,27 +71,25 @@ await clientPublisher.connect();
 
 await subcribe.subscribe('BetRollet', (message) => {
      const msg = JSON.parse(message)
-   
-
      msg.detectStrategy.colunasRepeat.forEach(async (coluna) => {
-     await regExe(coluna.coluna, msg.objsResult, msg.objsResult.name)
+     await regExe(coluna.coluna, msg, msg.objsResult.name)
      })
 
      msg.detectStrategy.blocosRepeat.forEach(async (bloco) => {
-     await  regExe(bloco.blocosRepeat, msg.objsResult, msg.objsResult.name)
+     await  regExe(bloco.blocosRepeat, msg, msg.objsResult.name)
      })
 
      msg.detectStrategy.parOrImpar.forEach(async (parImpar) => {
-     await  regExe(parImpar.parOrImpar, msg.objsResult, msg.objsResult.name)
+     await  regExe(parImpar.parOrImpar, msg, msg.objsResult.name)
      })
 
      msg.detectStrategy.minorMajor.forEach(async (minorMajor) => {
-     await  regExe(minorMajor.minorMajor, msg.objsResult, msg.objsResult.name) 
+     await  regExe(minorMajor.minorMajor, msg, msg.objsResult.name) 
      })
 
      msg.detectStrategy.alternateColumns.forEach(
      async (alternateColumns) => {
-          await regExe(alternateColumns.alternateColumns, msg.objsResult, msg.objsResult.name)
+          await regExe(alternateColumns.alternateColumns, msg, msg.objsResult.name)
      
      })
 

@@ -313,49 +313,49 @@ const ColunasRepeat = {
 
 const redReapeat = {
      '1,1,1,1' : () => {
-          return 'Repetição 4 vezes da Red 1';
+          return 'Repetição 4 vezes da Red ';
      },
      '1,1,1,1,1' : () => {
-          return 'Repetição 5 vezes da Red 1';
+          return 'Repetição 5 vezes da Red ';
      },
      '1,1,1,1,1,1' : () => {
-          return 'Repetição 6 vezes da Red 1';
+          return 'Repetição 6 vezes da Red ';
      }, 
      '1,1,1,1,1,1,1' : () => {
-          return 'Repetição 7 vezes da Red 1';
+          return 'Repetição 7 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 8 vezes da Red 1';
+          return 'Repetição 8 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 9 vezes da Red 1';
+          return 'Repetição 9 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 12 vezes da Red 1';
+          return 'Repetição 12 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 11 vezes da Red 1';
+          return 'Repetição 11 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 12 vezes da Red 1';
+          return 'Repetição 12 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 13 vezes da Red 1';
+          return 'Repetição 13 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 14 vezes da Red 1';
+          return 'Repetição 14 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 15 vezes da Red 1';
+          return 'Repetição 15 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 16 vezes da Red 1';
+          return 'Repetição 16 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 17 vezes da Red 1';
+          return 'Repetição 17 vezes da Red ';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 18 vezes da Red 1';
+          return 'Repetição 18 vezes da Red ';
      },
      '1,1,1' : () => {
           return 'Repetição 4 vezes da Red 2';
@@ -542,13 +542,13 @@ const parOuImpar = {
           return 'Impar 2 vezes';
      },
      '2,2,2,' : () => {
-          return 'Impar 3 vezez';
+          return 'Impar 3 vezes';
      },
      '1,1,' : () => {
-          return 'Par 2 vezez';
+          return 'Par 2 vezes';
      },
      '1,1,1' : () => {
-          return 'Par 3 vezez';
+          return 'Par 3 vezes';
      },
      '2,2,2,2' : () => {
           return 'Impar 4 vezes';
