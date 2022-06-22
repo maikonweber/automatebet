@@ -160,6 +160,18 @@ const redis = require('redis');
             const element = document.querySelectorAll(".HistoryGridItem--237f9");
             console.log(element);
         })
+
+        await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001')
+
+        await this.page.evaluate(()=> {
+            const element = document.querySelectorAll('.historyItem--a1907 isDesktop--8a099.largeMobileIcon--4dd9c.classicLayout--7cc42')
+            element.forEach(element => {
+                console.log(element)
+            })
+            console.log(element)
+        })
+        
+        
        
 
     
