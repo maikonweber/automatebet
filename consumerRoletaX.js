@@ -13,6 +13,7 @@ const clientRedis = redis.createClient({
      port: 6379,
 });
 const expectNumber = require("./jsonObjects/strategy");
+const { get } = require("cheerio/lib/api/traversing");
 
 
 
@@ -48,11 +49,13 @@ const strategyx = [
      'Repetiçao de 7 vezes da Coluna 1',
      'Repetiçao de 7 vezes da Coluna 2',
      'Repetiçao de 7 vezes da Coluna 3',
-     'Repetição de 5 vezes da Colunas 1'
-     
+     'Repetição de 5 vezes da Colunas 1',
+     'Repetição 5 vezes da 19 ou 36'
+
 ]
 
 const spectStrategy = [
+     'Repetição 4 vezes da 19 ou 36',
      'Repetição de 4 vezes da Coluna 2',
      'Repetição de 4 vezes da Coluna 1',
      'Alternar colunas 1 e 2 - 6x vezes',
@@ -126,7 +129,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
           return {
                "expect" : "Jogar nos numeros Maiores",
                "array" : expectNumber['1 ao 18 Reapeat']()}
-     } else if (estrategiaDetect.match(/19 ao 36/g)) {
+     } else if (estrategiaDetect.match(/19 ou 36/g)) {
           console.log('Repetição - 19 ao 36')
           return {
                "expect" : "Jogar nos numeros Menores",
@@ -216,13 +219,22 @@ function testStrategy(estrategiaDetect, lastNumber) {
 }
    
 
-async function sendMsg(sala, msg) {
+async function sendMsg(sala, msg, reply) {
           const salaEntity = await client.getEntity(sala)
-          await client.invoke( new Api.messages.SendMessage({
+          
+          if(!reply) {
+          return await client.invoke( new Api.messages.SendMessage({
                peer: salaEntity,
                message: msg.toString()
-          }) );
+          }))
+          } else {
+          return await client.invoke(new Api.messages.SendMessage({
+               peer : salaEntity,
+               message : msg.toString(),
+               replyToMsgIdply : reply
+          }))
           }
+     }
 
           function proccedRoulletAndSend(sygnalBase, string) {
                const replace = stringReplace(string, sygnalBase)
@@ -232,45 +244,36 @@ async function sendMsg(sala, msg) {
           }
           
           async function saveMemorySend(sygnalBase, string) {
-               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), 'EX', 180)
-               
-               await sendMsg(-1593932898, string)
-               await sendMsg(-1266295662, string)
-               await sendMsg(-1150553286, string)
+               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), {
+                    EX: 180,
+                    NX: true
+               })
+               const getting  =clientRedis.get(`-1593932898_${roulleteName}`)
+               console.log(getting)
+               const msg1 = await sendMsg(-1593932898, string, getting.updates[0].id)
+               console.log(msg1)
                consultMemory(sygnalBase, string)
           }
           
           function consultMemory (sygnalBase, string) {
                console.log(sygnalBase)
                setTimeout(async () => {
-
-                 const last = await clientRedis.get(`${sygnalBase.roulleteName}_${string.estrategiaDetect}`)
-                 console.log(last, "redis memory")
-
                  const {
                       array,
                       expect
                  } = testStrategy(sygnalBase.estrategiaDetect)
-                    console.log(array, expect, "expect")
-
                  let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
-
-                
-                 console.log(sygnalBase)
-                 console.log(resultadoAtual.numberjson, "resultadoAtual")
 
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
-                      function replaceForGreen(string, resultadoAtual, sygnalBase) {
+                    function replaceForGreen(string, resultadoAtual, sygnalBase) {
                          const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
                          const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
                          const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
                          const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                          return replace4
                     }
-                      await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))  
-                      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))
-                      await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))                        
+                      await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
                  } else {
                       console.log('RED')
                       function replaceForRed(string, resultadoAtual, sygnalBase) {
@@ -280,15 +283,26 @@ async function sendMsg(sala, msg) {
                            const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                            return replace4
                       }
-                      await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                      await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                      await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))  
-                      function martingale(sygnalBase, string, lastResult) {
+                      const msg = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
+                      console.log(msg)
+                      async function martingale(sygnalBase, stringRed, stringGreen, lastResult, msg) {
+                         setTimeout( async () => {
+                              let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+                              const {
+                                   array,
+                                   expect
+                              } = testStrategy(sygnalBase.estrategiaDetect)
 
-                      }   
+                              if(array.includes(resultadoAtual.numberjson[0])) {
+                                   const msg = await sendMsg(-1593932898, replaceForGreen(stringGreen, resultadoAtual, sygnalBase))
+                              } else {
+                                   const msg2 = await sendMsg(-1593932898, replaceForRed(stringRed, resultadoAtual, sygnalBase))
+                              }
+                         }, 45000)
+                      }
+                      martingale(sygnalBase, stringred, stringreen, resultadoAtual.numberjson[0])
                      }
-               }, 35000)
-
+               }, 45000)
           }
 
           
@@ -333,9 +347,9 @@ await client.start({
    });
 
 
-const proccedAlert = async (sygnalBase, string) => {
-     console.log(sygnalBase, string)
-
+async function proccedAlert (sygnalBase, string) {
+     const { estrategiaDetect, roulleteName, payload } = sygnalBase
+     console.log(`----------------- Alerta ----------------------`)
      const {
           array,
           expect
@@ -343,14 +357,18 @@ const proccedAlert = async (sygnalBase, string) => {
 
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
-     const replace4 = replace2.replace(/{last}/g, last)
-     const replace5 = replace4.replace(/{expect}/g, expect)
+
+     const replace5 = replace2.replace(/{expect}/g, expect)
 
     
-     await sendMsg(-1593932898,replace5)
-     await sendMsg(-1266295662,replace5)
-     await sendMsg(-1150553286,replace5)
-     
+     const msg1 = await sendMsg(-1593932898,replace5)
+     console.log(msg1)
+
+     clientRedis.set(`${msg1.chats[0].id}_${roulleteName}`, JSON.stringify(msg1.chats[0].id), {
+          EX: 180,
+          NX: true
+     }) 
+
      return replace5
 }
 
@@ -381,14 +399,22 @@ await sub.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
      console.log(strig.roulleteName, strig.estrategiaDetect)
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
-     console.log(result, "strategia")
      if(!result) {
      console.log("Strategy Detect")
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
+          console.log('-------------------ALERT-------------------')
+          proccedAlert(strig, possivelAlert)
+          return
+     }
+
+
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`------------------------------------------------------------`)
           proccedRoulletAndSend(strig, string)
           return 
           }
+     } else {
+          console.log('Resultado não processado')
      }
 });
    

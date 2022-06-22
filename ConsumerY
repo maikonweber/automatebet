@@ -9,6 +9,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aII
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
+     expire: 120
 });
 const expectNumber = require("./jsonObjects/strategy");
 
@@ -215,10 +216,14 @@ async function sendMsg(sala, msg) {
           }
           
           async function saveMemorySend(sygnalBase, string) {
-               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), 'EX', 180)
-               
-               await sendMsg(-1681921748, string)
-              
+               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase),  {
+                    EX: 180,
+                    NX: true
+               })
+               const msg2 = clientRedis.get(`${-1681921748}_${roulleteName}`)
+               const msg1 = await sendMsg(-1681921748, string, msg2)
+               console.log(msg1)
+
                consultMemory(sygnalBase, string)
      
           }
@@ -264,7 +269,7 @@ async function sendMsg(sala, msg) {
                       await sendMsg(-1681921748, replaceForRed(stringred, resultadoAtual, sygnalBase))
                      
                      }
-               }, 42000)
+               }, 45000)
 
           }
 
@@ -309,9 +314,9 @@ await client.start({
 
 
 
-const proccedAlert = async (sygnalBase, string) => {
-     console.log(sygnalBase, string)
-
+   async function proccedAlert (sygnalBase, string) {
+     const { estrategiaDetect, roulleteName, payload } = sygnalBase
+     console.log(`----------------- Alerta ----------------------`)
      const {
           array,
           expect
@@ -319,15 +324,20 @@ const proccedAlert = async (sygnalBase, string) => {
 
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
-     const replace4 = replace2.replace(/{last}/g, last)
-     const replace5 = replace4.replace(/{expect}/g, expect)
 
-     const msg = await sendMsg(-1593932898, replace5)
-     console.log(msg)
-     clientRedis.set(`${roulleteName}`, JSON.stringify(msg), 'EX', 180)
-     return 
+     const replace5 = replace2.replace(/{expect}/g, expect)
+
+    
+     const msg1 = await sendMsg(-1593932898,replace5)
+     console.log(msg1)
+
+     clientRedis.set(`${msg1.chat[0].id}_${roulleteName}`, JSON.stringify(msg1.updates[0].id), {
+          EX: 180,
+          NX: true
+     }) 
+
+     return replace5
 }
-
 
 
 
@@ -345,11 +355,7 @@ for(let i = 0; i < result.chats.length; i++){
 
 console.log(client.session.save());
 
-
-const sala1 = result.chats[0].id
-
-
-const array = []      
+    
 await sub.subscribe('msg', async (message) => {
 
     
@@ -359,8 +365,8 @@ await sub.subscribe('msg', async (message) => {
      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
 
-     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-          console.log('-----------------Send Sygnal----------------------')
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
+          console.log('-------------------ALERT-------------------')
           proccedAlert(strig, possivelAlert)
           return
      }
@@ -370,6 +376,7 @@ await sub.subscribe('msg', async (message) => {
            proccedRoulletAndSend(strig, string3)
            return 
           }
+          return
      } 
 });
    

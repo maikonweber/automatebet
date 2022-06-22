@@ -164,150 +164,150 @@ const ColunasRepeat = {
                return 'Repetição 1 vez do Bloco 1';
           },
           '1,1' : () => {
-               return 'Repetição 2 vezes da Bloco 1';
+               return 'Repetição 2 vezes do Bloco 1';
           },
           '2,2' : () => {
-               return 'Repetição 2 vezes da Bloco 2';
+               return 'Repetição 2 vezes do Bloco 2';
           },
           '3,3' : () => {
-               return 'Repetição 2 vezes da Bloco 3';
+               return 'Repetição 2 vezes do Bloco 3';
           },
           '1,1,1' : () => {
-               return 'Repetição 3 vezes da Bloco 1';
+               return 'Repetição 3 vezes do Bloco 1';
           },
           '2,2,2' : () => {
-               return 'Repetição 3 vezes da Bloco 2';
+               return 'Repetição 3 vezes do Bloco 2';
           },
           '3,3,3' : () => {
-               return 'Repetição 3 vezes da Bloco 3';
+               return 'Repetição 3 vezes do Bloco 3';
           },
           '1,1,1,1' : () => {
-                return 'Repetiçao de 4 vezes da Bloco 1';
+                return 'Repetiçao de 4 vezes do Bloco 1';
      
           },
           '2,2,2,2' : () => {
-                    return 'Repeitiçao de 4 vezes da Bloco 2';
+                    return 'Repeitiçao de 4 vezes do Bloco 2';
           },
           '3,3,3,3' : () => {
-                    return 'Repeitiçao de 4 vezes da Bloco 3';
+                    return 'Repeitiçao de 4 vezes do Bloco 3';
           },
           '1,1,1,1,1' : () => {
-                return 'Repetiçao de 5 vezes da Bloco 1';
+                return 'Repetiçao de 5 vezes do Bloco 1';
           },
           '2,2,2,2,2' : () => {
-                    return 'Repetiçao de 5 vezes da Bloco 2';
+                    return 'Repetiçao de 5 vezes do Bloco 2';
           },
           '3,3,3,3,3' : () => {
-                    return 'Repetiçao de 5 vezes da Bloco 3';
+                    return 'Repetiçao de 5 vezes do Bloco 3';
           },
           '1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 6 vezes da Bloco 1';
+                    return 'Repetiçao de 6 vezes do Bloco 1';
      
           },
           '2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 6 vezes da Bloco 2';
+                    return 'Repetiçao de 6 vezes do Bloco 2';
           },
           '3,3,3,3,3,3' : () => {
-                    return 'Repetiçao de 6 vezes da Bloco 3';
+                    return 'Repetiçao de 6 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 7 vezes da Bloco 1';
+                    return 'Repetiçao de 7 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 7 vezes da Bloco 2';
+                    return 'Repetiçao de 7 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3' : () => {
-                    return 'Repetiçao de 7 vezes da Bloco 3';
+                    return 'Repetiçao de 7 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 8 vezes da Bloco 1';
+                    return 'Repetiçao de 8 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 8 vezes da Bloco 2';
+                    return 'Repetiçao de 8 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3' : () => {
-                    return 'Repetiçao de 8 vezes da Bloco 3';
+                    return 'Repetiçao de 8 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 9 vezes da Bloco 1';
+                    return 'Repetiçao de 9 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 9 vezes da Bloco 2';
+                    return 'Repetiçao de 9 vezes do Bloco 2';
           },
           '1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 12 vezes da Bloco 1';
+               return 'Repetição 12 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 12 vezes da Bloco 2';
+               return 'Repetição 12 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 12 vezes da Bloco 3';        
+               return 'Repetição 12 vezes do Bloco 3';        
           },
           '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 11 vezes da Bloco 1';
+               return 'Repetição 11 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 11 vezes da Bloco 2';
+               return 'Repetição 11 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 11 vezes da Bloco 3';         
+               return 'Repetição 11 vezes do Bloco 3';         
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 12 vezes da Bloco 1';
+               return 'Repetição 12 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {   
-               return 'Repetição 12 vezes da Bloco 2';
+               return 'Repetição 12 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 12 vezes da Bloco 3';
+               return 'Repetição 12 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 13 vezes da Bloco 1';
+               return 'Repetição 13 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 13 vezes da Bloco 2';
+               return 'Repetição 13 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 13 vezes da Bloco 3';
+               return 'Repetição 13 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 14 vezes da Bloco 1';
+               return 'Repetição 14 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 14 vezes da Bloco 2';
+               return 'Repetição 14 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 14 vezes da Bloco 3';
+               return 'Repetição 14 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 15 vezes da Bloco 2'; 
+               return 'Repetição 15 vezes do Bloco 2'; 
           },
           '3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 15 vezes da Bloco 3';
+               return 'Repetição 15 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 16 vezes da Bloco 1';
+               return 'Repetição 16 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 16 vezes da Bloco 2';
+               return 'Repetição 16 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 16 vezes da Bloco 3';
+               return 'Repetição 16 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 17 vezes da Bloco 1';
+               return 'Repetição 17 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 17 vezes da Bloco 2';
+               return 'Repetição 17 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3' : () => {
-               return 'Repetição 17 vezes da Bloco 3';
+               return 'Repetição 17 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetição 18 vezes da Bloco 1';
+               return 'Repetição 18 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetição 18 vezes da Bloco 2';
+               return 'Repetição 18 vezes do Bloco 2';
           },
           }
 
@@ -421,10 +421,10 @@ const redReapeat = {
 
 const on18or36 = {
      '1' : () => {
-          return 'Repetição 1 vezes do 19 ao 36';
+          return 'Repetição 1 vezes do 19 ou 36';
      },
      '2' : () => {
-          return 'Repetição 2 vezes do 19 ao 36';
+          return 'Repetição 2 vezes do 19 ou 36';
      },
      '2,2' : () => {
           return 'Repetição 2 vezes do 19 ou 36';
