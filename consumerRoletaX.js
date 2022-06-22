@@ -248,7 +248,7 @@ async function sendMsg(sala, msg, reply) {
                     EX: 180,
                     NX: true
                })
-               const getting  =clientRedis.get(`-1593932898_${roulleteName}`)
+               const getting  =clientRedis.get(`-1593932898n_${roulleteName}`)
                console.log(getting)
                const msg1 = await sendMsg(-1593932898, string, getting.updates[0].id)
                console.log(msg1)
