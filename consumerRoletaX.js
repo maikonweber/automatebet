@@ -232,20 +232,19 @@ async function sendMsg(sala, msg) {
           }
           
           async function saveMemorySend(sygnalBase, string) {
-               clientRedis.set(`${sygnalBase.roulletname}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), 'EX', 60)
+               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), 'EX', 180)
                
                await sendMsg(-1593932898, string)
                await sendMsg(-1266295662, string)
                await sendMsg(-1150553286, string)
                consultMemory(sygnalBase, string)
-     
           }
           
           function consultMemory (sygnalBase, string) {
                console.log(sygnalBase)
                setTimeout(async () => {
 
-                 const last = await clientRedis.get(`${sygnalBase.roulletname}_${string.estrategiaDetect}`)
+                 const last = await clientRedis.get(`${sygnalBase.roulleteName}_${string.estrategiaDetect}`)
                  console.log(last, "redis memory")
 
                  const {
@@ -262,7 +261,6 @@ async function sendMsg(sala, msg) {
 
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
-                      await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
                       function replaceForGreen(string, resultadoAtual, sygnalBase) {
                          const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
                          const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
@@ -275,7 +273,6 @@ async function sendMsg(sala, msg) {
                       await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))                        
                  } else {
                       console.log('RED')
-                      await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
                       function replaceForRed(string, resultadoAtual, sygnalBase) {
                            const replace = string.replace(/✅ GREEN ✅/g, '🔴 RED 🔴')
                            const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
@@ -298,7 +295,6 @@ async function sendMsg(sala, msg) {
           
           function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
-               console.log(estrategiaDetect, payload.numberjson, "estrategiaDetect", roulleteName)
 
                const test = testStrategy(estrategiaDetect)
 
@@ -378,19 +374,12 @@ await sub.subscribe('msg', async (message) => {
     
      const strig =  JSON.parse(message); // 'message'
      console.log(strig.roulleteName, strig.estrategiaDetect)
-     const result = await clientRedis.get(`${strig.roulletname}_${strig.estrategiaDetect}`)
+     const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
+     console.log(result, "strategia")
      if(!result) {
-
-     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulletname)) {
-          console.log(strig)
-          console.log('----------Alert------------')
-          return proccedAlert(strig, possivelAlert)
-
-     }
-
+     console.log("Strategy Detect")
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-          console.log(await clientRedis.get(`${string.roulleteName}_${string.estrategiaDetect}`))
-          return proccedRoulletAndSend(strig, string)
+          await proccedRoulletAndSend(strig, string)
           }
      }
 });
