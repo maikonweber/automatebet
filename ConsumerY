@@ -34,22 +34,23 @@ const roleta =
      ]
 
 const strategyx = [
-     'Repetição de 4 vezes da Black',
-     'Repetição de 4 vezes da Red',
+     'Repetição 4 vezes da Black',
+     'Repetição 4 vezes da Red',
+     'Repetição 7 vezes da Red'
 ]
 
 const spectStrategy = [
-     'Repetição de 3 vezes da Black',
-     'Repetição de 3 vezes da Red',
+     'Repetição 3 vezes da Black',
+     'Repetição 3 vezes da Red',
 ]
 
 
 const string3 = 
 `🔔 APOSTA CONFIRMADA 🔔
-🎰 Roleta: {roulletName}
+🎰 Roleta: {rouletteName}
 📍 Entrar: {expect}
+🎰 ESTRATÉGIA : {strategyName}
 Ultimos Números: {last}
-🐔 1 MARTINGALE no Preto ⚫️
 0️⃣ Cobrir o ZERO`
 
 const string = 
@@ -261,10 +262,7 @@ async function sendMsg(sala, msg) {
                            return replace4
                       }
                       await sendMsg(-1681921748, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                    
-                      function martingale(sygnalBase, string, lastResult) {
-
-                      }   
+                     
                      }
                }, 42000)
 
@@ -283,8 +281,6 @@ async function sendMsg(sala, msg) {
                const last3 = payload.numberjson[2].toString()
                const last4 = payload.numberjson[3].toString()
                const last = `${last1} | ${last2} | ${last3} | ${last4}`
-               console.log(last)
-
                const replace = string.replace(/{rouletteName}/g, roulleteName)
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
                const replace4 = replace2.replace(/{last}/g, last)
@@ -294,10 +290,9 @@ async function sendMsg(sala, msg) {
           }    
           
      
-     
 clientRedis.connect()
 const sub = clientRedis.duplicate();
- await sub.connect();
+await sub.connect();
      
 console.log("Loading interactive example...");
  const client = new TelegramClient(stringSession, apiId, apiHash, {
@@ -313,6 +308,7 @@ await client.start({
    });
 
 
+
 const proccedAlert = async (sygnalBase, string) => {
      console.log(sygnalBase, string)
 
@@ -324,9 +320,15 @@ const proccedAlert = async (sygnalBase, string) => {
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace4 = replace2.replace(/{last}/g, last)
-     const replace5 = replace4.replace(/{expect}/g, test.expect)
-     return replace5
+     const replace5 = replace4.replace(/{expect}/g, expect)
+
+     const msg = await sendMsg(-1593932898, replace5)
+     console.log(msg)
+     clientRedis.set(`${roulleteName}`, JSON.stringify(msg), 'EX', 180)
+     return 
 }
+
+
 
 
  
@@ -354,16 +356,19 @@ await sub.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
      if(!result) {
-         array.push({
-              name : strig.roulleteName,
-              estrategiaDetect : strig.estrategiaDetect,
+     console.log('New Strategy')
+     console.log(strig.roulleteName, strig.estrategiaDetect)
 
-         })
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
+          console.log('-----------------Send Sygnal----------------------')
+          proccedAlert(strig, possivelAlert)
+          return
+     }
 
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-          console.log('Detect')
-          console.log(await clientRedis.get(`${string.roulleteName}_${string.estrategiaDetect}`))
-          return await proccedRoulletAndSend(strig, string3)
+          console.log('Detect--------------------------------------------------')
+           proccedRoulletAndSend(strig, string3)
+           return 
           }
      } 
 });

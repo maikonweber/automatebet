@@ -344,7 +344,13 @@ const proccedAlert = async (sygnalBase, string) => {
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace4 = replace2.replace(/{last}/g, last)
-     const replace5 = replace4.replace(/{expect}/g, test.expect)
+     const replace5 = replace4.replace(/{expect}/g, expect)
+
+    
+     await sendMsg(-1593932898,replace5)
+     await sendMsg(-1266295662,replace5)
+     await sendMsg(-1150553286,replace5)
+     
      return replace5
 }
 
@@ -379,7 +385,9 @@ await sub.subscribe('msg', async (message) => {
      if(!result) {
      console.log("Strategy Detect")
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-          await proccedRoulletAndSend(strig, string)
+          console.log(`------------------------------------------------------------`)
+          proccedRoulletAndSend(strig, string)
+          return 
           }
      }
 });
