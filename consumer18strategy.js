@@ -191,7 +191,8 @@ async function strategy18Procced (strategy) {
      
      const stringColunas = strategy.colunas
      const stringBlocos = strategy.blocos
-     const stringRed = strategy.greens
+     const stringRed = strategy.reds
+     const stringGreen = strategy.greens
      const stringOneTo18 = strategy.OneTo18s
      const stringParOuImpar = strategy.parOrImpar
 

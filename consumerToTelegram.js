@@ -93,6 +93,13 @@ await subcribe.subscribe('BetRollet', (message) => {
      
      })
 
+     msg.detectStrategy.colorRepeat.forEach(
+          async (color) => {
+               console.log(color)
+               await regExe(color.color, msg, msg.objsResult.name)
+          }
+     )
+
 
     // message.header recebe um filtro para o tipo de mensagem
      // message.body recebe o corpo da mensage

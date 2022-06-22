@@ -313,109 +313,109 @@ const ColunasRepeat = {
 
 const redReapeat = {
      '1,1,1,1' : () => {
-          return 'Repetição 4 vezes da Red ';
+          return 'Repetição 4 vezes da Red';
      },
      '1,1,1,1,1' : () => {
-          return 'Repetição 5 vezes da Red ';
+          return 'Repetição 5 vezes da Red';
      },
      '1,1,1,1,1,1' : () => {
-          return 'Repetição 6 vezes da Red ';
+          return 'Repetição 6 vezes da Red';
      }, 
      '1,1,1,1,1,1,1' : () => {
-          return 'Repetição 7 vezes da Red ';
+          return 'Repetição 7 vezes da Red';
      },
      '1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 8 vezes da Red ';
+          return 'Repetição 8 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 9 vezes da Red ';
+          return 'Repetição 9 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 12 vezes da Red ';
+          return 'Repetição 12 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 11 vezes da Red ';
+          return 'Repetição 11 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 12 vezes da Red ';
+          return 'Repetição 12 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 13 vezes da Red ';
+          return 'Repetição 13 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 14 vezes da Red ';
+          return 'Repetição 14 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 15 vezes da Red ';
+          return 'Repetição 15 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 16 vezes da Red ';
+          return 'Repetição 16 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 17 vezes da Red ';
+          return 'Repetição 17 vezes da Red';
      },
      '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1' : () => {
-          return 'Repetição 18 vezes da Red ';
+          return 'Repetição 18 vezes da Red';
      },
      '1,1,1' : () => {
-          return 'Repetição 4 vezes da Red 2';
+          return 'Repetição 4 vezes da Red';
      },
      '1,1' : () => {
-          return 'Repetição 2 vezes da Red 2';
+          return 'Repetição 2 vezes da Red';
      },
      '1' : () => {
-          return 'Repetição 1 vezes da Black 2';
+          return 'Repetição 1 vezes da Black';
      },
      '2,2' : () => {
-          return 'Repetição 2 vezes da Black 3';
+          return 'Repetição 2 vezes da Black';
      },
      '2' : () => {
-          return 'Repetição 1 vezes da Black 3';
+          return 'Repetição 1 vezes da Black';
      },
      '2,2,2,2' : () => {
-          return 'Repetição 4 vezes da Black 1';
+          return 'Repetição 4 vezes da Black';
      },
      '2,2,2,2,2' : () => {
-          return 'Repetição 5 vezes da Black 1';
+          return 'Repetição 5 vezes da Black';
      },
      '2,2,2,2,2,2' : () => {
-          return 'Repetição 6 vezes da Black 1';
+          return 'Repetição 6 vezes da Black';
      },
      '2,2,2,2,2,2,2' : () => {
-          return 'Repetição 7 vezes da Black 1';
+          return 'Repetição 7 vezes da Black';
      },
      '2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 8 vezes da Black 1';
+          return 'Repetição 8 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 9 vezes da Black 1';
+          return 'Repetição 9 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 12 vezes da Black 1';
+          return 'Repetição 12 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 11 vezes da Black 1';
+          return 'Repetição 11 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 12 vezes da Black 1';
+          return 'Repetição 12 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 13 vezes da Black 1';
+          return 'Repetição 13 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 14 vezes da Black 1';
+          return 'Repetição 14 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 15 vezes da Black 1';
+          return 'Repetição 15 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 16 vezes da Black 1';
+          return 'Repetição 16 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 17 vezes da Black 1';
+          return 'Repetição 17 vezes da Black';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetição 18 vezes da Black 1';
+          return 'Repetição 18 vezes da Black';
      }
 }
 
