@@ -232,10 +232,11 @@ async function sendMsg(sala, msg) {
           
           async function saveMemorySend(sygnalBase, string) {
                clientRedis.set(`${sygnalBase.roulletname}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), 'EX', 60)
-               consultMemory(sygnalBase, string)
+               
                await sendMsg(-1593932898, string)
                await sendMsg(-1266295662, string)
-               await sendMsg(-1150553286, string)   
+               await sendMsg(-1150553286, string)
+               consultMemory(sygnalBase, string)
      
           }
           
