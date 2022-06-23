@@ -369,7 +369,7 @@ async function strategyProced (objetoRolleta) {
      const red4time = objetoRolleta.jsonbstrategy.strategyRed4Time
 
      objetoRolleta.concat = concat
-
+     console.log(objetoRolleta)
      await SendMessage(objetoRolleta)
       
 }
