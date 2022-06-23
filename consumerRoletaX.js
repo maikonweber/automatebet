@@ -243,9 +243,9 @@ async function sendMsg(sala, msg, reply) {
                     EX: 180,
                     NX: true
                })
-               const getting  = await clientRedis.get(`-1593932898n_${roulleteName}`)
+               const getting  = await clientRedis.get(`-1266295662n_${roulleteName}`)
                console.log(getting)
-               const msg1 = await sendMsg(-1593932898, string, getting.updates[0].id)
+               const msg1 = await sendMsg(-1266295662, string, getting.updates[0].id)
                console.log(msg1)
                consultMemory(sygnalBase, string)
           }
@@ -268,7 +268,7 @@ async function sendMsg(sala, msg, reply) {
                          const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                          return replace4
                     }
-                      await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
+                      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
                  } else {
                       console.log('RED')
                       function replaceForRed(string, resultadoAtual, sygnalBase) {
@@ -278,7 +278,7 @@ async function sendMsg(sala, msg, reply) {
                            const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                            return replace4
                       }
-                      const msg = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
+                      const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
                       console.log(msg)
                       async function martingale(sygnalBase, stringRed, stringGreen, lastResult, msg) {
                          setTimeout( async () => {
@@ -289,9 +289,9 @@ async function sendMsg(sala, msg, reply) {
                               } = testStrategy(sygnalBase.estrategiaDetect)
 
                               if(array.includes(resultadoAtual.numberjson[0])) {
-                                   const msg = await sendMsg(-1593932898, replaceForGreen(stringGreen, resultadoAtual, sygnalBase))
+                                   const msg = await sendMsg(-1266295662, replaceForGreen(stringGreen, resultadoAtual, sygnalBase))
                               } else {
-                                   const msg2 = await sendMsg(-1593932898, replaceForRed(stringRed, resultadoAtual, sygnalBase))
+                                   const msg2 = await sendMsg(-1266295662, replaceForRed(stringRed, resultadoAtual, sygnalBase))
                               }
                          }, 45000)
                       }
@@ -357,9 +357,8 @@ async function proccedAlert (sygnalBase, string) {
      const place =  replace5.replace(/[0-9]*/g, '')
      const re = place.replace(/vezes/g, '')
 
-
     
-     const msg1 = await sendMsg(-1593932898,re)
+     const msg1 = await sendMsg(-1266295662,re)
      console.log(msg1)
 
      clientRedis.set(`${msg1.chats[0].id}_${roulleteName}`, JSON.stringify(msg1.chats[0].id), {
