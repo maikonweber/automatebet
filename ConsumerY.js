@@ -220,11 +220,10 @@ async function sendMsg(sala, msg) {
           }
           
           async function saveMemorySend(sygnalBase, string) {
-               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase),  {
+              await clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase),  {
                     EX: 180,
                     NX: true
                })
-               const msg2 = clientRedis.get(`${-1681921748}_${sygnalBase.roulleteName}`)
                const msg1 = await sendMsg(-1681921748, string)
                console.log(msg1)
 
@@ -299,8 +298,8 @@ async function sendMsg(sala, msg) {
           }    
           
      
-clientRedis.connect()
-const sub = clientRedis.duplicate();
+await clientRedis.connect()
+const sub = await clientRedis.duplicate();
 await sub.connect();
      
 console.log("Loading interactive example...");
@@ -360,6 +359,7 @@ await sub.subscribe('msg', async (message) => {
      if(!result) {
      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
+     console.log(!result)
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')

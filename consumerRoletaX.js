@@ -294,8 +294,8 @@ function stringReplace(string, sygnalBase) {
           
      
      
-clientRedis.connect()
-const sub = clientRedis.duplicate();
+await clientRedis.connect()
+const sub = await clientRedis.duplicate();
  await sub.connect();
      
 console.log("Loading interactive example...");
@@ -344,12 +344,13 @@ const sala1 = result.chats[0].id
 await sub.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
 
-     console.log(strig.roulleteName, strig.estrategiaDetect)
 
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
      if(!result) {
 
-     console.log("Strategy Detect")
+     console.log('New Strategy')
+     console.log(strig.roulleteName, strig.estrategiaDetect)
+     console.log(!result)
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
@@ -364,8 +365,7 @@ await sub.subscribe('msg', async (message) => {
           return 
           }
           
-     } else {
-          console.log('Sinal processado')
+          return    
      }
 })
    
