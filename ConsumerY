@@ -37,7 +37,6 @@ const roleta =
 const strategyx = [
      'Repetição 4 vezes da Black',
      'Repetição 4 vezes da Red',
-     'Repetição 7 vezes da Red'
 ]
 
 const spectStrategy = [

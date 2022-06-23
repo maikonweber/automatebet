@@ -43,14 +43,12 @@ const strategyx = [
      'Alternar colunas 1 e 3 - 7x vezes',
      'Alternar colunas 2 e 1 - 7x vezes',
      'Alternar colunas 3 e 2 - 7x vezes',
-     'Repetiçao de 7 vezes da Bloco 3',
-     'Repetiçao de 7 vezes da Bloco 2',
-     'Repetiçao de 7 vezes da Bloco 1',
+     'Repetiçao de 7 vezes do Bloco 3',
+     'Repetiçao de 7 vezes do Bloco 2',
+     'Repetiçao de 7 vezes do Bloco 1',
      'Repetiçao de 7 vezes da Coluna 1',
      'Repetiçao de 7 vezes da Coluna 2',
      'Repetiçao de 7 vezes da Coluna 3',
-     'Repetição de 5 vezes da Colunas 1',
-     'Repetição 5 vezes da 19 ou 36'
 
 ]
 
