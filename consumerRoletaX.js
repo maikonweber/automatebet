@@ -51,8 +51,6 @@ const strategyx = [
      'Repetiçao de 7 vezes da Coluna 2',
      'Repetiçao de 7 vezes da Coluna 3',
      'Repetiçao de 5 vezes do Bloco 2',
-     'Par 4 vezes',
-
 ]
 
 const spectStrategy = [
