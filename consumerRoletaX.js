@@ -289,10 +289,8 @@ async function sendMsg(sala, msg, reply) {
                                    const msg2 = await sendMsg(-1266295662, replaceForRed(stringRed, resultadoAtual, sygnalBase))
                               }
                          }, 45000)
+                         
                       }
-                      martingale(sygnalBase, stringred, stringreen, resultadoAtual.numberjson[0])
-                     }
-               }, 45000)
           }
 
           
