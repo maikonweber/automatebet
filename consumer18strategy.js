@@ -30,7 +30,6 @@ const clientRedis = redis.createClient({
 
 
 const expectNumber = require('./jsonObjects/strategy.js');
-const { last } = require('cheerio/lib/api/traversing');
 
 clientRedis.connect();
 // get all key in redis
@@ -208,7 +207,7 @@ async function strategy18Procced (strategy) {
      const stringOneTo18 = strategy.OneTo18s
      const stringParOuImpar = strategy.parOrImpar
 
-
+     
           
      let strategyProced = {
 
@@ -246,7 +245,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco1Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.bloco, 1, i, 'Bloco 1')
+          let value = restOfNumber(strategy.blocos, 1, i, 'Bloco 1')
           arrayBloco1Ausencia.push({
                coluna : value
           })
@@ -254,7 +253,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco2Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.bloco, 2, i, 'Bloco 2')
+          let value = restOfNumber(strategy.blocos, 2, i, 'Bloco 2')
           arrayBloco1Ausencia.push({
                coluna : value
           })
@@ -262,7 +261,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco3Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.bloco, 3, i, 'Bloco 3')
+          let value = restOfNumber(strategy.blocos, 3, i, 'Bloco 3')
           arrayBloco1Ausencia.push({
                coluna : value
           })
