@@ -37,13 +37,10 @@ class RoulleteBot {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     console.log('Aguardando Sinal');
-    console.log(await this.page.url());
+    // take screenshot
+    console.log(this.page.url())
+    await this.page.screenshot({path: 'google.png'});
     // take body
-    const body = await this.page.evaluate(() => {
-      return document.body.innerText;
-    });
-    console.log(body);
-
     this.page.waitForTimeout(15000);
     let site  = await this.page.url();
     console.log(site);
@@ -59,8 +56,6 @@ class RoulleteBot {
 
     // });
 
-
-
     const glee = await this.page.evaluate(() => {
         let dophin = document.querySelectorAll('.roulette-historyfOmuwAaXbwHRa3HTIjFP.roulette-history_lobbyDxuTPpg3FmAO6mbqrAe7');
         const glee = []
@@ -70,7 +65,6 @@ class RoulleteBot {
         elefant.forEach(element => {
           element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
           // Get any url in the element
-            
         });
 
         for (let i = 0; i < dophin.length; i++) {
@@ -226,13 +220,15 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       defaultViewport: {
         width: 1100,
-        height: 980
+        height: 980,
+        dumpio: true
       },
       args: [
         // '--proxy-server=45.190.249.100:8080',
+
         '--no-sandbox',
         "--window-size=1110,980",
         "--window-position=500,0",
@@ -259,14 +255,11 @@ class RoulleteBot {
   async login() {
     await this.page.waitForTimeout(7000) 
     // Get body
-    const bodyHandle = await this.page.$('body');
-    // get innet HTML
-    const bodyHTML = await this.page.evaluate(body => body.innerHTML, bodyHandle);
-    console.log(bodyHTML)
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     console.log("Try to login");
     let site  = await this.page.url();
+    await this.page.screenshot({path: google.png})
     console.log(site);
     if (username && password) {
       // Clean username

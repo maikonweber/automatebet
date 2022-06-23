@@ -401,13 +401,14 @@ await sub.subscribe('msg', async (message) => {
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
           console.log('-------------------ALERT-------------------')
-          proccedAlert(strig, possivelAlert)
+          await proccedAlert(strig, possivelAlert)
+          return 
      }
 
 
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`------------------------------------------------------------`)
-          proccedRoulletAndSend(strig, string)
+          await proccedRoulletAndSend(strig, string)
           return 
           }
 
