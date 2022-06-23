@@ -219,7 +219,7 @@ async function sendMsg(sala, msg) {
                     NX: true
                })
                const msg2 = clientRedis.get(`${-1681921748}_${sygnalBase.roulleteName}`)
-               const msg1 = await sendMsg(-1681921748, string, msg2)
+               const msg1 = await sendMsg(-1681921748, string)
                console.log(msg1)
 
                consultMemory(sygnalBase, string)
@@ -326,7 +326,7 @@ await client.start({
      const replace5 = replace2.replace(/{expect}/g, expect)
 
     
-     const msg1 = await sendMsg(-1593932898,replace5)
+     const msg1 = await sendMsg(-1593932898, replace5)
      console.log(msg1)
 
      clientRedis.set(`${msg1.chat[0].id}_${roulleteName}`, JSON.stringify(msg1.updates[0].id), {
