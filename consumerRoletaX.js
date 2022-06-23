@@ -240,12 +240,12 @@ async function sendMsg(sala, msg, reply) {
                })
                const getting  = await clientRedis.get(`${roulleteName}_reply`)
                console.log(getting)
-               const msg1 = await sendMsg(-1266295662, string, getting.updates[0].id)
+               const msg1 = await sendMsg(-1266295662, string)
                console.log(msg1)
                consultMemory(sygnalBase, string)
           }
           
-          function consultMemory (sygnalBase, string) {
+function consultMemory (sygnalBase, string) {
                console.log(sygnalBase)
                setTimeout(async () => {
                  const {
@@ -261,9 +261,11 @@ async function sendMsg(sala, msg, reply) {
                          const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
                          const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
                          const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
+                         
                          return replace4
                     }
-                      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
+                    await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
+                    await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
                  } else {
                       console.log('RED')
                       function replaceForRed(string, resultadoAtual, sygnalBase) {
@@ -274,6 +276,7 @@ async function sendMsg(sala, msg, reply) {
                            return replace4
                      }
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
+                      await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
                       console.log(msg)  
           }
      }, 45000)
@@ -337,12 +340,6 @@ async function proccedAlert (sygnalBase, string) {
 
     
      const msg1 = await sendMsg(-1266295662, re)
-     console.log(msg1)
-
-     clientRedis.set(`${roulleteName}_reply`, JSON.stringify(msg1.chats[0].id), {
-          EX: 60,
-          NX: true
-     }) 
 
      return replace5
 }
