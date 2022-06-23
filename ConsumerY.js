@@ -329,9 +329,10 @@ await client.start({
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
 
      const replace5 = replace2.replace(/{expect}/g, expect)
+     const place =  replace5.replace(/[0-9]* vezes/g, '')
 
 
-     return await sendMsg(-1681921748, replace5)
+     return await sendMsg(-1681921748, place)
 }
 
 

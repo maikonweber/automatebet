@@ -323,8 +323,7 @@ async function proccedAlert (sygnalBase, string) {
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace5 = replace2.replace(/{expect}/g, expect)
-     const place =  replace5.replace(/[0-9]*x/g, '')
-     const re = place.replace(/vezes/g, '')
+     const place =  replace5.replace(/[0-9]* vezes/g, '')
      return await sendMsg(-1266295662, re)
 
 }
