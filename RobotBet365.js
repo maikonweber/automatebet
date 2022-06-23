@@ -10,6 +10,8 @@ client.connect();
 puppeteer.use(StealthPlugin());
 
 
+
+
 class RoulleteBot {
     constructor(password, username, room) {
       this.password = password;
@@ -35,10 +37,13 @@ class RoulleteBot {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     console.log('Aguardando Sinal');
-    // take screenshot
-    console.log(this.page.url())
-    await this.page.screenshot({path: 'google.png'});
+    console.log(await this.page.url());
     // take body
+    const body = await this.page.evaluate(() => {
+      return document.body.innerText;
+    });
+    console.log(body);
+
     this.page.waitForTimeout(15000);
     let site  = await this.page.url();
     console.log(site);
@@ -54,6 +59,8 @@ class RoulleteBot {
 
     // });
 
+
+
     const glee = await this.page.evaluate(() => {
         let dophin = document.querySelectorAll('.roulette-historyfOmuwAaXbwHRa3HTIjFP.roulette-history_lobbyDxuTPpg3FmAO6mbqrAe7');
         const glee = []
@@ -63,6 +70,7 @@ class RoulleteBot {
         elefant.forEach(element => {
           element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
           // Get any url in the element
+            
         });
 
         for (let i = 0; i < dophin.length; i++) {
@@ -208,6 +216,7 @@ class RoulleteBot {
     await this.publisher(glee);
   
 
+
     }, 35000 / 2 / 2);
  
   
@@ -220,8 +229,7 @@ class RoulleteBot {
       headless: false,
       defaultViewport: {
         width: 1100,
-        height: 980,
-        dumpio: true
+        height: 980
       },
       args: [
         // '--proxy-server=45.190.249.100:8080',
@@ -251,6 +259,10 @@ class RoulleteBot {
   async login() {
     await this.page.waitForTimeout(7000) 
     // Get body
+    const bodyHandle = await this.page.$('body');
+    // get innet HTML
+    const bodyHTML = await this.page.evaluate(body => body.innerHTML, bodyHandle);
+    console.log(bodyHTML)
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     console.log("Try to login");
