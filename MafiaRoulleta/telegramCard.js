@@ -1,6 +1,13 @@
 const { TelegramClient, Api } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
+const redis = require('redis');
+const clientRedis = redis.createClient({
+  host: '127.0.0.1',
+  port: 6379,
+});
+
+clientRedis.connect();
 
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
@@ -41,23 +48,23 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
      }
 
      async function sendMsg(sala, msg) {
-      const salaEntity = await client.getEntity(sala)
- 
-     console.log(salaEntity)
- 
-     await client.invoke( new Api.messages.SendMessage({
-          peer: salaEntity,
-          message: msg.toString()
-     }) );
-    }
+      const salaJunior = await client.getEntity(sala);
+      const result = await client.invoke( new Api.messages.SendMessage({
+          peer: sala,
+          message: msg.toString(),      
+     }));
+     console.log(result);
+}
+
 
      let last = await client.getMessages(junior, {
             limit: 1,
      })
 
      const lastMessage = last[0].message.toString()
-     console.log(lastMessage)
+    
 
+  
 
      while (true) {
 
@@ -65,18 +72,124 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
                limit: 1,
           });
 
-          console.log(typeof last[0].message)
+          function replace(msg) {
+            // Search for string replace the string 'Então Júnior Cards' and Replace to Mafia da Cartas"
+            let newMsg = msg.replace(/Então Júnior Cards/g, 'Máfia da Cartas');
+            return newMsg; 
+          }
 
-          console.log(last[0].message, lastMessage[0].message)
-          console.log(lastMessage[0].message != last[0].message)
+          function replaceRed(msg) {
+            // Search for string replace the string 'Então Júnior Cards' and Replace to Mafia da Cartas"
+            let newMsg = msg.replace(/Redzin/g, '- RED -');
+            return newMsg;
+          }
 
-    if(lastMessage[0].message.text != last[0].message.text){
-      console.log("New Message")
-      const lastmsg = lastMessage[0].message
-      console.log(lastmsg)
-      sendMsg(mafiaCard, lastmsg)
-      sendMsg(mafiaCardFree, lastmsg)
+        function seeIfHaveObjectInsideMsg(msg) {
+      
+              if(msg[0].replyTo) {
+                
+                return msg[0].replyTo;
+                  
+              }
+                return false;
+          }
 
+
+    if(lastMessage[0].date != last[0].date){
+          console.log('New message')
+          console.log('-------------------------------------------------------')
+          console.log('=======================================================')
+          console.log(await seeIfHaveObjectInsideMsg(lastMessage))
+          const lastmsg = lastMessage[0].message
+          const regEx = /Entrada Confirmada/g
+          const regEx2 = /GREEN/g
+
+          if(lastmsg.match(regEx)){
+            console.log('Entrada Confirmada')
+            const lastMessageid = lastMessage[0].id
+            console.log(lastMessageid)
+            // Set this in redis variable with lastmsg string
+            clientRedis.set(`${lastMessageid}`, lastmsg)
+            console.log('-------------------------------------------------------')
+            console.log('=======================================================')
+            sendMsg(mafiaCard, replace(lastmsg))
+            sendMsg(mafiaCardFree,  replace(lastmsg))
+
+          } else if (lastmsg.match(regEx2)){
+            console.log('GREEN')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              
+              // Concat the string with the new string
+              const newString2 = string + '\n' + lastmsg
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
+            console.log('-------------------------------------------------------')
+            console.log('=======================================================')
+            console.log('-------------------------------------------------------')
+            console.log('=======================================================')
+         
+          } else if (lastmsg.match(/Atenção/g)){
+            console.log('Atenção')
+            console.log('-------------------------------------------------------')
+            console.log('=======================================================')
+            sendMsg(mafiaCard, replace(lastmsg))
+
+          } else if (lastmsg.match(/Redzin/g)){
+            console.log('Redzin')
+            console.log('-------------------------------------------------------')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              console.log(string)
+              replaceRed(lastmsg)
+              // Concat the string with the new string
+              const newString2 = string + '\n' + lastmsg
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
+
+            console.log('=======================================================')
+            
+          } else if (lastmsg.match(/Vamos para primeiro martingale/g)){ 
+            console.log('Vamos para primeiro martingale')
+            console.log('-------------------------------------------------------')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              console.log(string)
+              // Concat the string with the new string
+              const newString2 = string + '\n' + lastmsg
+              console.log(newString2)
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
+            console.log('=======================================================')
+          } else if (lastmsg.match(/Vamos para o segundo martingale/g)) {
+
+            console.log('Vamos para o segundo martingale')
+            console.log('-------------------------------------------------------')
+            const see = await seeIfHaveObjectInsideMsg(lastMessage)
+            if(see){ 
+              const seeId = see.replyToMsgId
+              const string = await clientRedis.get(`${seeId}`)
+              console.log(string)
+              // Concat the string with the new string
+              const newString2 = string + lastmsg
+              sendMsg(mafiaCard, replace(newString2))
+              sendMsg(mafiaCardFree, replace(newString2))
+            }
+            
+            console.log('=======================================================')
+          }
+          console.log('=======================================================')
+          console.log('-------------------------------------------------------')
+          
 
       last = lastMessage
      }
@@ -85,7 +198,7 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
      const p = new Promise((resolve, reject) => {
           setTimeout(() => {
               resolve();
-          }, 15000);
+          }, 5000);
       }
      );
 

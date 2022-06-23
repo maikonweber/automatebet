@@ -1,6 +1,10 @@
 const { TelegramClient, Api } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
+const clientRedis = require('redis');
+const client = clientRedis.createClient(
+  
+);
 
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
@@ -46,7 +50,6 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
           limit : 1,
      });
      
-     console.log(last[0].message)
      setInterval(async () => {
      console.log("Thick ")
 
@@ -54,21 +57,20 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTgBu4y2G0FNJMZ7oj
           limit: 1,
       });
 
-     console.log(lastMessage[0].message)
-     console.log(last[0].message)
      lastMessage.forEach(
           (chat, index) => {
-              if(chat.message.toString() != last[0].message){
-                  console.log("Match new Msg")
-                  console.log(chat.message.toString())
-                  client.invoke(new Api.messages.SendMessage({
-                      peer: mafiaCard,
-                      message: chat.message.toString()
-                  }))
-                  client.invoke(new Api.messages.SendMessage({
-                    peer: mafiaFree,
-                    message: chat.message.toString()
-                  }))
+              if(chat.date != last[0].date){
+                  console.log(chat.entities)
+                  console.log(chat.message)
+                  
+                  //client.invoke(new Api.messages.SendMessage({
+                    //  peer: mafiaCard,
+                     // message: chat.message.toString()
+                 // }))
+                 // client.invoke(new Api.messages.SendMessage({
+                   // peer: mafiaFree,
+                   // message: chat.message.toString()
+                 // }))
                
                   
                   last = lastMessage

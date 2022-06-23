@@ -11,7 +11,7 @@ const jsonRoullete = {
          return
     },
     'Football_French_Roulette': () => {
-         return 
+         return 'https://casino.bet365.com/Play/LiveFootballRoulette'
     },
     'Spread_Bet_Roulette': () => {
          return
@@ -29,10 +29,10 @@ const jsonRoullete = {
          return
     },
     'Mega_Fire_Blaze_Roulette_Live': () => {
-         return
+         return 'https://casino.bet365.com/Play/LiveMegaFireBlazeRoulette'
     },
     'Football_Roulette': () => {
-         return
+         return 'https://casino.bet365.com/Play/LiveFootballRoulette'
     },
     'Quantum_Roulette_Live': () => {
          return
@@ -53,7 +53,7 @@ const jsonRoullete = {
          return
     },
     'Hindi_Roulette': () => {
-         return
+         return 'https://casino.bet365.com/Play/LiveHindiRoulette'
     },
     'Roulette_Italiana': () => {
          return

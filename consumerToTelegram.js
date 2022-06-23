@@ -5,14 +5,10 @@ const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
 });
-
-const redisPublisher = redis.createClient({
+const clientPublisher = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
-});
-
-
-
+})
 
 const { TelegramClient, Api } = require("telegram");
 const { StringSession } = require("telegram/sessions");
@@ -23,10 +19,11 @@ const input = require("input"); // npm i input
 const expectNumber = require('./jsonObjects/strategy');
 const { sendMessage } = require('telegram/client/messages');
 const {
-     insertSygnal
+     insertSygnal,
+     updateStrategy,
+     updateStrategyFilter
+
 } = require('./database')
-
-
 
 async function regExe(string, objetoRolleta, strategyArg) {
           // RegEx Nao Intendificado
@@ -41,7 +38,16 @@ async function regExe(string, objetoRolleta, strategyArg) {
                    payload : objetoRolleta,
                    created : new Date().getTime()
                }
-               await insertSygnal(objetoRolleta.numberjson, string, strategyArg)
+               
+               const created = estrategiaDetect.created;
+               // Make division mock 1 minutes
+               const mock = created / 1000 / 60;
+               const mockDivision = Math.floor(mock);
+               
+               console.log('=========================================================================')
+               console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+               return await clientPublisher.publish('msg', JSON.stringify(estrategiaDetect));
+               
                return true
           }
 
@@ -54,31 +60,45 @@ async function regExe(string, objetoRolleta, strategyArg) {
 
 
 
+
 (async () => {
      
 const subcribe =  await clientRedis.duplicate()
 await subcribe.connect();
+await clientPublisher.connect();
+// uPublicar esta msg no redis
 
 
 await subcribe.subscribe('BetRollet', (message) => {
      const msg = JSON.parse(message)
-     console.log(msg.objsResult.name)
-
      msg.detectStrategy.colunasRepeat.forEach(async (coluna) => {
-     await regExe(coluna.coluna, msg.objsResult, msg.objsResult.name)
+     await regExe(coluna.coluna, msg, msg.objsResult.name)
      })
 
      msg.detectStrategy.blocosRepeat.forEach(async (bloco) => {
-     await  regExe(bloco.blocosRepeat, msg.objsResult, msg.objsResult.name)
+     await  regExe(bloco.blocosRepeat, msg, msg.objsResult.name)
      })
 
      msg.detectStrategy.parOrImpar.forEach(async (parImpar) => {
-     await  regExe(parImpar.parOrImpar, msg.objsResult, msg.objsResult.name)
+     await  regExe(parImpar.parOrImpar, msg, msg.objsResult.name)
      })
 
      msg.detectStrategy.minorMajor.forEach(async (minorMajor) => {
-     await  regExe(minorMajor.minorMajor, msg.objsResult, msg.objsResult.name) 
+     await  regExe(minorMajor.minorMajor, msg, msg.objsResult.name) 
      })
+
+     msg.detectStrategy.alternateColumns.forEach(
+     async (alternateColumns) => {
+          await regExe(alternateColumns.alternateColumns, msg, msg.objsResult.name)
+     
+     })
+
+     msg.detectStrategy.colorRepeat.forEach(
+          async (color) => {
+               console.log(color)
+               await regExe(color.color, msg, msg.objsResult.name)
+          }
+     )
 
 
     // message.header recebe um filtro para o tipo de mensagem

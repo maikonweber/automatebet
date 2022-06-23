@@ -14,7 +14,8 @@ const {
   getAllRows,
   InsertRoullete,
   getLastNumber18,
-  getLastNumber
+  getLastNumber,
+  usersFilters
 } = require('./database');
 
 app.use(express.json());
@@ -84,9 +85,6 @@ app.post('/api/bet365', async (req, res) => {
   
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
-    const last18 = await getLastNumber18(name_);
-
-    jsonPreload.last18 = last18;
     if (typeof resultado === 'undefined') {
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result.rows, "ID :", name_, number, jsonbStrategy);
@@ -136,8 +134,8 @@ app.use('/api/v2/*', (req, res, next) => {
 })
 
 app.post("/api/v1/createus", async (req, res) => {
-  const { email, password, name, username, phone, address, product } = req.body;
-  let result = await createUsers(email, password, name, username, phone, address, product);
+  const { email, password, name, username, phone, address } = req.body;
+  let result = await createUsers(email, password, name, username, phone, address);
   res.send(result);
   
 })
@@ -157,6 +155,26 @@ app.post('/api/loginadm', async(req, res) => {
         } else {
           res.sendStatus(402);
         }
+})
+
+app.post('/api/v1/setFilter', async (req, res) => {
+  let { games, string_msg, string_msg_green, string_msg_red, rollets_permit} = req.body;
+
+  const token = req.headers.token;
+
+  console.log(token, ":: Token ::");
+
+  console.log(games, ":: User Id ::");
+  console.log(string_msg, ":: String Msg ::");
+  console.log(string_msg_green, ":: String Msg Green ::");
+  console.log(string_msg_red, ":: String Msg Red ::");
+  console.log(rollets_permit, ":: Rollets Permit ::");
+
+  const result = await usersFilters(2, games, string_msg, string_msg_green, string_msg_red, rollets_permit);
+  if(!result) {
+    res.sendStatus(400);
+  }
+    res.send(result);
 })
 
 
