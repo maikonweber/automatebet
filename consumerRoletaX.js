@@ -216,19 +216,14 @@ function testStrategy(estrategiaDetect, lastNumber) {
 
 async function sendMsg(sala, msg, reply) {
           const salaEntity = await client.getEntity(sala)
-          
-          if(!reply) {
+       
           return await client.invoke( new Api.messages.SendMessage({
                peer: salaEntity,
                message: msg.toString()
+        
+         
           }))
-          } else {
-          return await client.invoke(new Api.messages.SendMessage({
-               peer : salaEntity,
-               message : msg.toString(),
-               replyToMsgIdply : reply
-          }))
-          }
+
      }
 
           function proccedRoulletAndSend(sygnalBase, string) {
@@ -243,7 +238,7 @@ async function sendMsg(sala, msg, reply) {
                     EX: 180,
                     NX: true
                })
-               const getting  = await clientRedis.get(`-1266295662n_${roulleteName}`)
+               const getting  = await clientRedis.get(`${roulleteName}_reply`)
                console.log(getting)
                const msg1 = await sendMsg(-1266295662, string, getting.updates[0].id)
                console.log(msg1)
@@ -358,19 +353,16 @@ async function proccedAlert (sygnalBase, string) {
      const re = place.replace(/vezes/g, '')
 
     
-     const msg1 = await sendMsg(-1266295662,re)
+     const msg1 = await sendMsg(-1266295662, re)
      console.log(msg1)
 
-     clientRedis.set(`${msg1.chats[0].id}_${roulleteName}`, JSON.stringify(msg1.chats[0].id), {
-          EX: 180,
+     clientRedis.set(`${roulleteName}_reply`, JSON.stringify(msg1.chats[0].id), {
+          EX: 60,
           NX: true
      }) 
 
      return replace5
 }
-
-
- 
 
 
 const result = await client.invoke( new Api.messages.GetAllChats({
