@@ -214,6 +214,9 @@ async function strategy18Procced (strategy) {
 
      }    
 
+     let times = 18
+     let array = []
+
 
 
      //parOuImpar,
@@ -265,8 +268,7 @@ async function strategy18Procced (strategy) {
           })
      }
 
-     let times = 18
-     let array = []
+     
      for(let i = 0; i < times; i++) {
           let value = getStrategy(ColunasRepeat, stringColunas, i)
      
