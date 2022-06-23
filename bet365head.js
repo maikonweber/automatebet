@@ -11,8 +11,6 @@ puppeteer.use(StealthPlugin())
 client.connect();
 
 
-
-
 class RoulleteBot {
     constructor(password, username, room) {
       this.password = password;

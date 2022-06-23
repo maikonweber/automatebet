@@ -44,9 +44,6 @@ const strategyx = [
 const spectStrategy = [
      'Repetição 9 vezes da Black',
      'Repetição 9 vezes da Red',
-     'Repetição 4 vezes da Red',
-     'Repetição 4 vezes da Red'
-     
 ]
 
 
