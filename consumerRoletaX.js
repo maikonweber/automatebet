@@ -13,7 +13,6 @@ const clientRedis = redis.createClient({
      port: 6379,
 });
 const expectNumber = require("./jsonObjects/strategy");
-const { get } = require("cheerio/lib/api/traversing");
 
 
 
@@ -208,8 +207,6 @@ function testStrategy(estrategiaDetect, lastNumber) {
                "array" : expectNumber['Alternancia da Coluna 3 e 1']()
           }
      }
-
- 
 }
    
 
@@ -241,6 +238,23 @@ async function sendMsg(sala, msg, reply) {
                consultMemory(sygnalBase, string)
           }
           
+function replaceForGreen(string, resultadoAtual, sygnalBase) {
+               const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
+               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
+               const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
+               const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
+               return replace4
+          }
+
+function replaceForRed(string, resultadoAtual, sygnalBase) {
+               const replace = string.replace(/✅ GREEN ✅/g, '🔴 RED 🔴')
+               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
+               const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
+               const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
+               return replace4
+}         
+
+
 function consultMemory (sygnalBase, string) {
                console.log(sygnalBase)
                setTimeout(async () => {
@@ -249,40 +263,22 @@ function consultMemory (sygnalBase, string) {
                       expect
                  } = testStrategy(sygnalBase.estrategiaDetect)
                  let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
-
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
-                    function replaceForGreen(string, resultadoAtual, sygnalBase) {
-                         const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
-                         const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
-                         const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
-                         const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
-                         
-                         return replace4
-                    }
-                    await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
+                         await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
                  } else {
                       console.log('RED')
-                      function replaceForRed(string, resultadoAtual, sygnalBase) {
-                           const replace = string.replace(/✅ GREEN ✅/g, '🔴 RED 🔴')
-                           const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
-                           const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
-                           const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
-                           return replace4
-                     }
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                   
-                      console.log(msg)  
+                    console.log(msg)  
           }
+
      }, 45000)
 }
           
           
-          function stringReplace(string, sygnalBase) {
+function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
-
                const test = testStrategy(estrategiaDetect)
-
                const last1 = payload.numberjson[0].toString()
                const last2 = payload.numberjson[1].toString()
                const last3 = payload.numberjson[2].toString()
@@ -296,7 +292,7 @@ function consultMemory (sygnalBase, string) {
                const replace5 = replace4.replace(/{expect}/g, test.expect)
      
                return replace5
-          }    
+ }    
           
      
      
@@ -333,12 +329,9 @@ async function proccedAlert (sygnalBase, string) {
      const place =  replace5.replace(/[0-9]*x/g, '')
      const re = place.replace(/vezes/g, '')
 
-    
-     const msg1 = await sendMsg(-1266295662, re)
 
-     return replace5
+     return await sendMsg(-1266295662, re)
 }
-
 
 const result = await client.invoke( new Api.messages.GetAllChats({
      exceptIds : [43]
@@ -348,19 +341,18 @@ for(let i = 0; i < result.chats.length; i++){
    console.log(result.chats[i].id, result.chats[i].title)
 }
 
-
 console.log(client.session.save());
 
-
 const sala1 = result.chats[0].id
-
           
 await sub.subscribe('msg', async (message) => {
-
      const strig =  JSON.parse(message); // 'message'
+
      console.log(strig.roulleteName, strig.estrategiaDetect)
+
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
      if(!result) {
+
      console.log("Strategy Detect")
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {

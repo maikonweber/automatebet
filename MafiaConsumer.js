@@ -292,6 +292,7 @@ async function sendMsg(sala, msg) {
                       await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))
                       await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
                      }
+                     
                }, 45000)
 
           }
@@ -351,7 +352,7 @@ await client.start({
      const replace5 = replace2.replace(/{expect}/g, expect)
 
     
-     const msg1 = await sendMsg(-1681921748,replace5)
+     await sendMsg(-1681921748,replace5)
      await sendMsg(-1150553286, replace5)
      await sendMsg(-1593932898, replace5)
      
@@ -385,7 +386,7 @@ await sub.subscribe('msg', async (message) => {
      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
 
-     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
           proccedAlert(strig, possivelAlert)
           return

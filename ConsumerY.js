@@ -325,16 +325,8 @@ await client.start({
 
      const replace5 = replace2.replace(/{expect}/g, expect)
 
-    
-     const msg1 = await sendMsg(-1593932898, replace5)
-     console.log(msg1)
 
-     clientRedis.set(`${msg1.chat[0].id}_${roulleteName}`, JSON.stringify(msg1.updates[0].id), {
-          EX: 180,
-          NX: true
-     }) 
-
-     return replace5
+     return await sendMsg(-1593932898, replace5)
 }
 
 
@@ -363,7 +355,7 @@ await sub.subscribe('msg', async (message) => {
      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
 
-     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
           proccedAlert(strig, possivelAlert)
           return
