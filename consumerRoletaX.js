@@ -364,7 +364,6 @@ await sub.subscribe('msg', async (message) => {
           await proccedRoulletAndSend(strig, string)
           return 
           }
-          
           return    
      }
 })

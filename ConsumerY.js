@@ -317,7 +317,7 @@ await client.start({
 
 
 
-   async function proccedAlert (sygnalBase, string) {
+  async function proccedAlert (sygnalBase, string) {
      const { estrategiaDetect, roulleteName, payload } = sygnalBase
      console.log(`----------------- Alerta ----------------------`)
      const {
@@ -363,19 +363,17 @@ await sub.subscribe('msg', async (message) => {
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          proccedAlert(strig, possivelAlert)
+          await proccedAlert(strig, possivelAlert)
           return
      }
 
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('Detect--------------------------------------------------')
-           proccedRoulletAndSend(strig, string3)
+           await proccedRoulletAndSend(strig, string3)
            return 
           }
           return
-     } else {
-          console.log('Nao processado')
-     }
+     } 
 });
    
 })();
