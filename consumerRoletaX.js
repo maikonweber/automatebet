@@ -244,11 +244,11 @@ async function sendMsg(sala, msg, reply) {
           }
           
           async function saveMemorySend(sygnalBase, string) {
-               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), {
+               await clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase), {
                     EX: 180,
                     NX: true
                })
-               const getting  =clientRedis.get(`-1593932898n_${roulleteName}`)
+               const getting  = await clientRedis.get(`-1593932898n_${roulleteName}`)
                console.log(getting)
                const msg1 = await sendMsg(-1593932898, string, getting.updates[0].id)
                console.log(msg1)
