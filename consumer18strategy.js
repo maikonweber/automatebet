@@ -251,7 +251,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco2Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.bloco, 1, i)
+          let value = restOfNumber(strategy.bloco, 2, i)
           arrayBloco1Ausencia.push({
                coluna : value
           })
@@ -259,7 +259,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco3Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.bloco, 1, i)
+          let value = restOfNumber(strategy.bloco, 3, i)
           arrayBloco1Ausencia.push({
                coluna : value
           })
