@@ -37,7 +37,6 @@ const roleta =
      ]
 
 const strategyx = [
-     'Repetiçao de 5 vezes do Bloco 3',
      'Alternar colunas 1 e 2 - 7x vezes',
      'Alternar colunas 2 e 3 - 7x vezes',
      'Alternar colunas 3 e 1 - 7x vezes',
@@ -50,11 +49,9 @@ const strategyx = [
      'Repetiçao de 7 vezes da Coluna 1',
      'Repetiçao de 7 vezes da Coluna 2',
      'Repetiçao de 7 vezes da Coluna 3',
-     'Repetiçao de 5 vezes do Bloco 2',
 ]
 
 const spectStrategy = [
-     'Repetiçao de 4 vezes do Bloco 3',
      'Alternar colunas 1 e 2 - 6x vezes',
      'Alternar colunas 2 e 3 - 6x vezes',
      'Alternar colunas 3 e 1 - 6x vezes',
@@ -368,7 +365,7 @@ await sub.subscribe('msg', async (message) => {
      if(!result) {
      console.log("Strategy Detect")
 
-     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
           await proccedAlert(strig, possivelAlert)
           return 
