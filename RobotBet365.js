@@ -220,10 +220,11 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       defaultViewport: {
         width: 1100,
         height: 980,
+        slowMo: 100,
         dumpio: true
       },
       args: [
@@ -259,7 +260,6 @@ class RoulleteBot {
     const password = await this.page.waitForSelector('#txtPassword');
     console.log("Try to login");
     let site  = await this.page.url();
-    await this.page.screenshot({path: google.png})
     console.log(site);
     if (username && password) {
       // Clean username

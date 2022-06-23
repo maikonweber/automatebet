@@ -166,6 +166,19 @@ async function strategyConsultFor18(newArray)  {
 
 }
 
+function restOfNumber(current, value, number, string) {
+     const array = new Array(...value)
+
+     for(number; number > 0; number--) {
+          array.pop()
+     }
+     
+     if(!array.includes(current)) {
+          return `Ausencia da ${string}`;
+     } 
+     return `Nao Identificado`
+}
+
 
 function getStrategy(strategy, value, number){
      // Received the number of element need remove to value array
@@ -179,7 +192,6 @@ function getStrategy(strategy, value, number){
      const StringValue = array.toString()
 
      if(strategy[`${StringValue}`]) {
-     
          return strategy[`${StringValue}`]();
      } 
      return `Não identificado` ;

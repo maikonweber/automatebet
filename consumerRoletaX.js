@@ -222,7 +222,6 @@ async function sendMsg(sala, msg, reply) {
         
          
           }))
-
      }
 
           function proccedRoulletAndSend(sygnalBase, string) {
@@ -261,7 +260,6 @@ function consultMemory (sygnalBase, string) {
                          
                          return replace4
                     }
-                    await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
                     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
                  } else {
                       console.log('RED')
@@ -273,7 +271,7 @@ function consultMemory (sygnalBase, string) {
                            return replace4
                      }
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                      await clientRedis.del(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`)
+                   
                       console.log(msg)  
           }
      }, 45000)
