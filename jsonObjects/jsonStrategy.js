@@ -1,83 +1,83 @@
 const ColunasRepeat = {
      '3' : () => {
-          return 'Repitição de 1x da Coluna 3'
+          return 'Repitição de 1 vezes da Coluna 3'
      },
      '3,3,3' : () => {
-          return 'Repetição de 3x da Coluna 3'
+          return 'Repetição de 3 vezes da Coluna 3'
      },
      '3,3'  : () => {
-          return 'Repetição de 2x Colunas 3'
+          return 'Repetição de 2 vezes da Colunas 3'
      },
      '2,2,2' : () => {
-          return 'Repetição de 3x Colunas 2'
+          return 'Repetição de 3 vezes da Colunas 2'
      },
      '2,2' : () => {
-          return 'Repetição de x2 a Coluna 2'
+          return 'Repetição de 2 vezes da Coluna 2'
      },
      '2' : () => {
-          return 'Repetição de x2 a Coluna 1'
+          return 'Repetição de 2 vezes da Coluna 1'
      }, 
      '1,1,1' : () => {
-          return 'Repetição de 3x a Coluna 1'
+          return 'Repetição de 3 vezes  da Coluna 1'
      },
      '1' : () => {
-            return 'Repetição de 3x a Coluna 1'
+            return 'Repetição de 3 vezes da Coluna 1'
      },
      '1,1' : () => {
-          return 'Repetição de x2 a Coluna 1'
+          return 'Repetição de 2 vezes da Coluna 1'
      },
      '1,1,1,1' : () => {
-           return 'Repetiçao de 4 vezes da Coluna 1';
+           return 'Repetição de 4 vezes da Coluna 1';
 
      },
      '2,2,2,2' : () => {
-               return 'Repetiçao de 4 vezes da Coluna 2';
+               return 'Repetição de 4 vezes da Coluna 2';
      },
      '3,3,3,3' : () => {
-               return 'Repetiçao de 4 vezes da Coluna 3';
+               return 'Repetição de 4 vezes da Coluna 3';
      },
      '1,1,1,1,1' : () => {
-           return 'Repetiçao de 5 vezes da Coluna 1';
+           return 'Repetição de 5 vezes da Coluna 1';
      },
      '2,2,2,2,2' : () => {
-               return 'Repetiçao de 5 vezes da Coluna 2';
+               return 'Repetição de 5 vezes da Coluna 2';
      },
      '3,3,3,3,3' : () => {
-               return 'Repetiçao de 5 vezes da Coluna 3';
+               return 'Repetição de 5 vezes da Coluna 3';
      },
      '1,1,1,1,1,1' : () => {
-               return 'Repetiçao de 6 vezes da Coluna 1';
+               return 'Repetição de 6 vezes da Coluna 1';
 
      },
      '2,2,2,2,2,2' : () => {
-               return 'Repetiçao de 6 vezes da Coluna 2';
+               return 'Repetição de 6 vezes da Coluna 2';
      },
      '3,3,3,3,3,3' : () => {
-               return 'Repetiçao de 6 vezes da Coluna 3';
+               return 'Repetição de 6 vezes da Coluna 3';
      },
      '1,1,1,1,1,1,1' : () => {
-               return 'Repetiçao de 7 vezes da Coluna 1';
+               return 'Repetição de 7 vezes da Coluna 1';
      },
      '2,2,2,2,2,2,2' : () => {
-               return 'Repetiçao de 7 vezes da Coluna 2';
+               return 'Repetição de 7 vezes da Coluna 2';
      },
      '3,3,3,3,3,3,3' : () => {
-               return 'Repetiçao de 7 vezes da Coluna 3';
+               return 'Repetição de 7 vezes da Coluna 3';
      },
      '1,1,1,1,1,1,1,1' : () => {
-               return 'Repetiçao de 8 vezes da Coluna 1';
+               return 'Repetição de 8 vezes da Coluna 1';
      },
      '2,2,2,2,2,2,2,2' : () => {
-               return 'Repetiçao de 8 vezes da Coluna 2';
+               return 'Repetição de 8 vezes da Coluna 2';
      },
      '3,3,3,3,3,3,3,3' : () => {
-               return 'Repetiçao de 8 vezes da Coluna 3';
+               return 'Repetição de 8 vezes da Coluna 3';
      },
      '1,1,1,1,1,1,1,1,1' : () => {
-               return 'Repetiçao de 9 vezes da Coluna  1';
+               return 'Repetição de 9 vezes da Coluna  1';
      },
      '2,2,2,2,2,2,2,2,2' : () => {
-               return 'Repetiçao de 9 vezes da Coluna 2';
+               return 'Repetição de 9 vezes da Coluna 2';
      },
      '1,1,1,1,1,1,1,1,1,1,1' : () => {
           return 'Repetição 12 vezes da Coluna 1';
@@ -182,7 +182,7 @@ const ColunasRepeat = {
                return 'Repetição 3 vezes do Bloco 3';
           },
           '1,1,1,1' : () => {
-                return 'Repetiçao de 4 vezes do Bloco 1';
+                return 'Repetição de 4 vezes do Bloco 1';
      
           },
           '2,2,2,2' : () => {
@@ -192,47 +192,47 @@ const ColunasRepeat = {
                     return 'Repeitiçao de 4 vezes do Bloco 3';
           },
           '1,1,1,1,1' : () => {
-                return 'Repetiçao de 5 vezes do Bloco 1';
+                return 'Repetição de 5 vezes do Bloco 1';
           },
           '2,2,2,2,2' : () => {
-                    return 'Repetiçao de 5 vezes do Bloco 2';
+                    return 'Repetição de 5 vezes do Bloco 2';
           },
           '3,3,3,3,3' : () => {
-                    return 'Repetiçao de 5 vezes do Bloco 3';
+                    return 'Repetição de 5 vezes do Bloco 3';
           },
           '1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 6 vezes do Bloco 1';
+                    return 'Repetição de 6 vezes do Bloco 1';
      
           },
           '2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 6 vezes do Bloco 2';
+                    return 'Repetição de 6 vezes do Bloco 2';
           },
           '3,3,3,3,3,3' : () => {
-                    return 'Repetiçao de 6 vezes do Bloco 3';
+                    return 'Repetição de 6 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 7 vezes do Bloco 1';
+                    return 'Repetição de 7 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 7 vezes do Bloco 2';
+                    return 'Repetição de 7 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3' : () => {
-                    return 'Repetiçao de 7 vezes do Bloco 3';
+                    return 'Repetição de 7 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 8 vezes do Bloco 1';
+                    return 'Repetição de 8 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 8 vezes do Bloco 2';
+                    return 'Repetição de 8 vezes do Bloco 2';
           },
           '3,3,3,3,3,3,3,3' : () => {
-                    return 'Repetiçao de 8 vezes do Bloco 3';
+                    return 'Repetição de 8 vezes do Bloco 3';
           },
           '1,1,1,1,1,1,1,1,1' : () => {
-                    return 'Repetiçao de 9 vezes do Bloco 1';
+                    return 'Repetição de 9 vezes do Bloco 1';
           },
           '2,2,2,2,2,2,2,2,2' : () => {
-                    return 'Repetiçao de 9 vezes do Bloco 2';
+                    return 'Repetição de 9 vezes do Bloco 2';
           },
           '1,1,1,1,1,1,1,1,1,1,1' : () => {
                return 'Repetição 12 vezes do Bloco 1';
@@ -433,7 +433,7 @@ const on18or36 = {
           return 'Repetição 2 vezes da 1 ou 18';
      },
      '1,1,1' : (    ) => {    
-          return 'Repetição 3x 1 ou 18';
+          return 'Repetição 3 vezes 1 ou 18';
      },
      '2,2,2' : () => {
           return 'Repetição 3 vezes da 19 ou 36';
@@ -526,7 +526,7 @@ const on18or36 = {
           return 'Repetição 18 vezes da 1 ou 18';
      },
      '2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2' : () => {
-          return 'Repetiçao 18 vezes do 19 ao 36'
+          return 'Repetição 18 vezes do 19 ao 36'
      }
 
 }
@@ -644,393 +644,392 @@ const parOuImpar = {
 
      const alternateColumns =  {
           '1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 2x vezes';
+               return 'Alternar colunas 1 e 2  -  2 vezes';
           },
           '2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 2x vezes';
+               return 'Alternar colunas 2 e 1 -  2 vezes';
           },
           '1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 2x vezes';
+               return 'Alternar colunas 1 e 3  - 2 vezes';
           },
           '3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 2x vezes';
+               return 'Alternar colunas 3 e 1 -  2 vezes';
           },
           '2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 2x vezes';
+               return 'Alternar colunas 2 e 3 -  2 vezes';
           },
           '3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 2x vezes';
+               return 'Alternar colunas 3 e 2 -  2 vezes';
           },
           '1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 3x vezes';
+               return 'Alternar colunas 1 e 2 -  3 vezes';
           }
           ,
           '2,1,2,' : () => {
-               return 'Alternar colunas 2 e 1 - 3x vezes';
+               return 'Alternar colunas 2 e 1 -  3 vezes';
           }
           ,
           '1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 3x vezes';
+               return 'Alternar colunas 1 e 3 -  3 vezes';
           }
           ,
           '3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 3x vezes';
+               return 'Alternar colunas 3 e 1 -  3 vezes';
           }
           ,
           '2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 3x vezes';
+               return 'Alternar colunas 2 e 3 -  3 vezes';
           }
           ,
           '3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 3x vezes';
-          }
-          ,
+               return 'Alternar colunas 3 e 2 -  3 vezes';
+          },
           '1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 4x vezes';
+               return 'Alternar colunas 1 e 2 - 4 vezes';
           }
           ,
           '2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 4x vezes';
+               return 'Alternar colunas 2 e 1 - 4 vezes';
           }
           ,
           '1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 4x vezes';
+               return 'Alternar colunas 1 e 3 - 4 vezes';
           }
           ,
           '3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 4x vezes';
+               return 'Alternar colunas 3 e 1 - 4 vezes';
           }
           ,
           '2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 4x vezes';
+               return 'Alternar colunas 2 e 3 - 4 vezes';
           }
           ,
           '3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 4x vezes';
+               return 'Alternar colunas 3 e 2 - 4 vezes';
           }
           ,
           '1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 5x vezes';
+               return 'Alternar colunas 1 e 2 - 5 vezes';
           }
           ,
           '2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 5x vezes';
+               return 'Alternar colunas 2 e 1 - 5 vezes';
           }
           ,
           '1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 5x vezes';
+               return 'Alternar colunas 1 e 3 - 5 vezes';
           }
           ,
           '3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 5x vezes';
+               return 'Alternar colunas 3 e 1 - 5 vezes';
           }
           ,
           '2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 5x vezes';
+               return 'Alternar colunas 2 e 3 - 5 vezes';
           }
           ,
           '3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 5x vezes';
+               return 'Alternar colunas 3 e 2 - 5 vezes';
           }
           ,
           '1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 6x vezes';
+               return 'Alternar colunas 1 e 2 - 6 vezes';
           }
           ,
           '2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 6x vezes';
+               return 'Alternar colunas 2 e 1 - 6 vezes';
           }
           ,
           '1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 6x vezes';
+               return 'Alternar colunas 1 e 3 - 6 vezes';
           }
           ,
           '3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 6x vezes';
+               return 'Alternar colunas 3 e 1 - 6 vezes';
           }
           ,
           '2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 6x vezes';
+               return 'Alternar colunas 2 e 3 - 6 vezes';
           }
           ,
           '3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 6x vezes';
+               return 'Alternar colunas 3 e 2 - 6 vezes';
           }
           ,
           '1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 7x vezes';
+               return 'Alternar colunas 1 e 2 - 7 vezes';
           }
           ,
           '2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 7x vezes';
+               return 'Alternar colunas 2 e 1 - 7 vezes';
           }
           ,
           '1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 7x vezes';
+               return 'Alternar colunas 1 e 3 - 7 vezes';
           }
           ,
           '3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 7x vezes';
+               return 'Alternar colunas 3 e 1 - 7 vezes';
           }
           ,
           '2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 7x vezes';
+               return 'Alternar colunas 2 e 3 - 7 vezes';
           }
           ,
           '3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 7x vezes';
+               return 'Alternar colunas 3 e 2 - 7 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 8x vezes';
+               return 'Alternar colunas 1 e 2 - 8 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 8x vezes';
+               return 'Alternar colunas 2 e 1 - 8 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 8x vezes';
+               return 'Alternar colunas 1 e 3 - 8 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 8x vezes';
+               return 'Alternar colunas 3 e 1 - 8 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 8x vezes';
+               return 'Alternar colunas 2 e 3 - 8 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 8x vezes';
+               return 'Alternar colunas 3 e 2 - 8 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 9x vezes';
+               return 'Alternar colunas 1 e 2 - 9 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 9x vezes';
+               return 'Alternar colunas 2 e 1 - 9 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 9x vezes';
+               return 'Alternar colunas 1 e 3 - 9 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 9x vezes';
+               return 'Alternar colunas 3 e 1 - 9 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 9x vezes';
+               return 'Alternar colunas 2 e 3 - 9 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 9x vezes';
+               return 'Alternar colunas 3 e 2 - 9 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 12x vezes';
+               return 'Alternar colunas 1 e 2 - 12 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 12x vezes';
+               return 'Alternar colunas 2 e 1 - 12 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 12x vezes';
+               return 'Alternar colunas 1 e 3 - 12 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 12x vezes';
+               return 'Alternar colunas 3 e 1 - 12 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 12x vezes';
+               return 'Alternar colunas 2 e 3 - 12 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 12x vezes';
+               return 'Alternar colunas 3 e 2 - 12 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 11x vezes';
+               return 'Alternar colunas 1 e 2 - 11 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 11x vezes';
+               return 'Alternar colunas 2 e 1 - 11 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 11x vezes';
+               return 'Alternar colunas 1 e 3 - 11 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 11x vezes';
+               return 'Alternar colunas 3 e 1 - 11 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 11x vezes';
+               return 'Alternar colunas 2 e 3 - 11 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 11x vezes';
+               return 'Alternar colunas 3 e 2 - 11 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 12x vezes';
+               return 'Alternar colunas 1 e 2 - 12 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 12x vezes';
+               return 'Alternar colunas 2 e 1 - 12 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 12x vezes';
+               return 'Alternar colunas 1 e 3 - 12 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 12x vezes';
+               return 'Alternar colunas 3 e 1 - 12 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 12x vezes';
+               return 'Alternar colunas 2 e 3 - 12 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 12x vezes';
+               return 'Alternar colunas 3 e 2 - 12 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 13x vezes';
+               return 'Alternar colunas 1 e 2 - 13 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 13x vezes';
+               return 'Alternar colunas 2 e 1 - 13 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 13x vezes';
+               return 'Alternar colunas 1 e 3 - 13 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 13x vezes';
+               return 'Alternar colunas 3 e 1 - 13 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 13x vezes';
+               return 'Alternar colunas 2 e 3 - 13 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 13x vezes';
+               return 'Alternar colunas 3 e 2 - 13 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 14x vezes';
+               return 'Alternar colunas 1 e 2 - 14 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 14x vezes';
+               return 'Alternar colunas 2 e 1 - 14 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 14x vezes';
+               return 'Alternar colunas 1 e 3 - 14 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 14x vezes';
+               return 'Alternar colunas 3 e 1 - 14 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 14x vezes';
+               return 'Alternar colunas 2 e 3 - 14 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 14x vezes';
+               return 'Alternar colunas 3 e 2 - 14 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 15x vezes';
+               return 'Alternar colunas 1 e 2 - 15 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 15x vezes';
+               return 'Alternar colunas 2 e 1 - 15 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 15x vezes';
+               return 'Alternar colunas 1 e 3 - 15 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 15x vezes';
+               return 'Alternar colunas 3 e 1 - 15 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 15x vezes';
+               return 'Alternar colunas 2 e 3 - 15 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 15x vezes';
+               return 'Alternar colunas 3 e 2 - 15 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 16x vezes';
+               return 'Alternar colunas 1 e 2 - 16 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 16x vezes';
+               return 'Alternar colunas 2 e 1 - 16 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 16x vezes';
+               return 'Alternar colunas 1 e 3 - 16 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 3 e 1 - 16x vezes';
+               return 'Alternar colunas 3 e 1 - 16 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 2 e 3 - 16x vezes';
+               return 'Alternar colunas 2 e 3 - 16 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 3 e 2 - 16x vezes';
+               return 'Alternar colunas 3 e 2 - 16 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 1 e 2 - 17x vezes';
+               return 'Alternar colunas 1 e 2 - 17 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 2 e 1 - 17x vezes';
+               return 'Alternar colunas 2 e 1 - 17 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1' : () => {
-               return 'Alternar colunas 1 e 3 - 17x vezes';
+               return 'Alternar colunas 1 e 3 - 17 vezes';
           }
           ,
           '3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 3 e 1 - 17x vezes';
+               return 'Alternar colunas 3 e 1 - 17 vezes';
           }
           ,
           '2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternar colunas 2 e 3 - 17x vezes';
+               return 'Alternar colunas 2 e 3 - 17 vezes';
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternar colunas 3 e 2 - 17x vezes';
+               return 'Alternar colunas 3 e 2 - 17 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternar colunas 1 e 2 - 18x vezes';
+               return 'Alternar colunas 1 e 2 - 18 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternar colunas 2 e 1 - 18x vezes';
+               return 'Alternar colunas 2 e 1 - 18 vezes';
           }
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
-               return 'Alternar colunas 1 e 3 - 18x vezes';
+               return 'Alternar colunas 1 e 3 - 18 vezes';
           } 
 
      }
