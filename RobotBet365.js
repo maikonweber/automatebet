@@ -10,6 +10,8 @@ client.connect();
 puppeteer.use(StealthPlugin());
 
 
+
+
 class RoulleteBot {
     constructor(password, username, room) {
       this.password = password;
@@ -208,6 +210,7 @@ class RoulleteBot {
     await this.publisher(glee);
   
 
+
     }, 35000 / 2 / 2);
  
   
@@ -225,6 +228,7 @@ class RoulleteBot {
       },
       args: [
         // '--proxy-server=45.190.249.100:8080',
+
         '--no-sandbox',
         "--window-size=1110,980",
         "--window-position=500,0",
