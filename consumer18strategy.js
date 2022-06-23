@@ -216,15 +216,51 @@ async function strategy18Procced (strategy) {
 
 
 
-     //blocosRepeat,
-     //ColunasRepeat,
-     //redReapeat,
-     //on18or36,
      //parOuImpar,
-     let arrayColunasAusencia = []
+     let arrayColunas1Ausencia = []
      for(let i = 0; i < times; i++){    
           let value = restOfNumber(strategy.colunas, 1, i)
-          arrayColunasAusencia.push({
+          arrayColunas1Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayColunas2Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.colunas, 2, i)
+          arrayColunas2Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayColunas3Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.colunas, 3, i)
+          arrayColunas3Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayBloco1Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.bloco, 1, i)
+          arrayBloco1Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayBloco2Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.bloco, 1, i)
+          arrayBloco1Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayBloco3Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.bloco, 1, i)
+          arrayBloco1Ausencia.push({
                coluna : value
           })
      }
@@ -296,7 +332,12 @@ async function strategy18Procced (strategy) {
      strategyProced.colorRepeat = array5
      strategyProced.colunasRepeat = array
      strategyProced.alternateColumns = array7
-
+     strategyProced.arrayColunas1Ausencia = arrayColunas1Ausencia
+     stringBlocos.arrayColunas2Ausencia = arrayColunas2Ausencia
+     stringBlocos.arrayColunas3Ausencia = arrayColunas3Ausencia
+     stringBlocos.arrayBloco1Ausencia = arrayBloco1Ausencia
+     stringBlocos.arrayBloco2Ausencia = arrayBloco2Ausencia
+     stringBlocos.arrayBloco3Ausencia = arrayBloco3Ausencia
 
      // Convert array to string
      return strategyProced;
