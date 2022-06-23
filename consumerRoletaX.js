@@ -53,9 +53,6 @@ const strategyx = [
 ]
 
 const spectStrategy = [
-     'Repetição 4 vezes da 19 ou 36',
-     'Repetição de 4 vezes da Coluna 2',
-     'Repetição de 4 vezes da Coluna 1',
      'Alternar colunas 1 e 2 - 6x vezes',
      'Alternar colunas 2 e 3 - 6x vezes',
      'Alternar colunas 3 e 1 - 6x vezes',
@@ -402,7 +399,6 @@ await sub.subscribe('msg', async (message) => {
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
           console.log('-------------------ALERT-------------------')
           proccedAlert(strig, possivelAlert)
-          return
      }
 
 
@@ -411,6 +407,7 @@ await sub.subscribe('msg', async (message) => {
           proccedRoulletAndSend(strig, string)
           return 
           }
+          
      } else {
           console.log('Resultado não processado')
      }
