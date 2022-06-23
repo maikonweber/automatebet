@@ -27,21 +27,23 @@ class RoulleteBot {
 
     async init() {
     console.log('Abrindo Pagina');
+     
      await this.preLoad();
      await this.login(); 
+    
      await this.getSygnal();
 
 
   }
 
   async getSygnal() {
-    this.page.waitForTimeout(35000);
+    this.page.waitForTimeout(45000);
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     console.log('Aguardando Sinal');
     // take screenshot
     // take body
-    this.page.waitForTimeout(15000);
+    this.page.waitForTimeout(45000);
     let site  = await this.page.url();
     console.log(site);
 
@@ -209,7 +211,7 @@ class RoulleteBot {
   
 
 
-    }, 35000 / 2 / 2);
+    }, 35000);
  
   
 }
@@ -219,19 +221,20 @@ class RoulleteBot {
   async preLoad() {
     const browser = await puppeteer.launch({
       headless: true,
+      userDataDir : './userData1', 
       defaultViewport: {
         width: 1100,
         height: 980,
-        slowMo: 100,
         dumpio: true
       },
       args: [
         // '--proxy-server=45.190.249.100:8080',
-
-        '--no-sandbox',
-        "--window-size=1110,980",
-        "--window-position=500,0",
-
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins,site-per-process',
+        '--disable-extensions',
+        "--window-size=920,680",
+         "--window-position=500,0",
+      
 
       ],  
       devTools: true, 
@@ -249,8 +252,10 @@ class RoulleteBot {
   }
 
   async login() {
-    await this.page.waitForTimeout(7000) 
+    await this.page.waitForTimeout(15000) 
     // Get body
+    await this.page.screenshot({path : `test${50}.png`})
+    await this.interval()
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     console.log("Try to login");
@@ -264,15 +269,15 @@ class RoulleteBot {
       await username.type(this.username);
       await password.type(this.password);
       // enter the page
-      await this.page.waitForTimeout(3500);
+      await this.page.waitForTimeout(25000);
       await this.page.keyboard.press('Enter');
-      await this.page.waitForTimeout(5000);
+      await this.page.waitForTimeout(25000);
       const button = await this.page.$('.regulatory-last-login-modal__button');
       if (button) {
         await button.click();
       }
       await this.page.waitForTimeout(5000);
-      await this.page.waitForTimeout(5000);
+      await this.page.waitForTimeout(80000);
     }
   }
 
@@ -282,9 +287,12 @@ class RoulleteBot {
   }
 
   async interval() {
-      setInterval(() => {
-        this.page.screenshot({path : 'test1.png'})
-      }, 15000)
+      let i = 1
+      setInterval(async () => {
+        await this.page.screenshot({path : `test${i}.png`})
+     
+        i ++
+    }, 10000)
   }
 }
 

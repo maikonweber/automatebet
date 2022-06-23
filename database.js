@@ -162,6 +162,21 @@ async function getLastNumber18(name) {
     }
 }
 
+async function getLastCard() {
+    let sql = `SELECT lastnumber from  mafia_cards
+               Where created order by desc`
+    let result = await pool.query(sql)
+    return result
+}
+
+async function insertCards(number) {
+
+    let sql  = `INSERT INTO mafia_cards(lastnumber) VALUES ($1)`
+    let result = await pool.query(sql, [number])
+    return result
+}
+
+
 async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
     let sql = `insert into robotbetpayload (name, numberjson, jsonbpreload, jsonbstrategy) 
     values ($1, $2, $3, $4) returning id`;

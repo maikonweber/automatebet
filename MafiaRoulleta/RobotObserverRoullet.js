@@ -74,77 +74,10 @@ const redis = require('redis');
         await this.init();
         const page = await this.login();
         const page2 = await this.seeAllRoulletesPage();
+
         // const page3 = await this.roulletpad(page2);
 
        
-    }
-
-
-    async mappingBoard (page) {
-        console.log("Mapping Board");
-        const thx = await page.$$('.green_color');
-        const ty = await page.$$('.red_color');
-        const tz = await page.$$('.black_color');
-        const t2 = await page.$$('.outsides_color');
-
-
-        ty.forEach(async element => {
-            console.log(await  element.getProperties());
-          
-
-        });
-          
-        
-
-        // })
-
-        // tz.forEach(async element => {
-        //     await element.getAttribute('data-bet-spot-id').then(async (value) => {
-        //         console.log(value);
-
-        //     });
-
-        // })
-
-        // t2.forEach(async element => {
-        //     await element.getAttribute('data-bet-spot-id').then(async (value) => {
-        //         console.log(value);
-
-        //     });  
-        // })
-
-    }
-
-    async roulletpad (page) {
-        console.log("Roullet pad");
-        // Select all elements in the div root
-        const data = await page.evaluate(() => document.querySelector('*').outerHTML);
-            // SVG //*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[2]/div/div[2]/div/div[1]/div/div[1]/div/svg
-            // Table Class #classicStandard-wrapper
-            // Element Class name is green_color , red_color, black_color
-            // Element Class name is green_color , red_color, black_color
-            // get Element by class name green_color
-            const element = await page.$$('#text--27a51 uppercase--1918b');
-            console.log(element[0]);
-            const thx = await page.$$('.green_color');
-            const ty = await page.$$('.red_color');
-            const tz = await page.$$('.black_color');
-            const ligthTraffic = await page. $$('.traffic-light--a7a04');
-            const textLigth = await page.$$('.text--27a51');
-            const w =  await page.$x('//*[@id="root"]/div[2]/div/div/div[2]/div/div[6]/div[1]/div/div/div[2]')
-            console.log(w, 'w');
-            this.mappingBoard(page);
-
-
-            setInterval(async () => {
-              const text = await  w[0].getProperty('textContent')
-              const l = await text.jsonValue();
-              console.log(l, 'l');
-              this.round = l;
-
-            }, 1000);
-        
-
     }
 
 
@@ -162,38 +95,12 @@ const redis = require('redis');
         })
 
         await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001')
+        const root = await this.page.$('#root')
+        const text = await this.page.$$('text')
+        console.log(text)
 
-        await this.page.evaluate(()=> {
-            const element = document.querySelectorAll('.historyItem--a1907 isDesktop--8a099.largeMobileIcon--4dd9c.classicLayout--7cc42')
-            element.forEach(element => {
-                console.log(element)
-            })
-            console.log(element)
-        })
-        
-        
-       
-
-    
-        
-    }
-
-
-
-
-      async openPage(name) {
-          this.page()
-      }
-       
-
-  waitForSecond (time) {
-        setTimeout(() => {
-            console.log('Iniciando um Timeout de ' + time + ' segundos');
-        }, [time]);   
-    }   
-
-
-}
+}  
+ }
 
 const bot = new RobotObserverRoullet('ma128sio4', 'maikonweber1');
 bot.routine();

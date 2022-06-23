@@ -166,14 +166,14 @@ async function strategyConsultFor18(newArray)  {
 
 }
 
-function restOfNumber(current, value, number, string) {
+function restOfNumber (value, spectNumber ,string) {
      const array = new Array(...value)
 
      for(number; number > 0; number--) {
           array.pop()
      }
      
-     if(!array.includes(current)) {
+     if(!array.includes(spectNumber)) {
           return `Ausencia da ${string}`;
      } 
      return `Nao Identificado`
@@ -221,8 +221,13 @@ async function strategy18Procced (strategy) {
      //redReapeat,
      //on18or36,
      //parOuImpar,
-     
-
+     let arrayColunasAusencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.colunas, 1, i)
+          arrayColunasAusencia.push({
+               coluna : value
+          })
+     }
 
      let times = 18
      let array = []

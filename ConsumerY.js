@@ -367,7 +367,9 @@ await sub.subscribe('msg', async (message) => {
            return 
           }
           return
-     } 
+     } else {
+          console.log('Nao processado')
+     }
 });
    
 })();

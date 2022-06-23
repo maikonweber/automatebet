@@ -215,11 +215,9 @@ async function sendMsg(sala, msg, reply) {
        
           return await client.invoke( new Api.messages.SendMessage({
                peer: salaEntity,
-               message: msg.toString()
-        
-         
-          }))
-     }
+               message: msg.toString()         
+}))
+}
 
           function proccedRoulletAndSend(sygnalBase, string) {
                const replace = stringReplace(string, sygnalBase)
@@ -324,13 +322,11 @@ async function proccedAlert (sygnalBase, string) {
 
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
-
      const replace5 = replace2.replace(/{expect}/g, expect)
      const place =  replace5.replace(/[0-9]*x/g, '')
      const re = place.replace(/vezes/g, '')
-
-
      return await sendMsg(-1266295662, re)
+
 }
 
 const result = await client.invoke( new Api.messages.GetAllChats({
@@ -367,6 +363,9 @@ await sub.subscribe('msg', async (message) => {
           await proccedRoulletAndSend(strig, string)
           return 
           }
+          
+     } else {
+          console.log('Sinal processado')
      }
 })
    

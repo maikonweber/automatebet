@@ -22,8 +22,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-/// Cors 
-
 
 app.post('/api/v1/setblaze', async (req, res) => {
   console.log(req)
@@ -36,6 +34,14 @@ app.post('/api/v1/setblaze', async (req, res) => {
   const blaze = new Blaze(valor, username, password, horario, autoretirar)
   await blaze.getEntry()
   res.json('You have set the blaze at ')
+})
+
+app.post('/api/cardMafia', async (req, res) => {
+ const payload = req.body.payload
+ const lastResult = await getLastResultCards()
+ if (lastResult != payload) {
+   const setLastCard = await setLastCard(payload)
+ }
 })
 
 
