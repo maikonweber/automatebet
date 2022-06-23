@@ -354,9 +354,12 @@ async function proccedAlert (sygnalBase, string) {
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
 
      const replace5 = replace2.replace(/{expect}/g, expect)
+     const place =  replace5.replace(/[0-9]*/g, '')
+     const re = place.replace(/vezes/g, '')
+
 
     
-     const msg1 = await sendMsg(-1593932898,replace5)
+     const msg1 = await sendMsg(-1593932898,re)
      console.log(msg1)
 
      clientRedis.set(`${msg1.chats[0].id}_${roulleteName}`, JSON.stringify(msg1.chats[0].id), {
@@ -396,6 +399,7 @@ await sub.subscribe('msg', async (message) => {
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
      if(!result) {
      console.log("Strategy Detect")
+
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
           console.log('-------------------ALERT-------------------')
           proccedAlert(strig, possivelAlert)
@@ -407,7 +411,7 @@ await sub.subscribe('msg', async (message) => {
           proccedRoulletAndSend(strig, string)
           return 
           }
-          
+
      } else {
           console.log('Resultado não processado')
      }
