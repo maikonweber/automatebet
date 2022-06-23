@@ -218,7 +218,7 @@ async function sendMsg(sala, msg) {
                     EX: 180,
                     NX: true
                })
-               const msg2 = clientRedis.get(`${-1681921748}_${roulleteName}`)
+               const msg2 = clientRedis.get(`${-1681921748}_${sygnalBase.roulleteName}`)
                const msg1 = await sendMsg(-1681921748, string, msg2)
                console.log(msg1)
 
