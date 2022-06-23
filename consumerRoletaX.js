@@ -272,27 +272,12 @@ async function sendMsg(sala, msg, reply) {
                            const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
                            const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                            return replace4
-                      }
+                     }
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                      console.log(msg)
-                      async function martingale(sygnalBase, stringRed, stringGreen, lastResult, msg) {
-                         setTimeout( async () => {
-                              let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
-                              const {
-                                   array,
-                                   expect
-                              } = testStrategy(sygnalBase.estrategiaDetect)
-
-                              if(array.includes(resultadoAtual.numberjson[0])) {
-                                   const msg = await sendMsg(-1266295662, replaceForGreen(stringGreen, resultadoAtual, sygnalBase))
-                              } else {
-                                   const msg2 = await sendMsg(-1266295662, replaceForRed(stringRed, resultadoAtual, sygnalBase))
-                              }
-                         }, 45000)
-                         
-                      }
+                      console.log(msg)  
           }
-
+     }, 45000)
+}
           
           
           function stringReplace(string, sygnalBase) {
@@ -377,12 +362,9 @@ console.log(client.session.save());
 
 const sala1 = result.chats[0].id
 
-
-
           
 await sub.subscribe('msg', async (message) => {
 
-    
      const strig =  JSON.parse(message); // 'message'
      console.log(strig.roulleteName, strig.estrategiaDetect)
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
@@ -401,10 +383,7 @@ await sub.subscribe('msg', async (message) => {
           await proccedRoulletAndSend(strig, string)
           return 
           }
-
-     } else {
-          console.log('Resultado não processado')
      }
-});
+})
    
 })();
