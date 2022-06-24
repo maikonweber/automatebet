@@ -114,7 +114,8 @@ const axios = require('axios')
 
         if (AWAY.test(orphan)) {
             axios.post('http://localhost:3055/api/cards', {
-                "result" : 'AWAY'
+                "result" : 'AWAY',
+                "created" : new Date().getTime()
             }).then(
                 res => {
                    console.log(res.data);
@@ -123,12 +124,11 @@ const axios = require('axios')
                 err => {
                     console.log(err);
                 }
-            )
-            
+            )      
         } else if (HOME.test(orphan)) {
             axios.post('http://localhost:3055/api/cards', {
                 "result" : "Home",
-                "created" : Date.now().getTime()
+                "created" : new Date().getTime()
             }).then(
                 res => {
                    console.log(res.data);
@@ -142,7 +142,7 @@ const axios = require('axios')
         } else if (DRAW.test(orphan)) {
             axios.post('http://localhost:3055/api/cards', {
                 "result" : "DRAW",
-                "created" : Date.now().getTime()
+                "created" : new Date().getTime()
             }).then(
                 res => {
                    console.log(res.data);
@@ -158,8 +158,6 @@ const axios = require('axios')
         }
 
         
-
-
         await this.page.evaluate(() => {
          const letter = document.querySelectorAll('.historyStatistic--c80d3.fourLines--c2f5f')
          console.log(letter)

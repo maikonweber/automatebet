@@ -36,12 +36,11 @@ app.post('/api/v1/setblaze', async (req, res) => {
   res.json('You have set the blaze at ')
 })
 
-app.post('/api/cardMafia', async (req, res) => {
- const payload = req.body.payload
- const lastResult = await getLastResultCards()
- if (lastResult != payload) {
-   const setLastCard = await setLastCard(payload)
- }
+app.post('/api/cards', async (req, res) => {
+ const { created, result } = req.body.payload
+
+ const setLastCard = await setLastCard(payload)
+ 
 })
 
 
