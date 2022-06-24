@@ -7,7 +7,7 @@ const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aIIxTP3DyN8TpvvFzvhWTNyZpI9ab3wx4v99YYIosj0cYMeDFccmzjoAPIVlVgs/cpb+7J7hoablPmB6hQNqCJJfJgy1RgFy711OSiphW1BqXPaa8wwk2Bib+vWTcyPN88TL87cE2lbRHe/Nm8URGzoybg3HqXC6WFPtaRqpy0QJVgIS3vzxg3VskhnThUsRhVpB7cfi1+08TCCWXN0CzHk9m7Nq37BImjQv0+/xThM+8apPNMRH0Q6gtN7IEehczT0MSeDTG2S3vrmuZiRnR/NvpjP3+fjjRHsP8VzERZXu4nhW+GQL6NuY0KcdtEzHuIyUQPbD+fUM=');
+const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBu4wJn7a2aFmB8O1STHkyvsob81Tu2qFA5+xrilx/4dBq7w+Mf8Bmq2fQvbT8RstllplnDHFw2LbwaiVj1Y3uhJrYzYfV75b73Fe3o7B1jZvC3odx3eAefT22iFBK2Lyj6Fk/7XgngubsHBWRd3lmGY1Ly4N7S5bc7n4ncLFEQBQxRXq4WnaHPAUZQ5NEcAJtGjp+0S16OAlEJG2uSXITkUsNSavJg/++ibtGPs3H5CI/6mrNMY4DV3ZWv64EN7Mmp5lKEkVkXXsqIaMDNFIYVXe3u9lysIW6I2Tzsg4T4dPGCMIKhOcq2Ox7/hkCaFkTG5qJaSDdzLyZICMnaFRdLR0=');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
@@ -324,7 +324,7 @@ async function proccedAlert (sygnalBase, string) {
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace5 = replace2.replace(/{expect}/g, expect)
      const place =  replace5.replace(/[0-9]* vezes/g, '')
-     return await sendMsg(-1266295662, re)
+     return await sendMsg(-1266295662, place)
 
 }
 
@@ -354,7 +354,6 @@ await sub.subscribe('msg', async (message) => {
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
           await proccedAlert(strig, possivelAlert)
-          return 
      }
 
 

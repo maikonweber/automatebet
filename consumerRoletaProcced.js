@@ -270,23 +270,13 @@ function colunasAlternat(json) {
                 // Make a post with axios for localhost:3000/api/bet365
                 console.log('Send Request')
           
-                axios.post('https://api.muttercorp.online/api/bet365', obj).then(
+                axios.post('http://localhost:3055/api/bet365', obj).then(
                         res => {
                            console.log(res.data);
                         }
                     ).catch(
                         err => {
                             console.log(err);
-                        }
-                    )
-
-                axios.post('http://localhost:3055/api/bet365', obj).then(
-                    res => {
-                        console.log(res.data)
-
-                    }).catch(
-                        err => {
-                            console.log(err)
                         }
                     )
         }

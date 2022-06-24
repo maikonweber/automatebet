@@ -15,7 +15,7 @@ const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
  const apiId = 17228434;
  const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
- const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aIIxTP3DyN8TpvvFzvhWTNyZpI9ab3wx4v99YYIosj0cYMeDFccmzjoAPIVlVgs/cpb+7J7hoablPmB6hQNqCJJfJgy1RgFy711OSiphW1BqXPaa8wwk2Bib+vWTcyPN88TL87cE2lbRHe/Nm8URGzoybg3HqXC6WFPtaRqpy0QJVgIS3vzxg3VskhnThUsRhVpB7cfi1+08TCCWXN0CzHk9m7Nq37BImjQv0+/xThM+8apPNMRH0Q6gtN7IEehczT0MSeDTG2S3vrmuZiRnR/NvpjP3+fjjRHsP8VzERZXu4nhW+GQL6NuY0KcdtEzHuIyUQPbD+fUM=');
+ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBu4wJn7a2aFmB8O1STHkyvsob81Tu2qFA5+xrilx/4dBq7w+Mf8Bmq2fQvbT8RstllplnDHFw2LbwaiVj1Y3uhJrYzYfV75b73Fe3o7B1jZvC3odx3eAefT22iFBK2Lyj6Fk/7XgngubsHBWRd3lmGY1Ly4N7S5bc7n4ncLFEQBQxRXq4WnaHPAUZQ5NEcAJtGjp+0S16OAlEJG2uSXITkUsNSavJg/++ibtGPs3H5CI/6mrNMY4DV3ZWv64EN7Mmp5lKEkVkXXsqIaMDNFIYVXe3u9lysIW6I2Tzsg4T4dPGCMIKhOcq2Ox7/hkCaFkTG5qJaSDdzLyZICMnaFRdLR0=');
 const expectNumber = require('./jsonObjects/strategy');
 const { sendMessage } = require('telegram/client/messages');
 const {
@@ -46,6 +46,9 @@ async function regExe(string, objetoRolleta, strategyArg) {
                
                console.log('=========================================================================')
                console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+               const insert = await insertSygnal(estrategiaDetect.payload.concat, estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+               console.log(insert)
+               estrategiaDetect.id =  insert
                return await clientPublisher.publish('msg', JSON.stringify(estrategiaDetect));
                
                return true

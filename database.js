@@ -152,13 +152,13 @@ async function getLastNumber18(name) {
     let sql = `SELECT numberjson 
     FROM robotbetpayload where name ~ $1
     order by created  
-    desc limit 10;`;
+    desc limit 12;`;
 
     let result = await pool.query(sql, [name]);
 
     return obj = {
         fistRow : result.rows[0],
-        lastRow : result.rows[9]
+        lastRow : result.rows[11]
     }
 }
 
@@ -218,7 +218,7 @@ async function insertSygnal (number, detectStrategy, name) {
     let queryString = `INSERT INTO robotbetsygnal (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3, process)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
     let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false, false]);
-    return result;
+    return result.rows[0];
 }
 
 
