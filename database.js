@@ -262,16 +262,17 @@ async function getUsersFilter (email) {
     return result.rows
 }
 
-async function getStrategyFilter(roulletName, nameStrategy) {
+async function getStrategyFilter(roulletName) {
 
-    console.log(roulletName, nameStrategy)
+    console.log(roulletName, 'Aqui')
     let query =  `Select * from robotbetsygnal
-                  Where roulletname ~ $1
-                  AND detectstretegy ~ $2
-                  Order by created desc
-                  Limit 1;`
+                  WHERE created BETWEEN now() - interval '1 minutes'
+                  AND now()
+                  AND roulletname ~ $1
+                  ORDER BY created desc
+                  ;`
                     
-    let result = await pool.query(query, [roulletName, nameStrategy]);
+    let result = await pool.query(query, [roulletName]);
     return result.rows
 }   
 

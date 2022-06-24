@@ -33,8 +33,9 @@ const spectStrategy = [
      'Repetição 9 vezes da Red',
 ]
 
-const result = await getStrategyFilter(roleta[0], [strategyx[0]])
-   
+const result = await getStrategyFilter(roleta[6])
+
+
 
 console.log(result)
 

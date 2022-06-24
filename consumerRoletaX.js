@@ -48,6 +48,7 @@ const strategyx = [
      'Repetição de 7 vezes da Coluna 1',
      'Repetição de 7 vezes da Coluna 2',
      'Repetição de 7 vezes da Coluna 3',
+     'Repetição de 4 vezes da Coluna 3',
 ]
 
 const spectStrategy = [
@@ -353,16 +354,16 @@ await sub.subscribe('msg', async (message) => {
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          await proccedAlert(strig, possivelAlert)
+          return await proccedAlert(strig, possivelAlert)
      }
 
 
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`------------------------------------------------------------`)
-          await proccedRoulletAndSend(strig, string)
-          return 
+         
+          return await proccedRoulletAndSend(strig, string)
           }
-          return    
+         
      }
 })
    

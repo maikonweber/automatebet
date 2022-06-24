@@ -95,7 +95,7 @@ const redis = require('redis');
         })
 
         await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001')
-        const root = await this.page.$$('.text--27a51')
+       
         console.log(root)
         
         
