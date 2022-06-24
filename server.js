@@ -169,7 +169,6 @@ app.post('/api/v1/setFilter', async (req, res) => {
   const token = req.headers.token;
 
   console.log(token, ":: Token ::");
-
   console.log(games, ":: User Id ::");
   console.log(string_msg, ":: String Msg ::");
   console.log(string_msg_green, ":: String Msg Green ::");

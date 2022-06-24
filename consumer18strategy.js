@@ -8,18 +8,21 @@ const {
      redReapeat,
      alternateColumns,
      on18or36,
-     
      parOuImpar,
 } = require('./jsonObjects/jsonStrategy.js')
 
-// Redis
+const {
+     insertSygnal,
+     updateStrategy,
+     updateStrategyFilter
+} = require('./database')
+
 const redis = require('redis');
 const arrayName = require('./jsonObjects/RoleteNames');
 const jsonRoullete = require('./jsonObjects/jsonOfhtml');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
-     expire: 180
 });
 
 /*
@@ -27,7 +30,6 @@ const clientRedis = redis.createClient({
      @logic Processa o ultimo resultado da rolleta
      e envia para um canal redis   
 */
-
 
 const expectNumber = require('./jsonObjects/strategy.js');
 
@@ -49,15 +51,6 @@ async function SendMessage(msg) {
           await clientRedis.publish(channel, message);
           return true;      
 }
-
-// (async () => {
-//const client = new TelegramClient(stringSession, apiId, apiHash, {
-  //  connectionRetries: 5,
-  //})
-
-
-
-
 
 
 
@@ -173,9 +166,9 @@ function restOfNumber (value, spectNumber, number, string) {
      }
      
      if(!array.includes(spectNumber)) {
-          return `Ausencia da ${string}`;
+          return `Ausencia da ${string} - ${array.length} vezes `;
      } 
-     return `Nao Identificado`
+     return `Não identificado`;
 }
 
 
@@ -254,7 +247,7 @@ async function strategy18Procced (strategy) {
      let arrayBloco2Ausencia = []
      for(let i = 0; i < times; i++){    
           let value = restOfNumber(strategy.blocos, 2, i, 'Bloco 2')
-          arrayBloco1Ausencia.push({
+          arrayBloco2Ausencia.push({
                coluna : value
           })
      }
@@ -262,7 +255,7 @@ async function strategy18Procced (strategy) {
      let arrayBloco3Ausencia = []
      for(let i = 0; i < times; i++){    
           let value = restOfNumber(strategy.blocos, 3, i, 'Bloco 3')
-          arrayBloco1Ausencia.push({
+          arrayBloco3Ausencia.push({
                coluna : value
           })
      }
@@ -334,12 +327,12 @@ async function strategy18Procced (strategy) {
      strategyProced.colunasRepeat = array
      strategyProced.alternateColumns = array7
      strategyProced.arrayColunas1Ausencia = arrayColunas1Ausencia
-     stringBlocos.arrayColunas2Ausencia = arrayColunas2Ausencia
-     stringBlocos.arrayColunas3Ausencia = arrayColunas3Ausencia
-     stringBlocos.arrayBloco1Ausencia = arrayBloco1Ausencia
-     stringBlocos.arrayBloco2Ausencia = arrayBloco2Ausencia
-     stringBlocos.arrayBloco3Ausencia = arrayBloco3Ausencia
-
+     strategyProced.arrayColunas2Ausencia = arrayColunas2Ausencia
+     strategyProced.arrayColunas3Ausencia = arrayColunas3Ausencia
+     strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
+     strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
+     strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
+     console.log(strategyProced)
      // Convert array to string
      return strategyProced;
 }
@@ -369,10 +362,107 @@ async function strategyProced (objetoRolleta) {
      const red4time = objetoRolleta.jsonbstrategy.strategyRed4Time
 
      objetoRolleta.concat = concat
-     console.log(objetoRolleta)
-     await SendMessage(objetoRolleta)
-      
+
+     objetoRolleta.detectStrategy.colunasRepeat.forEach(async (coluna) => {
+          await regExe(coluna.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+          })
+     
+          objetoRolleta.detectStrategy.blocosRepeat.forEach(async (bloco) => {
+          await  regExe(bloco.blocosRepeat, objetoRolleta, objetoRolleta.objsResult.name)
+          })
+     
+          objetoRolleta.detectStrategy.parOrImpar.forEach(async (parImpar) => {
+          await  regExe(parImpar.parOrImpar, objetoRolleta, objetoRolleta.objsResult.name)
+          })
+     
+          objetoRolleta.detectStrategy.minorMajor.forEach(async (minorMajor) => {
+          await  regExe(minorMajor.minorMajor, objetoRolleta, objetoRolleta.objsResult.name) 
+          })
+     
+          objetoRolleta.detectStrategy.alternateColumns.forEach(
+          async (alternateColumns) => {
+               await regExe(alternateColumns.alternateColumns, objetoRolleta, objetoRolleta.objsResult.name)
+          
+          })
+     
+          objetoRolleta.detectStrategy.colorRepeat.forEach(
+               async (color) => {
+                    console.log(color)
+                    await regExe(color.color, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayBloco1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayBloco1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+               )
+
+          objetoRolleta.detectStrategy.arrayBloco1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayColunas1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+               )
+
+          objetoRolleta.detectStrategy.arrayColunas2Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayColunas3Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+
+
 }
+
+
+async function regExe(string, objetoRolleta, strategyArg) {
+     // RegEx Nao Intendificado
+     // if true return false
+     const regEx = /Não identificado/g;
+     if (regEx.test(string)) {
+          return false
+     } else {
+        const estrategiaDetect =  {
+              estrategiaDetect : string, 
+              roulleteName : strategyArg, 
+              payload : objetoRolleta,
+              created : new Date().getTime()
+          }
+          
+          const created = estrategiaDetect.created;
+          // Make division mock 1 minutes
+          const mock = created / 1000 / 60;
+          const mockDivision = Math.floor(mock);
+          
+          console.log('=========================================================================')
+          console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+          const insert = await insertSygnal(estrategiaDetect.payload.concat, estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+          console.log(insert)
+          estrategiaDetect.id =  insert
+          return await clientRedis.publish('msg', JSON.stringify(estrategiaDetect));
+          
+          return true
+     }
+}
+
 
      
 

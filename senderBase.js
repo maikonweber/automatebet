@@ -37,17 +37,12 @@ const result = await getStrategyFilter(roleta[6])
 
 
 
-console.log(result)
-
-
-
-
 
 
     const p = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(console.log('Walting for the next Signal!!!'))
-        }, 15000)
+        }, 5000)
     })
 
     await p

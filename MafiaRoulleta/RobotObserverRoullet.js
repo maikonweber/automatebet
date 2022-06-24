@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const redis = require('redis');
+const axios = require('axios')
 // Create class js
  class RobotObserverRoullet {
     constructor(password, username) {
@@ -23,7 +24,7 @@ const redis = require('redis');
     async init() {
         const browser = await puppeteer.launch({
             userDataDir : './userData', 
-            headless: false,
+            headless: true,
             defaultViewport: {
               width: 920,
               height: 580
@@ -94,14 +95,89 @@ const redis = require('redis');
             console.log(element);
         })
 
-        await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001')
-       
-        console.log(root)
-        
+        await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001', {waitUntil: 'networkidle0'})
+        const p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(console.log('Walting for the next Signal!!!'))
+            }, 1500)
+        })
+    
+
+        setInterval(async () => {
+
+        const elefant = await this.page.$$('.historyStatistic--c80d3.fourLines--c2f5f')
+        const orphan = await this.page.$eval('.text--27a51', el => el.innerText);
+        console.log(orphan)
+        const AWAY = /AWAY/g
+        const HOME = /HOME/g
+        const DRAW = /DRAW/g
+
+        if (AWAY.test(orphan)) {
+            axios.post('http://localhost:3055/api/cards', {
+                "result" : 'AWAY'
+            }).then(
+                res => {
+                   console.log(res.data);
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+            
+        } else if (HOME.test(orphan)) {
+            axios.post('http://localhost:3055/api/cards', {
+                "result" : "Home",
+                "created" : Date.now().getTime()
+            }).then(
+                res => {
+                   console.log(res.data);
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+
+        } else if (DRAW.test(orphan)) {
+            axios.post('http://localhost:3055/api/cards', {
+                "result" : "DRAW",
+                "created" : Date.now().getTime()
+            }).then(
+                res => {
+                   console.log(res.data);
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+
+        } else {
+            console.log('No Sygnal')
+        }
+
         
 
-}  
- }
+
+        await this.page.evaluate(() => {
+         const letter = document.querySelectorAll('.historyStatistic--c80d3.fourLines--c2f5f')
+         console.log(letter)
+         return letter
+        })
+        await this.page.mouse.click(500, 200, {
+            button : "left",
+            delay : 20
+        })
+
+    }, 4000)
+
+      
+
+       
+    }
+
+}
 
 const bot = new RobotObserverRoullet('ma128sio4', 'maikonweber1');
 bot.routine();
