@@ -15,7 +15,8 @@ const {
   InsertRoullete,
   getLastNumber18,
   getLastNumber,
-  usersFilters
+  usersFilters,
+  insertCards
 } = require('./database');
 
 app.use(express.json());
@@ -38,8 +39,8 @@ app.post('/api/v1/setblaze', async (req, res) => {
 
 app.post('/api/cards', async (req, res) => {
  const { created, result } = req.body
-
- const setLastCard = await setLastCard(result)
+  console.log(result)
+ const setLastCard = await insertCards(result)
  res.send(200)
 })
 

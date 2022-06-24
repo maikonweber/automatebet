@@ -1,3 +1,6 @@
-2022/06/24-18:12:50.725 6803 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Local Storage/leveldb/MANIFEST-000001
-2022/06/24-18:12:50.725 6803 Recovering log #3
-2022/06/24-18:12:50.725 6803 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Local Storage/leveldb/000003.log 
+2022/06/24-18:23:09.432 7003 Reusing MANIFEST /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Local Storage/leveldb/MANIFEST-000001
+2022/06/24-18:23:09.432 7003 Recovering log #3
+2022/06/24-18:23:09.433 7003 Reusing old log /Users/maikonweberdecarvalho/Desktop/Maikon/automatebet/userData/Default/Local Storage/leveldb/000003.log 
+2022/06/24-18:23:37.958 1ef0f Level-0 table #5: started
+2022/06/24-18:23:37.962 1ef0f Level-0 table #5: 9264 bytes OK
+2022/06/24-18:23:38.009 1ef0f Delete type=0 #3

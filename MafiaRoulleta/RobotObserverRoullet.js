@@ -130,29 +130,31 @@ setInterval(async () => {
 
         if (AWAY.test(orphan)) {
             console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', away)
+            return axios.post('http://localhost:3055/api/cards', away).then(
+                (result) => {
+                    console.log('AWAY')
+                }
+            )
 
         } else if (HOME.test(orphan)) {
             console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', home)
+            return  axios.post('http://localhost:3055/api/cards', home).then(
+                () => {
+                    console.log('Home')
+                }
+            )
         } else if (DRAW.test(orphan)) {
             console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', draw)
+            return axios.post('http://localhost:3055/api/cards', draw).then(
+                () => {
+                    console.log('Draw')
+                }
+            )
+
         } else {
             console.log('No Sygnal')
             return
         }
-
-        
-        await this.page.evaluate(() => {
-         const letter = document.querySelectorAll('.historyStatistic--c80d3.fourLines--c2f5f')
-         console.log(letter)
-         return letter
-        })
-        await this.page.mouse.click(500, 200, {
-            button : "left",
-            delay : 20
-        })
 
     }, 4000)
 

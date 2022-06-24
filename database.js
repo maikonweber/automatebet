@@ -319,7 +319,8 @@ module.exports = {
     getUsersFilter,
     usersFilters,
     updateStrategy,
-    updateStrategyFilter
+    updateStrategyFilter,
+    insertCards
 }
 
 
