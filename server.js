@@ -37,10 +37,10 @@ app.post('/api/v1/setblaze', async (req, res) => {
 })
 
 app.post('/api/cards', async (req, res) => {
- const { created, result } = req.body.payload
+ const { created, result } = req.body
 
- const setLastCard = await setLastCard(payload)
- 
+ const setLastCard = await setLastCard(result)
+ res.send(200)
 })
 
 

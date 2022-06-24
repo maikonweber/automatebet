@@ -298,6 +298,7 @@ async function updateStrategyFilter(id, value) {
 
 
 module.exports = {
+
     getStrategyFilter,
     insertTelegram,
     insertTelegramSygnal,

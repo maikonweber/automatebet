@@ -103,58 +103,44 @@ const axios = require('axios')
         })
     
 
-        setInterval(async () => {
+setInterval(async () => {
 
         const elefant = await this.page.$$('.historyStatistic--c80d3.fourLines--c2f5f')
         const orphan = await this.page.$eval('.text--27a51', el => el.innerText);
-        console.log(orphan)
+
         const AWAY = /AWAY/g
         const HOME = /HOME/g
         const DRAW = /DRAW/g
 
+        const home = {
+            result : 'H',
+            created : new Date().getTime()
+        }
+
+        const draw = {
+            result : 'D',
+            created: new Date().getTime()
+        }
+
+        const away = {
+            result : 'A',
+            created : new Date().getTime()
+        }
+
+
         if (AWAY.test(orphan)) {
-            axios.post('http://localhost:3055/api/cards', {
-                "result" : 'AWAY',
-                "created" : new Date().getTime()
-            }).then(
-                res => {
-                   console.log(res.data);
-                }
-            ).catch(
-                err => {
-                    console.log(err);
-                }
-            )      
+            console.log('detect')
+            return axios.post('http://localhost:3055/api/cards', away)
+
         } else if (HOME.test(orphan)) {
-            axios.post('http://localhost:3055/api/cards', {
-                "result" : "Home",
-                "created" : new Date().getTime()
-            }).then(
-                res => {
-                   console.log(res.data);
-                }
-            ).catch(
-                err => {
-                    console.log(err);
-                }
-            )
-
+            console.log('detect')
+            return axios.post('http://localhost:3055/api/cards', home)
         } else if (DRAW.test(orphan)) {
-            axios.post('http://localhost:3055/api/cards', {
-                "result" : "DRAW",
-                "created" : new Date().getTime()
-            }).then(
-                res => {
-                   console.log(res.data);
-                }
-            ).catch(
-                err => {
-                    console.log(err);
-                }
-            )
-
+            console.log('detect')
+            return axios.post('http://localhost:3055/api/cards', draw)
         } else {
             console.log('No Sygnal')
+            return
         }
 
         
