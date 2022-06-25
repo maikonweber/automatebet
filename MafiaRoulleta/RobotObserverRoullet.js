@@ -36,6 +36,7 @@ const axios = require('axios')
                 '--disable-extensions',
                 "--window-size=920,680",
                 "--window-position=500,0",
+                '--no-sandbox'
 
             ],  
             devTools: true, 
