@@ -7,7 +7,7 @@ const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBu4wJn7a2aFmB8O1STHkyvsob81Tu2qFA5+xrilx/4dBq7w+Mf8Bmq2fQvbT8RstllplnDHFw2LbwaiVj1Y3uhJrYzYfV75b73Fe3o7B1jZvC3odx3eAefT22iFBK2Lyj6Fk/7XgngubsHBWRd3lmGY1Ly4N7S5bc7n4ncLFEQBQxRXq4WnaHPAUZQ5NEcAJtGjp+0S16OAlEJG2uSXITkUsNSavJg/++ibtGPs3H5CI/6mrNMY4DV3ZWv64EN7Mmp5lKEkVkXXsqIaMDNFIYVXe3u9lysIW6I2Tzsg4T4dPGCMIKhOcq2Ox7/hkCaFkTG5qJaSDdzLyZICMnaFRdLR0=');
+const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBu7RrWLtDBkqcnrpJAjWIxa05VQCNuaSoRSeNW1su5kMUuckzBLWkvBOOSvtgMxWdzHRAyDr3t9xkKbH5zJDfnRMXGoidRjGjrsiZi3SourzjqZsY2owOx18uiIlxnYbQ2pkpLBvwUMyaYuIgFs/N47JcYRQyOeqyzD/Y6+bqf8T9Zy5YcQ4k7wQOk7NhuKReCvtSNI/NmWpp1/10zzdWOFcQcgu5vsBMIVFQPBiGtDD8jThCDjHtnJ/oPMseDWUYRnJM4Ptk3yrh4dmu9jXZsYNsjqlr2IJ85iOsn/b8Dk7mQqAn/5m3o/BzOf3eE8mhE1Bpzzqx0FNRVTTsn2mEMGc=');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
