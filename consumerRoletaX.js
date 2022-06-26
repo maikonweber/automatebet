@@ -48,12 +48,12 @@ const strategyx = [
      'Repetição de 7 vezes da Coluna 1',
      'Repetição de 7 vezes da Coluna 2',
      'Repetição de 7 vezes da Coluna 3',
-     'Ausencia da Colunas 2 - 10 vezes ',
-     'Ausencia da Colunas 3 - 10 vezes ',
-     'Ausencia da Colunas 1 - 10 vezes ',
-     'Ausencia da Bloco 2 - 10 vezes ',
-     'Ausencia da Bloco 3 - 10 vezes ',
-     'Ausencia da Bloco 1 - 10 vezes ',
+     'Ausencia da Colunas 2 - 12 vezes ',
+     'Ausencia da Colunas 3 - 12 vezes ',
+     'Ausencia da Colunas 1 - 12 vezes ',
+     'Ausencia da Bloco 2 - 12 vezes ',
+     'Ausencia da Bloco 3 - 12 vezes ',
+     'Ausencia da Bloco 1 - 12 vezes ',
 
 ]
 
@@ -70,12 +70,12 @@ const spectStrategy = [
      'Repetição de 6 vezes da Coluna 1',
      'Repetição de 6 vezes da Coluna 2',
      'Repetição de 6 vezes da Coluna 3',
-     'Ausencia da Colunas 2 - 9 vezes ',
-     'Ausencia da Colunas 3 - 9 vezes ',
-     'Ausencia da Colunas 1 - 9 vezes ',
-     'Ausencia da Bloco 2 - 9 vezes ',
-     'Ausencia da Bloco 3 - 9 vezes ',
-     'Ausencia da Bloco 1 - 9 vezes ',
+     'Ausencia da Colunas 2 - 11 vezes ',
+     'Ausencia da Colunas 3 - 11 vezes ',
+     'Ausencia da Colunas 1 - 11 vezes ',
+     'Ausencia da Bloco 2 - 11 vezes ',
+     'Ausencia da Bloco 3 - 11 vezes ',
+     'Ausencia da Bloco 1 - 11 vezes ',
      
 ]
 
@@ -220,42 +220,42 @@ function testStrategy(estrategiaDetect, lastNumber) {
                "array" : expectNumber['Alternancia da Coluna 3 e 1']()
           }
           // Ausencia 
-     } else if (estrategiaDetect.match(/Ausencia da Colunas 1/)) {
+     } else if (estrategiaDetect.match(/Ausencia da Colunas 1/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Ausencia da Colunas 1']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 2/)) {
+     else if (estrategiaDetect.match(/Ausencia da Colunas 2/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Ausencia da Colunas 2']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 3/)) {
+     else if (estrategiaDetect.match(/Ausencia da Colunas 3/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Ausencia da Colunas 3']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 1/)) {
+     else if (estrategiaDetect.match(/Ausencia da Bloco 1 /g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Bloco 2",
                "array" : expectNumber['Ausencia da Bloco 1']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 2/)) {
+     else if (estrategiaDetect.match(/Ausencia da Bloco 2 /g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Bloco 2",
                "array" : expectNumber['Ausencia da Bloco 2']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 3/)) {
+     else if (estrategiaDetect.match(/Ausencia da Bloco 3 /g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Bloco 3",
@@ -319,13 +319,16 @@ function consultMemory (sygnalBase, string) {
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
                          await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
-                 } else {
+                 } 
+                else if ([0].includes(resultadoAtual.numberjson[0])) {
+               
+               } else {
                       console.log('RED')
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
                     console.log(msg)  
           }
 
-     }, 35000)
+     }, 32000)
 }
           
           
