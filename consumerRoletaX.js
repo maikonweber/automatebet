@@ -325,7 +325,7 @@ function consultMemory (sygnalBase, string) {
                     console.log(msg)  
           }
 
-     }, 45000)
+     }, 35000)
 }
           
           

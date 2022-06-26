@@ -24,7 +24,7 @@ const axios = require('axios')
     async init() {
         const browser = await puppeteer.launch({
             userDataDir : './userData', 
-            headless: true,
+            headless: false,
             defaultViewport: {
               width: 920,
               height: 580
@@ -102,6 +102,9 @@ const axios = require('axios')
                 resolve(console.log('Walting for the next Signal!!!'))
             }, 1500)
         })
+        this.intervalRefresh.then(() => {
+            console.log('Refresh for 3 minutes')
+        })
     
 
 setInterval(async () => {
@@ -131,37 +134,61 @@ setInterval(async () => {
 
         if (AWAY.test(orphan)) {
             console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', away).then(
-                (result) => {
-                    console.log('AWAY')
-                }
-            )
+            return axios.post('https//:api.muttercorp.online/api/cards', away).then(
+                (res) => {
+                    console.log('Draw', res)
+                }).catch(() => {
+                    axios.post('https://api.muttercorp.online/api/cards', draw).then((res) => {
+                    }).catch((e) => {
+                        console.log(e)  
+                    })
+                })
 
         } else if (HOME.test(orphan)) {
             console.log('detect')
-            return  axios.post('http://localhost:3055/api/cards', home).then(
-                () => {
-                    console.log('Home')
-                }
-            )
+            return  axios.post('https://api.muttercorp.online/api/cards', home).then((res) => {
+                    console.log('Draw', res)
+                }).catch(() => {
+                    axios.post('https://api.muttercorp.online/api/cards', draw).then((res) => {
+                    }).catch((e) => {
+                        console.log(e)  
+                    })
+                })
+
         } else if (DRAW.test(orphan)) {
             console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', draw).then(
-                () => {
-                    console.log('Draw')
-                }
-            )
-
+            return axios.post('https://api.muttercorp.online/api/cards', draw).then(
+                (res) => {
+                    console.log('Draw', res)
+                }).catch(() => {
+                    axios.post('https://api.muttercorp.online/api/cards', draw).then((res) => {
+                    }).catch((e) => {
+                        console.log(e)  
+                    })
+                })
+        } else if (/BETS CLOSING/g.test(orphan)) {
+            return await this.page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
         } else {
+            console.log('No sygnal')
+    
             console.log('No Sygnal')
             return
         }
 
     }, 4000)
+    }
 
-      
+   async intervalRefresh() {
+        while (true) {
+            const p = new Promise(() => {
+                setTimeout(async () => {
+                    resolve(await this.page.reload())
 
-       
+                }, 90000)
+            })
+
+            await p
+        }
     }
 
 }
