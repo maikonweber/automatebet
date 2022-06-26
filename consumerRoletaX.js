@@ -329,17 +329,53 @@ function consultMemory (sygnalBase, string) {
                  } 
                 else if ([0].includes(resultadoAtual.numberjson[0])) {
                     console.log('ZEROOOOO')
-                    await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, zero))
+                    await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'))
                
                } else {
                       console.log('RED')
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                    console.log(msg)  
+                      console.log(msg)
+                      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
           }
 
-     }, 32000)
+     }, 35000)
 }
-          
+
+/* 
+     @dev Maikon Weber   
+     @logic : Promisse to execute martingale send msg and confirm win
+     @params : fuctions closures
+*/
+
+async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase) {
+     const {
+          array,
+          expect
+     } = testStrategy(sygnalBase.estrategiaDetect)
+     await sendMsg(-1266295662, `Martingale na ${SygnalBase.roulleteName}, ${expect}` )
+     const PromiseCromprove = new Promise(() => {
+          setTimeout(async () => {
+               let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+               if(array.includes(resultadoAtual.numberjson[0])) {
+                    console.log('GREEN')
+                       await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
+               } 
+              else if ([0].includes(resultadoAtual.numberjson[0])) {
+                  console.log('ZEROOOOO')
+                  await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'))
+             
+               } else {
+                    console.log('RED')
+                    const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
+                    console.log(msg)
+                    await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
+               }
+          }, 35000)
+     })
+     
+     await PromiseCromprove
+
+}
           
 function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
