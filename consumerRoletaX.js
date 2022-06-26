@@ -291,11 +291,18 @@ async function sendMsg(sala, msg, reply) {
                consultMemory(sygnalBase, string)
           }
           
-function replaceForGreen(string, resultadoAtual, sygnalBase) {
+function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
+               if(!zero) {
                const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
                const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
+               } else {
+               const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN NO ZEROOOO ✅')
+               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
+               const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
+               const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
+               }
                return replace4
           }
 
@@ -321,6 +328,8 @@ function consultMemory (sygnalBase, string) {
                          await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))                     
                  } 
                 else if ([0].includes(resultadoAtual.numberjson[0])) {
+                    console.log('ZEROOOOO')
+                    await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, zero))
                
                } else {
                       console.log('RED')
