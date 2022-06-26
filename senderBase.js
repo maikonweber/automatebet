@@ -34,7 +34,7 @@ const spectStrategy = [
 ]
 
 const result = await getStrategyFilter(roleta[6])
-
+console.log(result)
 
 
 
