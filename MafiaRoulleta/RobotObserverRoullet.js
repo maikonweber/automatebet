@@ -134,11 +134,11 @@ setInterval(async () => {
 
         if (AWAY.test(orphan)) {
             console.log('detect')
-            return axios.post('https//:api.muttercorp.online/api/cards', away).then(
+            return axios.post('http://localhost:3055/api/cards', away).then(
                 (res) => {
                     console.log('Draw', res)
                 }).catch(() => {
-                    axios.post('https://api.muttercorp.online/api/cards', draw).then((res) => {
+                    axios.post('http://localhost:3055/api/cards', draw).then((res) => {
                     }).catch((e) => {
                         console.log(e)  
                     })
@@ -146,10 +146,10 @@ setInterval(async () => {
 
         } else if (HOME.test(orphan)) {
             console.log('detect')
-            return  axios.post('https://api.muttercorp.online/api/cards', home).then((res) => {
+            return  axios.post('http://localhost:3055/api/cards', home).then((res) => {
                     console.log('Draw', res)
                 }).catch(() => {
-                    axios.post('https://api.muttercorp.online/api/cards', draw).then((res) => {
+                    axios.post('http://localhost:3055/api/cards', home).then((res) => {
                     }).catch((e) => {
                         console.log(e)  
                     })
@@ -157,11 +157,11 @@ setInterval(async () => {
 
         } else if (DRAW.test(orphan)) {
             console.log('detect')
-            return axios.post('https://api.muttercorp.online/api/cards', draw).then(
+            return axios.post('http://localhost:3055/api/cards', draw).then(
                 (res) => {
                     console.log('Draw', res)
                 }).catch(() => {
-                    axios.post('https://api.muttercorp.online/api/cards', draw).then((res) => {
+                    axios.post('http://localhost:3055/api/cards', draw).then((res) => {
                     }).catch((e) => {
                         console.log(e)  
                     })

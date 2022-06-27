@@ -455,13 +455,11 @@ async function regExe(string, objetoRolleta, strategyArg) {
           console.log('=========================================================================')
           console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
           try /*Try Inserte into Sygnal in Database V.0.0.2*/ {
-          const insert = await insertSygnal(estrategiaDetect.payload.concat, estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
-          console.log(insert)
+          const insert = await insertSygnal(estrategiaDetect.payload.concat, estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName, {})
+
           } catch (e) {
                console.log(e)
           }
-          estrategiaDetect.id =  insert
-
           return await clientRedis.publish('msg', JSON.stringify(estrategiaDetect));
          
      }

@@ -36,13 +36,26 @@ const spectStrategy = [
 const result = await getStrategyFilter(roleta[6])
 console.log(result)
 
+if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
+     console.log('-------------------ALERT-------------------')
+     return await proccedAlert(strig, possivelAlert)
+}
+
+
+if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
+     console.log(`------------------------------------------------------------`)
+    
+     return await proccedRoulletAndSend(strig, string)
+     }
+    
+}
 
 
 
     const p = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(console.log('Walting for the next Signal!!!'))
-        }, 30000)
+        }, 15000)
     })
 
     await p

@@ -212,12 +212,13 @@ async function checkToken(token) {
     }
 }
 
-async function insertSygnal (number, detectStrategy, name) {
+async function insertSygnal (number, detectStrategy, name, expect_number) {
     // convert number to json
+    let expect_number_json = JSON.stringify(expect_number)
     let numberJson = JSON.stringify(number);
-    let queryString = `INSERT INTO robotbetsygnal (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3, process)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
-    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false, false]);
+    let queryString = `INSERT INTO robotbetsygnal (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3, process, expect_number)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`
+    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false, false,expect_number_json]);
     return result.rows[0];
 }
 
@@ -266,7 +267,7 @@ async function getStrategyFilter(roulletName) {
 
     console.log(roulletName, 'Aqui')
     let query =  `Select * from robotbetsygnal
-                  WHERE created BETWEEN now() - interval '1 minutes'
+                  WHERE created BETWEEN now() - interval '20 seconds'
                   AND now()
                   AND roulletname ~ $1
                   ORDER BY created desc

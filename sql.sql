@@ -14,7 +14,7 @@ CREATE TABLE robotBetPayload (
 
 CREATE TABLE mafia_cards (
     id serial PRIMARY KEY,
-    lastNumber VARCHAR(1)
+    lastNumber VARCHAR(1),
     created TIMESTAMP DEFAULT now()
 )
 
