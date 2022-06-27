@@ -51,7 +51,6 @@ if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteN
 }
 
 
-
     const p = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(console.log('Walting for the next Signal!!!'))

@@ -2,6 +2,7 @@ module.exports = {
   apps : [{
     name: 'RobotObserverRoullet',
     script: 'server.js',
+    
   },
   {
     name: 'RobotObserverRoulletScrapper',
@@ -10,10 +11,6 @@ module.exports = {
   {
     name : 'RobotBet',
     script: 'consumer18strategy.js'
-  },
-  {
-    name : 'ConsumerToTelegram',
-    script: 'consumerToTelegram.js'
   },
   {
     name : "ConsumerEX",

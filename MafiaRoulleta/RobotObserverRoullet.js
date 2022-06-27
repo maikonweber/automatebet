@@ -96,102 +96,13 @@ const axios = require('axios')
             console.log(element);
         })
 
-        await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001', {waitUntil: 'networkidle0'})
+        await this.page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000', {waitUntil: 'networkidle0'})
         const p = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(console.log('Walting for the next Signal!!!'))
             }, 1500)
         })
-        this.intervalRefresh.then(() => {
-            console.log('Refresh for 3 minutes')
-        })
     
-
-setInterval(async () => {
-
-        const elefant = await this.page.$$('.historyStatistic--c80d3.fourLines--c2f5f')
-        const orphan = await this.page.$eval('.text--27a51', el => el.innerText);
-
-        const AWAY = /AWAY/g
-        const HOME = /HOME/g
-        const DRAW = /DRAW/g
-
-        const home = {
-            result : 'H',
-            created : new Date().getTime()
-        }
-
-        const draw = {
-            result : 'D',
-            created: new Date().getTime()
-        }
-
-        const away = {
-            result : 'A',
-            created : new Date().getTime()
-        }
-
-
-        if (AWAY.test(orphan)) {
-            console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', away).then(
-                (res) => {
-                    console.log('Draw', res)
-                }).catch(() => {
-                    axios.post('http://localhost:3055/api/cards', draw).then((res) => {
-                    }).catch((e) => {
-                        console.log(e)  
-                    })
-                })
-
-        } else if (HOME.test(orphan)) {
-            console.log('detect')
-            return  axios.post('http://localhost:3055/api/cards', home).then((res) => {
-                    console.log('Draw', res)
-                }).catch(() => {
-                    axios.post('http://localhost:3055/api/cards', home).then((res) => {
-                    }).catch((e) => {
-                        console.log(e)  
-                    })
-                })
-
-        } else if (DRAW.test(orphan)) {
-            console.log('detect')
-            return axios.post('http://localhost:3055/api/cards', draw).then(
-                (res) => {
-                    console.log('Draw', res)
-                }).catch(() => {
-                    axios.post('http://localhost:3055/api/cards', draw).then((res) => {
-                    }).catch((e) => {
-                        console.log(e)  
-                    })
-                })
-        } else if (/BETS CLOSING/g.test(orphan)) {
-            return await this.page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
-        } else {
-            console.log('No sygnal')
-    
-            console.log('No Sygnal')
-            return
-        }
-
-    }, 4000)
-    }
-
-   async intervalRefresh() {
-        while (true) {
-            const p = new Promise(() => {
-                setTimeout(async () => {
-                    resolve(await this.page.reload())
-
-                }, 90000)
-            })
-
-            await p
-        }
-    }
-
-}
 
 const bot = new RobotObserverRoullet('ma128sio4', 'maikonweber1');
 bot.routine();

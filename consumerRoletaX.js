@@ -7,7 +7,7 @@ const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('');
+const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBuwTAXKXEayLxDFQ02v+INi5wCeE2WCcO++LRgIqkCTcHl/9onDF705MOohzvjMmJONsJB6m50KJO2iyye9qSUiRud48glxOW1A4ANch3JAuQE+iBjQal/P0KtY6qfy3ZY/fw1DI3Vrxfz7xOEVoc/s08Y2rdWj/EaW2d69yS4dBF/W/FZw58p7BNZfvqm2XtPdhNGrzXipdTP3AF8QOcBcFwXX3WpI0PZj7JqYElYw2cjkjOwSfAF1wafEwgyp2Py8wdG3D/0Z/+Oqy7rv/N5+2q8VYR5lhmaYS02G7URF5bRGuBEy/hexVH6AfW3ML4a16FzawG1qEdQ+x1RSsTmNA=');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
@@ -112,7 +112,7 @@ Ultimos Resultados : {last}
 `
 
 function testStrategy(estrategiaDetect, lastNumber) {
-     if(estrategiaDetect.match(/Repetição da Coluna '/)) {
+     if(estrategiaDetect.match(/Coluna 1/)) {
           console.log('Repetição')
           return { 
                "expect" : "Quebra na Colunas 3 ou 2",
@@ -223,7 +223,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
      } else if (estrategiaDetect.match(/Ausencia da Colunas 1 /g)) {
           console.log('Bloco 1')
           return {
-               "expect" : "Quebra na Colunas 2",
+               "expect" : "Quebra na Colunas 1",
                "array" : expectNumber['Ausencia da Colunas 1']()
           }
      }
@@ -237,14 +237,14 @@ function testStrategy(estrategiaDetect, lastNumber) {
      else if (estrategiaDetect.match(/Ausencia da Colunas 3 /g)) {
           console.log('Bloco 1')
           return {
-               "expect" : "Quebra na Colunas 2",
+               "expect" : "Quebra na Colunas 3",
                "array" : expectNumber['Ausencia da Colunas 3']()
           }
      }
      else if (estrategiaDetect.match(/Ausencia da Bloco 1 /g)) {
           console.log('Bloco 1')
           return {
-               "expect" : "Quebra na Bloco 2",
+               "expect" : "Quebra na Bloco 1",
                "array" : expectNumber['Ausencia da Bloco 1']()
           }
      }
@@ -286,9 +286,9 @@ async function sendMsg(sala, msg, reply) {
                     EX: 180,
                     NX: true
                })
-
                const msg1 = await sendMsg(-1266295662, string)
                const msg2 = await sendMsg(-1593932898, string)
+               const msg3 = await sendMsg(-1150553286, string)
                consultMemory(sygnalBase, string)
           }
           
@@ -329,7 +329,8 @@ function consultMemory (sygnalBase, string) {
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
                          await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))
-                         await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))   
+                         await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))
+                         await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))     
                          
                          
 
@@ -339,10 +340,12 @@ function consultMemory (sygnalBase, string) {
                     console.log('ZEROOOOO')
                     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'))
                     await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'))
+                    await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))  
                } else {
                       console.log('RED')
                       const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
                       const msg2 = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
+                      await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))  
                       console.log(msg)
                       await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
           }
@@ -361,23 +364,41 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
           array,
           expect
      } = testStrategy(sygnalBase.estrategiaDetect)
-     await sendMsg(-1266295662, `Martingale na ${sygnalBase.roulleteName}, ${expect}` )
-     await sendMsg(-1593932898, `Martingale na ${sygnalBase.roulleteName}, ${expect}` )
+     await sendMsg(-1266295662, `
+     Executa o Martingale
+     🎰 Roleta 🎰 ${sygnalBase.roulleteName},
+     👉🏻 Entrada 👈🏻: ${expect} 
+     🎯 Cobrir o zero'
+      ` )
+     await sendMsg(-1593932898, `
+     Executa o Martingale 
+     🎰 Roleta 🎰 ${sygnalBase.roulleteName}, 
+     👉🏻 Entrada 👈🏻: ${expect} 
+     🎯 Cobrir o zero'` )
+     await sendMsg(-1150553286, `
+     Executa o Martingale 
+     🎰 Roleta 🎰 ${sygnalBase.roulleteName},
+      👉🏻 Entrada 👈🏻: ${expect} 
+      🎯 Cobrir o zero'`)  
+
      const PromiseCromprove = new Promise(() => {
           setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
                     console.log('GREEN')
                        await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))   
-                       const msg = await sendMsg(-1593932898n, replaceForRed(stringred, resultadoAtual, sygnalBase))                  
+                       await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))  
+                       const msg = await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))                  
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
+                  await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))  
                   await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'))
-                  const msg = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
+                  const msg = await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))
              
                } else {
                     console.log('RED')
+                    await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))  
                     const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
                     const msg2
                      = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
@@ -432,15 +453,13 @@ await client.start({
 async function proccedAlert (sygnalBase, string) {
      const { estrategiaDetect, roulleteName, payload } = sygnalBase
      console.log(`----------------- Alerta ----------------------`)
-     const {
-          array,
-          expect
-     } = testStrategy(sygnalBase.estrategiaDetect)
-
+     const test = testStrategy(sygnalBase.estrategiaDetect)
      const replace = string.replace(/{rouletteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
-     const replace5 = replace2.replace(/{expect}/g, expect)
+     const replace5 = replace2.replace(/{expect}/g, test.expect)
      const place =  replace5.replace(/[0-9]* vezes/g, '')
+     await sendMsg(-1150553286, place)
+     await sendMsg(-1593932898, place) 
      return await sendMsg(-1266295662, place)
 
 }
