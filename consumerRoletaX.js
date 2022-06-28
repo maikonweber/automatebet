@@ -446,6 +446,24 @@ await client.start({
    });
 
 
+async function deleteMsg(msg) {
+     const result = await client.invoke(
+          new Api.messages.DeleteMessages({
+            id: [43],
+            revoke: true,
+          })
+        );
+
+}
+
+const promisseDelete = new Promise((msg) => {
+     setTimeout(async () => {
+          deleteMsg(msg)
+     }, 45000)
+})
+
+
+
 async function proccedAlert (sygnalBase, string) {
      const { estrategiaDetect, roulleteName, payload } = sygnalBase
      console.log(`----------------- Alerta ----------------------`)
@@ -454,10 +472,10 @@ async function proccedAlert (sygnalBase, string) {
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace5 = replace2.replace(/{expect}/g, test.expect)
      const place =  replace5.replace(/[0-9]* vezes/g, '')
-     await sendMsg(-1150553286, place)
-     await sendMsg(-1593932898, place) 
-     return await sendMsg(-1266295662, place)
-
+     const msg = await sendMsg(-1150553286, place)
+     const msg1 = await sendMsg(-1593932898, place) 
+     const msg2 = await sendMsg(-1266295662, place)
+     return
 }
 
 const result = await client.invoke( new Api.messages.GetAllChats({
@@ -471,7 +489,9 @@ for(let i = 0; i < result.chats.length; i++){
 console.log(client.session.save());
 
 const sala1 = result.chats[0].id
-          
+
+const msg = await sendMsg(-1150553286, 'test')
+ console.log(msg)         
 await sub.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
 
