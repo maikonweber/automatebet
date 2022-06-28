@@ -191,7 +191,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
           console.log('Não encontrado')
           return {
                "expect" : "Quebra na Colunas 1 ",
-               "array" : expectNumber['Alternancia da Coluna 3 e 2']()
+               "array" : expectNumber['Alternar colunas 3 e 2']()
           }
      } else if (estrategiaDetect.match(/Alternar colunas 1 e 3/g)) {
           console.log('Não encontrado')
@@ -326,16 +326,13 @@ function consultMemory (sygnalBase, string) {
                       array,
                       expect
                  } = testStrategy(sygnalBase.estrategiaDetect)
+                 console.log(array)
                  let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                  if(array.includes(resultadoAtual.numberjson[0])) {
                       console.log('GREEN')
                          await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase))
                          await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase))
-                         await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))     
-                         
-                         
-
-
+                         await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase)) 
                  } 
                 else if ([0].includes(resultadoAtual.numberjson[0])) {
                     console.log('ZEROOOOO')
@@ -449,11 +446,10 @@ await client.start({
 async function deleteMsg(msg) {
      const result = await client.invoke(
           new Api.messages.DeleteMessages({
-            id: [43],
+            id: [msg.updates[0].id],
             revoke: true,
           })
         );
-
 }
 
 const promisseDelete = new Promise((msg) => {
@@ -475,6 +471,9 @@ async function proccedAlert (sygnalBase, string) {
      const msg = await sendMsg(-1150553286, place)
      const msg1 = await sendMsg(-1593932898, place) 
      const msg2 = await sendMsg(-1266295662, place)
+     await promisseDelete(msg)
+     await promisseDelete(msg1)
+     await promisseDelete(msg2)
      return
 }
 
