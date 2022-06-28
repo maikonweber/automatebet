@@ -246,9 +246,7 @@ class RoulleteBot {
     this.page = page
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(5000) //https://casino.bet365.com/Play/en-gb/
-    await this.login();
-    
-
+    await this.loginBet365();
 }
 
   async publisher(message) {
@@ -256,7 +254,7 @@ class RoulleteBot {
     client.publish('Bet365', JSON.stringify(message));
   }
 
-  async login() {
+  async loginBet365() {
     await this.page.waitForTimeout(7000) 
     // Get body
     const bodyHandle = await this.page.$('body');
@@ -289,8 +287,13 @@ class RoulleteBot {
 
   async antiIndle( ) {
       await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-          
   }
+
+  async createNewPage() {
+      const page = await this.browser.newPage()
+        
+  }
+
 }
 
 const bot = new RoulleteBot("Ma128sio4", "maikonweber", 'LiveRoulette');

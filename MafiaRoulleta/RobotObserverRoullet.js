@@ -24,7 +24,7 @@ const axios = require('axios')
     async init() {
         const browser = await puppeteer.launch({
             userDataDir : './userData', 
-            headless: true,
+            headless: false,
             defaultViewport: {
               width: 920,
               height: 580
@@ -157,6 +157,10 @@ setInterval(async () => {
             return
         }
 
-    }, 4000)
 
-      
+    }, 4000)
+ }
+}
+
+const test = new RobotObserverRoullet('maikonweber1', 'ma128sio4')  
+test.routine()
