@@ -24,7 +24,7 @@ const axios = require('axios')
     async init() {
         const browser = await puppeteer.launch({
             userDataDir : './userData', 
-            headless: false,
+            headless: true,
             defaultViewport: {
               width: 920,
               height: 580
@@ -96,7 +96,7 @@ const axios = require('axios')
             console.log(element);
         })
 
-        await this.page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000', {waitUntil: 'networkidle0'})
+        await this.page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=TopCard000000001', {waitUntil: 'networkidle0'})
         const p = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(console.log('Walting for the next Signal!!!'))
@@ -104,7 +104,59 @@ const axios = require('axios')
         })
     
 
-const bot = new RobotObserverRoullet('ma128sio4', 'maikonweber1');
-bot.routine();
+setInterval(async () => {
 
-module.exports = RobotObserverRoullet;
+        const elefant = await this.page.$$('.historyStatistic--c80d3.fourLines--c2f5f')
+        const orphan = await this.page.$eval('.text--27a51', el => el.innerText);
+
+        const AWAY = /AWAY/g
+        const HOME = /HOME/g
+        const DRAW = /DRAW/g
+
+        const home = {
+            result : 'H',
+            created : new Date().getTime()
+        }
+
+        const draw = {
+            result : 'D',
+            created: new Date().getTime()
+        }
+
+        const away = {
+            result : 'A',
+            created : new Date().getTime()
+        }
+
+
+        if (AWAY.test(orphan)) {
+            console.log('detect')
+            return axios.post('http://localhost:3055/api/cards', away).then(
+                (result) => {
+                    console.log('AWAY')
+                }
+            )
+
+        } else if (HOME.test(orphan)) {
+            console.log('detect')
+            return  axios.post('http://localhost:3055/api/cards', home).then(
+                () => {
+                    console.log('Home')
+                }
+            )
+        } else if (DRAW.test(orphan)) {
+            console.log('detect')
+            return axios.post('http://localhost:3055/api/cards', draw).then(
+                () => {
+                    console.log('Draw')
+                }
+            )
+
+        } else {
+            console.log('No Sygnal')
+            return
+        }
+
+    }, 4000)
+
+      

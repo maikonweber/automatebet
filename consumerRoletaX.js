@@ -220,21 +220,21 @@ function testStrategy(estrategiaDetect, lastNumber) {
                "array" : expectNumber['Alternancia da Coluna 3 e 1']()
           }
           // Ausencia 
-     } else if (estrategiaDetect.match(/Ausencia da Colunas 1 /g)) {
+     } else if (estrategiaDetect.match(/Ausencia da Colunas 1/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 1",
                "array" : expectNumber['Ausencia da Colunas 1']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 2 /g)) {
+     else if (estrategiaDetect.match(/Ausencia da Colunas 2/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Ausencia da Colunas 2']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 3 /g)) {
+     else if (estrategiaDetect.match(/Ausencia da Colunas 3/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 3",
@@ -310,10 +310,11 @@ function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
           }
 
 function replaceForRed(string, resultadoAtual, sygnalBase) {
-               const replace = string.replace(/✅ GREEN ✅/g, '🔴 RED 🔴')
+               const replace = string.replace(/✅ GREEN ✅/g, '🔴 Desta Vez Não Deu! Mas vamos Insistir faz um Martigale 🔴')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
                const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
+
                return replace4
 }         
 
@@ -342,13 +343,10 @@ function consultMemory (sygnalBase, string) {
                     await sendMsg(-1593932898, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'))
                     await sendMsg(-1150553286, replaceForGreen(stringred, resultadoAtual, sygnalBase))  
                } else {
-                      console.log('RED')
-                      const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                      const msg2 = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                      await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))  
-                      console.log(msg)
+                      console.log('RED')  
+          
                       await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
-          }
+                    }
 
      }, 35000)
 }
@@ -399,10 +397,8 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
                } else {
                     console.log('RED')
                     await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))  
-                    const msg = await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                    const msg2
-                     = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                    console.log(msg)
+                    await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'))
+                    const msg = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
                     await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
                }
           }, 35000)
