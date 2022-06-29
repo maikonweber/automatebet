@@ -62,7 +62,6 @@ app.get('/exportcsv', async (req, res) => {
    console.log(dayResult)
     const convertDayResult = convertToCSV(dayResult)
     res.attachment('dayResult.csv').send(convertDayResult)
-    res.send(dayResult)
   })
 
 
