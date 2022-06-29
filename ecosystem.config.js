@@ -2,23 +2,16 @@ module.exports = {
   apps : [{
     name: 'RobotObserverRoullet',
     script: 'server.js',
-    
+    instance: '2',
+    exec_mode: "cluster"
   },
   {
-    name: 'RobotObserverRoulletScrapper',
-    script: 'RobotBet365.js',
-  },
-  {
-    name : 'RobotBet',
+    name : 'strategyConsumer',
     script: 'consumer18strategy.js'
   },
   {
-    name : "ConsumerEX",
+    name : "telegramOldConsumer",
     script: "consumerRoletaX.js"
   },
-  {
-    name : 'RobotConsumerProcced',
-    script : 'consumerRoletaProcced.js',
-  }
 ],
 };
