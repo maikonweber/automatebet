@@ -452,7 +452,7 @@ async function deleteMsg(msg) {
         );
 }
 
-const promisseDelete = new Promise((msg) => {
+const promisseDelete = (msg) =>  new Promise(() => {
      setTimeout(async () => {
           deleteMsg(msg)
      }, 45000)
