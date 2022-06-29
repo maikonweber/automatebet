@@ -47,8 +47,20 @@ app.post('/api/cards', async (req, res) => {
 })
 
 app.get('/exportcsv', async (req, res) => {
+  function convertToCSV(arr) {
+    const array = [Object.keys(arr[0])].concat(arr)
+  
+    return array.map(it => {
+      return Object.values(it).toString()
+    }).join('\n')
+  }
+  
+
+
+
    const dayResult = await getResultDatabase()
-    res.attachment('dayResult.csv').send(dayResult)
+    const convertDayResult = convertToCSV(dayResult)
+    res.attachment('dayResult.csv').send(convertDayResult)
     res.send(dayResult)
   })
 
