@@ -36,7 +36,7 @@ const spectStrategy = [
 const result = await getStrategyFilter(roleta[6])
 console.log(result)
 
-if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
+if(spectStrategy.includes(result) && roleta.includes(strig.roulleteName)) {
      console.log('-------------------ALERT-------------------')
      return await proccedAlert(strig, possivelAlert)
 }

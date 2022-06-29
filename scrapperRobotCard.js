@@ -18,6 +18,7 @@ const browser = await puppeteer.launch({
        width: 1100,
        height: 980
      },
+     SlowMo: 50,
      args: [
        "--window-size=920,680",
        "--window-position=500,0"   
@@ -82,13 +83,8 @@ await page.waitForTimeout(5000);
 
 await page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=nifyytz35m2qcevw', {waitUntil: 'networkidle0'})
 
-const label = await page.waitForSelector('.text--27a51')
 
-const p = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(true)
-  }, 1500)  
-})
+
 
 const AWAY = /AWAY/g
 const HOME = /HOME/g
@@ -111,44 +107,33 @@ const away = {
 }
 
 
-while (true) {
+setInterval( async () => {
   const label = await page.waitForSelector('.text--27a51')
   const value = await label.evaluate(el => el.textContent);
   
   if (AWAY.test(value)) {
     console.log('detect')
-    return axios.post('http://localhost:3055/api/cards', away).then(
-        (result) => {
-            console.log('AWAY')
-        }
-    )
-
+    return await axios.post('http://localhost:3055/api/cards', away)
   } else if (HOME.test(value)) {
     console.log('detect')
-    return  axios.post('http://localhost:3055/api/cards', home).then(
-        () => {
-            console.log('Home')
-        }
-    )
-  
+    return await axios.post('http://localhost:3055/api/cards', home)
   } else if (DRAW.test(value)) {
     console.log('detect')
-    return axios.post('http://localhost:3055/api/cards', draw).then(
-        () => {
-            console.log('Draw')
-        }
-    )
-
-  } else if (/BETS CLOSING 10/g.test()) {
-    console.log('No Sygnal')
-    return
-
+    return await axios.post('http://localhost:3055/api/cards', draw)
   } else {
-    console.log('Next Sygnal')
+      console.log('No sygnal')
   }
 
-  await p
-}
+  const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true)
+    }, 1500)  
+  })
 
+}, 1500)
+
+setInterval(()=> {
+  page.reload()
+}, 45000)
 
 })()

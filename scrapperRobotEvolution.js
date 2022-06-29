@@ -30,7 +30,7 @@ const browser = await puppeteer.launch({
 
 async function login(page) {
 await page.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
-
+const titulo = ".Typography--46b8a.Typography_xs_subtitle1--c55ab.Typography_md_h6--ebc04.Typography_xl_h5--c919c bold--9a1d2.colorPrimary--5a57c.ellipsisModeOneLine--eb3a6"
 const sideicons = "#trn";
 const xPathEvolution = '/html/body/main/section[2]/div/div/div/div[2]/figure/a';
 const Roullet = '#Thumbnail--c01d7 AnimateZoom--c472b'
@@ -82,21 +82,21 @@ var frames = (await page.frames());
 const a = frames[1].url();
 await page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette', {waitUntil: 'networkidle0'});
 await page.waitForTimeout(5000);
-const grider = await page.$$(grid);
+
 
 
 const p = new Promise((resolve, reject) => {
      setTimeout(() => {
        resolve(true)
-     }, 3200)  
+     }, 15200)  
    })
    
 while(true) {
+     const grider = await page.$$(grid);
+     for (let i = 0; i < grider.length; i++) {
+          grider
+        }
 
-grider.forEach( async (grid) => {
-     const value = await grid.evaluate(el => el.textContent);
-     console.log(value)
-})
  
 await p 
 
