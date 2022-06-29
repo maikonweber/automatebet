@@ -13,13 +13,14 @@ puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
 const browser = await puppeteer.launch({
-     headless: false,
+     headless: true,
      defaultViewport: {
        width: 1100,
        height: 980
      },
      SlowMo: 50,
      args: [
+       "--no-sandbox",
        "--window-size=920,680",
        "--window-position=500,0"   
      ],  

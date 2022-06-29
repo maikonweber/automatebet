@@ -83,25 +83,14 @@ const a = frames[1].url();
 await page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette', {waitUntil: 'networkidle0'});
 await page.waitForTimeout(5000);
 
-
-
-const p = new Promise((resolve, reject) => {
-     setTimeout(() => {
-       resolve(true)
-     }, 15200)  
-   })
    
-while(true) {
+setInterval(async () => {
      const grider = await page.$$(grid);
      for (let i = 0; i < grider.length; i++) {
-          grider
-        }
+          let eachResult =  await grider[i].$$('.HistoryGridItem--237f9')
+          console.log(eachResult)
+     }
 
- 
-await p 
-
-}
-
-
+     }, 5000)
 
 })()
