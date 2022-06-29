@@ -8,7 +8,12 @@ const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./databas
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBuwTAXKXEayLxDFQ02v+INi5wCeE2WCcO++LRgIqkCTcHl/9onDF705MOohzvjMmJONsJB6m50KJO2iyye9qSUiRud48glxOW1A4ANch3JAuQE+iBjQal/P0KtY6qfy3ZY/fw1DI3Vrxfz7xOEVoc/s08Y2rdWj/EaW2d69yS4dBF/W/FZw58p7BNZfvqm2XtPdhNGrzXipdTP3AF8QOcBcFwXX3WpI0PZj7JqYElYw2cjkjOwSfAF1wafEwgyp2Py8wdG3D/0Z/+Oqy7rv/N5+2q8VYR5lhmaYS02G7URF5bRGuBEy/hexVH6AfW3ML4a16FzawG1qEdQ+x1RSsTmNA=');
-const clientRedis = new Redis()
+const clientRedis = new Redis(
+     {
+          host: '127.0.0.1',
+          port: 6379,
+     }
+)
 const expectNumber = require("./jsonObjects/strategy");
 
 
@@ -454,6 +459,13 @@ const promisseDelete = (msg) =>  new Promise(() => {
           deleteMsg(msg)
      }, 45000)
 })
+
+
+function detectNumberAndDown (string) {
+     if (/[0-9][0-9]/g.test(string) || /[4-9]/g.test(string)) {
+          
+     }
+}
 
 
 
