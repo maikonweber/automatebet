@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3055; 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const Blaze = require('./crash');
+const 
 
 const {
   checkToken,
@@ -16,8 +16,11 @@ const {
   getLastNumber18,
   getLastNumber,
   usersFilters,
-  insertCards
+  insertCards,
+  getResultDatabase
 } = require('./database');
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,6 +46,14 @@ app.post('/api/cards', async (req, res) => {
  const setLastCard = await insertCards(result)
  res.send(200)
 })
+
+app.get('/exportcsv', (req, res) => {
+   const dayResult = await getResultDatabase()
+    
+    res.type('text/csv')
+    res.attachment('dayResult.csv').send(dayResult)
+    res.status(200).semd(dayResult)
+  })
 
 
 app.get('/', (req, res) => {
@@ -92,15 +103,12 @@ app.post('/api/bet365', async (req, res) => {
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
     if (typeof resultado === 'undefined') {
-      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
-      console.log(result.rows, "ID :", name_, number, jsonbStrategy);
+      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);;
       res.json('You have set the blqaze at ')
     } else {
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
     console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
-    console.log(lastNumberString, ":: Numbers LastNumber :: Type Of ::", typeof lastNumberString)
-    console.log(lastNumberString === numberJsonString, ':: LastNumber =  NumberJson')
     if (lastNumberString === numberJsonString) {
       console.log('Já existe um número igual ao que está tentando inserir')
       res.json("Numero não inserido")

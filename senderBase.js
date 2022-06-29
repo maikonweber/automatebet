@@ -1,8 +1,10 @@
 
 (async () => {
 
+const Redis  = require('ioredis') 
 const { getStrategyFilter } = require('./database')
 
+const redis =  new Redis();
 while (true) {
 
 const roleta = 
@@ -32,17 +34,16 @@ const spectStrategy = [
      'Repetição 9 vezes da Black',
      'Repetição 9 vezes da Red',
 ]
+const users = await getUsersFilter('email')
+const result = await getStrategyFilter()
 
-const result = await getStrategyFilter(roleta[6])
-console.log(result)
+// user.roletas users.strategy
 
 
-
-
-    const p = new Promise((resolve, reject) => {
+const p = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(console.log('Walting for the next Signal!!!'))
-        }, 15000)
+        }, 5000)
     })
 
     await p

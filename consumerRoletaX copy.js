@@ -391,8 +391,7 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
                     console.log('RED')
                     await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))  
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'))
-                    const msg = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
-                    await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
+                    const msg = await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))  
                }
           }, 35000)
      })
@@ -468,7 +467,6 @@ async function proccedAlert (sygnalBase, string) {
      const msg = await sendMsg(-1150553286, place)
      const msg1 = await sendMsg(-1593932898, place) 
      const msg2 = await sendMsg(-1266295662, place)
-     
      return
 }
 
