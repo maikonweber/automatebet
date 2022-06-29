@@ -24,7 +24,6 @@ const browser = await puppeteer.launch({
        "--window-size=920,680",
        "--window-position=500,0"   
      ],  
-     devTools: true, 
    });
    const page = await browser.newPage()
    return page
@@ -114,13 +113,13 @@ setInterval( async () => {
   
   if (AWAY.test(value)) {
     console.log('detect')
-    return await axios.post('http://localhost:3055/api/cards', away)
+    return await axios.post('https://api.muttercorp.online/api/cards', away)
   } else if (HOME.test(value)) {
     console.log('detect')
-    return await axios.post('http://localhost:3055/api/cards', home)
+    return await axios.post('https://api.muttercorp.online/api/cards', home)
   } else if (DRAW.test(value)) {
     console.log('detect')
-    return await axios.post('http://localhost:3055/api/cards', draw)
+    return await axios.post('https://api.muttercorp.online/api/cards', draw)
   } else {
       console.log('No sygnal')
   }
