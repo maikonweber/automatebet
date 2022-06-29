@@ -46,7 +46,7 @@ app.post('/api/cards', async (req, res) => {
  res.send(200)
 })
 
-app.get('/exportcsv', (req, res) => {
+app.get('/exportcsv', async (req, res) => {
    const dayResult = await getResultDatabase()
     
     res.type('text/csv')
