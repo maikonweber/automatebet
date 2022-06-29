@@ -254,8 +254,8 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
 async function getResultDatabase() {
     let query = `Select numberjson, created, roulletname 
                 FROM robotbetpayload
-                Where created BETWEEN now() - interval '1 day'
-                `
+                Where created BETWEEN now() - interval '1 day' AND now()
+                Order by created desc;`
     let result = await pool.query(query)
     return result.rows
 }
