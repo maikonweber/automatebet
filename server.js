@@ -55,10 +55,11 @@ app.get('/exportcsv', async (req, res) => {
     }).join('\n')
   }
   
-  console.log(dayResult)
+  
 
 
    const dayResult = await getResultDatabase()
+   console.log(dayResult)
     const convertDayResult = convertToCSV(dayResult)
     res.attachment('dayResult.csv').send(convertDayResult)
     res.send(dayResult)
