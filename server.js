@@ -51,7 +51,7 @@ app.get('/exportcsv', async (req, res) => {
     
     res.type('text/csv')
     res.attachment('dayResult.csv').send(dayResult)
-    res.status(200).semd(dayResult)
+    res.send(dayResult).status(200)
   })
 
 
