@@ -48,10 +48,8 @@ app.post('/api/cards', async (req, res) => {
 
 app.get('/exportcsv', async (req, res) => {
    const dayResult = await getResultDatabase()
-    
-    res.type('text/csv')
     res.attachment('dayResult.csv').send(dayResult)
-    res.send(dayResult).status(200)
+    res.send(dayResult)
   })
 
 
