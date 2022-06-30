@@ -518,7 +518,8 @@ await redisClient.subscribe('msg', async (message) => {
           console.log(`------------------------------------------------------------`)
           if (!await clientRedis.get(`${strig.estrategiaDetect}_${strig.rouletteName}`)) {
           const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
-          await redisClient.get($(`${string.estrategiaDetect_}_${string_roulletName}_${'alert_'}`, 'EX', 4))
+          await redisClient.get($(`${string.estrategiaDetect_}_${string_roulletName}_${'alert_'}`,
+          ,'EX', 4))
           return await proccedRoulletAndSend(strig, string)
           }
      }
