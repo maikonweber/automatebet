@@ -8,13 +8,9 @@ const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./databas
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBuwTAXKXEayLxDFQ02v+INi5wCeE2WCcO++LRgIqkCTcHl/9onDF705MOohzvjMmJONsJB6m50KJO2iyye9qSUiRud48glxOW1A4ANch3JAuQE+iBjQal/P0KtY6qfy3ZY/fw1DI3Vrxfz7xOEVoc/s08Y2rdWj/EaW2d69yS4dBF/W/FZw58p7BNZfvqm2XtPdhNGrzXipdTP3AF8QOcBcFwXX3WpI0PZj7JqYElYw2cjkjOwSfAF1wafEwgyp2Py8wdG3D/0Z/+Oqy7rv/N5+2q8VYR5lhmaYS02G7URF5bRGuBEy/hexVH6AfW3ML4a16FzawG1qEdQ+x1RSsTmNA=');
-const clientRedis = new Redis(
-     {
-          host: '127.0.0.1',
-          port: 6379,
-     }
-)
+const clientRedis = new Redis()
 const expectNumber = require("./jsonObjects/strategy");
+
 
 
 (async () => {
@@ -461,13 +457,6 @@ const promisseDelete = (msg) =>  new Promise(() => {
 })
 
 
-function detectNumberAndDown (string) {
-     if (/[0-9][0-9]/g.test(string) || /[4-9]/g.test(string)) {
-          
-     }
-}
-
-
 
 async function proccedAlert (sygnalBase, string) {
      const { estrategiaDetect, roulleteName, payload } = sygnalBase
@@ -480,7 +469,9 @@ async function proccedAlert (sygnalBase, string) {
      const msg = await sendMsg(-1150553286, place)
      const msg1 = await sendMsg(-1593932898, place) 
      const msg2 = await sendMsg(-1266295662, place)
-     
+     await promisseDelete(msg)
+     await promisseDelete(msg1)
+     await promisseDelete(msg2)
      return
 }
 
@@ -494,21 +485,33 @@ for(let i = 0; i < result.chats.length; i++){
 
 console.log(client.session.save());
 
-const sala1 = result.chats[0].id  
+const sala1 = result.chats[0].id
+
 const msg = await sendMsg(-1150553286, 'test')
  console.log(msg)         
 await sub.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
+
+
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
      if(!result) {
+
      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
+     console.log(!result)
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-          await clientRedis.set(`${strig.roulleteName}_${strig.estrategiaDetect}_${'1'}`, JSON.stringify(string), 'EX', 2)
-          await proccedAlert(strig, alertUser)
+          console.log('-------------------ALERT-------------------')
+          return await proccedAlert(strig, possivelAlert)
      }
-   }
+
+
+     if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
+          console.log(`------------------------------------------------------------`)
+         
+          return await proccedRoulletAndSend(strig, string)
+          }
+     }
 })
    
 })();
