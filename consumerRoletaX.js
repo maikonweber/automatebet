@@ -1,17 +1,15 @@
 
 
 const { TelegramClient, Api, client } = require("telegram");
-const redis = require('redis');
+const Redis = require('ioredis');
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBuwTAXKXEayLxDFQ02v+INi5wCeE2WCcO++LRgIqkCTcHl/9onDF705MOohzvjMmJONsJB6m50KJO2iyye9qSUiRud48glxOW1A4ANch3JAuQE+iBjQal/P0KtY6qfy3ZY/fw1DI3Vrxfz7xOEVoc/s08Y2rdWj/EaW2d69yS4dBF/W/FZw58p7BNZfvqm2XtPdhNGrzXipdTP3AF8QOcBcFwXX3WpI0PZj7JqYElYw2cjkjOwSfAF1wafEwgyp2Py8wdG3D/0Z/+Oqy7rv/N5+2q8VYR5lhmaYS02G7URF5bRGuBEy/hexVH6AfW3ML4a16FzawG1qEdQ+x1RSsTmNA=');
-const clientRedis = redis.createClient({
-     host: '127.0.0.1',
-     port: 6379,
-});
+const clientRedis = new Redis(
+)
 const expectNumber = require("./jsonObjects/strategy");
 
 
@@ -423,11 +421,7 @@ function stringReplace(string, sygnalBase) {
                return replace5
  }    
           
-     
-     
-await clientRedis.connect()
-const sub = await clientRedis.duplicate();
- await sub.connect();
+
      
 console.log("Loading interactive example...");
  const client = new TelegramClient(stringSession, apiId, apiHash, {
@@ -454,6 +448,7 @@ async function deleteMsg(msg) {
 
 const promisseDelete = (msg) =>  new Promise(() => {
      setTimeout(async () => {
+          console.log('Timeout')
           deleteMsg(msg)
      }, 45000)
 })
@@ -489,28 +484,41 @@ console.log(client.session.save());
 
 const sala1 = result.chats[0].id
 
-const msg = await sendMsg(-1150553286, 'test')
- console.log(msg)         
-await sub.subscribe('msg', async (message) => {
+function downNumber detectString) {
+     if(/[0-9]*/.test(detectString)) {
+          const result =  detectString.match(/[0-9][0-9]*/gi)
+          const replaceStrategy = detectString.replace(/[0-9][0-9]*/gi, (result[0] - 1).toString())
+          return replaceStrategy
+     }
+}
+
+ 
+await redisClient.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
 
 
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
-     if(!result) {
-
+    
      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
      console.log(!result)
 
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
+          if (!await redisClient.get(`${strig.estrategiaDetect}_${strig.rouletteName}_${'alert_'}`)) {
+          await redisClient.set(`${strig.estrategiaDetect}_${string.rouletteName}_${'alert_'}`, 'EX', 4)
           return await proccedAlert(strig, possivelAlert)
+          } else {
+               console.log(`--------> Tem uma Alerta em processamento <--------`)     
+          }
      }
 
 
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`------------------------------------------------------------`)
-         
+          if (!await clientRedis.get(`${strig.estrategiaDetect}_${strig.rouletteName}`)) {
+          const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
+          await redisClient.get($(`${string.estrategiaDetect_}_${string_roulletName}_${'alert_'}`, 'EX', 4))
           return await proccedRoulletAndSend(strig, string)
           }
      }
