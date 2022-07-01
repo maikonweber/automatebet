@@ -490,7 +490,7 @@ await clientRedis.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
 
      console.log('New Strategy')
-    
+     if(strig) {
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
           if (!await clientRedis.get(`${strig.estrategiaDetect}_${strig.rouletteName}_${'alert_'}`)) {
@@ -518,6 +518,7 @@ await clientRedis.subscribe('msg', async (message) => {
           return await proccedRoulletAndSend(strig, string)
           }
      }
+}
 })
    
 })();
