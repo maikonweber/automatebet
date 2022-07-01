@@ -54,10 +54,8 @@ app.get('/exportcsv', async (req, res) => {
       return Object.values(it).toString()
     }).join('\n')
   }
-    for(i = 0; roullets.length < i; i++) {
-        const dayResult = await getResultDatabase()
-    }
-   console.log(dayResult)
+  
+    console.log(dayResult)
     const convertDayResult = convertToCSV(dayResult)
     res.attachment('dayResult.csv').send(convertDayResult)
   })
