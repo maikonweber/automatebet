@@ -47,6 +47,29 @@ app.post('/api/cards', async (req, res) => {
 })
 
 app.get('/exportcsv', async (req, res) => {
+  const arrayName = [
+    'Turkish_Roulette',
+    'UK_Roulette',
+    'Roulette',
+    'Football_French_Roulette',
+    'Spread_Bet_Roulette',
+    'Greek_Quantum_Roulette',
+    'Deutsches_Roulette',
+    'Speed_Roulette',
+    'Prestige_Roulette',
+    'Mega_Fire_Blaze_Roulette_Live',
+    'Football_Roulette',
+    'Quantum_Roulette_Live',
+    'Greek_Roulette',
+    'Roleta_Brasileira',
+    'Auto_Roulette',
+    'French_Roulette',
+    'Hindi_Roulette',
+    'Roulette_Italiana',
+    'Bucharest_Roulette',
+    'American_Roulette',
+   ]
+  
   function convertToCSV(arr) {
     const array = [Object.keys(arr[0])].concat(arr)
   
@@ -54,6 +77,10 @@ app.get('/exportcsv', async (req, res) => {
       return Object.values(it).toString()
     }).join('\n')
   }
+    for(let i = 0; arrayName.length > i; i++) {
+      
+    }
+
   
     console.log(dayResult)
     const convertDayResult = convertToCSV(dayResult)

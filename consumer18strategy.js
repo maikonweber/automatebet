@@ -214,7 +214,7 @@ async function strategy18Procced (strategy) {
      //parOuImpar,
      let arrayColunas1Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.colunas, 1, i, 'Colunas 1')
+          let value = restOfNumber(strategy.colunas, 1, i, 'Primeira Coluna')
           arrayColunas1Ausencia.push({
                coluna : value
           })
@@ -222,7 +222,7 @@ async function strategy18Procced (strategy) {
 
      let arrayColunas2Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.colunas, 2, i,  'Colunas 2')
+          let value = restOfNumber(strategy.colunas, 2, i,  'Segunda Coluna')
           arrayColunas2Ausencia.push({
                coluna : value
           })
@@ -230,7 +230,7 @@ async function strategy18Procced (strategy) {
 
      let arrayColunas3Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.colunas, 3, i,  'Colunas 3')
+          let value = restOfNumber(strategy.colunas, 3, i,  'Terceira Coluna')
           arrayColunas3Ausencia.push({
                coluna : value
           })
@@ -238,7 +238,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco1Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.blocos, 1, i, 'Bloco 1')
+          let value = restOfNumber(strategy.blocos, 1, i, 'Primeiro Bloco')
           arrayBloco1Ausencia.push({
                coluna : value
           })
@@ -246,7 +246,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco2Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.blocos, 2, i, 'Bloco 2')
+          let value = restOfNumber(strategy.blocos, 2, i, 'Segundo Bloco')
           arrayBloco2Ausencia.push({
                coluna : value
           })
@@ -254,7 +254,7 @@ async function strategy18Procced (strategy) {
 
      let arrayBloco3Ausencia = []
      for(let i = 0; i < times; i++){    
-          let value = restOfNumber(strategy.blocos, 3, i, 'Bloco 3')
+          let value = restOfNumber(strategy.blocos, 3, i, 'Terceiro Bloco')
           arrayBloco3Ausencia.push({
                coluna : value
           })

@@ -1,15 +1,17 @@
 
 
 const { TelegramClient, Api, client } = require("telegram");
-const Redis = require('ioredis');
+const redis = require('redis');
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBuwTAXKXEayLxDFQ02v+INi5wCeE2WCcO++LRgIqkCTcHl/9onDF705MOohzvjMmJONsJB6m50KJO2iyye9qSUiRud48glxOW1A4ANch3JAuQE+iBjQal/P0KtY6qfy3ZY/fw1DI3Vrxfz7xOEVoc/s08Y2rdWj/EaW2d69yS4dBF/W/FZw58p7BNZfvqm2XtPdhNGrzXipdTP3AF8QOcBcFwXX3WpI0PZj7JqYElYw2cjkjOwSfAF1wafEwgyp2Py8wdG3D/0Z/+Oqy7rv/N5+2q8VYR5lhmaYS02G7URF5bRGuBEy/hexVH6AfW3ML4a16FzawG1qEdQ+x1RSsTmNA=');
-const clientRedis = new Redis(
-)
+const stringSession = new StringSession('');
+const { createClient } = require('redis');
+const subscribe = createClient()
+
+
 const expectNumber = require("./jsonObjects/strategy");
 
 
@@ -34,52 +36,52 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternar colunas 1 e 2 - 7 vezes',
-     'Alternar colunas 2 e 3 - 7 vezes',
-     'Alternar colunas 3 e 1 - 7 vezes',
-     'Alternar colunas 1 e 3 - 7 vezes',
-     'Alternar colunas 2 e 1 - 7 vezes',
-     'Alternar colunas 3 e 2 - 7 vezes',
-     'Repetição de 7 vezes do Bloco 3',
-     'Repetição de 7 vezes do Bloco 2',
-     'Repetição de 7 vezes do Bloco 1',
-     'Repetição de 7 vezes da Coluna 1',
-     'Repetição de 7 vezes da Coluna 2',
-     'Repetição de 7 vezes da Coluna 3',
-     'Ausencia da Colunas 2 - 12 vezes ',
-     'Ausencia da Colunas 3 - 12 vezes ',
-     'Ausencia da Colunas 1 - 12 vezes ',
-     'Ausencia da Bloco 2 - 12 vezes ',
-     'Ausencia da Bloco 3 - 12 vezes ',
-     'Ausencia da Bloco 1 - 12 vezes ',
+     'Alternando Primeira e Segunda Colunas - 7 vezes',
+     'Alternando Segunda e Primeira Colunas - 7 vezes',
+     'Alternando Terceira e Primeira Colunas - 7 vezes',
+     'Alternando Primeira e Terceira Colunas - 7 vezes',
+     'Alternando Segunda e Primeira Colunas - 7 vezes',
+     'Alternando Terceira e Segunda Colunas - 7 vezes',
+     'Repetição de 7 vezes do Primeiro Bloco',
+     'Repitição de 7 vezes do Segundo Bloco',
+     'Repitição de 7 vezes do Terceira Bloco',
+     'Repetição de 7 vezes da Primeira Coluna',
+     'Repetição de 7 vezes da Segunda Coluna',
+     'Repetição de 7 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 12 vezes ',
+     'Ausencia da Terceira Coluna - 12 vezes ',
+     'Ausencia da Primeira Coluna  - 12 vezes ',
+     'Ausencia da Segundo Bloco - 12 vezes ',
+     'Ausencia da Terceiro Bloco - 12 vezes ',
+     'Ausencia da Primeiro Bloco - 12 vezes ',
 
 ]
 
 const spectStrategy = [
-     'Alternar colunas 1 e 2 - 6 vezes',
-     'Alternar colunas 2 e 3 - 6 vezes',
-     'Alternar colunas 3 e 1 - 6 vezes',
-     'Alternar colunas 1 e 3 - 6 vezes',
-     'Alternar colunas 2 e 1 - 6 vezes',
-     'Alternar colunas 3 e 2 - 6 vezes',
-     'Repetição de 6 vezes do Bloco 3',
-     'Repetição de 6 vezes do Bloco 2',
-     'Repetição de 6 vezes do Bloco 1',
-     'Repetição de 6 vezes da Coluna 1',
-     'Repetição de 6 vezes da Coluna 2',
-     'Repetição de 6 vezes da Coluna 3',
-     'Ausencia da Colunas 2 - 11 vezes ',
-     'Ausencia da Colunas 3 - 11 vezes ',
-     'Ausencia da Colunas 1 - 11 vezes ',
-     'Ausencia da Bloco 2 - 11 vezes ',
-     'Ausencia da Bloco 3 - 11 vezes ',
-     'Ausencia da Bloco 1 - 11 vezes ',
+     'Alternando Primeira e Segunda Colunas - 6 vezes',
+     'Alternando Segunda e Primeira Colunas - 6 vezes',
+     'Alternando Terceira e Primeira Colunas - 6 vezes',
+     'Alternando Primeira e Terceira Colunas - 6 vezes',
+     'Alternando Segunda e Primeira Colunas - 6 vezes',
+     'Alternando Terceira e Segunda Colunas - 6 vezes',
+     'Repetição de 6 vezes do Primeiro Bloco',
+     'Repitição de 6 vezes do Segundo Bloco',
+     'Repitição de 6 vezes do Terceira Bloco',
+     'Repetição de 6 vezes da Primeira Coluna',
+     'Repetição de 6 vezes da Segunda Coluna',
+     'Repetição de 6 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 11 vezes ',
+     'Ausencia da Terceira Coluna - 11 vezes ',
+     'Ausencia da Primeira Coluna  - 11 vezes ',
+     'Ausencia da Segundo Bloco - 11 vezes ',
+     'Ausencia da Terceiro Bloco - 11 vezes ',
+     'Ausencia da Primeiro Bloco - 11 vezes ',
      
 ]
 
 const string = 
 `✅ ENTRADA CONFIRMADA ✅
-🎰 ROLETA: {rouletteName}
+🎰 ROLETA: {roulleteName}
 💎 ESTRATÉGIA: {strategyName}
 Ultimos Numeros : {last}
 ✅ENTRAR: {expect}
@@ -89,7 +91,7 @@ Ultimos Numeros : {last}
 const string2 = 
 `
 ✅ ENTRADA CONFIRMADA ✅
-🎰 Roleta 🎰: {rouletteName}
+🎰 Roleta 🎰: {roulleteName}
 💎 ESTRATÉGIA: {strategyName}
 LastNumber : {last}
 👉🏻 Entrada 👈🏻: : {expect}
@@ -98,12 +100,12 @@ LastNumber : {last}
 
 const possivelAlert = `⚠️POSSÍVEL ENTRADA⚠️
 
-🎰 ROLETA: {rouletteName}
+🎰 ROLETA: {roulleteName}
 💎 ESTRATÉGIA: {strategyName}`
 
 
 const stringred = `
-🎰 Roleta 🎰: {rouletteName}
+🎰 Roleta 🎰: {roulleteName}
 🚀 Estratégia 🚀: {strategyName}
 Ultimos Resultados : {last}
 ✅ GREEN ✅
@@ -262,7 +264,6 @@ function testStrategy(estrategiaDetect, lastNumber) {
      }
 }
    
-
 async function sendMsg(sala, msg, reply) {
           if(!reply) {
           const salaEntity = await client.getEntity(sala)      
@@ -286,17 +287,19 @@ async function sendMsg(sala, msg, reply) {
 function proccedRoulletAndSend(sygnalBase, string) {
      const replace = stringReplace(string, sygnalBase)
      return saveMemorySend(sygnalBase, replace) 
-
 }
           
 async function saveMemorySend(sygnalBase, string) {
     
-     let alert_ = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let alert_ = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      alert_ = await JSON.parse(alert_)
      const msg1 = await sendMsg(-1266295662, string, alert_.msg)
-     await redisClient.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, {
+     await subscribe.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, {
           "payload" : alert_.payload,
           'msg' : msg1
+     },  {
+          EX: 7,
+          NX: true
      })
 
      
@@ -307,13 +310,13 @@ function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
                if(!zero) {
                const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
-               const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
+               const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
                return replace4
           } else {
                const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN NO ZEROOOO ✅')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
-               const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
+               const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
                return replace4
           }
@@ -322,7 +325,7 @@ function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
 function replaceForRed(string, resultadoAtual, sygnalBase) {
                const replace = string.replace(/✅ GREEN ✅/g, '🔴 Desta Vez Não Deu! Mas vamos Insistir faz um Martigale 🔴')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
-               const replace3 = replace2.replace(/{rouletteName}/g, `${sygnalBase.roulleteName}`)
+               const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                return replace4
 }         
@@ -336,15 +339,17 @@ console.log(sygnalBase)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
      if(array.includes(resultadoAtual.numberjson[0])) {
      console.log('GREEN')
-     let entry = await clientRedis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase), entry.msg)
+     await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      } 
      else if ([0].includes(resultadoAtual.numberjson[0])) {
      console.log('ZEROOOOO')
-     let entry = await clientRedis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
+     await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      } else {
      console.log('RED')  
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
@@ -375,19 +380,20 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
                     console.log('GREEN')
-                    let entry = await clientRedis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, entry.msg))                 
+                    await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
-                  let entry = await clientRedis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                   entry =  JSON.parse(entry)
                   await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-             
+                  await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } else {
                     console.log('RED')
-                    let entry = await clientRedis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
@@ -406,7 +412,7 @@ function stringReplace(string, sygnalBase) {
                const last = `${last1} | ${last2} | ${last3} | ${last4}`
                console.log(last)
 
-               const replace = string.replace(/{rouletteName}/g, roulleteName)
+               const replace = string.replace(/{roulleteName}/g, roulleteName)
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
                const replace4 = replace2.replace(/{last}/g, last)
                const replace5 = replace4.replace(/{expect}/g, test.expect)
@@ -452,15 +458,18 @@ async function proccedAlert (sygnalBase, string) {
      const { estrategiaDetect, roulleteName, payload } = sygnalBase
      console.log(`----------------- Alerta ----------------------`)
      const test = testStrategy(sygnalBase.estrategiaDetect)
-     const replace = string.replace(/{rouletteName}/g, roulleteName)
+     const replace = string.replace(/{roulleteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace5 = replace2.replace(/{expect}/g, test.expect)
      const place =  replace5.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1266295662, place)
-     await clientRedis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`))
-     await clientRedis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`, JSON.stringify({
+     await subscribe.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`))
+     await subscribe.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`, JSON.stringify({
           'msg' : msg2
-     }), 'EX', 5)
+     }),  {
+          EX: 5,
+          NX: true
+     })
 
      return
 }
@@ -485,35 +494,39 @@ function downNumber (detectString) {
      }
 }
 
-
-await clientRedis.subscribe('msg', async (message) => {
+await subscribe.connect()
+await subscribe.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
-
-     console.log('New Strategy')
-     console.log(strig.roulleteName, strig.estrategiaDetect)
+     console.log(strig.estrategiaDetect, strig.roulleteName)
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          if (!await clientRedis.get(`${strig.estrategiaDetect}_${strig.rouletteName}_${'alert_'}`)) {
-          await clientRedis.set(`${strig.estrategiaDetect}_${string.rouletteName}_${'alert_'}`, {
+          if (!await subscribe.get(`${strig.estrategiaDetect}_${strig.roulleteName}_${'alert_'}`)) {
+          await subscribe.set(`${strig.estrategiaDetect}_${string.roulleteName}_${'alert_'}`, {
                "alert" : "alert"
-          } ,'EX', 4)
+          } , {
+               EX: 7,
+               NX: true
+          })
           return await proccedAlert(strig, possivelAlert)
           } else {
                console.log(`--------> Tem uma Alerta em processamento <--------`)     
           }
      }
-
-
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`------------------------------------------------------------`)
-          if (!await clientRedis.get(`${strig.estrategiaDetect}_${strig.rouletteName}`)) {
+          if (!await subscribe.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)) {
           const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
-          let alert_ = await redisClient.get((`${estrategiaDetect_}_${string.roulletName}_${'alert_'}`))
+          let alert_ = await subscribe.get((`${estrategiaDetect_}_${strig.roulletName}_${'alert_'}`))
           alert_ = JSON.parse(alert_)
-          await clientRedis.set(`${estrategiaDetect}_${strig.rouletteName}`, JSON.stringify({
+          await subscribe.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
                "payload" : strig,
                "msg" : alert_
-          }), 'EX', 8);
+          }), 
+               {
+                    EX: 7,
+                    NX: true
+               }
+          );
 
           return await proccedRoulletAndSend(strig, string)
           }

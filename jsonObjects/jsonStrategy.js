@@ -702,11 +702,11 @@ const parOuImpar = {
           }
           ,
           '1,3,1,3' : () => {
-               return 'Alternar  - 4 vezes';
+               return 'Alternando Primeira e Terceira Colunas - 4 vezes';
           }
           ,
           '3,1,3,1' : () => {
-               return 'Alternar Terceira e Primeira Colunas - 4 vezes';
+               return 'Alternando Terceira e Primeira Colunas - 4 vezes';
           }
           ,
           '2,3,2,3' : () => {
