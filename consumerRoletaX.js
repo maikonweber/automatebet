@@ -7,14 +7,13 @@ const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('');
-const { createClient } = require('redis');
-const subscribe = createClient()
-
-
-const expectNumber = require("./jsonObjects/strategy");
-
-
+const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTQBu7jfw1tDzOkH7vrrFyEhVQHcFgx/NY/xgc2zt2nrGFEXZCLizMgd/IZfD4xZYPkq071kVGb64BaBRY13fLFfUOZiUo40jfMokpnuM7+y+V8WGcwYi6cLBCXYaVeyMI/pTbkcHyQOZOoAmD6qh7C3ls+OGjTzrIaWQF27VQmNX73lv6Vg4FjALR7Cpa+Xz3e63tViZ84pph2Zw50q6u9TpNsDfdNTocK9cVODEdczeXrekDCB9D8+bZullp5hsn77lgpWjDHe57eZHC/m7OhR0wLvjnhcqRp5JrWQNMJYV2P1xdGimgzAQGRLn5pAPzuxDkKawdi5ZHjYgXsVQ1lPDOE=');
+const { createClient }  = require('redis');
+const testStrategy = require('./functions/testStrategy')
+const expectNumber = require('./jsonObjects/strategy.js');
+const redisClient =  redis.createClient()
+const amqplib = require('amqplib/callback_api');
+const queue = 'msg'
 
 (async () => {
 const roleta = 
@@ -36,47 +35,48 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Primeira e Segunda Colunas - 7 vezes',
-     'Alternando Segunda e Primeira Colunas - 7 vezes',
-     'Alternando Terceira e Primeira Colunas - 7 vezes',
-     'Alternando Primeira e Terceira Colunas - 7 vezes',
-     'Alternando Segunda e Primeira Colunas - 7 vezes',
-     'Alternando Terceira e Segunda Colunas - 7 vezes',
-     'Repetição de 7 vezes do Primeiro Bloco',
-     'Repitição de 7 vezes do Segundo Bloco',
-     'Repitição de 7 vezes do Terceira Bloco',
-     'Repetição de 7 vezes da Primeira Coluna',
-     'Repetição de 7 vezes da Segunda Coluna',
-     'Repetição de 7 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 12 vezes ',
-     'Ausencia da Terceira Coluna - 12 vezes ',
-     'Ausencia da Primeira Coluna  - 12 vezes ',
-     'Ausencia da Segundo Bloco - 12 vezes ',
-     'Ausencia da Terceiro Bloco - 12 vezes ',
-     'Ausencia da Primeiro Bloco - 12 vezes ',
+     'Alternando Primeira e Segunda Colunas - 4 vezes',
+     'Alternando Segunda e Primeira Colunas - 4 vezes',
+     'Alternando Terceira e Primeira Colunas - 4 vezes',
+     'Alternando Primeira e Terceira Colunas - 4 vezes',
+     'Alternando Segunda e Primeira Colunas - 4 vezes',
+     'Alternando Terceira e Segunda Colunas - 4 vezes',
+     'Repetição de 4 vezes do Primeiro Bloco',
+     'Repitição de 4 vezes do Segundo Bloco',
+     'Repitição de 4 vezes do Terceira Bloco',
+     'Repetição de 4 vezes da Primeira Coluna',
+     'Repetição de 4 vezes da Segunda Coluna',
+     'Repetição de 4 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 6 vezes',
+     'Ausencia da Terceira Coluna - 6 vezes',
+     'Ausencia da Primeira Coluna  - 6 vezes',
+     'Ausencia da Segundo Bloco - 6 vezes',
+     'Ausencia da Terceiro Bloco - 5 vezes',
+     'Ausencia da Primeiro Bloco - 5 vezes',
+     'Ausencia da Primeiro Bloco - 5 vezes'
 
 ]
 
 const spectStrategy = [
-     'Alternando Primeira e Segunda Colunas - 6 vezes',
-     'Alternando Segunda e Primeira Colunas - 6 vezes',
-     'Alternando Terceira e Primeira Colunas - 6 vezes',
-     'Alternando Primeira e Terceira Colunas - 6 vezes',
-     'Alternando Segunda e Primeira Colunas - 6 vezes',
-     'Alternando Terceira e Segunda Colunas - 6 vezes',
-     'Repetição de 6 vezes do Primeiro Bloco',
-     'Repitição de 6 vezes do Segundo Bloco',
-     'Repitição de 6 vezes do Terceira Bloco',
-     'Repetição de 6 vezes da Primeira Coluna',
-     'Repetição de 6 vezes da Segunda Coluna',
-     'Repetição de 6 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 11 vezes ',
-     'Ausencia da Terceira Coluna - 11 vezes ',
-     'Ausencia da Primeira Coluna  - 11 vezes ',
-     'Ausencia da Segundo Bloco - 11 vezes ',
-     'Ausencia da Terceiro Bloco - 11 vezes ',
-     'Ausencia da Primeiro Bloco - 11 vezes ',
-     
+     'Alternando Primeira e Segunda Colunas - 5 vezes',
+     'Alternando Segunda e Primeira Colunas - 5 vezes',
+     'Alternando Terceira e Primeira Colunas - 5 vezes',
+     'Alternando Primeira e Terceira Colunas - 5 vezes',
+     'Alternando Segunda e Primeira Colunas - 5 vezes',
+     'Alternando Terceira e Segunda Colunas - 5 vezes',
+     'Repetição de 4 vezes do Primeiro Bloco',
+     'Repitição de 4 vezes do Segundo Bloco',
+     'Repitição de 4 vezes do Terceira Bloco',
+     'Repetição de 4 vezes da Primeira Coluna',
+     'Repetição de 4 vezes da Segunda Coluna',
+     'Repetição de 4 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 5 vezes ',
+     'Ausencia da Terceira Coluna - 5 vezes ',
+     'Ausencia da Primeira Coluna - 5 vezes ',
+     'Ausencia da Segundo Bloco - 5 vezes ',
+     'Ausencia da Terceiro Bloco - 5 vezes ',
+     'Ausencia da Primeiro Bloco - 5 vezes ',
+     'Ausencia da Primeiro Bloco - 3 vezes'     
 ]
 
 const string = 
@@ -111,158 +111,7 @@ Ultimos Resultados : {last}
 ✅ GREEN ✅
 `
 
-function testStrategy(estrategiaDetect, lastNumber) {
-     if(estrategiaDetect.match(/Coluna 1/)) {
-          console.log('Repetição')
-          return { 
-               "expect" : "Quebra na Colunas 3 ou 2",
-               "array" : expectNumber['Coluna 1 Repeat']()
-               }
-     } else if (estrategiaDetect.match(/Par/g)) {
-          console.log('Par')
-          return {
-               "expect" : "Jogar nos Numeros Impares",
-               "array" : expectNumber['Par Reapeat']()
-               }
-     } else if (estrategiaDetect.match(/Impar/g)) {
-          console.log('Impar')
-          return {
-               "expect" : "Jogar nos Numeros pares",
-               "array":expectNumber['Impar Reapeat']()
-          }
-     } else if (estrategiaDetect.match(/1 ou 18/g)) {
-          console.log('Repetição - 1 ao 18')
-          return {
-               "expect" : "Jogar nos numeros Maiores",
-               "array" : expectNumber['1 ao 18 Reapeat']()}
-     } else if (estrategiaDetect.match(/19 ou 36/g)) {
-          console.log('Repetição - 19 ao 36')
-          return {
-               "expect" : "Jogar nos numeros Menores",
-               "array" : expectNumber['19 ao 36 Reapeat']()}
-     } else if (estrategiaDetect.match(/Coluna 2/g)) {
-          console.log('Repetição - Coluna 2')
-          return {
-               "expect" : "Quebra no Coluna 1 ou Coluna 3",
-              "array" : expectNumber['Coluna 2 Reapeat']()
-          }
-     } else if (estrategiaDetect.match(/Coluna 3/g)) {
-          console.log('Repetição - Coluna 3')
-          return { 
-               "expect" : "Quebra na Colunas 2 ou Colunas 1",
-               "array" :expectNumber['Coluna 3 Reapeat']()
-     }
-     } else if (estrategiaDetect.match(/Bloco 1/g)) {
-          console.log('Repetição - Bloco 1')
-          return { 
-               "expect" : "Quebra no Bloco 3 ou Bloco 2",
-                "array"  :  expectNumber['Bloco 1 Reapeat']() 
-          }
-     } else if (estrategiaDetect.match(/Bloco 2/g)) {
-          console.log('Repetição - Bloco 2')
-          return { 
-               "expect" : "Quebra no Bloco 1 ou Bloco 3",
-               "array" : expectNumber['Bloco 2 Reapeat']()
-          }
-     
-     } else if (estrategiaDetect.match(/Bloco 3/g)) {
-          console.log('Repetição - Bloco 3')
-          return {    "expect" : "Quebra no Bloco 1 ou Bloco2",
-                    "array" : expectNumber['Bloco 3 Reapeat']()
-                    }
-          } else if (estrategiaDetect.match(/Red/g)) {
-          console.log('Red')
-          return {
-               "expect" : "Jogar nos Numeros Pretos",
-                "array"  :  expectNumber['White']()
-          }
-     } else if (estrategiaDetect.match(/Black/g)) {
-          return {
-                 "expect" : "Jogar nos Vermelhos", 
-                 "array" : expectNumber['Red']()
-          }
-     } else if (estrategiaDetect.match(/Alternar colunas 2 e 1/g)) {
-          
-          return {
-               "expect" : "Quebra na Colunas 3",
-               "array" : expectNumber['Alternancia da Coluna 2 e 1']()
-          }
-     } else if (estrategiaDetect.match(/Alternar colunas 3 e 2/g)) {
-          console.log('Não encontrado')
-          return {
-               "expect" : "Quebra na Colunas 1 ",
-               "array" : expectNumber['Alternar colunas 3 e 2']()
-          }
-     } else if (estrategiaDetect.match(/Alternar colunas 1 e 3/g)) {
-          console.log('Não encontrado')
-          return {
-               "expect" : "Quebra na Colunas 2",
-               "array" : expectNumber['Alternancia da Coluna 1 e 3']()
 
-          }
-     } else if (estrategiaDetect.match(/Alternar colunas 1 e 2/g)) {
-          console.log('Não encontrado')
-          return {
-               "expect" : "Quebra na Colunas 3",
-               "array" : expectNumber['Alternancia da Coluna 1 e 2']()
-          }
-     } else if (estrategiaDetect.match(/Alternar colunas 2 e 3/g)) {
-          console.log('Não encontrado')
-          return {
-               "expect" : "Quebra na Colunas 1",
-               "array" : expectNumber['Alternancia da Coluna 2 e 3']()
-          }
-
-     }    else if (estrategiaDetect.match(/Alternar colunas 3 e 1/g)) {
-          console.log('Não encontrado')
-          return {
-               "expect" : "Quebra na Colunas 2",
-               "array" : expectNumber['Alternancia da Coluna 3 e 1']()
-          }
-          // Ausencia 
-     } else if (estrategiaDetect.match(/Ausencia da Colunas 1/g)) {
-          console.log('Bloco 1')
-          return {
-               "expect" : "Quebra na Colunas 1",
-               "array" : expectNumber['Ausencia da Colunas 1']()
-          }
-     }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 2/g)) {
-          console.log('Bloco 1')
-          return {
-               "expect" : "Quebra na Colunas 2",
-               "array" : expectNumber['Ausencia da Colunas 2']()
-          }
-     }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 3/g)) {
-          console.log('Bloco 1')
-          return {
-               "expect" : "Quebra na Colunas 3",
-               "array" : expectNumber['Ausencia da Colunas 3']()
-          }
-     }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 1 /g)) {
-          console.log('Bloco 1')
-          return {
-               "expect" : "Quebra na Bloco 1",
-               "array" : expectNumber['Ausencia da Bloco 1']()
-          }
-     }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 2 /g)) {
-          console.log('Bloco 1')
-          return {
-               "expect" : "Quebra na Bloco 2",
-               "array" : expectNumber['Ausencia da Bloco 2']()
-          }
-     }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 3 /g)) {
-          console.log('Bloco 1')
-          return {
-               "expect" : "Quebra na Bloco 3",
-               "array" : expectNumber['Ausencia da Bloco 3']()
-          }
-     }
-}
    
 async function sendMsg(sala, msg, reply) {
           if(!reply) {
@@ -291,10 +140,10 @@ function proccedRoulletAndSend(sygnalBase, string) {
           
 async function saveMemorySend(sygnalBase, string) {
     
-     let alert_ = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let alert_ = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      alert_ = await JSON.parse(alert_)
      const msg1 = await sendMsg(-1266295662, string, alert_.msg)
-     await subscribe.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, {
+     await redisClient.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, {
           "payload" : alert_.payload,
           'msg' : msg1
      },  {
@@ -339,17 +188,17 @@ console.log(sygnalBase)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
      if(array.includes(resultadoAtual.numberjson[0])) {
      console.log('GREEN')
-     let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase), entry.msg)
-     await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     await redisClient.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      } 
      else if ([0].includes(resultadoAtual.numberjson[0])) {
      console.log('ZEROOOOO')
-     let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-     await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     await redisClient.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      } else {
      console.log('RED')  
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
@@ -380,20 +229,20 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
                     console.log('GREEN')
-                    let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    let entry = await rediredisClients.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, entry.msg))                 
-                    await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    await redisClient.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
-                  let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                   entry =  JSON.parse(entry)
                   await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-                  await subscribe.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } else {
                     console.log('RED')
-                    let entry = await subscribe.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
@@ -463,8 +312,8 @@ async function proccedAlert (sygnalBase, string) {
      const replace5 = replace2.replace(/{expect}/g, test.expect)
      const place =  replace5.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1266295662, place)
-     await subscribe.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`))
-     await subscribe.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`, JSON.stringify({
+     await redisClient.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`))
+     await redisClient.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`, JSON.stringify({
           'msg' : msg2
      }),  {
           EX: 5,
@@ -494,14 +343,26 @@ function downNumber (detectString) {
      }
 }
 
-await subscribe.connect()
-await subscribe.subscribe('msg', async (message) => {
-     const strig =  JSON.parse(message); // 'message'
+await redisClient.connect()
+
+amqplib.connect('amqp://myuser:mypassword@localhost:5672', (err, conn) => {
+     if (err) throw err;
+
+conn.createChannel((err, ch2) => {
+     if(err) throw err;
+
+     ch2.assertQueue('msg');
+
+     ch2.consume('msg', async (message) => {
+     if (message !== null) {
+     const msg = message.toString()
+     const strig =  JSON.parse(msg); // 'message'
      console.log(strig.estrategiaDetect, strig.roulleteName)
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          if (!await subscribe.get(`${strig.estrategiaDetect}_${strig.roulleteName}_${'alert_'}`)) {
-          await subscribe.set(`${strig.estrategiaDetect}_${string.roulleteName}_${'alert_'}`, {
+          const get = await redisClient.get(`${strig.estrategiaDetect}_${strig.roulleteName}_${'alert_'}`)
+          if (!get) {
+          await redisClient.set(`${strig.estrategiaDetect}_${string.roulleteName}_${'alert_'}`, {
                "alert" : "alert"
           } , {
                EX: 7,
@@ -512,13 +373,15 @@ await subscribe.subscribe('msg', async (message) => {
                console.log(`--------> Tem uma Alerta em processamento <--------`)     
           }
      }
+     
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`------------------------------------------------------------`)
-          if (!await subscribe.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)) {
+          const get = await redisClient.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)
+          if (!get) {
           const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
-          let alert_ = await subscribe.get((`${estrategiaDetect_}_${strig.roulletName}_${'alert_'}`))
+          let alert_ = await redisClient.get((`${estrategiaDetect_}_${strig.roulletName}_${'alert_'}`))
           alert_ = JSON.parse(alert_)
-          await subscribe.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
+          await redisClient.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
                "payload" : strig,
                "msg" : alert_
           }), 
@@ -527,10 +390,16 @@ await subscribe.subscribe('msg', async (message) => {
                     NX: true
                }
           );
-
           return await proccedRoulletAndSend(strig, string)
           }
+     }
+}  else {
+     console.log('Consumer Cancelled by Server')
 }
+
+     ch2.ack(message);
+}) // RabbitMq and Task
+})
 })
    
 })();

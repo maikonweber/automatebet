@@ -25,3 +25,15 @@ services:
       interval: 3s
       timeout: 5s
       retries: 5
+  rabbitmq3: 
+    container_name: 'rabbitmq'
+    image: "rabbitmq:3-management"
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+    # AMQP protocol port
+    - '25672:25672'
+    # HTTP management UI
+    - '15672:15672'
+    restart: always

@@ -108,7 +108,7 @@ Ultimos Resultados : {last}
 `
 
 function testStrategy(estrategiaDetect, lastNumber) {
-     if(estrategiaDetect.match(/Coluna 1/)) {
+     if (estrategiaDetect.match(/Repetição/g) && estrategiaDetect.match(/Primeira Coluna/g)) {
           console.log('Repetição')
           return { 
                "expect" : "Quebra na Colunas 3 ou 2",
@@ -136,32 +136,32 @@ function testStrategy(estrategiaDetect, lastNumber) {
           return {
                "expect" : "Jogar nos numeros Menores",
                "array" : expectNumber['19 ao 36 Reapeat']()}
-     } else if (estrategiaDetect.match(/Coluna 2/g)) {
+     } else if (estrategiaDetect.match(/Repetição/g) && estrategiaDetect.match(/Segunda Coluna/g)) {
           console.log('Repetição - Coluna 2')
           return {
                "expect" : "Quebra no Coluna 1 ou Coluna 3",
               "array" : expectNumber['Coluna 2 Reapeat']()
           }
-     } else if (estrategiaDetect.match(/Coluna 3/g)) {
+     } else if ((estrategiaDetect.match(/Repetição/g) && estrategiaDetect.match(/Terceira Coluna/g))) {
           console.log('Repetição - Coluna 3')
           return { 
                "expect" : "Quebra na Colunas 2 ou Colunas 1",
                "array" :expectNumber['Coluna 3 Reapeat']()
      }
-     } else if (estrategiaDetect.match(/Bloco 1/g)) {
+     } else if (estrategiaDetect.match(/Repetição/g) && estrategiaDetect.match(/Primeiro Bloco/g)) {
           console.log('Repetição - Bloco 1')
           return { 
                "expect" : "Quebra no Bloco 3 ou Bloco 2",
                 "array"  :  expectNumber['Bloco 1 Reapeat']() 
           }
-     } else if (estrategiaDetect.match(/Bloco 2/g)) {
+     } else if (estrategiaDetect.match(/Repetição/g) && estrategiaDetect.match(/Segundo Bloco/g)) {
           console.log('Repetição - Bloco 2')
           return { 
                "expect" : "Quebra no Bloco 1 ou Bloco 3",
                "array" : expectNumber['Bloco 2 Reapeat']()
           }
      
-     } else if (estrategiaDetect.match(/Bloco 3/g)) {
+     } else if (estrategiaDetect.match(/Repetição/g) && estrategiaDetect.match(/Terceiro Bloco/g)) {
           console.log('Repetição - Bloco 3')
           return {    "expect" : "Quebra no Bloco 1 ou Bloco2",
                     "array" : expectNumber['Bloco 3 Reapeat']()
@@ -177,90 +177,90 @@ function testStrategy(estrategiaDetect, lastNumber) {
                  "expect" : "Jogar nos Vermelhos", 
                  "array" : expectNumber['Red']()
           }
-     } else if (estrategiaDetect.match(/Alternar colunas 2 e 1/g)) {
+     } else if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {
           
           return {
                "expect" : "Quebra na Colunas 3",
                "array" : expectNumber['Alternancia da Coluna 2 e 1']()
           }
-     } else if (estrategiaDetect.match(/Alternar colunas 3 e 2/g)) {
+     } else if (estrategiaDetect.match(/Alternando Terceira e Segunda Colunas/g)) {
           console.log('Não encontrado')
           return {
                "expect" : "Quebra na Colunas 1 ",
                "array" : expectNumber['Alternar colunas 3 e 2']()
           }
-     } else if (estrategiaDetect.match(/Alternar colunas 1 e 3/g)) {
+     } else if (estrategiaDetect.match(/Alternando Primeira e Terceira Colunas/g)) {
           console.log('Não encontrado')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Alternancia da Coluna 1 e 3']()
 
           }
-     } else if (estrategiaDetect.match(/Alternar colunas 1 e 2/g)) {
+     } else if (estrategiaDetect.match(/Alternando Primeira e Segunda Colunas/g)) {
           console.log('Não encontrado')
           return {
                "expect" : "Quebra na Colunas 3",
                "array" : expectNumber['Alternancia da Coluna 1 e 2']()
           }
-     } else if (estrategiaDetect.match(/Alternar colunas 2 e 3/g)) {
+     } else if (estrategiaDetect.match(/Alternar Segunda e Terceira Colunas/g)) {
           console.log('Não encontrado')
           return {
                "expect" : "Quebra na Colunas 1",
                "array" : expectNumber['Alternancia da Coluna 2 e 3']()
           }
 
-     }    else if (estrategiaDetect.match(/Alternar colunas 3 e 1/g)) {
+     }    else if (estrategiaDetect.match(/Alternando Terceira e Primeira Colunas/g)) {
           console.log('Não encontrado')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Alternancia da Coluna 3 e 1']()
           }
           // Ausencia 
-     } else if (estrategiaDetect.match(/Ausencia da Colunas 1/g)) {
+     } else if (estrategiaDetect.match(/Ausencia da Primeira Coluna/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 1",
                "array" : expectNumber['Ausencia da Colunas 1']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 2/g)) {
+     else if (estrategiaDetect.match(/Ausencia da Segunda Coluna/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 2",
                "array" : expectNumber['Ausencia da Colunas 2']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Colunas 3/g)) {
+     else if (estrategiaDetect.match(/Ausencia da Terceira Coluna/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Colunas 3",
                "array" : expectNumber['Ausencia da Colunas 3']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 1 /g)) {
+     else if (estrategiaDetect.match(/Ausencia do Primeiro Bloco /g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Bloco 1",
                "array" : expectNumber['Ausencia da Bloco 1']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 2 /g)) {
+     else if (estrategiaDetect.match(/Ausencia do Segundo Bloco /g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Bloco 2",
                "array" : expectNumber['Ausencia da Bloco 2']()
           }
      }
-     else if (estrategiaDetect.match(/Ausencia da Bloco 3 /g)) {
+     else if (estrategiaDetect.match(/Ausencia do Terceiro Bloco/g)) {
           console.log('Bloco 1')
           return {
                "expect" : "Quebra na Bloco 3",
                "array" : expectNumber['Ausencia da Bloco 3']()
           }
      }
-}
-   
+}   
 
+   
 async function sendMsg(sala, msg, reply) {
           const salaEntity = await client.getEntity(sala)
        

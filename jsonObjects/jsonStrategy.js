@@ -668,10 +668,10 @@ const parOuImpar = {
                return 'Alternando Segunda e Terceira Colunas -  2 vezes';
           },
           '3,2' : () => {
-               return 'Alternando Terceira e Segunda -  2 vezes';
+               return 'Alternando Terceira e Segunda Colunas-  2 vezes';
           },
           '1,2,1' : () => {
-               return 'Alternando Primeira e Segunda -  3 vezes';
+               return 'Alternando Primeira e Segunda Colunas -  3 vezes';
           }
           ,
           '2,1,2,' : () => {
@@ -691,10 +691,10 @@ const parOuImpar = {
           }
           ,
           '3,2,3' : () => {
-               return 'Alternando Segunda e Terceira -  3 vezes';
+               return 'Alternando Segunda e Terceira Colunas -  3 vezes';
           },
           '1,2,1,2' : () => {
-               return 'Alternando Segunda e Terceira - 4 vezes';
+               return 'Alternando Segunda e Terceira Colunas- 4 vezes';
           }
           ,
           '2,1,2,1' : () => {
@@ -742,7 +742,7 @@ const parOuImpar = {
           }
           ,
           '1,2,1,2,1,2' : () => {
-               return 'Alternando Primera  e Segunda  Colunas - 6 vezes';
+               return 'Alternando Primera e Segunda  Colunas - 6 vezes';
           }
           ,
           '2,1,2,1,2,1' : () => {
@@ -762,11 +762,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2' : () => {
-               return 'Alternando Terceira e Segunda - 6 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 6 vezes';
           }
           ,
           '1,2,1,2,1,2,1' : () => {
-               return 'Alternando Primeira e Segunda - 7 vezes';
+               return 'Alternando Primeira e Segunda Colunas - 7 vezes';
           }
           ,
           '2,1,2,1,2,1,2' : () => {
@@ -786,11 +786,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3' : () => {
-               return 'Alternando Terceira e Segunda - 7 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 7 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2' : () => {
-               return 'Alternando Primeira e Segunda - 8 vezes';
+               return 'Alternando Primeira e Segunda Colunas- 8 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1' : () => {
@@ -810,11 +810,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2' : () => {
-               return 'Alternando Terceira e Segunda - 8 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 8 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternando Primeira e Segunda - 9 vezes';
+               return 'Alternando Primeira e Segunda Colunas - 9 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2' : () => {
@@ -858,11 +858,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternando Terceira e Segunda - 12 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 12 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternando Primeira e Segunda - 11 vezes';
+               return 'Alternando Primeira e Segunda Colunas - 11 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2' : () => {
@@ -906,11 +906,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternando Terceira e Segunda - 12 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 12 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternando Primeira e Segunda - 13 vezes';
+               return 'Alternando Primeira e Segunda Colunas- 13 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
@@ -930,11 +930,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternando Terceira e Segunda - 13 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 13 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternando Primeira e Segunda - 14 vezes';
+               return 'Alternando Primeira e Segunda Colunas - 14 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
@@ -954,7 +954,7 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternando Terceira e Segunda - 14 vezes';
+               return 'Alternando Terceira e Segunda Colunas- 14 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
@@ -978,11 +978,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternando Terceira e Segunda - 15 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 15 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternando Primeira e Segunda - 16 vezes';
+               return 'Alternando Primeira e Segunda Colunas- 16 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
@@ -1002,11 +1002,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2' : () => {
-               return 'Alternando Terceira e Segunda - 16 vezes';
+               return 'Alternando Terceira e Segunda Colunas - 16 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
-               return 'Alternando Primeira e Segunda - 17 vezes';
+               return 'Alternando Primeira e Segunda Colunas- 17 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
@@ -1026,11 +1026,11 @@ const parOuImpar = {
           }
           ,
           '3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3' : () => {
-               return 'Alternando Segunda e Terceira - 17 vezes';
+               return 'Alternando Segunda e Terceira Colunas - 17 vezes';
           }
           ,
           '1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2' : () => {
-               return 'Alternando Primeira e Segunda - 18 vezes';
+               return 'Alternando Primeira e Segunda Colunas - 18 vezes';
           }
           ,
           '2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1' : () => {
