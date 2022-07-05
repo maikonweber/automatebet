@@ -1,7 +1,6 @@
 
 
 const { TelegramClient, Api, client } = require("telegram");
-const redis = require('redis');
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
@@ -11,7 +10,8 @@ const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTQBu7jfw1tDzOkH7v
 const { createClient }  = require('redis');
 const testStrategy = require('./functions/testStrategy')
 const expectNumber = require('./jsonObjects/strategy.js');
-const redisClient =  redis.createClient()
+const Redis = require("ioredis");
+const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
 
 
@@ -36,48 +36,46 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Primeira e Segunda Colunas - 4 vezes',
-     'Alternando Segunda e Primeira Colunas - 4 vezes',
-     'Alternando Terceira e Primeira Colunas - 4 vezes',
-     'Alternando Primeira e Terceira Colunas - 4 vezes',
-     'Alternando Segunda e Primeira Colunas - 4 vezes',
-     'Alternando Terceira e Segunda Colunas - 4 vezes',
-     'Repetição de 4 vezes do Primeiro Bloco',
-     'Repitição de 4 vezes do Segundo Bloco',
-     'Repitição de 4 vezes do Terceira Bloco',
-     'Repetição de 4 vezes da Primeira Coluna',
-     'Repetição de 4 vezes da Segunda Coluna',
-     'Repetição de 4 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 6 vezes',
-     'Ausencia da Terceira Coluna - 6 vezes',
-     'Ausencia da Primeira Coluna  - 6 vezes',
-     'Ausencia da Segundo Bloco - 6 vezes',
-     'Ausencia da Terceiro Bloco - 5 vezes',
-     'Ausencia da Primeiro Bloco - 5 vezes',
-     'Ausencia da Primeiro Bloco - 5 vezes'
-
+     'Alternando Primeira e Segunda Colunas - 8 vezes',
+     'Alternando Segunda e Primeira Colunas - 8 vezes',
+     'Alternando Terceira e Primeira Colunas - 8 vezes',
+     'Alternando Primeira e Terceira Colunas - 8 vezes',
+     'Alternando Segunda e Primeira Colunas - 8 vezes',
+     'Alternando Terceira e Segunda Colunas - 8 vezes',
+     'Repetição de 8 vezes do Primeiro Bloco',
+     'Repitição de 8 vezes do Segundo Bloco',
+     'Repitição de 8 vezes do Terceira Bloco',
+     'Repetição de 8 vezes da Primeira Coluna',
+     'Repetição de 8 vezes da Segunda Coluna',
+     'Repetição de 8 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 9 vezes',
+     'Ausencia da Terceira Coluna - 9 vezes',
+     'Ausencia da Primeira Coluna  - 9 vezes',
+     'Ausencia da Segundo Bloco - 9 vezes',
+     'Ausencia da Terceiro Bloco - 9 vezes',
+     'Ausencia da Primeiro Bloco - 9 vezes',
+     'Ausencia da Primeiro Bloco - 9 vezes',
 ]
 
 const spectStrategy = [
-     'Alternando Primeira e Segunda Colunas - 5 vezes',
-     'Alternando Segunda e Primeira Colunas - 5 vezes',
-     'Alternando Terceira e Primeira Colunas - 5 vezes',
-     'Alternando Primeira e Terceira Colunas - 5 vezes',
-     'Alternando Segunda e Primeira Colunas - 5 vezes',
-     'Alternando Terceira e Segunda Colunas - 5 vezes',
-     'Repetição de 4 vezes do Primeiro Bloco',
-     'Repitição de 4 vezes do Segundo Bloco',
-     'Repitição de 4 vezes do Terceira Bloco',
-     'Repetição de 4 vezes da Primeira Coluna',
-     'Repetição de 4 vezes da Segunda Coluna',
-     'Repetição de 4 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 5 vezes ',
-     'Ausencia da Terceira Coluna - 5 vezes ',
-     'Ausencia da Primeira Coluna - 5 vezes ',
-     'Ausencia da Segundo Bloco - 5 vezes ',
-     'Ausencia da Terceiro Bloco - 5 vezes ',
-     'Ausencia da Primeiro Bloco - 5 vezes ',
-     'Ausencia da Primeiro Bloco - 3 vezes'     
+     'Alternando Primeira e Segunda Colunas - 7 vezes',
+     'Alternando Segunda e Primeira Colunas - 7 vezes',
+     'Alternando Terceira e Primeira Colunas - 7 vezes',
+     'Alternando Primeira e Terceira Colunas - 7 vezes',
+     'Alternando Segunda e Primeira Colunas - 7 vezes',
+     'Alternando Terceira e Segunda Colunas - 7 vezes',
+     'Repetição de 7 vezes do Primeiro Bloco',
+     'Repitição de 7 vezes do Segundo Bloco',
+     'Repitição de 7 vezes do Terceira Bloco',
+     'Repetição de 7 vezes da Primeira Coluna',
+     'Repetição de 7 vezes da Segunda Coluna',
+     'Repetição de 7 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 8 vezes ',
+     'Ausencia da Terceira Coluna - 8 vezes ',
+     'Ausencia da Primeira Coluna - 8 vezes ',
+     'Ausencia da Segundo Bloco - 8 vezes ',
+     'Ausencia da Terceiro Bloco - 8 vezes ',
+     'Ausencia da Primeiro Bloco - 8 vezes ',  
 ]
 
 const string = 
@@ -134,26 +132,25 @@ async function sendMsg(sala, msg, reply) {
      }
 }
 
-function proccedRoulletAndSend(sygnalBase, string) {
+async function proccedRoulletAndSend(sygnalBase, string) {
+     console.log('------------ProcessSend-----------------------')
      const replace = stringReplace(string, sygnalBase)
-     return saveMemorySend(sygnalBase, replace) 
+     return await saveMemorySend(sygnalBase, replace) 
 }
           
 async function saveMemorySend(sygnalBase, string) {
-    
-     let alert_ = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
-     alert_ = await JSON.parse(alert_)
-     const msg1 = await sendMsg(-1266295662, string, alert_.msg)
-     await redisClient.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, {
-          "payload" : alert_.payload,
-          'msg' : msg1
-     },  {
-          EX: 7,
-          NX: true
-     })
+     console.log('------------SaveMemory-----------------------')
+     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     console.log(result)
+     let resultado = JSON.parse(result)
+     const msg1 = await sendMsg(-1266295662, string, resultado.msg)
+     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, JSON.stringify({
+               msg : msg1
+          }) ,'EX', 60 * 7).then((result)=> {
+               console.log(result)
+          })  
 
-     
-     consultMemory(sygnalBase, string)
+     await consultMemory(sygnalBase, string)
 }
           
 function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
@@ -181,30 +178,36 @@ function replaceForRed(string, resultadoAtual, sygnalBase) {
 }         
 
 
-function consultMemory (sygnalBase, string) {
-console.log(sygnalBase)
-     setTimeout(async () => {
+async function consultMemory (sygnalBase, string) {
+ console.log('------------ConsultMemory-----------------------')
+
+setTimeout(async () => {
      const { array, expect } = testStrategy(sygnalBase.estrategiaDetect)
      console.log(array)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+ 
      if(array.includes(resultadoAtual.numberjson[0])) {
      console.log('GREEN')
-     let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase), entry.msg)
-     await redisClient.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
-     } 
-     else if ([0].includes(resultadoAtual.numberjson[0])) {
+     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+ 
+} 
+
+else if ([0].includes(resultadoAtual.numberjson[0])) {
+
      console.log('ZEROOOOO')
-     let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-     await redisClient.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
-     } else {
+     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+
+} else {
      console.log('RED')  
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
                     }
-     }, 35000)
+     }, 38000)
 }
 
 /* 
@@ -230,37 +233,38 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
                     console.log('GREEN')
-                    let entry = await rediredisClients.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, entry.msg))                 
-                    await redisClient.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
-                  let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                   entry =  JSON.parse(entry)
                   await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-                  await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  await redis.v4.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } else {
                     console.log('RED')
-                    let entry = await redisClient.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                    let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
-          }, 35000)
+          }, 37000)
      })  
      await PromiseCromprove
 }
           
 function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
+               console.log(estrategiaDetect,  '--------------------')
                const test = testStrategy(estrategiaDetect)
                const last1 = payload.numberjson[0].toString()
                const last2 = payload.numberjson[1].toString()
                const last3 = payload.numberjson[2].toString()
                const last4 = payload.numberjson[3].toString()
                const last = `${last1} | ${last2} | ${last3} | ${last4}`
-               console.log(last)
+     
 
                const replace = string.replace(/{roulleteName}/g, roulleteName)
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
@@ -313,13 +317,14 @@ async function proccedAlert (sygnalBase, string) {
      const replace5 = replace2.replace(/{expect}/g, test.expect)
      const place =  replace5.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1266295662, place)
-     await redisClient.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`))
-     await redisClient.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${'alert_'}`, JSON.stringify({
-          'msg' : msg2
-     }),  {
-          EX: 5,
-          NX: true
+
+     redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
+          console.log(deletex)
      })
+     
+     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`, JSON.stringify({
+          msg : msg2    
+     }) , 'EX', 60 * 7)
 
      return
 }
@@ -344,12 +349,10 @@ function downNumber (detectString) {
      }
 }
 
-await redisClient.connect()
-
-amqplib.connect('amqp://localhost:5672', (err, conn) => {
+amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
      if (err) throw err;
 
-     conn.createChannel((err, ch2) => {
+     conn.createChannel(async (err, ch2) => {
           if(err) throw err;
 
      ch2.assertExchange('msg', 'fanout', {
@@ -364,52 +367,43 @@ amqplib.connect('amqp://localhost:5672', (err, conn) => {
           }
 
      ch2.bindQueue(q.queue, 'msg', '');
-         
 
-     ch2.consume(q.queue, async function(msg) {
-
+ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
      const msgs = msg.content.toString()
      const strig =  JSON.parse(msgs); // 'message'
-     console.log(strig.estrategiaDetect, strig.roulleteName)
+     
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          const get = await redisClient.get(`${strig.estrategiaDetect}_${strig.roulleteName}_${'alert_'}`)
-          if (!get) {
-          await redisClient.set(`${strig.estrategiaDetect}_${string.roulleteName}_${'alert_'}`, {
-               "alert" : "alert"
-          } , {
-               EX: 7,
-               NX: true
-          })
-          return await proccedAlert(strig, possivelAlert)
-          } else {
-               console.log(`--------> Tem uma Alerta em processamento <--------`)     
-          }
+          redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`).then((result) => {
+               if(!result) {
+                    redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`, 'alert', 'EX', 60 * 7).then( async (returns) => {
+                         if(returns) {
+                              return await proccedAlert(strig, possivelAlert)
+                         }
+                    })
+               }
+          })        
      }
      
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-          console.log(`------------------------------------------------------------`)
-          const get = await redisClient.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)
-          if (!get) {
-          const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
-          let alert_ = await redisClient.get((`${estrategiaDetect_}_${strig.roulletName}_${'alert_'}`))
-          alert_ = JSON.parse(alert_)
-          await redisClient.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
-               "payload" : strig,
-               "msg" : alert_
-          }), 
-               {
-                    EX: 7,
-                    NX: true
+          console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
+          redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}`).then(async (result) => {
+               if(!result) {
+               const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
+               console.log(estrategiaDetect_)
+               let resultado = await redis.get(`${estrategiaDetect_}_${strig.roulleteName}_alert`)
+               await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
+                    msg: resultado
+               }), 'EX', 60 * 7)
+
+               return await proccedRoulletAndSend(strig, string)
                }
-          );
-          return await proccedRoulletAndSend(strig, string)
-          }
+          })
+       }
+     }  else {     
+      console.log('Consumer Cancelled by Server')
      }
-}  else {
-     console.log('Consumer Cancelled by Server')
-}
 
 }, {
   noAck: true
