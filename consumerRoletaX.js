@@ -396,7 +396,6 @@ ch2.consume(q.queue, async function(msg) {
                await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
                     msg: resultado
                }), 'EX', 60 * 7)
-
                return await proccedRoulletAndSend(strig, string)
                }
           })
