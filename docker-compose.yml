@@ -17,6 +17,7 @@ services:
       - "5532:5432"
   redis:
     image: redislabs/redismod
+    container_name: 'redis'
     restart: always
     ports:
       - '127.0.0.1:6379:6379/tcp'
@@ -26,6 +27,9 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
       - rabbitmq_go_net
 networks:
