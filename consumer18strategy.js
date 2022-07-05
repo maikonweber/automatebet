@@ -453,24 +453,22 @@ async function regExe(string, objetoRolleta, strategyArg) {
           
           console.log('=========================================================================')
           console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
-          try /*Try Inserte into Sygnal in Database V.0.0.2*/ {
           const objExpect = testStrategy(estrategiaDetect.estrategiaDetect)
-          const insert = await insertSygnal(estrategiaDetect.payload.concat, estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName, objExpect)
-               console.log(insert)
-          } catch (e) {
-               console.log(e)
-          }
           
-          amqplib.connect('amqp://myuser:mypassword@0.0.0.0:25672', (err, conn) => {
+          amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                if (err) throw err;
-         
-          conn.createChannel((err, ch1) => {
-               if(err) throw err;
+               conn.createChannel((err, ch1) => {
+                    if(err) throw err;
+                    
+               ch1.assertExchange('msg', 'fanout', {
+                         durable: false
+                    });
+               ch1.publish('msg', '', Buffer.from(JSON.stringify(estrategiaDetect)));
 
-               ch1.assertQueue(queue, {durable: false});
-               ch1.sendToQueue(queue, Buffer.from(JSON.stringify(estrategiaDetect)))
-               setTimeout(() => {conn.close()}, 100)
-          })
+               setTimeout(function() {
+                    conn.close();
+                     }, 500);
+               })
           })         
      }
 }

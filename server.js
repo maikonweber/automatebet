@@ -78,6 +78,8 @@ app.get('/exportcsv', async (req, res) => {
     }).join('\n')
   }
     for(let i = 0; arrayName.length > i; i++) {
+        const dayResult = await getResultDatabase(arrayName)
+        
       
     }
 

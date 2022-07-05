@@ -25,15 +25,17 @@ services:
       interval: 3s
       timeout: 5s
       retries: 5
-  rabbitmq3: 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
-    image: "rabbitmq:3-management"
-    environment:
-      - RABBITMQ_DEFAULT_USER=myuser
-      - RABBITMQ_DEFAULT_PASS=mypassword
     ports:
-    # AMQP protocol port
-    - '25672:25672'
-    # HTTP management UI
-    - '15672:15672'
-    restart: always
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_go_net
+networks:
+  rabbitmq_go_net:
+    driver: bridge

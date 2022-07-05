@@ -13,9 +13,10 @@ const testStrategy = require('./functions/testStrategy')
 const expectNumber = require('./jsonObjects/strategy.js');
 const redisClient =  redis.createClient()
 const amqplib = require('amqplib/callback_api');
-const queue = 'msg'
+
 
 (async () => {
+
 const roleta = 
      [
           'Roulette',
@@ -345,18 +346,31 @@ function downNumber (detectString) {
 
 await redisClient.connect()
 
-amqplib.connect('amqp://myuser:mypassword@localhost:5672', (err, conn) => {
+amqplib.connect('amqp://localhost:5672', (err, conn) => {
      if (err) throw err;
 
-conn.createChannel((err, ch2) => {
-     if(err) throw err;
+     conn.createChannel((err, ch2) => {
+          if(err) throw err;
 
-     ch2.assertQueue('msg');
+     ch2.assertExchange('msg', 'fanout', {
+               durable: false
+     });
 
-     ch2.consume('msg', async (message) => {
-     if (message !== null) {
-     const msg = message.toString()
-     const strig =  JSON.parse(msg); // 'message'
+     ch2.assertQueue('', {
+          exclusive: true
+        }, function(error2, q) {
+          if (error2) {
+            throw error2;
+          }
+
+     ch2.bindQueue(q.queue, 'msg', '');
+         
+
+     ch2.consume(q.queue, async function(msg) {
+
+     if(msg.content) {
+     const msgs = msg.content.toString()
+     const strig =  JSON.parse(msgs); // 'message'
      console.log(strig.estrategiaDetect, strig.roulleteName)
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
@@ -397,9 +411,12 @@ conn.createChannel((err, ch2) => {
      console.log('Consumer Cancelled by Server')
 }
 
-     ch2.ack(message);
-}) // RabbitMq and Task
-})
+}, {
+  noAck: true
+});
+
+        })
+     })
 })
    
 })();
