@@ -3,7 +3,6 @@ const app = express();
 const port = process.env.PORT || 3055; 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const Blaze = require('./crash');
 
 const {
   checkToken,
@@ -15,14 +14,16 @@ const {
   InsertRoullete,
   getLastNumber18,
   getLastNumber,
-  usersFilters
+  usersFilters,
+  insertCards,
+  getResultDatabase
 } = require('./database');
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-/// Cors 
 
 
 app.post('/api/v1/setblaze', async (req, res) => {
@@ -37,6 +38,56 @@ app.post('/api/v1/setblaze', async (req, res) => {
   await blaze.getEntry()
   res.json('You have set the blaze at ')
 })
+
+app.post('/api/cards', async (req, res) => {
+ const { created, result } = req.body
+  console.log(result)
+ const setLastCard = await insertCards(result)
+ res.send(200)
+})
+
+app.get('/exportcsv', async (req, res) => {
+  const arrayName = [
+    'Turkish_Roulette',
+    'UK_Roulette',
+    'Roulette',
+    'Football_French_Roulette',
+    'Spread_Bet_Roulette',
+    'Greek_Quantum_Roulette',
+    'Deutsches_Roulette',
+    'Speed_Roulette',
+    'Prestige_Roulette',
+    'Mega_Fire_Blaze_Roulette_Live',
+    'Football_Roulette',
+    'Quantum_Roulette_Live',
+    'Greek_Roulette',
+    'Roleta_Brasileira',
+    'Auto_Roulette',
+    'French_Roulette',
+    'Hindi_Roulette',
+    'Roulette_Italiana',
+    'Bucharest_Roulette',
+    'American_Roulette',
+   ]
+  
+  function convertToCSV(arr) {
+    const array = [Object.keys(arr[0])].concat(arr)
+  
+    return array.map(it => {
+      return Object.values(it).toString()
+    }).join('\n')
+  }
+    for(let i = 0; arrayName.length > i; i++) {
+        const dayResult = await getResultDatabase(arrayName)
+        
+      
+    }
+
+  
+    console.log(dayResult)
+    const convertDayResult = convertToCSV(dayResult)
+    res.attachment('dayResult.csv').send(convertDayResult)
+  })
 
 
 app.get('/', (req, res) => {
@@ -86,15 +137,12 @@ app.post('/api/bet365', async (req, res) => {
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
     if (typeof resultado === 'undefined') {
-      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
-      console.log(result.rows, "ID :", name_, number, jsonbStrategy);
+      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);;
       res.json('You have set the blqaze at ')
     } else {
     const lastNumberString = resultado.numberjson.toString()
     const numberJsonString = number.toString()
     console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
-    console.log(lastNumberString, ":: Numbers LastNumber :: Type Of ::", typeof lastNumberString)
-    console.log(lastNumberString === numberJsonString, ':: LastNumber =  NumberJson')
     if (lastNumberString === numberJsonString) {
       console.log('Já existe um número igual ao que está tentando inserir')
       res.json("Numero não inserido")
@@ -163,7 +211,6 @@ app.post('/api/v1/setFilter', async (req, res) => {
   const token = req.headers.token;
 
   console.log(token, ":: Token ::");
-
   console.log(games, ":: User Id ::");
   console.log(string_msg, ":: String Msg ::");
   console.log(string_msg_green, ":: String Msg Green ::");

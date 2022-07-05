@@ -8,29 +8,31 @@ const {
      redReapeat,
      alternateColumns,
      on18or36,
-     
      parOuImpar,
 } = require('./jsonObjects/jsonStrategy.js')
+const queue = 'msg'
+const amqplib = require('amqplib/callback_api');
+const {
+     insertSygnal,
+     updateStrategy,
+     updateStrategyFilter
+} = require('./database')
 
-// Redis
 const redis = require('redis');
 const arrayName = require('./jsonObjects/RoleteNames');
 const jsonRoullete = require('./jsonObjects/jsonOfhtml');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
-     expire: 180
 });
+const testStrategy = require('./functions/testStrategy')
+const expectNumber = require('./jsonObjects/strategy.js');
 
 /*
      @dev Maikon Weber
      @logic Processa o ultimo resultado da rolleta
      e envia para um canal redis   
 */
-
-
-const expectNumber = require('./jsonObjects/strategy.js');
-const { last } = require('cheerio/lib/api/traversing');
 
 clientRedis.connect();
 // get all key in redis
@@ -50,18 +52,6 @@ async function SendMessage(msg) {
           await clientRedis.publish(channel, message);
           return true;      
 }
-
-// (async () => {
-//const client = new TelegramClient(stringSession, apiId, apiHash, {
-  //  connectionRetries: 5,
-  //})
-
-
-
-
-
-
-
 
 async function strategyConsultFor18(newArray)  {
      const columa1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
@@ -166,6 +156,19 @@ async function strategyConsultFor18(newArray)  {
 
 }
 
+function restOfNumber (value, spectNumber, number, string) {
+     const array = new Array(...value)
+
+     for(number; number > 0; number--) {
+          array.pop()
+     }
+     
+     if(!array.includes(spectNumber)) {
+          return `Ausencia da ${string} - ${array.length} vezes `;
+     } 
+     return `Não identificado`;
+}
+
 
 function getStrategy(strategy, value, number){
      // Received the number of element need remove to value array
@@ -179,7 +182,6 @@ function getStrategy(strategy, value, number){
      const StringValue = array.toString()
 
      if(strategy[`${StringValue}`]) {
-     
          return strategy[`${StringValue}`]();
      } 
      return `Não identificado` ;
@@ -196,24 +198,67 @@ async function strategy18Procced (strategy) {
      const stringOneTo18 = strategy.OneTo18s
      const stringParOuImpar = strategy.parOrImpar
 
-
+     
           
      let strategyProced = {
 
      }    
 
-
-
-     //blocosRepeat,
-     //ColunasRepeat,
-     //redReapeat,
-     //on18or36,
-     //parOuImpar,
-     
-
-
      let times = 18
      let array = []
+
+
+
+     //parOuImpar,
+     let arrayColunas1Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.colunas, 1, i, 'Primeira Coluna')
+          arrayColunas1Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayColunas2Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.colunas, 2, i,  'Segunda Coluna')
+          arrayColunas2Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayColunas3Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.colunas, 3, i,  'Terceira Coluna')
+          arrayColunas3Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayBloco1Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.blocos, 1, i, 'Primeiro Bloco')
+          arrayBloco1Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayBloco2Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.blocos, 2, i, 'Segundo Bloco')
+          arrayBloco2Ausencia.push({
+               coluna : value
+          })
+     }
+
+     let arrayBloco3Ausencia = []
+     for(let i = 0; i < times; i++){    
+          let value = restOfNumber(strategy.blocos, 3, i, 'Terceiro Bloco')
+          arrayBloco3Ausencia.push({
+               coluna : value
+          })
+     }
+
+     
      for(let i = 0; i < times; i++) {
           let value = getStrategy(ColunasRepeat, stringColunas, i)
      
@@ -279,8 +324,13 @@ async function strategy18Procced (strategy) {
      strategyProced.colorRepeat = array5
      strategyProced.colunasRepeat = array
      strategyProced.alternateColumns = array7
-
-
+     strategyProced.arrayColunas1Ausencia = arrayColunas1Ausencia
+     strategyProced.arrayColunas2Ausencia = arrayColunas2Ausencia
+     strategyProced.arrayColunas3Ausencia = arrayColunas3Ausencia
+     strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
+     strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
+     strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
+     console.log(strategyProced)
      // Convert array to string
      return strategyProced;
 }
@@ -311,9 +361,118 @@ async function strategyProced (objetoRolleta) {
 
      objetoRolleta.concat = concat
 
-     await SendMessage(objetoRolleta)
-      
+     objetoRolleta.detectStrategy.colunasRepeat.forEach(async (coluna) => {
+          await regExe(coluna.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+          })
+     
+          objetoRolleta.detectStrategy.blocosRepeat.forEach(async (bloco) => {
+          await  regExe(bloco.blocosRepeat, objetoRolleta, objetoRolleta.objsResult.name)
+          })
+     
+          objetoRolleta.detectStrategy.parOrImpar.forEach(async (parImpar) => {
+          await  regExe(parImpar.parOrImpar, objetoRolleta, objetoRolleta.objsResult.name)
+          })
+     
+          objetoRolleta.detectStrategy.minorMajor.forEach(async (minorMajor) => {
+          await  regExe(minorMajor.minorMajor, objetoRolleta, objetoRolleta.objsResult.name) 
+          })
+     
+          objetoRolleta.detectStrategy.alternateColumns.forEach(
+          async (alternateColumns) => {
+               await regExe(alternateColumns.alternateColumns, objetoRolleta, objetoRolleta.objsResult.name)
+          
+          })
+     
+          objetoRolleta.detectStrategy.colorRepeat.forEach(
+               async (color) => {
+                    console.log(color)
+                    await regExe(color.color, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayBloco1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayBloco1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+               )
+
+          objetoRolleta.detectStrategy.arrayBloco1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayColunas1Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+               )
+
+          objetoRolleta.detectStrategy.arrayColunas2Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+          objetoRolleta.detectStrategy.arrayColunas3Ausencia.forEach(
+               async (colunas) => {
+                    await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
+               }
+          )
+
+
+
 }
+
+
+async function regExe(string, objetoRolleta, strategyArg) {
+     // RegEx Nao Intendificado
+     // if true return false
+     const regEx = /Não identificado/g;
+     if (regEx.test(string)) {
+          return false
+     } else {
+        const estrategiaDetect =  {
+              estrategiaDetect : string, 
+              roulleteName : strategyArg, 
+              payload : objetoRolleta,
+              created : new Date().getTime()
+          }
+          
+          const created = estrategiaDetect.created;
+          // Make division mock 1 minutes
+          const mock = created / 1000 / 60;
+          const mockDivision = Math.floor(mock);
+
+          
+          console.log('=========================================================================')
+          console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+          const objExpect = testStrategy(estrategiaDetect.estrategiaDetect)
+          
+          amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
+               if (err) throw err;
+               conn.createChannel((err, ch1) => {
+                    if(err) throw err;
+                    
+               ch1.assertExchange('msg', 'fanout', {
+                         durable: false
+                    });
+               ch1.publish('msg', '', Buffer.from(JSON.stringify(estrategiaDetect)));
+
+               setTimeout(function() {
+                    conn.close();
+                     }, 500);
+               })
+          })         
+     }
+}
+
 
      
 
@@ -383,6 +542,6 @@ setInterval(() => {
           })
      })
 
-}, 15000)
+}, 28000)
 
 })()

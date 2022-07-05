@@ -12,6 +12,12 @@ CREATE TABLE robotBetPayload (
     jsonbStrategy jsonb not null
 );
 
+CREATE TABLE mafia_cards (
+    id serial PRIMARY KEY,
+    lastNumber VARCHAR(1),
+    created TIMESTAMP DEFAULT now()
+)
+
 CREATE TABLE robotBetSygnal (
     id serial primary key,
     number jsonb not null,

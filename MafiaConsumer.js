@@ -5,7 +5,7 @@ const input = require("input"); // npm i input
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
-const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTMBu0hSLIOFbU8aIIxTP3DyN8TpvvFzvhWTNyZpI9ab3wx4v99YYIosj0cYMeDFccmzjoAPIVlVgs/cpb+7J7hoablPmB6hQNqCJJfJgy1RgFy711OSiphW1BqXPaa8wwk2Bib+vWTcyPN88TL87cE2lbRHe/Nm8URGzoybg3HqXC6WFPtaRqpy0QJVgIS3vzxg3VskhnThUsRhVpB7cfi1+08TCCWXN0CzHk9m7Nq37BImjQv0+/xThM+8apPNMRH0Q6gtN7IEehczT0MSeDTG2S3vrmuZiRnR/NvpjP3+fjjRHsP8VzERZXu4nhW+GQL6NuY0KcdtEzHuIyUQPbD+fUM=');
+const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTkBu4wJn7a2aFmB8O1STHkyvsob81Tu2qFA5+xrilx/4dBq7w+Mf8Bmq2fQvbT8RstllplnDHFw2LbwaiVj1Y3uhJrYzYfV75b73Fe3o7B1jZvC3odx3eAefT22iFBK2Lyj6Fk/7XgngubsHBWRd3lmGY1Ly4N7S5bc7n4ncLFEQBQxRXq4WnaHPAUZQ5NEcAJtGjp+0S16OAlEJG2uSXITkUsNSavJg/++ibtGPs3H5CI/6mrNMY4DV3ZWv64EN7Mmp5lKEkVkXXsqIaMDNFIYVXe3u9lysIW6I2Tzsg4T4dPGCMIKhOcq2Ox7/hkCaFkTG5qJaSDdzLyZICMnaFRdLR0=');
 const clientRedis = redis.createClient({
      host: '127.0.0.1',
      port: 6379,
@@ -37,12 +37,12 @@ const roleta =
 const strategyx = [
      'Repetição 11 vezes da Black',
      'Repetição 11 vezes da Red',
-     'Repetiçao de 8 vezes do Bloco 3',
-     'Repetiçao de 8 vezes do Bloco 2',
-     'Repetiçao de 8 vezes do Bloco 1',
-     'Repetiçao de 8 vezes da Coluna 1',
-     'Repetiçao de 8 vezes da Coluna 2',
-     'Repetiçao de 8 vezes da Coluna 3',
+     'Repetição de 8 vezes do Bloco 3',
+     'Repetição de 8 vezes do Bloco 2',
+     'Repetição de 8 vezes do Bloco 1',
+     'Repetição de 8 vezes da Coluna 1',
+     'Repetição de 8 vezes da Coluna 2',
+     'Repetição de 8 vezes da  Coluna 3',
      'Repetição 9 vezes da 1 ou 18',
      'Repetição 9 vezes da 19 ou 36',
      'Impar 12 vezes',
@@ -54,12 +54,12 @@ const spectStrategy = [
      'Repetição 10 vezes da Black',
      'Repetição 8 vezes da 1 ou 18',
      'Repetição 10 vezes da Red',
-     'Repetiçao de 7 vezes do Bloco 3',
-     'Repetiçao de 7 vezes do Bloco 2',
-     'Repetiçao de 7 vezes do Bloco 1',
-     'Repetiçao de 7 vezes da Coluna 1',
-     'Repetiçao de 7 vezes da Coluna 2',
-     'Repetiçao de 7 vezes da Coluna 3',
+     'Repetição de 7 vezes do Bloco 3',
+     'Repetição de 7 vezes do Bloco 2',
+     'Repetição de 7 vezes do Bloco 1',
+     'Repetição de 7 vezes da Coluna 1',
+     'Repetição de 7 vezes da Coluna 2',
+     'Repetição de 7 vezes da Coluna 3',
      'Impar 11 vezes',
      'Par 11 vezes'
 
@@ -237,7 +237,7 @@ async function sendMsg(sala, msg) {
           }
           
           async function saveMemorySend(sygnalBase, string) {
-               clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase),  {
+               await clientRedis.set(`${sygnalBase.roulleteName}_${sygnalBase.estrategiaDetect}`, JSON.stringify(sygnalBase),  {
                     EX: 180,
                     NX: true
                })
@@ -292,6 +292,7 @@ async function sendMsg(sala, msg) {
                       await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase))
                       await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase))
                      }
+                     
                }, 45000)
 
           }
@@ -351,7 +352,7 @@ await client.start({
      const replace5 = replace2.replace(/{expect}/g, expect)
 
     
-     const msg1 = await sendMsg(-1681921748,replace5)
+     await sendMsg(-1681921748,replace5)
      await sendMsg(-1150553286, replace5)
      await sendMsg(-1593932898, replace5)
      
@@ -382,24 +383,23 @@ await sub.subscribe('msg', async (message) => {
      const strig =  JSON.parse(message); // 'message'
      const result = await clientRedis.get(`${strig.roulleteName}_${strig.estrategiaDetect}`)
      if(!result) {
-     console.log('New Strategy')
+      console.log('New Strategy')
      console.log(strig.roulleteName, strig.estrategiaDetect)
+     console.log(!result)
 
-     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes) {
+     if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          proccedAlert(strig, possivelAlert)
+          await proccedAlert(strig, possivelAlert)
           return
      }
 
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('Detect--------------------------------------------------')
-           proccedRoulletAndSend(strig, string3)
+           await proccedRoulletAndSend(strig, string3)
            return 
           }
           return
-     } else {
-          console.log("Nao processado sinal")
-     }
+     } 
 });
    
 })();

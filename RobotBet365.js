@@ -37,10 +37,13 @@ class RoulleteBot {
     console.log('Aguardando Sinal');
     this.page.goto('https://dl-com.c365play.com/live_desktop/');
     console.log('Aguardando Sinal');
-    // take screenshot
-    console.log(this.page.url())
-    await this.page.screenshot({path: 'google.png'});
+    console.log(await this.page.url());
     // take body
+    const body = await this.page.evaluate(() => {
+      return document.body.innerText;
+    });
+    console.log(body);
+
     this.page.waitForTimeout(15000);
     let site  = await this.page.url();
     console.log(site);
@@ -56,6 +59,8 @@ class RoulleteBot {
 
     // });
 
+
+
     const glee = await this.page.evaluate(() => {
         let dophin = document.querySelectorAll('.roulette-historyfOmuwAaXbwHRa3HTIjFP.roulette-history_lobbyDxuTPpg3FmAO6mbqrAe7');
         const glee = []
@@ -65,6 +70,7 @@ class RoulleteBot {
         elefant.forEach(element => {
           element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
           // Get any url in the element
+            
         });
 
         for (let i = 0; i < dophin.length; i++) {
@@ -220,15 +226,13 @@ class RoulleteBot {
 
   async preLoad() {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       defaultViewport: {
         width: 1100,
-        height: 980,
-        dumpio: true
+        height: 980
       },
       args: [
         // '--proxy-server=45.190.249.100:8080',
-
         '--no-sandbox',
         "--window-size=1110,980",
         "--window-position=500,0",
@@ -242,9 +246,7 @@ class RoulleteBot {
     this.page = page
     await this.page.goto(`https://casino.bet365.com/Play/${this.room}`)
     await this.page.waitForTimeout(5000) //https://casino.bet365.com/Play/en-gb/
-    await this.login();
-    
-
+    await this.loginBet365();
 }
 
   async publisher(message) {
@@ -252,14 +254,17 @@ class RoulleteBot {
     client.publish('Bet365', JSON.stringify(message));
   }
 
-  async login() {
+  async loginBet365() {
     await this.page.waitForTimeout(7000) 
     // Get body
+    const bodyHandle = await this.page.$('body');
+    // get innet HTML
+    const bodyHTML = await this.page.evaluate(body => body.innerHTML, bodyHandle);
+    console.log(bodyHTML)
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
     console.log("Try to login");
     let site  = await this.page.url();
-    await this.page.screenshot({path: google.png})
     console.log(site);
     if (username && password) {
       // Clean username
@@ -282,8 +287,13 @@ class RoulleteBot {
 
   async antiIndle( ) {
       await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
-          
   }
+
+  async createNewPage() {
+      const page = await this.browser.newPage()
+        
+  }
+
 }
 
 const bot = new RoulleteBot("Ma128sio4", "maikonweber", 'LiveRoulette');

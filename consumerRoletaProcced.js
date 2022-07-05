@@ -268,18 +268,11 @@ function colunasAlternat(json) {
                 // console.log("-----------------------------------------------------");
 
                 // Make a post with axios for localhost:3000/api/bet365
-                console.log(obj);
+                console.log('Send Request')
           
-                axios.post('https://api.muttercorp.online/api/bet365', obj).then(
-                        res => {
-                           console.log(res.data);
-                        }
-                    ).catch(
-                        err => {
-                            console.log(err);
-                        }
-                    )
-                    
+        
+                await axios.post('http://localhost:3055/api/bet365', obj)
+                await axios.post('https://api.muttercorp.online/api/bet365', obj)
         }
     });
 

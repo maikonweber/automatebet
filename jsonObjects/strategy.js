@@ -100,6 +100,36 @@ const expectNumber = {
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
          return col1
+    },
+    'Ausencia da Colunas 1' : function () {
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34] 
+          return col1   
+    },
+    'Ausencia da Colunas 2' : function () {
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+          return col2
+    },
+    'Ausencia da Colunas 3' : function () {
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+          return col3 
+    },
+    'Ausencia da Bloco 1' : function () {
+     const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+     const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+     const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+          return duzia   
+    },
+    'Ausencia da Bloco 2' : function () {
+     const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+     const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+     const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+          return duzia2   
+    },
+    'Ausencia da Bloco 3' : function () {
+     const duzia = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+     const duzia2  = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+     const duzia3 = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36] 
+     return duzia3   
     }
 }
 
