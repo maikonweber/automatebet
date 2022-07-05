@@ -20,7 +20,7 @@ services:
     container_name: 'redis'
     restart: always
     ports:
-      - '127.0.0.1:6379:6379/tcp'
+      - "6379:6379"
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
