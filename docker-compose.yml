@@ -12,7 +12,6 @@ services:
       - POSTGRES_HOST=localhost
       - POSTGRES_INITDB_ARGS=--locale=en_US.UTF-8
       - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore
-    
     ports:
       - "5532:5432"
   redis:
@@ -26,7 +25,6 @@ services:
       timeout: 5s
       retries: 5
   rabbitmq3: 
-    rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
     ports:
