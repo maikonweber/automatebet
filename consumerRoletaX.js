@@ -42,19 +42,19 @@ const strategyx = [
      'Alternando Primeira e Terceira Colunas - 8 vezes',
      'Alternando Segunda e Primeira Colunas - 8 vezes',
      'Alternando Terceira e Segunda Colunas - 8 vezes',
-     'Repetição de 8 vezes do Primeiro Bloco',
-     'Repitição de 8 vezes do Segundo Bloco',
-     'Repitição de 8 vezes do Terceira Bloco',
-     'Repetição de 8 vezes da Primeira Coluna',
-     'Repetição de 8 vezes da Segunda Coluna',
-     'Repetição de 8 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 9 vezes ',
-     'Ausencia da Terceira Coluna - 9 vezes ',
-     'Ausencia da Primeira Coluna  - 9 vezes ',
-     'Ausencia da Segundo Bloco - 9 vezes ',
-     'Ausencia da Terceiro Bloco - 9 vezes ',
-     'Ausencia da Primeiro Bloco - 9 vezes ',
-     'Ausencia da Primeiro Bloco - 9 vezes ',
+     'Repetição de 9 vezes do Primeiro Bloco',
+     'Repitição de 9 vezes do Segundo Bloco',
+     'Repitição de 9 vezes do Terceira Bloco',
+     'Repetição de 9 vezes da Primeira Coluna',
+     'Repetição de 9 vezes da Segunda Coluna',
+     'Repetição de 9 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 12 vezes ',
+     'Ausencia da Terceira Coluna - 12 vezes ',
+     'Ausencia da Primeira Coluna  - 12 vezes ',
+     'Ausencia da Segundo Bloco - 12 vezes ',
+     'Ausencia da Terceiro Bloco - 12 vezes ',
+     'Ausencia da Primeiro Bloco - 12 vezes ',
+     'Ausencia da Primeiro Bloco - 12 vezes ',
 ]
 
 const spectStrategy = [
@@ -64,19 +64,19 @@ const spectStrategy = [
      'Alternando Primeira e Terceira Colunas - 7 vezes',
      'Alternando Segunda e Primeira Colunas - 7 vezes',
      'Alternando Terceira e Segunda Colunas - 7 vezes',
-     'Repetição de 7 vezes do Primeiro Bloco',
-     'Repitição de 7 vezes do Segundo Bloco',
-     'Repitição de 7 vezes do Terceira Bloco',
-     'Repetição de 7 vezes da Primeira Coluna',
-     'Repetição de 7 vezes da Segunda Coluna',
-     'Repetição de 7 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 8 vezes ',
-     'Ausencia da Terceira Coluna - 8 vezes ',
-     'Ausencia da Primeira Coluna - 8 vezes ',
-     'Ausencia da Segundo Bloco - 8 vezes ',
-     'Ausencia da Terceiro Bloco - 8 vezes ',
-     'Ausencia da Primeiro Bloco - 8 vezes ',
-     'Ausencia da Primeiro Bloco - 8 vezes ',
+     'Repetição de 8 vezes do Primeiro Bloco',
+     'Repitição de 8 vezes do Segundo Bloco',
+     'Repitição de 8 vezes do Terceira Bloco',
+     'Repetição de 8 vezes da Primeira Coluna',
+     'Repetição de 8 vezes da Segunda Coluna',
+     'Repetição de 8 vezes da Terceira Coluna',
+     'Ausencia da Segunda Coluna - 11 vezes ',
+     'Ausencia da Terceira Coluna - 11 vezes ',
+     'Ausencia da Primeira Coluna - 11 vezes ',
+     'Ausencia da Segundo Bloco - 11 vezes ',
+     'Ausencia da Terceiro Bloco - 11 vezes ',
+     'Ausencia da Primeiro Bloco - 11 vezes ',
+     'Ausencia da Primeiro Bloco - 11 vezes ',
 ]
 
 const string = 
@@ -141,10 +141,7 @@ async function proccedRoulletAndSend(sygnalBase, string) {
           
 async function saveMemorySend(sygnalBase, string) {
      console.log('------------SaveMemory-----------------------')
-     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
-     console.log(result)
-     let resultado = JSON.parse(result)
-     const msg1 = await sendMsg(-1266295662, string, resultado.msg)
+     const msg1 = await sendMsg(-1266295662, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, JSON.stringify({
                msg : msg1
           }) ,'EX', 60 * 7).then((result)=> {
@@ -171,7 +168,7 @@ function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
 }
 
 function replaceForRed(string, resultadoAtual, sygnalBase) {
-               const replace = string.replace(/✅ GREEN ✅/g, '🔴 Desta Vez Não Deu! Mas vamos Insistir faz um Martigale 🔴')
+               const replace = string.replace(/✅ GREEN ✅/g, '🔴  RED 🔴')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
                const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
@@ -395,13 +392,6 @@ ch2.consume(q.queue, async function(msg) {
           console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
           redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}`).then(async (result) => {
                if(!result) {
-               const estrategiaDetect_ = downNumber(strig.estrategiaDetect) //Esrever esta funçao
-               let resultado = await redis.get(`${estrategiaDetect_}_${strig.roulleteName}_alert`)
-               console.log(resultado)
-               await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}`, JSON.stringify({
-                    msg: resultado
-               }), 'EX', 60 * 7)
-
                return await proccedRoulletAndSend(strig, string)
                }
           })
