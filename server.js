@@ -46,6 +46,12 @@ app.post('/api/cards', async (req, res) => {
  res.send(200)
 })
 
+app.get('/api', async (req, res) => {
+  console.log(result)
+  res.send('Hello')
+})
+
+
 app.get('/exportcsv', async (req, res) => {
   const arrayName = [
     'Turkish_Roulette',
