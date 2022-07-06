@@ -47,7 +47,6 @@ app.post('/api/cards', async (req, res) => {
 })
 
 app.get('/api', async (req, res) => {
-  console.log(result)
   res.send('Hello')
 })
 
