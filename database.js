@@ -252,7 +252,7 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
 }
 
 async function getResultDatabase(name) {
-    let query = `Select numberjson, created, name, id 
+    let query = `Select numberjson[1], created, name, id 
                 FROM robotbetpayload
                 WHERE name  ~ $1
                 AND created BETWEEN now() - interval '1 day' AND now()
