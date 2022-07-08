@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3055; 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const exceljs = require('exceljs')
 
 const {
   checkToken,
@@ -74,24 +75,29 @@ app.get('/exportcsv', async (req, res) => {
     'Bucharest_Roulette',
     'American_Roulette',
    ]
-  
-  function convertToCSV(arr) {
-    const array = [Object.keys(arr[0])].concat(arr)
-  
-    return array.map(it => {
-      return Object.values(it).toString()
-    }).join('\n')
-  }
-    obj = {}
-    for(let i = 0; arrayName.length > i; i++) {
-        const dayResult = await getResultDatabase(arrayName)
-        obj.arrayName[i] = dayResult 
-    }
+   const worksheet = new exceljs.Workbook();
 
-    
-    console.log(dayResult)
-    const convertDayResult = convertToCSV(dayResult)
-    res.attachment('dayResult.csv').send(convertDayResult)
+   for(i = 0; arrayName.length > i; i++) {
+    const getResult = getResultDatabase(arrayName[i])
+    const sheet = worksheet.addWorksheet(arrayName[i])
+    sheet.columns = [
+      { header: 'resultado', key : 'resuldado'},
+      { header: 'Roleta', key: 'Roleta' },
+      { header: 'created', key: 'created'}
+    ]
+
+    for(i = 0; getResult.length > i; i++) {
+      sheet.addRow({
+        resultado : getResult[i].numberJson,
+        Roleta: getResult[i].name,
+        created: getResult[i].created
+      })
+    }
+  }
+
+    let xlsx = worksheet.xlsx.writeFile('roleta.xlsx')
+  
+    res.attachment('roletaxlsv.xlsx').send(xlsx)
   })
 
 
