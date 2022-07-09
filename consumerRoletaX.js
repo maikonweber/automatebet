@@ -80,35 +80,29 @@ const spectStrategy = [
 ]
 
 const string = 
-`✅ ENTRADA CONFIRMADA ✅
-🎰 ROLETA: {roulleteName}
-💎 ESTRATÉGIA: {strategyName}
-Ultimos Numeros : {last}
-✅ENTRAR: {expect}
-🎯COBRIR O ZERO`
-
-
-const string2 = 
 `
-✅ ENTRADA CONFIRMADA ✅
-🎰 Roleta 🎰: {roulleteName}
-💎 ESTRATÉGIA: {strategyName}
-LastNumber : {last}
-👉🏻 Entrada 👈🏻: : {expect}
-🎯 Cobrir o zero'
+🔔ENTRADA CONFIRMADA🔔
+🎰Roleta 🎰: {roulleteName}
+💎Estratégia💎: {strategyName}
+✅Entrada: {expect}
+🔂GALE: {expect}
+{last}
+0️⃣COBRIR ZERO
 `
 
 const possivelAlert = `⚠️POSSÍVEL ENTRADA⚠️
-
-🎰 ROLETA: {roulleteName}
-💎 ESTRATÉGIA: {strategyName}`
-
-
-const stringred = `
 🎰 Roleta 🎰: {roulleteName}
-🚀 Estratégia 🚀: {strategyName}
-Ultimos Resultados : {last}
-✅ GREEN ✅
+💎Estratégia💎: {strategyName}`
+
+
+const stringreen = `
+✅✅✅ GREEN, META BATIDA!
+{last}
+`
+
+const srtingred = `
+✖️ RED, SEGUE A GESTÃO!
+{last}
 `
 
 
@@ -152,7 +146,7 @@ async function saveMemorySend(sygnalBase, string) {
 }
           
 function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
-               if(!zero) {
+          if(!zero) {
                const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
                const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
                const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
@@ -189,7 +183,7 @@ setTimeout(async () => {
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
  
-     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase), entry.msg)
+     await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
  
      await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
  
@@ -201,13 +195,17 @@ else if ([0].includes(resultadoAtual.numberjson[0])) {
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
 
-     await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
+     await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
      await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
 
 } else {
      console.log('RED')  
-     await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
-                    }
+     //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
+     console.log('RED')
+     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     entry =  JSON.parse(entry)
+     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)    
+}
      }, 35000)
 }
 
