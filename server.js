@@ -74,6 +74,7 @@ app.get('/exportcsv', async (req, res) => {
     'Bucharest_Roulette',
     'American_Roulette',
    ]
+
    const worksheet = new exceljs.Workbook();
 
    for(i = 0; arrayName.length > i; i++) {
@@ -87,7 +88,7 @@ app.get('/exportcsv', async (req, res) => {
 
     for(i = 0; getResult.length > i; i++) {
       sheet.addRow({
-        resultado : getResult[i].numberJson,
+        resultado : getResult[i].numberjson,
         Roleta: getResult[i].name,
         created: getResult[i].created
       })
