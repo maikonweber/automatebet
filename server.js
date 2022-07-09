@@ -93,13 +93,11 @@ app.get('/exportcsv', async (req, res) => {
         created: getResult[i].created
       })
     }
-    let xlsx = sheet.worksheet.xlsx.writeFile('roleta.xlsx')
-    console.log(xlsx)
-    res.attachment('roleta.xlsx').send(xlsx)
   }
     
-    
-   
+    let xlsx = worksheet.xlsx.writeFile('roleta.xlsx')
+    console.log(xlsx)
+    res.attachment('roleta.xlsx').send(xlsx)
   })
 
 
