@@ -55,7 +55,6 @@ app.get('/api', async (req, res) => {
 app.get('/exportcsv', async (req, res) => {
   const arrayName = [
     'Turkish_Roulette',
-    'Roulette',
     'Football_French_Roulette',
     'Spread_Bet_Roulette',
     'Greek_Quantum_Roulette',
