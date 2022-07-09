@@ -85,15 +85,6 @@ app.get('/exportcsv', async (req, res) => {
       { header: 'Roleta', key: 'Roleta' },
       { header: 'created', key: 'created'}
     ]
-
-    for(i = 0; getResult.length > i; i++) {
-      sheet.addRow({
-        resultado : getResult[i].numberjson,
-        Roleta: getResult[i].name,
-        created: getResult[i].created
-      })
-     var xlsx = await sheet.workbook.writeFile('export.xlsx')
-    }
   }
     
     let xlsx = worksheet.xlsx.writeFile('export.xlsx');
