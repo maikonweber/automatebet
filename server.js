@@ -80,7 +80,6 @@ app.get('/exportcsv', async (req, res) => {
    for(i = 0; arrayName.length > i; i++) {
     const getResult = getResultDatabase(arrayName[i])
     const sheet = worksheet.addWorksheet(arrayName[i])
-    console.log(sheet)
     sheet.columns = [
       { header: 'resultado', key : 'resuldado'},
       { header: 'Roleta', key: 'Roleta' },
@@ -94,11 +93,13 @@ app.get('/exportcsv', async (req, res) => {
         created: getResult[i].created
       })
     }
-  }
-    
-    let xlsx = worksheet.xlsx.writeFile('roleta.xlsx')
+    let xlsx = sheet.worksheet.xlsx.writeFile('roleta.xlsx')
     console.log(xlsx)
     res.attachment('roleta.xlsx').send(xlsx)
+  }
+    
+    
+   
   })
 
 
