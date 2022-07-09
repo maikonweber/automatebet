@@ -262,7 +262,6 @@ async function getResultDatabase(name) {
     result.rows.forEach((element) => {
         element.numberjson = element.numberjson[0]
     })
-    console.log(result.rows)
     return result.rows
    
 }
