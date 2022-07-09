@@ -92,6 +92,7 @@ app.get('/exportcsv', async (req, res) => {
         Roleta: getResult[i].name,
         created: getResult[i].created
       })
+     var xlsx = await sheet.workbook.writeFile('export.xlsx')
     }
   }
     
