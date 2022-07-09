@@ -100,7 +100,7 @@ const stringreen = `
 {last}
 `
 
-const srtingred = `
+const stringred = `
 ✖️ RED, SEGUE A GESTÃO!
 {last}
 `
