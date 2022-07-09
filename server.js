@@ -95,7 +95,7 @@ app.get('/exportcsv', async (req, res) => {
     }
   }
     
-    res.attachment('roleta.xlsx').send(worksheet.xlsx.writeFile('export.xlsx');
+    res.attachment('roleta.xlsx').send(worksheet.xlsx.writeFile('export.xlsx'));
   })
 
 
