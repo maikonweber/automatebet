@@ -55,6 +55,7 @@ app.get('/api', async (req, res) => {
 app.get('/exportcsv', async (req, res) => {
   const arrayName = [
     'Turkish_Roulette',
+    'Roulette',
     'Football_French_Roulette',
     'Spread_Bet_Roulette',
     'Greek_Quantum_Roulette',
@@ -94,7 +95,9 @@ app.get('/exportcsv', async (req, res) => {
     }
   }
     
-    res.attachment('roleta.xlsx').send(worksheet.xlsx.writeFile('export.xlsx'));
+    let xlsx = worksheet.xlsx.writeFile('export.xlsx');
+    console.log(xlsx)
+    res.attachment('roleta.xlsx').send(xlsx)
   })
 
 
