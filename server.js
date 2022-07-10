@@ -79,15 +79,23 @@ app.get('/exportcsv', async (req, res) => {
 
    for(i = 0; arrayName.length > i; i++) {
     const getResult = getResultDatabase(arrayName[i])
-    const sheet = worksheet.addWorksheet(arrayName[i])
+    const sheet =  worksheet.addWorksheet(arrayName[i])
     sheet.columns = [
       { header: 'resultado', key : 'resuldado'},
       { header: 'Roleta', key: 'Roleta' },
       { header: 'created', key: 'created'}
     ]
+
+    for(i = 0; getResult.length > i; i++) {
+      sheet.addRow({
+        resultado : getResult[i].numberjson,
+        Roleta: getResult[i].name,
+        created: getResult[i].created
+      })
+    }
   }
     
-    let xlsx = worksheet.xlsx.writeFile('export.xlsx');
+    let xlsx = await worksheet.xlsx.writeFile('export.xlsx');
     console.log(xlsx)
     res.attachment('roleta.xlsx').send(xlsx)
   })
