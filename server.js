@@ -78,8 +78,8 @@ app.get('/exportcsv', async (req, res) => {
    const worksheet = new exceljs.Workbook();
 
    for(i = 0; arrayName.length > i; i++) {
-    const getResult = getResultDatabase(arrayName[i])
-    const sheet =  worksheet.addWorksheet(arrayName[i])
+    let getResult = getResultDatabase(arrayName[i])
+    let sheet =  worksheet.addWorksheet(arrayName[i])
     sheet.columns = [
       { header: 'resultado', key : 'resuldado'},
       { header: 'Roleta', key: 'Roleta' },
