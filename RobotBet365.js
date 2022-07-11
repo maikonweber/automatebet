@@ -44,7 +44,7 @@ class RoulleteBot {
     });
     console.log(body);
 
-    this.page.waitForTimeout(15000);
+    this.page.waitForTimeout(5000);
     let site  = await this.page.url();
     console.log(site);
 
@@ -260,12 +260,13 @@ class RoulleteBot {
     const bodyHandle = await this.page.$('body');
     // get innet HTML
     const bodyHTML = await this.page.evaluate(body => body.innerHTML, bodyHandle);
-    console.log(bodyHTML)
+    await this.page.waitForTimeout(7000)       
     const username = await this.page.waitForSelector('#txtUsername');
     const password = await this.page.waitForSelector('#txtPassword');
+    
     console.log("Try to login");
-    let site  = await this.page.url();
-    console.log(site);
+
+
     if (username && password) {
       // Clean username
        // Clear the input field
@@ -286,7 +287,7 @@ class RoulleteBot {
   }
 
   async antiIndle( ) {
-      await this.page.waitForTimeout(15000) //https://casino.bet365.com/Play/en-gb/
+      await this.page.waitForTimeout(5000) //https://casino.bet365.com/Play/en-gb/
   }
 
   async createNewPage() {

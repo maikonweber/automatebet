@@ -13,7 +13,7 @@ puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
 const browser = await puppeteer.launch({
-     headless: true,
+     headless: false,
      defaultViewport: {
        width: 1100,
        height: 980
@@ -110,30 +110,24 @@ const away = {
 setInterval( async () => {
   const label = await page.waitForSelector('.text--27a51')
   const value = await label.evaluate(el => el.textContent);
+
   
   if (AWAY.test(value)) {
     console.log('detect')
-    return await axios.post('https://api.muttercorp.online/api/cards', away)
+    await axios.post('https://api.muttercorp.online/api/cards', away)
+    return await page.reload()    
   } else if (HOME.test(value)) {
     console.log('detect')
-    return await axios.post('https://api.muttercorp.online/api/cards', home)
+    await axios.post('https://api.muttercorp.online/api/cards', home)
+    return await page.reload()    
   } else if (DRAW.test(value)) {
     console.log('detect')
-    return await axios.post('https://api.muttercorp.online/api/cards', draw)
+    await axios.post('https://api.muttercorp.online/api/cards', draw)
+    return await page.reload()    
   } else {
-      console.log('No sygnal')
+
   }
+},  1000)
 
-  const p = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(true)
-    }, 1500)  
-  })
-
-}, 1500)
-
-setInterval(()=> {
-  page.reload()
-}, 45000)
 
 })()

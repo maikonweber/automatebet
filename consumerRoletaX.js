@@ -135,6 +135,9 @@ async function proccedRoulletAndSend(sygnalBase, string) {
           
 async function saveMemorySend(sygnalBase, string) {
      console.log('------------SaveMemory-----------------------')
+
+     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     if(!result) {
      const msg1 = await sendMsg(-1266295662, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, JSON.stringify({
                msg : msg1
@@ -143,6 +146,9 @@ async function saveMemorySend(sygnalBase, string) {
           })  
 
      await consultMemory(sygnalBase, string)
+     } else {
+          console.log('result process')
+     }
 }
           
 function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {

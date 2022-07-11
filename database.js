@@ -266,6 +266,16 @@ async function getResultDatabase(name) {
    
 }
 
+async function getCards(number) { 
+    let query = `
+        Select lastnumber from mafia_cards
+        Order by created limit $1;
+    `
+    let result = await pool.query(query, [number])
+
+    return result.rows
+}
+
 async function getUsersFilter (email) {
     let query = `With d as 
     (Select id, email
@@ -336,6 +346,7 @@ module.exports = {
     updateStrategy,
     updateStrategyFilter,
     insertCards,
+    getCards,
     getResultDatabase
 }
 
