@@ -394,12 +394,10 @@ ch2.consume(q.queue, async function(msg) {
      
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
-          redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}`).then(async (result) => {
-               if(!result) {
-               return await proccedRoulletAndSend(strig, string)
-               }
-          })
-       }
+         const result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)
+          if (!result) { 
+
+          return await proccedRoulletAndSend(strig, string)    
      }  else {     
       console.log('Consumer Cancelled by Server')
      }
