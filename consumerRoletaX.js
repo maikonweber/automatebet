@@ -396,12 +396,14 @@ ch2.consume(q.queue, async function(msg) {
           console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
          const result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)
           if (!result) { 
-
-          return await proccedRoulletAndSend(strig, string)    
+               return await proccedRoulletAndSend(strig, string)    
+          } else {
+               console.log('stack')
+          }
      }  else {     
       console.log('Consumer Cancelled by Server')
      }
-
+     }
 }, {
   noAck: true
 });
