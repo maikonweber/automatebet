@@ -13,5 +13,11 @@ module.exports = {
     name : "telegramOldConsumer",
     script: "consumerRoletaX.js"
   },
+  {
+    name: 'cards',
+    script: 'scrapperRobotCard.js',
+    restartDelay: 1000 * 60 * 30  
+  }
+
 ],
 };
