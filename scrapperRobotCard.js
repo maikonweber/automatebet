@@ -22,7 +22,9 @@ const browser = await puppeteer.launch({
      args: [
        "--no-sandbox",
        "--window-size=920,680",
-       "--window-position=500,0"   
+       "--window-position=500,0",
+       '--disable-extensions',
+       '--use-gl=egl',
      ],  
    });
    const page = await browser.newPage()
