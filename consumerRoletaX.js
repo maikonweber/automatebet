@@ -209,7 +209,7 @@ else if ([0].includes(resultadoAtual.numberjson[0])) {
      console.log('RED')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
-     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)    
+     await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
 }
      }, 35000)
 }
@@ -220,17 +220,17 @@ else if ([0].includes(resultadoAtual.numberjson[0])) {
      @params : fuctions closures
 */
 
-async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase) {
+async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase) {
      let {
           array,
           expect
      } = testStrategy(sygnalBase.estrategiaDetect)
-     await sendMsg(-1266295662, `
-     Executa o Martingale
-     🎰 Roleta 🎰 ${sygnalBase.roulleteName},
-     👉🏻 Entrada 👈🏻: ${expect} 
-     🎯 Cobrir o zero'
-      ` )
+     //await sendMsg(-1266295662, `
+     //Executa o Martingale
+    // 🎰 Roleta 🎰 ${sygnalBase.roulleteName},
+    // 👉🏻 Entrada 👈🏻: ${expect} 
+     //🎯 Cobrir o zero'
+      //` )
       
      const PromiseCromprove = new Promise(() => {
           setTimeout(async () => {
@@ -239,20 +239,21 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sy
                     console.log('GREEN')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
-                    await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, entry.msg))                 
+                    await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
                     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
                   let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                   entry =  JSON.parse(entry)
-                  await sendMsg(-1266295662, replaceForGreen(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-                  await redis.v4.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
+                  await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                } else {
                     console.log('RED')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
+                    await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                }
           }, 35000)
      })  
