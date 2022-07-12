@@ -80,9 +80,8 @@ app.get('/exportcsv', async (req, res) => {
   }
     
    await worksheet.xlsx.writeFile('export2.xlsx')
-  const file = `${__dirname}/export2.xlsx`
-    console.log(xlsx)
-    res.attachment('roleta.xlsx').send(file)
+    const file = `${__dirname}/export2.xlsx`
+   await res.attachment('roleta.xlsx').send(file)
   })
 
 
