@@ -161,11 +161,11 @@ function restOfNumber (value, spectNumber, number, string) {
      const array1 = new Array(...value)
 
      for(number; number > 0; number--) {
-          array.pop()
+          array1.pop()
      }
      
-     if(!array.includes(spectNumber)) {
-          return `Ausencia da ${string} - ${array.length} vezes `;
+     if(!array1.includes(spectNumber)) {
+          return `Ausencia da ${string} - ${array1.length} vezes `;
      } 
      return `Não identificado`;
 }
@@ -178,7 +178,7 @@ function getStrategy(strategy, value, number){
      const array2 = new Array(...value)  // Copy the array     
      // remove the element from the array
      for(number; number > 0; number--) {
-          array.pop()     
+          array2.pop()     
      }
      const StringValue = array2.toString()
 
