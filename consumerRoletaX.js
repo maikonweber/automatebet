@@ -36,7 +36,6 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Primeira e Segunda Colunas - 8 vezes',
      'Alternando Segunda e Primeira Colunas - 8 vezes',
      'Alternando Terceira e Primeira Colunas - 8 vezes',
      'Alternando Primeira e Terceira Colunas - 8 vezes',
