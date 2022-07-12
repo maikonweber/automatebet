@@ -10,6 +10,7 @@ const {
      on18or36,
      parOuImpar,
 } = require('./jsonObjects/jsonStrategy.js')
+
 const queue = 'msg'
 const amqplib = require('amqplib/callback_api');
 const {
@@ -157,7 +158,7 @@ async function strategyConsultFor18(newArray)  {
 }
 
 function restOfNumber (value, spectNumber, number, string) {
-     const array = new Array(...value)
+     const array1 = new Array(...value)
 
      for(number; number > 0; number--) {
           array.pop()
@@ -174,14 +175,15 @@ function getStrategy(strategy, value, number){
      // Received the number of element need remove to value array
      // Return the array with the element removed
 
-     const array = new Array(...value)  // Copy the array     
+     const array2 = new Array(...value)  // Copy the array     
      // remove the element from the array
      for(number; number > 0; number--) {
           array.pop()     
      }
-     const StringValue = array.toString()
+     const StringValue = array2.toString()
 
      if(strategy[`${StringValue}`]) {
+          console.log(strategy[`${StringValue}`]())
          return strategy[`${StringValue}`]();
      } 
      return `Não identificado` ;
