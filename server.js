@@ -54,7 +54,7 @@ app.get('/api', async (req, res) => {
 
 app.get('/exportcsv', async (req, res) => {
   const arrayName = [
-    'Turkish_Roulette,
+    'Turkish_Roulette',
    ]
 
    const worksheet = new exceljs.Workbook();
