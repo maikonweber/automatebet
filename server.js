@@ -79,8 +79,10 @@ app.get('/exportcsv', async (req, res) => {
     }
   }
     
-    let xlsx = await worksheet.xlsx.writeFile('export.xlsx');
-    const file = `${__dirname}/export.xlsx`
+    worksheet.xlsx.writeFile('export.xlsx').then((file) => {
+        
+    });
+const file = `${__dirname}/export.xlsx`
     console.log(xlsx)
     res.attachment('roleta.xlsx').send(file)
   })

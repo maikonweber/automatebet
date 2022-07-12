@@ -88,7 +88,7 @@ const stringreen = `
 `
 
 const stringred = `
-✖️ RED,!
+✖️ RED!
 {last}
 `
 
@@ -123,10 +123,10 @@ async function proccedRoulletAndSend(sygnalBase, string) {
 async function saveMemorySend(sygnalBase, string) {
      console.log('------------SaveMemory-----------------------')
 
-     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)
      if(!result) {
      const msg1 = await sendMsg(-1267429660, string)
-     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, JSON.stringify({
+     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`, JSON.stringify({
                msg : msg1
           }) ,'EX', 60 * 7).then((result)=> {
                console.log(result)
@@ -173,31 +173,32 @@ setTimeout(async () => {
  
      if(array.includes(resultadoAtual.numberjson[0])) {
      console.log('GREEN')
-     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)
      entry =  JSON.parse(entry)
  
      await sendMsg(-1267429660, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
  
-     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)
  
 } 
 
 else if ([0].includes(resultadoAtual.numberjson[0])) {
 
      console.log('ZEROOOOO')
-     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)
      entry =  JSON.parse(entry)
 
      await sendMsg(-1267429660, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)
 
 } else {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
      console.log('RED')
-     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)
      entry =  JSON.parse(entry)
-     await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
+     await sendMsg(-1267429660, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
+                    await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_mafia`)    
 }
      }, 35000)
 }
@@ -311,11 +312,11 @@ async function proccedAlert (sygnalBase, string) {
      const place =  replace5.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1267429660, place)
 
-     redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
+     redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_mafia`)).then((deletex) => {
           console.log(deletex)
      })
      
-     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`, JSON.stringify({
+     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_mafia`, JSON.stringify({
           msg : msg2    
      }) , 'EX', 60 * 7)
 
@@ -371,7 +372,7 @@ ch2.consume(q.queue, async function(msg) {
           console.log('-------------------ALERT-------------------')
           redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`).then((result) => {
                if(!result) {
-                    redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`, 'alert', 'EX', 60 * 7).then( async (returns) => {
+                    redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_mafia`, 'alert', 'EX', 60 * 7).then( async (returns) => {
                          if(returns) {
                               return await proccedAlert(strig, possivelAlert)
                          }
@@ -382,7 +383,7 @@ ch2.consume(q.queue, async function(msg) {
      
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
-         const result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}`)
+         const result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_mafia`)
           if (!result) { 
                return await proccedRoulletAndSend(strig, string)    
           } else {
