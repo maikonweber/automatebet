@@ -4,6 +4,8 @@ const port = process.env.PORT || 3055;
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const exceljs = require('exceljs')
+const fs = require('fs')
+const path = require('path')
 
 const {
   checkToken,
@@ -78,8 +80,9 @@ app.get('/exportcsv', async (req, res) => {
   }
     
     let xlsx = await worksheet.xlsx.writeFile('export.xlsx');
+    const file = `${__dirname}/export.xlsx`
     console.log(xlsx)
-    res.attachment('roleta.xlsx').send(xlsx)
+    res.attachment('roleta.xlsx').send(file)
   })
 
 
