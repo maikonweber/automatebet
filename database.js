@@ -259,9 +259,6 @@ async function getResultDatabase(name) {
                 Order by created desc;`
 
     let result = await pool.query(query, [name])
-    result.rows.forEach((element) => {
-        element.numberjson = element.numberjson[0]
-    })
     return result.rows
    
 }

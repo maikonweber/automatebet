@@ -73,7 +73,7 @@ app.get('/exportcsv', async (req, res) => {
 
     for(i = 0; getResult.length > i; i++) {
       sheet.addRow({
-        resultado : getResult[i].numberjson,
+        resultado : getResult[i].numberjson[0],
         Roleta: getResult[i].name,
         created: getResult[i].created
       })
