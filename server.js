@@ -63,6 +63,7 @@ app.get('/exportcsv', async (req, res) => {
 
    for(i = 0; arrayName.length > i; i++) {
     let getResult = await getResultDatabase(arrayName[i])
+    console.log(getResult)
     let sheet =  worksheet.addWorksheet(arrayName[i])
     sheet.columns = [
       { header: 'resultado', key : 'resuldado'},
@@ -72,7 +73,7 @@ app.get('/exportcsv', async (req, res) => {
 
     for(i = 0; getResult.length > i; i++) {
       sheet.addRow({
-        resultado : getResult[i].numberjson,
+        resultado : getResult[i].number,
         Roleta: getResult[i].name,
         created: getResult[i].created
       })
