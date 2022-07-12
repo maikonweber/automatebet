@@ -66,14 +66,14 @@ app.get('/exportcsv', async (req, res) => {
     console.log(getResult)
     let sheet =  worksheet.addWorksheet(arrayName[i])
     sheet.columns = [
-      { header: 'resultado', key : 'resuldado'},
+      { header: 'resultado', key : 'resultado'},
       { header: 'Roleta', key: 'Roleta' },
       { header: 'created', key: 'created'}
     ]
 
     for(i = 0; getResult.length > i; i++) {
       sheet.addRow({
-        resultado : getResult[i].number,
+        resultado : getResult[i].numberjson,
         Roleta: getResult[i].name,
         created: getResult[i].created
       })
