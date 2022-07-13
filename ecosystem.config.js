@@ -18,6 +18,5 @@ module.exports = {
     script: 'scrapperRobotCard.js',
     restartDelay: 1000 * 60 * 30  
   }
-
 ],
 };

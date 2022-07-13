@@ -36,11 +36,11 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Segunda e Primeira Colunas - 8 vezes',
-     'Alternando Terceira e Primeira Colunas - 8 vezes',
-     'Alternando Primeira e Terceira Colunas - 8 vezes',
-     'Alternando Segunda e Primeira Colunas - 8 vezes',
-     'Alternando Terceira e Segunda Colunas - 8 vezes',
+     'Alternando Segunda e Primeira Colunas - 5 vezes',
+     'Alternando Terceira e Primeira Colunas - 5 vezes',
+     'Alternando Primeira e Terceira Colunas - 5 vezes',
+     'Alternando Segunda e Primeira Colunas - 5 vezes',
+     'Alternando Terceira e Segunda Colunas - 5 vezes',
    //  'Repetição de 9 vezes do Primeiro Bloco',
    //  'Repitição de 9 vezes do Segundo Bloco',
     // 'Repitição de 9 vezes do Terceira Bloco',
@@ -57,12 +57,12 @@ const strategyx = [
 ]
 
 const spectStrategy = [
-     'Alternando Primeira e Segunda Colunas - 7 vezes',
-     'Alternando Segunda e Primeira Colunas - 7 vezes',
-     'Alternando Terceira e Primeira Colunas - 7 vezes',
-     'Alternando Primeira e Terceira Colunas - 7 vezes',
-     'Alternando Segunda e Primeira Colunas - 7 vezes',
-     'Alternando Terceira e Segunda Colunas - 7 vezes',
+     'Alternando Primeira e Segunda Colunas - 4 vezes',
+     'Alternando Segunda e Primeira Colunas - 4 vezes',
+     'Alternando Terceira e Primeira Colunas - 4 vezes',
+     'Alternando Primeira e Terceira Colunas - 4 vezes',
+     'Alternando Segunda e Primeira Colunas - 4 vezes',
+     'Alternando Terceira e Segunda Colunas - 4 vezes',
     // 'Repetição de 8 vezes do Primeiro Bloco',
     // 'Repitição de 8 vezes do Segundo Bloco',
     // 'Repitição de 8 vezes do Terceira Bloco',
