@@ -342,7 +342,6 @@ async function strategyProced (objetoRolleta) {
 
      // Strategy Proced
      const last18 = objetoRolleta.last18
-     console.log(last18)
      const concat = last18[0].concat(last18[1])
      // Remove every time the 10th element of array and make a new array com rest of elements
      // Get the strategy
@@ -525,10 +524,6 @@ setInterval(() => {
      const last18 = await getLastNumber18(Element);
               // Match RegEx Nao Indenticado for Result strateg
           result.forEach(async (estrategia) => {
-
-               console.log(estrategia.name)
-               console.log(last18)
-               console.log(estrategia.numberjson)
 
 
                let obj = {
