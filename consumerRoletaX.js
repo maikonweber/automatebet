@@ -298,7 +298,7 @@ function stringReplace(string, sygnalBase) {
                     const replace6 = replace5.replace(/{expectMartingale}/g, martingale.expect)
                     return replace6     
                } else {
-               const replace6 = replace5.replace(/{expectMartingale}/g, test.expect)
+               const replace6 = replace5.replace(/{expectMartigale}/g, test.expect)
                return replace6
                }
               }    
