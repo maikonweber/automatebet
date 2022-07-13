@@ -3,7 +3,7 @@ const expectNumber = {
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
-         return col1.concat(col2)
+         return col3.concat(col2)
     },
     'Alternancia da Coluna 3 e 1' : function () {
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
@@ -15,19 +15,19 @@ const expectNumber = {
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
-         return col1.concat(col3)
+         return col3.concat(col2)
     },
     'Alternancia da Coluna 3 e 1' : function () {
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
-         return col3.concat(col3)
+         return col1.concat(col2)
     },
     'Alternancia da Coluna 2 e 1' : function () {
          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
-         return col2.concat(col1)
+         return col3.concat(col1)
     },
     'Alternar colunas 3 e 2' : function () {
      const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
@@ -39,7 +39,7 @@ const expectNumber = {
          const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
          const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
-         return col3.concat(col2)
+         return col1.concat(col2)
     },
     'Alternancia da Coluna 1 e 2_martingale' : function () {
      const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
