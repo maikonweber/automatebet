@@ -153,7 +153,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
 }     
 
 
-function testMartigale(test) {
+function testMartigale(estrategiaDetect) {
 if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {    
      return {
           "expect" : "Quebra na Colunas 2 e 1",
