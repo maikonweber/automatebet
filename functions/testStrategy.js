@@ -200,7 +200,4 @@ if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {
 
 
 
-module.exports = { 
-     testStrategy,
-     testMartigale
-}
+module.exports = testStrategy
