@@ -312,7 +312,7 @@ async function proccedAlert (sygnalBase, string) {
      
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`, JSON.stringify({
           msg : msg2    
-     }) , 'EX', 60 * 7)
+     }) , 'EX', 60 * 2)
 
      return
 }
