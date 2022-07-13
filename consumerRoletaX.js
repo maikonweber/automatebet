@@ -41,19 +41,19 @@ const strategyx = [
      'Alternando Primeira e Terceira Colunas - 8 vezes',
      'Alternando Segunda e Primeira Colunas - 8 vezes',
      'Alternando Terceira e Segunda Colunas - 8 vezes',
-     'Repetição de 9 vezes do Primeiro Bloco',
-     'Repitição de 9 vezes do Segundo Bloco',
-     'Repitição de 9 vezes do Terceira Bloco',
-     'Repetição de 9 vezes da Primeira Coluna',
-     'Repetição de 9 vezes da Segunda Coluna',
-     'Repetição de 9 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 12 vezes ',
-     'Ausencia da Terceira Coluna - 12 vezes ',
-     'Ausencia da Primeira Coluna  - 12 vezes ',
-     'Ausencia da Segundo Bloco - 12 vezes ',
-     'Ausencia da Terceiro Bloco - 12 vezes ',
-     'Ausencia da Primeiro Bloco - 12 vezes ',
-     'Ausencia da Primeiro Bloco - 12 vezes ',
+   //  'Repetição de 9 vezes do Primeiro Bloco',
+   //  'Repitição de 9 vezes do Segundo Bloco',
+    // 'Repitição de 9 vezes do Terceira Bloco',
+    // 'Repetição de 9 vezes da Primeira Coluna',
+   //  'Repetição de 9 vezes da Segunda Coluna',
+   //  'Repetição de 9 vezes da Terceira Coluna',
+   //  'Ausencia da Segunda Coluna - 12 vezes ',
+    // 'Ausencia da Terceira Coluna - 12 vezes ',
+   //  'Ausencia da Primeira Coluna  - 12 vezes ',
+    // 'Ausencia da Segundo Bloco - 12 vezes ',
+    // 'Ausencia da Terceiro Bloco - 12 vezes ',
+    // 'Ausencia da Primeiro Bloco - 12 vezes ',
+    // 'Ausencia da Primeiro Bloco - 12 vezes ',
 ]
 
 const spectStrategy = [
@@ -63,19 +63,19 @@ const spectStrategy = [
      'Alternando Primeira e Terceira Colunas - 7 vezes',
      'Alternando Segunda e Primeira Colunas - 7 vezes',
      'Alternando Terceira e Segunda Colunas - 7 vezes',
-     'Repetição de 8 vezes do Primeiro Bloco',
-     'Repitição de 8 vezes do Segundo Bloco',
-     'Repitição de 8 vezes do Terceira Bloco',
-     'Repetição de 8 vezes da Primeira Coluna',
-     'Repetição de 8 vezes da Segunda Coluna',
-     'Repetição de 8 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 11 vezes ',
-     'Ausencia da Terceira Coluna - 11 vezes ',
-     'Ausencia da Primeira Coluna - 11 vezes ',
-     'Ausencia da Segundo Bloco - 11 vezes ',
-     'Ausencia da Terceiro Bloco - 11 vezes ',
-     'Ausencia da Primeiro Bloco - 11 vezes ',
-     'Ausencia da Primeiro Bloco - 11 vezes ',
+    // 'Repetição de 8 vezes do Primeiro Bloco',
+    // 'Repitição de 8 vezes do Segundo Bloco',
+    // 'Repitição de 8 vezes do Terceira Bloco',
+    // 'Repetição de 8 vezes da Primeira Coluna',
+    // 'Repetição de 8 vezes da Segunda Coluna',
+     //'Repetição de 8 vezes da Terceira Coluna',
+     //'Ausencia da Segunda Coluna - 11 vezes ',
+    // 'Ausencia da Terceira Coluna - 11 vezes ',
+    // 'Ausencia da Primeira Coluna - 11 vezes ',
+    // 'Ausencia da Segundo Bloco - 11 vezes ',
+    // 'Ausencia da Terceiro Bloco - 11 vezes ',
+    // 'Ausencia da Primeiro Bloco - 11 vezes ',
+    // 'Ausencia da Primeiro Bloco - 11 vezes ',
 ]
 
 const string = 
@@ -190,7 +190,7 @@ setTimeout(async () => {
  
      await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
  
-     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+
  
 } 
 
@@ -201,7 +201,7 @@ else if ([0].includes(resultadoAtual.numberjson[0])) {
      entry =  JSON.parse(entry)
 
      await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-     await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+    
 
 } else {
      console.log('RED')  
@@ -240,20 +240,20 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
-                    await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
                   let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                   entry =  JSON.parse(entry)
                   await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
-                  await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                  
                } else {
                     console.log('RED')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
-                    await redis.del(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                   
                }
           }, 35000)
      })  
