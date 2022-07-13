@@ -305,8 +305,7 @@ async function proccedAlert (sygnalBase, string) {
      const test = testStrategy(sygnalBase.estrategiaDetect)
      const replace = string.replace(/{roulleteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
-     const replace5 = replace2.replace(/{expect}/g, test.expect)
-     const place =  replace5.replace(/[0-9]* vezes/g, '')
+     const place =  replace2.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1266295662, place)
 
      redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
