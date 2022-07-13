@@ -59,7 +59,6 @@ const strategyx = [
 const spectStrategy = [
      'Alternando Primeira e Segunda Colunas - 4 vezes',
      'Alternando Segunda e Primeira Colunas - 4 vezes',
-     'Alternando Terceira e Primeira Colunas - 4 vezes',
      'Alternando Primeira e Terceira Colunas - 4 vezes',
      'Alternando Segunda e Primeira Colunas - 4 vezes',
      'Alternando Terceira e Segunda Colunas - 4 vezes',
