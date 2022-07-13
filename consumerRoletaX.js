@@ -218,8 +218,10 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
 //     👉🏻 Entrada 👈🏻: ${expect} 
 //      🎯 Cobrir o zero'
 //       ` )
-      
+      if (/Alternando/.test(sygnalBase.estrategiaDetect)) {
      const PromiseCromprove = new Promise(() => {
+          console.log('Alternando', estrategiaDetect);
+          let { array, expect } =
           setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
@@ -241,8 +243,36 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
           }, 36000)
+     })
+     await PromiseCromprove
+     } else {     
+     const PromiseCromprove = new Promise(() => {
+          
+          setTimeout(async () => {
+                    let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+                    if(array.includes(resultadoAtual.numberjson[0])) {
+                         console.log('GREEN')
+                         let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                         entry =  JSON.parse(entry)   
+                         await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
+                    } 
+                   else if ([0].includes(resultadoAtual.numberjson[0])) {
+                       console.log('ZEROOOOO')
+                       let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                       entry =  JSON.parse(entry)
+                       await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
+                       
+                    } else {
+                         console.log('RED')
+                         let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
+                         entry =  JSON.parse(entry)
+                         await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
+                    }
+               }, 36000)
+
      })  
      await PromiseCromprove
+     }
 }
           
 function stringReplace(string, sygnalBase) {
