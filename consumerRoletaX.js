@@ -194,10 +194,9 @@ setTimeout(async () => {
      } else {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
-     
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
-}
-     }, 35000)
+     }
+     }, 38000)
 }
 
 /* 
@@ -218,7 +217,6 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
 //     👉🏻 Entrada 👈🏻: ${expect} 
 //      🎯 Cobrir o zero'
 //       ` )
-      
      const PromiseCromprove = new Promise(() => {
           setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
@@ -240,10 +238,10 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
-          }, 36000)
-     })  
+               }, 38000)
+          })  
      await PromiseCromprove
-}
+     }
           
 function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
@@ -396,5 +394,5 @@ ch2.consume(q.queue, async function(msg) {
         })
      })
 })
-   
-})();
+  
+})()
