@@ -13,6 +13,7 @@ const expectNumber = require('./jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
+const testMartigale = require('./functions/testStrategy')
 
 
 (async () => {
@@ -219,9 +220,9 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
 //      🎯 Cobrir o zero'
 //       ` )
       if (/Alternando/.test(sygnalBase.estrategiaDetect)) {
-     const PromiseCromprove = new Promise(() => {
-          console.log('Alternando', estrategiaDetect);
-          let { array, expect } =
+          const PromiseCromprove = new Promise(() => {
+          console.log('Alternando', sygnalBase.estrategiaDetect);
+          let { array, expect } = testMartigale(sygnalBase.estrategiaDetect)
           setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {

@@ -41,6 +41,48 @@ const expectNumber = {
          const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
          return col3.concat(col2)
     },
+    'Alternancia da Coluna 1 e 2_martingale' : function () {
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+     return col3
+},
+'Alternancia da Coluna 3 e 1_martingale' : function () {
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+     return col2
+},
+'Alternancia da Coluna 1 e 3_martingale' : function () {
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+     return col2
+},
+'Alternancia da Coluna 3 e 1_martingale' : function () {
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+     return col2
+},
+'Alternancia da Coluna 2 e 1_martingale' : function () {
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+     return col3
+},
+'Alternar colunas 3 e 2_martingale' : function () {
+ const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+ const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+ const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+ return col1
+},
+'Alternancia da Coluna 3 e 2_martingale' : function () {
+     const col3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
+     const col2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+     const col1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+     return col1
+},
     'Impar Reapeat' : function () {
          const impar = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35]
          return impar
