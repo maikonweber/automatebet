@@ -80,7 +80,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
          console.log('Não encontrado')
          return {
               "expect" : "Quebra na Colunas 1 ",
-              "array" : expectNumber['Alternancia colunas 3 e 2']()
+              "array" : expectNumber['Alternancia da Coluna 3 e 2']()
          }
     } else if (estrategiaDetect.match(/Alternando Primeira e Terceira Colunas/g)) {
          console.log('Não encontrado')
