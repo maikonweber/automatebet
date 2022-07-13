@@ -153,7 +153,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
 }     
 
 
-function testMartigale (test) {
+function testMartigale(test) {
 if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {    
      return {
           "expect" : "Quebra na Colunas 2 e 1",
@@ -195,7 +195,4 @@ if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {
 
 
 
-module.exports = {
-     testStrategy, 
-     testMartigale
-}
+module.exports = testStrategy
