@@ -8,12 +8,12 @@ const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTQBu7jfw1tDzOkH7vrrFyEhVQHcFgx/NY/xgc2zt2nrGFEXZCLizMgd/IZfD4xZYPkq071kVGb64BaBRY13fLFfUOZiUo40jfMokpnuM7+y+V8WGcwYi6cLBCXYaVeyMI/pTbkcHyQOZOoAmD6qh7C3ls+OGjTzrIaWQF27VQmNX73lv6Vg4FjALR7Cpa+Xz3e63tViZ84pph2Zw50q6u9TpNsDfdNTocK9cVODEdczeXrekDCB9D8+bZullp5hsn77lgpWjDHe57eZHC/m7OhR0wLvjnhcqRp5JrWQNMJYV2P1xdGimgzAQGRLn5pAPzuxDkKawdi5ZHjYgXsVQ1lPDOE=');
 const { createClient }  = require('redis');
-const { testStrategy } = require('./functions/testStrategy')
+const teste = require('./functions/testStrategy')
 const expectNumber = require('./jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
-const { testMartigale } = require('./functions/testStrategy')
+
 
 (async () => {
 
@@ -177,7 +177,7 @@ function replaceForRed(string, resultadoAtual, sygnalBase) {
 async function consultMemory (sygnalBase, string) {
  console.log('------------ConsultMemory-----------------------')
 setTimeout(async () => {
-     const { array, expect } = testStrategy(sygnalBase.estrategiaDetect)
+     const { array, expect } = teste.testStrategy(sygnalBase.estrategiaDetect)
      console.log(array)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
      console.log(resultadoAtual)
@@ -210,7 +210,7 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      let {
           array,
           expect
-     } = testStrategy(sygnalBase.estrategiaDetect)
+     } = teste.testStrategy(sygnalBase.estrategiaDetect)
     
 //      await sendMsg(-1266295662, `
 //      Executa o Martingale
@@ -221,7 +221,7 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
       if (/Alternando/.test(sygnalBase.estrategiaDetect)) {
           const PromiseCromprove = new Promise(() => {
           console.log('Alternando', sygnalBase.estrategiaDetect);
-          let { array, expect } = testMartigale(sygnalBase.estrategiaDetect)
+          let { array, expect } = teste.testMartigale(sygnalBase.estrategiaDetect)
           setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
@@ -279,7 +279,7 @@ function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
                console.log(estrategiaDetect,  '--------------------')
                console.log(estrategiaDetect)
-               const test = testStrategy(estrategiaDetect)
+               const test = teste.testStrategy(estrategiaDetect)
                const last1 = payload.numberjson[0].toString()
                const last2 = payload.numberjson[1].toString()
                const last3 = payload.numberjson[2].toString()
@@ -292,7 +292,7 @@ function stringReplace(string, sygnalBase) {
                const replace4 = replace2.replace(/{last}/g, last)
                const replace5 = replace4.replace(/{expect}/g, test.expect)
                if (/Alternando/g.test(estrategiaDetect)) {
-                    const martingale = testMartigale(estrategiaDetect)
+                    const martingale = teste.testMartigale(estrategiaDetect)
                     const replace6 = replace5.replace(/{expectMartingale}/g, martingale.expect)
                     return replace6     
                } else {
@@ -339,7 +339,7 @@ const promisseDelete = (msg, channel) =>  new Promise(() => {
 async function proccedAlert (sygnalBase, string) {
      const { estrategiaDetect, roulleteName, payload } = sygnalBase
      console.log(`----------------- Alerta ----------------------`)
-     const test = testStrategy(sygnalBase.estrategiaDetect)
+     const test = teste.testStrategy(sygnalBase.estrategiaDetect)
      const replace = string.replace(/{roulleteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const replace5 = replace2.replace(/{expect}/g, test.expect)
