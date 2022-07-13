@@ -13,6 +13,7 @@ const expectNumber = require('./jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
+const e = require("express");
 const testMartigale = require('./functions/testStrategy')
 
 
@@ -85,7 +86,7 @@ const string =
 🎰Roleta 🎰: {roulleteName}
 💎Estratégia💎: {strategyName}
 ✅Entrada: {expect}
-🔂GALE: {expect}
+🔂GALE: {expectMartigale}
 {last}
 0️⃣COBRIR ZERO
 `
@@ -292,8 +293,15 @@ function stringReplace(string, sygnalBase) {
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
                const replace4 = replace2.replace(/{last}/g, last)
                const replace5 = replace4.replace(/{expect}/g, test.expect)
-               return replace5
- }    
+               if (/Alternando/g.test(estrategiaDetect)) {
+                    const martingale = testMartigale(estrategiaDetect)
+                    const replace6 = replace5.replace(/{expectMartingale}/g, martingale.expect)
+                    return replace6     
+               } else {
+               const replace6 = replace5.replace(/{expectMartingale}/g, test.expect)
+               return replace6
+               }
+              }    
           
 
      
