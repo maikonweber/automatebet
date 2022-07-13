@@ -197,7 +197,7 @@ setTimeout(async () => {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
      
-     await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
+     await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)        
 }
      }, 35000)
 }

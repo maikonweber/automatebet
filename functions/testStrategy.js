@@ -191,6 +191,7 @@ if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {
           "array" : expectNumber['Alternancia da Coluna 2 e 3_martigale']()
      }
 }
+}
 
 
 
