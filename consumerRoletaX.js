@@ -187,7 +187,6 @@ setTimeout(async () => {
      console.log('GREEN')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
- 
      await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
  
 
@@ -195,20 +194,15 @@ setTimeout(async () => {
 } 
 
 else if ([0].includes(resultadoAtual.numberjson[0])) {
-
      console.log('ZEROOOOO')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
-
      await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
     
 
 } else {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
-     console.log('RED')
-     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
-     entry =  JSON.parse(entry)
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
 }
      }, 35000)
@@ -225,12 +219,13 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
           array,
           expect
      } = testStrategy(sygnalBase.estrategiaDetect)
-     //await sendMsg(-1266295662, `
-     //Executa o Martingale
-    // 🎰 Roleta 🎰 ${sygnalBase.roulleteName},
-    // 👉🏻 Entrada 👈🏻: ${expect} 
-     //🎯 Cobrir o zero'
-      //` )
+    
+//      await sendMsg(-1266295662, `
+//      Executa o Martingale
+//     🎰 Roleta 🎰 ${sygnalBase.roulleteName},
+//     👉🏻 Entrada 👈🏻: ${expect} 
+//      🎯 Cobrir o zero'
+//       ` )
       
      const PromiseCromprove = new Promise(() => {
           setTimeout(async () => {
@@ -240,7 +235,6 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
-                  
                } 
               else if ([0].includes(resultadoAtual.numberjson[0])) {
                   console.log('ZEROOOOO')
@@ -253,9 +247,8 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
-                   
                }
-          }, 35000)
+          }, 36000)
      })  
      await PromiseCromprove
 }
