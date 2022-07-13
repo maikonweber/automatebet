@@ -73,19 +73,19 @@ function testStrategy(estrategiaDetect, lastNumber) {
     } else if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {
          
          return {
-              "expect" : "Quebra na Colunas 2 e 1",
+              "expect" : "Quebra na Colunas 3 e 1",
               "array" : expectNumber['Alternancia da Coluna 2 e 1']()
          }
     } else if (estrategiaDetect.match(/Alternando Terceira e Segunda Colunas/g)) {
          console.log('Não encontrado')
          return {
-              "expect" : "Quebra na Colunas 3 ou 2 ",
+              "expect" : "Quebra na Colunas 1 ou 2 ",
               "array" : expectNumber['Alternancia da Coluna 3 e 2']()
          }
     } else if (estrategiaDetect.match(/Alternando Primeira e Terceira Colunas/g)) {
          console.log('Não encontrado')
          return {
-              "expect" : "Quebra na Colunas 1 ou 2",
+              "expect" : "Quebra na Colunas 2 ou 3",
               "array" : expectNumber['Alternancia da Coluna 1 e 3']()
 
          }
