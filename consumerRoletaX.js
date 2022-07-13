@@ -104,7 +104,6 @@ const stringred = `
 {last}
 `
 
-
    
 async function sendMsg(sala, msg, reply) {
           if(!reply) {
@@ -177,32 +176,25 @@ function replaceForRed(string, resultadoAtual, sygnalBase) {
 
 async function consultMemory (sygnalBase, string) {
  console.log('------------ConsultMemory-----------------------')
-
 setTimeout(async () => {
      const { array, expect } = testStrategy(sygnalBase.estrategiaDetect)
      console.log(array)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
- 
+     console.log(resultadoAtual)
      if(array.includes(resultadoAtual.numberjson[0])) {
      console.log('GREEN')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
- 
-
- 
-} 
-
-else if ([0].includes(resultadoAtual.numberjson[0])) {
+     } else if ([0].includes(resultadoAtual.numberjson[0])) {
      console.log('ZEROOOOO')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1266295662, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-    
-
-} else {
+     } else {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
+     
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
 }
      }, 35000)
@@ -256,13 +248,14 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
 function stringReplace(string, sygnalBase) {
                const { estrategiaDetect, roulleteName, payload } = sygnalBase
                console.log(estrategiaDetect,  '--------------------')
+               console.log(estrategiaDetect)
                const test = testStrategy(estrategiaDetect)
                const last1 = payload.numberjson[0].toString()
                const last2 = payload.numberjson[1].toString()
                const last3 = payload.numberjson[2].toString()
                const last4 = payload.numberjson[3].toString()
                const last = `${last1} | ${last2} | ${last3} | ${last4}`
-     
+
 
                const replace = string.replace(/{roulleteName}/g, roulleteName)
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)

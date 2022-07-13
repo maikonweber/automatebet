@@ -102,7 +102,7 @@ function testStrategy(estrategiaDetect, lastNumber) {
               "array" : expectNumber['Alternancia da Coluna 2 e 3']()
          }
 
-    }    else if (estrategiaDetect.match(/Alternando Segunda e Terceira/g)) {
+    }    else if (estrategiaDetect.match(/Alternando Segunda e Terceira Colunas/g)) {
          console.log('Não encontrado')
          return {
               "expect" : "Quebra na Colunas 2",
