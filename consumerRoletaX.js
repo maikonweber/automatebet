@@ -384,7 +384,7 @@ ch2.consume(q.queue, async function(msg) {
      }
      console.log('=========================================================================')
      ch2.ack(msg)
-}, { noAck : false} 
+}, { noAck : true} 
 );
 
         })
