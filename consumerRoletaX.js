@@ -36,11 +36,11 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Segunda e Primeira Colunas - 5 vezes',
-     'Alternando Terceira e Primeira Colunas - 5 vezes',
-     'Alternando Primeira e Terceira Colunas - 5 vezes',
-     'Alternando Segunda e Primeira Colunas - 5 vezes',
-     'Alternando Terceira e Segunda Colunas - 5 vezes',
+     'Alternando Segunda e Primeira Colunas - 4 vezes',
+     'Alternando Terceira e Primeira Colunas - 4 vezes',
+     'Alternando Primeira e Terceira Colunas - 4 vezes',
+     'Alternando Segunda e Primeira Colunas - 4 vezes',
+     'Alternando Terceira e Segunda Colunas - 4 vezes',
    //  'Repetição de 9 vezes do Primeiro Bloco',
    //  'Repitição de 9 vezes do Segundo Bloco',
     // 'Repitição de 9 vezes do Terceira Bloco',
@@ -57,11 +57,11 @@ const strategyx = [
 ]
 
 const spectStrategy = [
-     'Alternando Primeira e Segunda Colunas - 4 vezes',
-     'Alternando Segunda e Primeira Colunas - 4 vezes',
-     'Alternando Primeira e Terceira Colunas - 4 vezes',
-     'Alternando Segunda e Primeira Colunas - 4 vezes',
-     'Alternando Terceira e Segunda Colunas - 4 vezes',
+     'Alternando Primeira e Segunda Colunas - 3 vezes',
+     'Alternando Segunda e Primeira Colunas - 3 vezes',
+     'Alternando Primeira e Terceira Colunas - 3 vezes',
+     'Alternando Segunda e Primeira Colunas - 3 vezes',
+     'Alternando Terceira e Segunda Colunas - 3 vezes',
     // 'Repetição de 8 vezes do Primeiro Bloco',
     // 'Repitição de 8 vezes do Segundo Bloco',
     // 'Repitição de 8 vezes do Terceira Bloco',
@@ -304,7 +304,6 @@ async function proccedAlert (sygnalBase, string) {
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const place =  replace2.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1266295662, place)
-
      redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
           console.log(deletex)
      })
@@ -363,16 +362,13 @@ ch2.consume(q.queue, async function(msg) {
      
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
-          redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`).then((result) => {
-               if(!result) {
-                    redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`, 'alert', 'EX', 60 * 4).then( async (returns) => {
-                         if(returns) {
-                              return await proccedAlert(strig, possivelAlert)
-                         }
-                    })
-               }
-          })        
-     }
+          let result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`)
+          if(!result) {
+                 await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`, 'alert', 'EX', 60 * 11)
+                         
+                    return await proccedAlert(strig, possivelAlert) 
+               }      
+          }
      
      if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
@@ -386,9 +382,10 @@ ch2.consume(q.queue, async function(msg) {
       console.log('Consumer Cancelled by Server')
      }
      }
-}, {
-  noAck: true
-});
+     console.log('=========================================================================')
+     ch2.ack(msg)
+}, { noAck : false} 
+);
 
         })
      })

@@ -183,7 +183,6 @@ function getStrategy(strategy, value, number){
      const StringValue = array2.toString()
 
      if(strategy[`${StringValue}`]) {
-          console.log(strategy[`${StringValue}`]())
          return strategy[`${StringValue}`]();
      } 
      return `Não identificado` ;
@@ -283,7 +282,6 @@ async function strategy18Procced (strategy) {
      const array7 = []
      for(let i = 0; i < times; i++) {
           let value = getStrategy(alternateColumns, stringColunas, i)
-      
           array7.push({
                alternateColumns : value,
           })
@@ -332,7 +330,6 @@ async function strategy18Procced (strategy) {
      strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
      strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
      strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
-     console.log(strategyProced)
      // Convert array to string
      return strategyProced;
 }
@@ -386,7 +383,7 @@ async function strategyProced (objetoRolleta) {
      
           objetoRolleta.detectStrategy.colorRepeat.forEach(
                async (color) => {
-                    console.log(color)
+               
                     await regExe(color.color, objetoRolleta, objetoRolleta.objsResult.name)
                }
           )
@@ -454,8 +451,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
           
           console.log('=========================================================================')
           console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
-          const objExpect = testStrategy(estrategiaDetect.estrategiaDetect)
-          
+          console.log('=========================================================================')
           amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                if (err) throw err;
                conn.createChannel((err, ch1) => {
@@ -468,7 +464,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
 
                setTimeout(function() {
                     conn.close();
-                     }, 500);
+                     }, 200);
                })
           })         
      }
