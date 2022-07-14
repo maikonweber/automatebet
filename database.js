@@ -155,7 +155,7 @@ async function getLastNumber18(name) {
     desc limit 12;`;
 
     let result = await pool.query(sql, [name]);
-    
+    console.log(result)
     return obj = {
         fistRow : result.rows[0],
         lastRow : result.rows[11]
