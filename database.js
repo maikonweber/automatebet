@@ -155,7 +155,7 @@ async function getLastNumber18(name) {
     desc limit 12;`;
 
     let result = await pool.query(sql, [name]);
-
+    
     return obj = {
         fistRow : result.rows[0],
         lastRow : result.rows[11]
@@ -286,8 +286,8 @@ async function getUsersFilter (email) {
 }
 
 async function getStrategyFilter() {
-
     console.log(roulletName, 'Aqui')
+
     let query =  `Select * from robotbetsygnal
                   WHERE created BETWEEN now() - interval '9 seconds'
                   AND now()

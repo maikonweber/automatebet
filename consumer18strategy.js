@@ -520,8 +520,7 @@ setInterval(() => {
      const last18 = await getLastNumber18(Element);
               // Match RegEx Nao Indenticado for Result strateg
           result.forEach(async (estrategia) => {
-
-
+               console.log(last18)
                let obj = {
                'roulletename' : estrategia.name,
                'jsonbstrategy'  :   estrategia.jsonbpreload,
