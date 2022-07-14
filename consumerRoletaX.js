@@ -195,7 +195,7 @@ setTimeout(async () => {
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
      }
-     }, 38000)
+     }, 35000)
 }
 
 /* 
@@ -237,7 +237,7 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     entry =  JSON.parse(entry)
                     await sendMsg(-1266295662, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
-               }, 38000)
+               }, 35000)
           })  
      await PromiseCromprove
      }

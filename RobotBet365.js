@@ -274,10 +274,12 @@ class RoulleteBot {
       await username.type(this.username);
       await password.type(this.password);
       // enter the page
-      await this.page.waitForTimeout(5000);
+      await this.page.waitForTimeout(18000);
       await this.page.keyboard.press('Enter');
       await this.page.waitForTimeout(5000);
+    
       const button = await this.page.$('.regulatory-last-login-modal__button');
+         console.log(button)
       if (button) {
         await button.click();
       }
