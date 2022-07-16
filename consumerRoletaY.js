@@ -36,7 +36,7 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Segunda e Primeira Colunas - 6 vezes',
+     'Alternando Segunda e Primeira Colunas - 10 vezes',
    //  'Repetição de 9 vezes do Primeiro Bloco',
    //  'Repitição de 9 vezes do Segundo Bloco',
     // 'Repitição de 9 vezes do Terceira Bloco',
