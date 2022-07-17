@@ -28,8 +28,8 @@ class FootBoolScrap {
         const browser = await puppeteer.launch({
             headless: false,
             defaultViewport: {
-                width: 1920,
-                height: 1080
+                width: 900,
+                height: 800
             },
             slowMo: 50,
             args: [
@@ -41,8 +41,7 @@ class FootBoolScrap {
                 "--window-position=0,0",
 
             ],  
-            devTools: true, 
-              
+                 
           });
         const page = await browser.newPage();
         this.page = page;
