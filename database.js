@@ -266,7 +266,7 @@ async function getResultDatabase(name) {
 async function getCards(number) { 
     let query = `
         Select lastnumber from mafia_cards
-        Order by created limit $1;
+        Order by created desc limit $1;
     `
     let result = await pool.query(query, [number])
 
@@ -320,7 +320,6 @@ async function updateStrategyFilter(id, value) {
 
 
 module.exports = {
-
     getStrategyFilter,
     insertTelegram,
     insertTelegramSygnal,

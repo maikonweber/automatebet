@@ -64,8 +64,14 @@ const grid = ".HistoryGrid--0f7aa.stretched--658be";
 (async () => { 
 const page = await getBrowser()
 await page.goto(url);
-const element = await page.$$(loginButton)
-await element.click()
+await page.waitForTimeout(60000 * 1000)
+
+await page.hover('');
+await page.waitFor(1000);
+await page.mouse.move(1000, 40);
+await page.waitFor(1000);
+await page.mouse.click(1000, 40);
+
 // const element_ = await page.$('#username')
 // const elementPass_ = await page.$('#password')
 

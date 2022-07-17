@@ -89,6 +89,8 @@ setInterval(async () => {
      for (let i = 0; i < grider.length; i++) {
           let eachResult =  await grider[i].$$('.HistoryGridItem--237f9')
           console.log(eachResult)
+          let value = await page.evalute(el => el.textContent, element)
+          console.log(value)
      }
 
      }, 5000)
