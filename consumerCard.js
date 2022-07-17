@@ -331,13 +331,15 @@ amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
             throw error2;
           }
 
-     ch2.bindQueue(q.queue, 'msg', '');
+     ch2.bindQueue(q.queue, 'cards', '');
 
 ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
      const msgs = msg.content.toString()
      const strig =  JSON.parse(msgs); // 'message'
-     
+     console.log(strig)     
+
+     }
 }, { noAck : true} 
 );
 

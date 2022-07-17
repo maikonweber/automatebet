@@ -7,7 +7,7 @@ obj =  {
      }
      }
 
-async function regExe(string, objetoRolleta, strategyArg) {
+async function regExe(string, result) {
           // RegEx Nao Intendificado
           // if true return false
           const regEx = /Não identificado/g;
@@ -16,8 +16,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
           } else {
              const estrategiaDetect =  {
                    estrategiaDetect : string, 
-                   roulleteName : strategyArg, 
-                   payload : objetoRolleta,
+                   lastResult : result,
                    created : new Date().getTime()
                }
                
@@ -55,19 +54,14 @@ const { getCards } = require('./database')
 function getStrategy(strategy, value, number){
           // Received the number of element need remove to value array
           // Return the array with the element removed
-     
-const array2 = new Array(...value)  // Copy the array     
-          // remove the element from the array
-for(number; number > 0; number--) {
-               array2.pop()     
-}
+  
 
-const StringValue = array2.toString()
-     
+const StringValue = value.toString()
+     console.log(StringValue)
 if(strategy[`${StringValue}`]) {
      return strategy[`${StringValue}`]();
      } 
-     return `Não identificado` ;
+     return `Não identificado ${StringValue}` ;
 }
      
 
@@ -77,13 +71,14 @@ setInterval(async ()=> {
      console.log(getDatabaseOfCard)
      let strategy  = []
      getDatabaseOfCard.forEach(function (element) {
-          console.log(strategy.push(element.lastnumber))
+          strategy.push(element.lastnumber)
      })
      let kkk;
      console.log(strategy)
-     const returns = getStrategy(strategy, getDatabaseOfCard, 5)
+     const returns = getStrategy(obj, strategy, 5)
      console.log(returns)
-     await regExe(returns)
+
+     await regExe(returns, strategy)
      // Jogar para uma fila RabbitMq.
      // c
 
