@@ -1,4 +1,4 @@
-const { getResultDatabase } = require('/database')
+const { getResultDatabase } = require('./database')
 const ObjectsToCsv = require('objects-to-csv')
 
 

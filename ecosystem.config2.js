@@ -5,9 +5,11 @@ module.exports = {
     restartDelay: 1000 * 60 * 30  
   },
   {
-    name: 'RobotBet365.js',
-    script: 'RobotBet365.js',
-    restartDelay: 1000 * 60 * 60 * 3
+    name: 'consumerCard.js',
+    script: 'consumerCard.js',
+  },{
+    name: 'connsumerCards.js',
+    script: 'consumerCards.js'
   }
 ],
 };
