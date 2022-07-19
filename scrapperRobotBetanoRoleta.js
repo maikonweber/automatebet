@@ -31,6 +31,9 @@ const browser = await puppeteer.launch({
 async function login(page) {
 await page.goto("https://br.betano.com/", {waitUntil: 'networkidle0'});
 await page.waitForTimeout(38000);
+const buttonLogin = await page.waitForXPath('/html/body/div[1]/div/section[2]/section/header/div[1]/div[2]/div[4]/a[2]')
+console.log(buttonLogin)
+
 //.6632,333333333333333333333333335live-event__time
  // grid__column grid__column--fluid grid__column__main-content
   //          
@@ -55,7 +58,7 @@ await page.waitForTimeout(38000);
 //  }
 }
 
-const url = 'https://br.betano.com/'
+const url = 'https://br.betano.com/casino/live/'
 const loginButton = '.uk-button.uk-button-primary.GTM-login'
 const sideicons = "#trn";
 const xPathEvolution = '/html/body/main/section[2]/div/div/div/div[2]/figure/a';
@@ -69,13 +72,25 @@ const grid = ".HistoryGrid--0f7aa.stretched--658be";
 (async () => { 
 const page = await getBrowser()
 await page.goto(url);
-await page.waitForTimeout(60000 * 1000)
-
-await page.hover('');
 await page.waitFor(1000);
 await page.mouse.move(1000, 40);
 await page.waitFor(1000);
-await page.mouse.click(1000, 40);
+await page.mouse.click(1000, 40)
+const buttonLogin = await page.waitForXPath('/html/body/div[1]/div/section[2]/section/header/div[1]/div[2]/div[4]/a[2]')
+console.log(buttonLogin)
+
+try {
+  await page.hover(buttonLogin);
+  await page.waitFor(1000);
+  await page.mouse.move(1000, 40);
+  await page.waitFor(1000);
+  await page.mouse.click(1000, 40)
+
+
+} catch {
+
+
+}
 
 // const element_ = await page.$('#username')
 // const elementPass_ = await page.$('#password')

@@ -6,6 +6,8 @@ const cors = require('cors');
 const exceljs = require('exceljs')
 const fs = require('fs')
 const path = require('path')
+const {getAll, insertLeads, isUser, getToken, insertToken} = require('./db/db.js')
+
 
 const {
   checkToken,
@@ -23,13 +25,99 @@ const {
 } = require('./database');
 
 
-
+const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.post('/api/v1/setblaze', async (req, res) => {
+
+app.get('/api/v1', (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();	
+});
+
+app.use("/api/time", async (req, res, next) => {
+  console.log(new Date());
+  
+  res.json({ ts: Date.now() });
+});
+
+
+
+app.post('/api/v1/sendLead', async (request, response) => {
+  
+  console.log('rota');
+  const first_name = request.body.first_name;
+  const last_name = request.body.last_name;
+  const phone = request.body.phone;
+  const email = request.body.email;
+  const message = request.body.message;
+  
+  const data = await insertLeads(first_name, last_name, phone, email, message);
+  if (data === true) {
+      return response.json({
+          status: 'success',
+          data: data
+      });
+  } else {
+      return response.json({
+          status: 'error',
+      });
+  }
+});
+
+
+app.post('/api/v1/login', async(request, response) => {
+  const user = request.body.email;
+  const pass = request.body.password;
+  const data = await isUser(user, pass);
+  if (data === false) {
+    res.status(403).send('Usuário ou senha inválidos');
+      return
+    } else {
+    const token = await insertToken();
+    response.send(token).status(200);
+    }
+  });
+
+app.post('/api/v1/', async(request, response) => {
+  const token = request.headers.token;
+  const data = await getToken(token);
+  console.log(data)
+  if (data === false) {
+      response.send('Token inválido').status(403);
+  }   else {
+      response.send({status : true}).status(200);     
+  }
+
+});    
+
+app.get('/api/v1/data/', async (request, response) => {
+  const token2 = request.headers.token;
+  const token = request.header.token;
+  console.log(token);
+  console.log(token2)
+  const data = await getToken(token);
+  if (data === true) {
+      next();
+  } else {
+      response.status(401).send('Unauthorized');
+  }
+});
+
+app.get('/api/v1/data/getAll', async (request, response) => {
+
+  const data = await getAll();    
+  console.log(data)
+
+   response.json(data).status(200); 
+});
+
+
+app.post('/api/v2/setblaze', async (req, res) => {
   console.log(req)
   const horario = req.body.horario
   const valor = req.body.valor
@@ -152,7 +240,7 @@ app.post('/api/bet365', async (req, res) => {
     
 })
 
-app.use('/api/v1/*', (req, res, next) => {
+app.use('/api/v3/*', (req, res, next) => {
   console.log(req.headers);
   if (req.headers.token === '555215667') {
     console.log("Bateu");
@@ -177,7 +265,7 @@ app.use('/api/v2/*', (req, res, next) => {
   }
 })
 
-app.post("/api/v1/createus", async (req, res) => {
+app.post("/api/v2/createus", async (req, res) => {
   const { email, password, name, username, phone, address } = req.body;
   let result = await createUsers(email, password, name, username, phone, address);
   res.send(result);
@@ -201,7 +289,7 @@ app.post('/api/loginadm', async(req, res) => {
         }
 })
 
-app.post('/api/v1/setFilter', async (req, res) => {
+app.post('/api/v2/setFilter', async (req, res) => {
   let { games, string_msg, string_msg_green, string_msg_red, rollets_permit} = req.body;
 
   const token = req.headers.token;
