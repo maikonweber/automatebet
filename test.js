@@ -31,5 +31,5 @@ arrayName.forEach( async (el) => {
      console.log('Get All Result' +  el)
      const csv = new ObjectsToCsv(list)
      await csv.toDisk(`./${el}.csv`)
-     
 })
+

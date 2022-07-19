@@ -208,6 +208,8 @@ async function strategy18Procced (strategy) {
      let times = 18
      let array = []
 
+     
+
 
 
      //parOuImpar,
