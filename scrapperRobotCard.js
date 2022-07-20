@@ -8,11 +8,24 @@ const client = redis.createClient({
   port: 6379
 });
 
+const  {
+  l,
+  getTextEvalute
+} = require("./puppeterFunctions")
+
+async function waitGoto(url, timeout, page) {
+  await page.goto(url, {waitUntil: 'networkidle0'});
+  await console.log('------Go to ' + url +'--------')
+  await page.waitForTimeout(timeout)
+}
+
+
 client.connect();
 puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
 const browser = await puppeteer.launch({
+    
      headless: false,
      defaultViewport: {
        width: 1100,
@@ -72,21 +85,69 @@ if (element_ && elementPass_) {
      await elementPass_.type('ma128sio4');
      await page.keyboard.press('Enter')
      await page.waitForNavigation({ waitUntil: 'networkidle0'})
+     // player_uname // lastLogintimeTxt
+     const balance = await page.evaluate(() => {
+        let current = document.querySelector('.currency_number').innerText
+        let currentValor = document.querySelector('#player_uname').innerText
+        let lastLogin = document.querySelector('#lastLogintimeTxt').innerText
+        return {
+          'Name' : current,
+          'CurrentValor' : currentValor,
+          'lastLogin' : lastLogin
+        }
+      })
+     console.log(balance) 
+     await page.waitForTimeout(3000)
 } else {
      console.log('Ocorreu um erroo no site')
 }
 
-await page.goto("https://player.smashup.com/player_center/goto_common_game/5941/1000000", {waitUntil: 'networkidle0'});
+await page.evaluate (() => {
+  let button = document.querySelector('.brand-logo')
+  button.click()
+})
+
+await page.waitForTimeout(5000)
+
+await page.evaluate(() => {
+  document.querySelector('.livecasino a').click()
+})
+await page.waitForTimeout(7000);
+await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000')
+await page.waitForTimeout(7000);
+try { 
+  await page.evaluate(() => {
+    document.querySelectorAll('a')[32].click()
+  }) 
+} catch (err) {
+ console.log(err)
+}
+
+await page.waitForTimeout(15000);
+await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000')
 await page.waitForTimeout(15000);
 var frames = (await page.frames());
 const a = frames[1].url();
 await page.goto(a, {waitUntil: 'networkidle0'});
-await page.waitForTimeout(5000);
+await page.waitForTimeout(15000);
+try {
+await page.evaluate(() => {
+  let tit =  document.querySelectorAll('.TableTileShadow--186c9')
+  console.log(tit)
+})
+} catch (er) {
+  console.log(er)
+}
+try {
+let u = await page.waitForXPath('/html/body/div[4]/div/div[2]/div/div/div/main/div[1]/section/div[2]/ul/li[7]/div/article/div[1]/div/div[1]')
+console.log(u)
+await u.click()
+await y.click()
+} catch {
 
-await page.goto('https://ezugi.evo-games.com/frontend/evo/r2/#category=game_shows&game=topcard&table_id=nifyytz35m2qcevw', {waitUntil: 'networkidle0'})
+}
 
-
-
+await page.waitForTimeout(15000);
 
 const AWAY = /AWAY/g
 const HOME = /HOME/g
@@ -116,15 +177,31 @@ setInterval( async () => {
   
   if (AWAY.test(value)) {
     console.log('detect')
-    await axios.post('http://localhost:3055/api/cards', away)
+    axios.post('https://api.muttercorp.online/api/cards', away).then((result) => {
+      console.log(result);
+    }).catch ((err) => {
+      console.log(err)
+    
+    })
+
     return await page.reload()    
   } else if (HOME.test(value)) {
     console.log('detect')
-    await axios.post('http://localhost:3055/api/cards', home)
+    axios.post('https://api.muttercorp.online/api/cards', home).then((result) => {
+      console.log(result);
+    }).catch ((err) => {
+      console.log(err)
+    })
+
     return await page.reload()    
   } else if (DRAW.test(value)) {
     console.log('detect')
-    await axios.post('http://localhost:3055/api/cards', draw)
+    await axios.post('https://api.muttercorp.online/api/cards', draw).then((result) => {
+      console.log(result);
+    }).catch((err) => {
+      console.log(err)
+    })
+    
     return await page.reload()    
   } else {
 

@@ -1,22 +1,14 @@
 module.exports = {
-  apps : [{
-    name: 'RobotObserverRoullet',
-    script: 'server.js',
-    instance: '2',
-    exec_mode: "cluster"
-  },
-  {
-    name : 'strategyConsumer',
-    script: 'consumer18strategy.js'
-  },
-  {
-    name : "telegramOldConsumer",
-    script: "consumerRoletaX.js"
-  },
+  apps : [
   {
     name: 'cards',
     script: 'scrapperRobotCard.js',
-    restartDelay: 1000 * 60 * 30  
+    restartDelay: 1000 * 60 * 60 * 2  
+  },
+  {
+    name: 'RobotBet365.JS',
+    script: 'RobotBet365.js',
+    restartDelay: 1000 * 60 *  60 * 8
   }
 ],
 };
