@@ -21,7 +21,6 @@ const string =
 `
 !!! MAFIA DAS ROLETAS !!!
 🔔ENTRADA CONFIRMADA🔔
-🎰Roleta 🎰: {roulleteName}
 💎Estratégia💎: {strategyName}
 ✅Entrada: {expect}
 {last}

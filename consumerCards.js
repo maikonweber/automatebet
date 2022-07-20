@@ -59,7 +59,7 @@ const { getCards } = require('./database')
 
 function getStrategy(strategy, value, number){
           // Received the number of element need remove to value array
-          // Return the array with the element removed
+    // Return the array with the element removed
   
 
 const StringValue = value.toString()
@@ -79,13 +79,21 @@ setInterval(async ()=> {
      getDatabaseOfCard.forEach(function (element) {
           strategy.push(element.lastnumber)
      })
-     let kkk;
-     console.log(strategy)
+
+     const cards4 = await getCards(4) 
+     console.log(cards4)
+     let strategy4  = []
+     cards4.forEach(function (element) {
+          strategy4.push(element.lastnumber)
+     })
+
+     
+     console.log(strategy4)
      const returns = getStrategy(obj, strategy, 5)
-     const returns2 = getStrategy(obj, strategy, 4)
-     console.log(returns)
+     const returns4 = getStrategy(obj, strategy4, 4)
+
      await regExe(returns, strategy)
-     await regExe(returns2, strategy)
+     await regExe(returns4, strategy)
      // Jogar para uma fila RabbitMq.
      // c
 
