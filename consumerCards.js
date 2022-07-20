@@ -1,9 +1,15 @@
 obj =  {
      'H,A,H,A,H' : () => {
-          return "Alternando H"
+          return "Alternando Home - 5 vezes"
      },
      'A,H,A,H,A' : () => {
-          return 'Alternando A'
+          return 'Alternando Away -  5 vezes'
+     },
+     'H,A,H,A' : () => {
+          return 'Alterando Home - 4 Vezes'
+     },
+     'A,H,A,H' : () => {
+          return 'Alternando Away - 4 Vezes'
      }
      }
 
@@ -76,9 +82,10 @@ setInterval(async ()=> {
      let kkk;
      console.log(strategy)
      const returns = getStrategy(obj, strategy, 5)
+     const returns2 = getStrategy(obj, strategy, 4)
      console.log(returns)
-
      await regExe(returns, strategy)
+     await regExe(returns2, strategy)
      // Jogar para uma fila RabbitMq.
      // c
 
