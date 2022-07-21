@@ -56,14 +56,6 @@ await page.waitForTimeout(38000);
 }
 
 const url = 'https://br.betano.com/'
-const loginButton = '.uk-button.uk-button-primary.GTM-login'
-const sideicons = "#trn";
-const xPathEvolution = '/html/body/main/section[2]/div/div/div/div[2]/figure/a';
-const Roullet = '#Thumbnail--c01d7 AnimateZoom--c472b'
-const link = 'https://www.smashup.com/'
-const elementNumber = "#number-container--c5cdb recent-number--1a19f desktop--b8c6b";
-const category = ".CategoryIcon--647f6";
-const grid = ".HistoryGrid--0f7aa.stretched--658be";
 
 
 (async () => { 
