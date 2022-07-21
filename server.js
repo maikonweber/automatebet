@@ -131,11 +131,12 @@ app.post('/api/v2/setblaze', async (req, res) => {
 app.post('/api/cards', async (req, res) => {
  const { created, result } = req.body
   console.log(result)
- const setLastCard = await insertCards(result)
- res.send(200)
+  const setLastCard = await insertCards(result)
+  console.log(setLastCard)
+  res.send(200)
 })
 
-app.get('/api', async (req, res) => {
+app.get('/api', async (req, res) => { 
   res.send('Hello')
 })
 

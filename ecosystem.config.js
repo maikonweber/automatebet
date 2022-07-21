@@ -2,7 +2,7 @@ module.exports = {
   apps : [{
     name: 'cards',
     script: 'scrapperRobotCard.js',
-    restartDelay: 1000 * 60 * 30  
+    restartDelay: 1000 * 60 * 15  
   },
   {
     name: 'RobotBet365.js',
