@@ -8,7 +8,7 @@ const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTQBu7jfw1tDzOkH7vrrFyEhVQHcFgx/NY/xgc2zt2nrGFEXZCLizMgd/IZfD4xZYPkq071kVGb64BaBRY13fLFfUOZiUo40jfMokpnuM7+y+V8WGcwYi6cLBCXYaVeyMI/pTbkcHyQOZOoAmD6qh7C3ls+OGjTzrIaWQF27VQmNX73lv6Vg4FjALR7Cpa+Xz3e63tViZ84pph2Zw50q6u9TpNsDfdNTocK9cVODEdczeXrekDCB9D8+bZullp5hsn77lgpWjDHe57eZHC/m7OhR0wLvjnhcqRp5JrWQNMJYV2P1xdGimgzAQGRLn5pAPzuxDkKawdi5ZHjYgXsVQ1lPDOE=');
 const { createClient }  = require('redis');
-const testStrategy = require('./functions/testStrategy')
+const testStrategy = require('./functions/cardTestStrategy')
 const expectNumber = require('./jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
@@ -119,8 +119,7 @@ async function consultMemory (sygnalBase, string) {
  console.log('------------ConsultMemory-----------------------')
 setTimeout(async () => {
      const { array, expect } = testStrategy(sygnalBase.estrategiaDetect)
-     console.log(array)
-     let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+     let resultadoAtual = await getLastCard(1)
      console.log(resultadoAtual)
      if(array.includes(resultadoAtual.numberjson[0])) {
      console.log('GREEN')
@@ -155,14 +154,14 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      JSON.parse(entry)
      await sendMsg(-1734065719, `
      Martingale
-    🎰 Roleta 🎰 ${sygnalBase.roulleteName},
+    🎰 MAFIA DOS CARDS 🎰,
     👉🏻 Entrada 👈🏻: ${expect} 
     🎯 Cobrir o zero'
       `, entry.msg )
 
      const PromiseCromprove = new Promise(() => {
           setTimeout(async () => {
-               let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
+               let resultadoAtual = await getLastCard(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.numberjson[0])) {
                     console.log('GREEN')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
@@ -187,14 +186,14 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      }
           
 function stringReplace(string, sygnalBase) {
-               const { estrategiaDetect, roulleteName, payload } = sygnalBase
+               const { estrategiaDetect,created, lastResult } = sygnalBase
                console.log(estrategiaDetect,  '--------------------')
                console.log(estrategiaDetect)
                const test = testStrategy(estrategiaDetect)
-               const last1 = payload.numberjson[0].toString()
-               const last2 = payload.numberjson[1].toString()
-               const last3 = payload.numberjson[2].toString()
-               const last4 = payload.numberjson[3].toString()
+               const last1 = lastResult[0].toString()
+               const last2 = lastResult[1].toString()
+               const last3 = lastResult[2].toString()
+               const last4 = lastResult[3].toString()
                const last = `${last1} | ${last2} | ${last3} | ${last4}`
 
 
