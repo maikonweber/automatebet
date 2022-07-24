@@ -19,6 +19,7 @@ async function waitGoto(url, timeout, page) {
 }
 
 
+
 client.connect();
 puppeteer.use(StealthPlugin());
 
@@ -42,6 +43,8 @@ const browser = await puppeteer.launch({
    const page = await browser.newPage()
    return page
 }
+
+
 
 async function login(page) {
 await page.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
@@ -130,23 +133,148 @@ await page.waitForTimeout(6000);
    let arrayElement = document.querySelectorAll('img')
    console.log(arrayElement)
  }) 
- try {
-  let elementHistory = await page.$$('.History--09963.tile--9ba18')
-  
-  for(let i = 0; elementHistory.length > i; i++) {
-    let ay = []
-    let elementInsideArray = await elementHistory.$$('.HistoryGridItem--237f9')
-    console.log(elementHistory[i], 'element')
-  for(let y = 0; elementInsideArray.length > y; y++) {
+
+ setInterval(async  () => {
+    const pagex = await page.evaluate(() => {
+      var payload = []
+      const history = document.querySelectorAll('article')
+      history.forEach((Element) => {
+        var rou = {}
+        const name = Element.querySelector('p').innerText
+        rou.name = name
+        const node = Element.querySelectorAll('.HistoryGridItem--237f9')
+        rou.number = []
+        node.forEach((el) => {
+          const number =  el.innerText
+          let newNumber = number.replace(/\n[0-9]*x/g, '')
+          let new1Number = newNumber.replace(/\n[0-9]*/g, '')
+          let int_ = parseInt(new1Number)
+          
+          rou.number.push(int_)
+          return
+          })
+          console.log(rou)
+          payload.push(rou)
+        })
+        console.log(payload)
+        return payload
+      })
+    l(pagex)
+    pagex.forEach((el) => {
+      l(el)
+    axios.post('http://localhost:3055/api/evolution', el).then((result) => {
+      console.log(result.data)
+    }).catch((erro) => {
+      console.log(erro)
+    })
+  })
+
+    await page.waitForTimeout(1500)
     
-    const game = await elementInsideArray[y].getProperty('textContent');
-    console.log(elementHistory[y], 'element')
-    ay.push(game)
-  }
-    console.log(ay)
-  }
+    await page.evaluate(() => {
+      let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
+      console.log(arrayElement)
+      arrayElement[5].click()
+    })
+    
+    const shows = await page.evaluate(() => {
+      var payload = []
+      const history = document.querySelectorAll('article')
+      history.forEach((Element) => {              
+        var rou = {}
+        const name = Element.querySelector('p').innerText
+        rou.name = name
+        const node = Element.querySelectorAll('.HistoryGridItem--237f9')
+        rou.number = []
+        node.forEach((el) => {
+          const number =  el.innerText
+          let newNumber = number.replace(/\n[0-9]*x/g, '')
+          rou.number.push(newNumber)
+          return
+          })
+          console.log(rou)
+          payload.push(rou)
+        })
+        console.log(payload)
+        return payload
+      })
+
+    shows.forEach((elem) =>  {
+      l(elem)
+      if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
+      axios.post('http://localhost:3055/api/cards', elem).then((result) => {
+      console.log(result.data)
+      }).catch((erro) => {
+      console.log(erro)
+      })
+      }
+    })
+
+    await page.evaluate(() => {
+      let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
+      console.log(arrayElement)
+      arrayElement[1].click()
+    })
+    
+    await page.waitForTimeout(700)
+  }, 8000)
+  
+
+      // let array = await page.$$('article')
+      // console.log(array)
+      // array.forEach( async (element, index) => {
+      //     const name = await element.$('p')
+      //     const textObject = await name.getProperty('textContent');
+      //     const text = textObject._remoteObject.value;
+      //     const numberAll = await element.$$('.HistoryGridItem--237f9')
+      //     let arrayNumber = []
+      //     for(let i; numberAll.lenght > i; i++) {
+      //       let number = await numberAll[i].getProperty('textContent')
+      //       console.log(number)
+      //       array.push(number)
+      //     }
+
+      //     // const numbert = await element.$('.HistoryGrid--0f7aa.stretched--658be')
+      //     // const arrayNumber = []
+          // for(let i; numbert.lenght > i; i++) {
+          //   const a = await numbert[i].$$('.HistoryGridItem--237f9')
+          //   for(let y; a.lenght > y; y++) {
+          //     const text = await a[y].getProperty('textContent')
+          //     const resultText = text._remoteObject.value;
+          //     arrayNumber.Push(resultText)
+          //   }
+          // }
+
+  //        roulleta = {}
+    //      roulleta.name = text
+       //   roulleta.number = arrayNumber
+         // console.log(roulleta)
+
+//         })
+
+//         console.log('-------------------Element try Detect----------------------')
+     
+//  } catch  (error) {
+//     console.log(error)
+//  }
+ 
+//  try {
+//   let elementHistory = await page.$$('.History--09963.tile--9ba18')
+  
+//   for(let i = 0; elementHistory.length > i; i++) {
+//     let ay = []
+//     let elementInsideArray = await elementHistory.$$('.HistoryGridItem--237f9')
+//     console.log(elementHistory[i], 'element')
+//   for(let y = 0; elementInsideArray.length > y; y++) {
+    
+//     const game = await elementInsideArray[y].getProperty('textContent');
+//     console.log(elementHistory[y], 'element')
+//     ay.push(game)
+//   }
+//     console.log(ay)
+//   }
    
-} catch (err) {
-  console.log(err)
- }
+// } catch (err) {
+//   console.log(err)
+//  }
 })()

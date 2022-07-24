@@ -346,19 +346,6 @@ async function strategyProced (objetoRolleta) {
      // Get the strategy
      const strategyProcess = await strategyConsultFor18(concat)
      objetoRolleta.detectStrategy = await strategy18Procced(strategyProcess)
-
-     const nineteenTo36 = objetoRolleta.jsonbstrategy.nineteenTo36    
-     const strategRed = objetoRolleta.jsonbstrategy.strategyRed
-     const strategGree = objetoRolleta.jsonbstrategy.strategyGreen
-     const s18to39 = objetoRolleta.jsonbstrategy.strategy19to39
-     const oneTo18 = objetoRolleta.jsonbstrategy.strategyOneTo18
-     const parRepeat = objetoRolleta.jsonbstrategy.strategyParReapeat
-     const duziaReapt = objetoRolleta.jsonbstrategy.strategyDuziaRepeat
-     const imparReapt = objetoRolleta.jsonbstrategy.strategyImparReapeat
-     const columnsReapt = objetoRolleta.jsonbstrategy.strategyColumnReapeat
-     const alternateColumns = objetoRolleta.jsonbstrategy.strategyAlternateColum
-     const red4time = objetoRolleta.jsonbstrategy.strategyRed4Time
-
      objetoRolleta.concat = concat
 
      objetoRolleta.detectStrategy.colunasRepeat.forEach(async (coluna) => {
@@ -470,10 +457,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
                })
           })         
      }
-}
-
-
-     
+}    
 
 //await client.start({
  //   phoneNumber: async () => await input.text('Please enter your number: '),
@@ -507,7 +491,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
       //  console.log(result.chats[i].id, result.chats[i].title)
    // }
 
-// -1150553286 } MÁFIA DA ROLETA - [VIP] 🎰💰
+// {-1150553286 } MÁFIA DA ROLETA - [VIP] 🎰💰
 // Integer { value: 1266295662n } VR BOT
 // Integer { value: 1267429660n } MÁFIA DA ROLETA - [FREE] 🎰💰
 // Integer { value: 1581808712n } NOVA MINING INVESTMENT
@@ -525,10 +509,9 @@ setInterval(() => {
                console.log(last18)
                let obj = {
                'roulletename' : estrategia.name,
-               'jsonbstrategy'  :   estrategia.jsonbpreload,
-               'numberjson'   :  estrategia.numberjson,
+               'numberjson'   :  estrategia.number,
                'objsResult' : estrategia,
-               'last18' : [estrategia.numberjson, last18.lastRow.numberjson],
+               'last18' : [estrategia.number, last18.lastRow.number],
                 }
 
                strategyProced(obj)

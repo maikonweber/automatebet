@@ -19,20 +19,25 @@ const amqplib = require('amqplib/callback_api');
 
 const roleta = 
      [
+          'Türkçe_Lightning_Rulet',
+          'Auto-Roulette',
+          'Immersive_Roulette',
           'Roulette',
-          'Football_French_Roulette',
-          'Deutsches_Roulette',
-          'Speed_Roulette',
-          'Prestige_Roulette',
-          'Mega_Fire_Blaze_Roulette_Live',
-          'Greek_Roulette',
-          'Roleta_Brasileira',
-          'Auto_Roulette',
-          'French_Roulette',
-          'Hindi_Roulette',
-          'Roulette_Italiana',
-          'Bucharest_Roulette',
           'American_Roulette',
+          'Speed_Roulette',
+          'VIP_Roulette',
+          'Grand_Casino_Roulette',
+          'Lightning_Roulette',
+          'Speed_Auto_Roulette',
+          'Auto-Roulette_VIP',
+          'Auto-Roulette_La_Partage',
+          'London_Roulette',
+          'Salon_Privé_Roulette',
+          'Hippodrome_Grand_Casino',
+          'Arabic_Roulette',
+          'Speed_Auto_Roulette',
+          'French_Roulette_Gold',
+          'Dansk_Roulette'  
      ]
 
 const strategyx = [
@@ -133,7 +138,7 @@ async function saveMemorySend(sygnalBase, string) {
      const msg1 = await sendMsg(-1150553286, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, JSON.stringify({
                msg : msg1
-          }) ,'EX', 60 * 7).then((result)=> {
+          }) ,'EX', 60 * 11).then((result)=> {
                console.log(result)
           })  
 
@@ -307,7 +312,7 @@ async function proccedAlert (sygnalBase, string) {
      
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`, JSON.stringify({
           msg : msg2    
-     }) , 'EX', 60 * 4)
+     }) , 'EX', 60 * 11)
 
      return
 }
@@ -362,7 +367,6 @@ ch2.consume(q.queue, async function(msg) {
           let result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`)
           if(!result) {
                  await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert`, 'alert', 'EX', 60 * 11)
-                         
                     return await proccedAlert(strig, possivelAlert) 
                }      
           }

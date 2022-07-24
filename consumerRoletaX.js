@@ -19,20 +19,25 @@ const amqplib = require('amqplib/callback_api');
 
 const roleta = 
      [
+          'Türkçe_Lightning_Rulet',
+          'Auto-Roulette',
+          'Immersive_Roulette',
           'Roulette',
-          'Football_French_Roulette',
-          'Deutsches_Roulette',
-          'Speed_Roulette',
-          'Prestige_Roulette',
-          'Mega_Fire_Blaze_Roulette_Live',
-          'Greek_Roulette',
-          'Roleta_Brasileira',
-          'Auto_Roulette',
-          'French_Roulette',
-          'Hindi_Roulette',
-          'Roulette_Italiana',
-          'Bucharest_Roulette',
           'American_Roulette',
+          'Speed_Roulette',
+          'VIP_Roulette',
+          'Grand_Casino_Roulette',
+          'Lightning_Roulette',
+          'Speed_Auto_Roulette',
+          'Auto-Roulette_VIP',
+          'Auto-Roulette_La_Partage',
+          'London_Roulette',
+          'Salon_Privé_Roulette',
+          'Hippodrome_Grand_Casino',
+          'Arabic_Roulette',
+          'Speed_Auto_Roulette',
+          'French_Roulette_Gold',
+          'Dansk_Roulette'  
      ]
 
 const strategyx = [

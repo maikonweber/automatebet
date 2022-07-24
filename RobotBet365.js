@@ -266,7 +266,7 @@ class RoulleteBot {
     
     console.log("Try to login");
 
-
+    await this.page.waitForTimeout(85000);
     if (username && password) {
       // Clean username
        // Clear the input field
@@ -274,15 +274,16 @@ class RoulleteBot {
       await username.type(this.username);
       await password.type(this.password);
       // enter the page
-      await this.page.waitForTimeout(18000);
+      
       await this.page.keyboard.press('Enter');
       await this.page.waitForTimeout(5000);
     
-      const button = await this.page.$('.regulatory-last-login-modal__button');
-         console.log(button)
-      if (button) {
-        await button.click();
-      }
+      //const button = await this.page.$('.regulatory-last-login-modal__button');
+      await this.page.waitForTimeout(250000);
+      // console.log(button)
+      //if (button) {
+        //await button.click();
+     // }
       await this.page.waitForTimeout(5000);
       await this.page.waitForTimeout(5000);
     }

@@ -2,7 +2,6 @@ const hasher = require('./hasher')
 const crypto = require('crypto')
 
 var pg = require('pg');
-const { fromLine } = require('telegram/tl/generationHelpers');
 let client = {
     host: 'localhost',
     port: 5532,
@@ -123,8 +122,8 @@ async function getColSygnal() {
 }
 
 async function getStrategyByRoullet (name) {
-    let sql = `Select name, numberjson, jsonbpreload, jsonbstrategy, created, id 
-               FROM robotbetpayload where name ~ $1
+    let sql = `Select name, number 
+               FROM robotevolution where name ~ $1
                Order by created 
                Desc LIMIT 1;` 
 
@@ -134,7 +133,7 @@ async function getStrategyByRoullet (name) {
 
 async function getLastNumber(name) {
     let sql = `SELECT numberjson 
-    FROM robotbetpayload where name ~ $1
+    FROM robotevolution where name ~ $1
     order by created  
     desc limit 1;`;
 
@@ -142,15 +141,37 @@ async function getLastNumber(name) {
     return result.rows[0];
 }
 
-async function getUsuariosActivosPadroes (id) {
-    let query = `Select * FROM users where id = $1`
 
-} 
+async function getLastNumberEv(name) {
+    let sql = `SELECT number 
+    FROM robotevolution where name ~ $1
+    order by created  
+    desc limit 1;`;
 
+    let result = await pool.query(sql, [name]);
+    return result.rows[0];
+}
+
+async function getLastNumberCard(name) {
+    let sql = `SELECT number 
+    FROM paylaod_card where name ~ $1
+    order by created  
+    desc limit 1;`;
+
+    let result = await pool.query(sql, [name]);
+    return result.rows[0];
+}
+
+async function insertCardPayload (name, number) {
+    let sql = `INSERT INTO paylaod_card (name, number) VALUES ($1, $2) RETURNING id`
+
+    let result = await pool.query(sql, [name, number])
+    return result.rows[0];
+}
 
 async function getLastNumber18(name) {
-    let sql = `SELECT numberjson 
-    FROM robotbetpayload where name ~ $1
+    let sql = `SELECT number
+    FROM robotevolution where name ~ $1
     order by created  
     desc limit 12;`;
 
@@ -182,6 +203,15 @@ async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
     values ($1, $2, $3, $4) returning id`;
 
     let result = await pool.query(sql, [name, numberJson, jsonPreload, jsonbStrategy]);
+    
+    return result
+}
+
+async function InsertRoulleteEv (name, number) {
+    let sql = `insert into robotevolution (name, number) 
+    values ($1, $2) returning id`;
+
+    let result = await pool.query(sql, [name, number]);
     
     return result
 }
@@ -343,7 +373,11 @@ module.exports = {
     updateStrategyFilter,
     insertCards,
     getCards,
-    getResultDatabase
+    getResultDatabase,
+    getLastNumberEv,
+    InsertRoulleteEv,
+    insertCardPayload,
+    getLastNumberCard
 }
 
 
