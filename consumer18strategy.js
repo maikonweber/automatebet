@@ -19,13 +19,11 @@ const {
      updateStrategyFilter
 } = require('./database')
 
-const redis = require('redis');
 const arrayName = require('./jsonObjects/RoleteNames');
 const jsonRoullete = require('./jsonObjects/jsonOfhtml');
-const clientRedis = redis.createClient({
-     host: '127.0.0.1',
-     port: 6379,
-});
+const Redis = require("ioredis");
+const redis = new Redis();
+
 const testStrategy = require('./functions/testStrategy')
 const expectNumber = require('./jsonObjects/strategy.js');
 
@@ -35,7 +33,6 @@ const expectNumber = require('./jsonObjects/strategy.js');
      e envia para um canal redis   
 */
 
-clientRedis.connect();
 // get all key in redis
 (async () => {
 
@@ -45,16 +42,8 @@ console.log("Consumer memory and strategy...");
      @dev | Send msg to redisChannel proceed strategya and save detect
 */
 
-async function SendMessage(msg) {
-     console.log('Envianado a msg de processamento para canal' - "---")
-     // Redis channel bet
-     const channel = 'BetRollet';
-     const message = JSON.stringify(msg);
-          await clientRedis.publish(channel, message);
-          return true;      
-}
-
 async function strategyConsultFor18(newArray)  {
+     
      const columa1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
      const coluna2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
      const coluna3 = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]
@@ -75,6 +64,7 @@ async function strategyConsultFor18(newArray)  {
      let OneTo18s = []
      let imparx = []
      let parx = []
+
      for(let i = 0; i < newArray.length; i++) {
           if (columa1.includes(newArray[i])) {
                colunas.push(1)
@@ -205,12 +195,12 @@ async function strategy18Procced (strategy) {
 
      }    
 
-     let times = 18
+     let times = 24
      let array = []
 
      
 
-
+     console.log()
 
      //parOuImpar,
      let arrayColunas1Ausencia = []
@@ -345,9 +335,9 @@ async function strategyProced (objetoRolleta) {
      // Remove every time the 10th element of array and make a new array com rest of elements
      // Get the strategy
      const strategyProcess = await strategyConsultFor18(concat)
+     console.log(strategyProcess)
      objetoRolleta.detectStrategy = await strategy18Procced(strategyProcess)
      objetoRolleta.concat = concat
-
      objetoRolleta.detectStrategy.colunasRepeat.forEach(async (coluna) => {
           await regExe(coluna.coluna, objetoRolleta, objetoRolleta.objsResult.name)
           })
@@ -437,7 +427,10 @@ async function regExe(string, objetoRolleta, strategyArg) {
           const mock = created / 1000 / 60;
           const mockDivision = Math.floor(mock);
 
-          
+          let result = await redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
+          console.log(result, '--------------------------->')
+          if(!result) {
+          await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, 'alert', 'EX', 60 * 5)
           console.log('=========================================================================')
           console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
           console.log('=========================================================================')
@@ -449,13 +442,15 @@ async function regExe(string, objetoRolleta, strategyArg) {
                ch1.assertExchange('msg', 'fanout', {
                          durable: false
                     });
+               
                ch1.publish('msg', '', Buffer.from(JSON.stringify(estrategiaDetect)));
 
                setTimeout(function() {
                     conn.close();
                      }, 200);
                })
-          })         
+          })            
+          }
      }
 }    
 
@@ -506,7 +501,6 @@ setInterval(() => {
      const last18 = await getLastNumber18(Element);
               // Match RegEx Nao Indenticado for Result strateg
           result.forEach(async (estrategia) => {
-               console.log(last18)
                let obj = {
                'roulletename' : estrategia.name,
                'numberjson'   :  estrategia.number,

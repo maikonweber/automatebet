@@ -172,14 +172,14 @@ async function insertCardPayload (name, number) {
 async function getLastNumber18(name) {
     let sql = `SELECT number
     FROM robotevolution where name ~ $1
+    and created > now() - interval '4 hour'
     order by created  
-    desc limit 12;`;
+    desc limit 13;`;
 
     let result = await pool.query(sql, [name]);
-    console.log(result)
     return obj = {
         fistRow : result.rows[0],
-        lastRow : result.rows[11]
+        lastRow : result.rows[12]
     }
 }
 
@@ -293,12 +293,16 @@ async function getResultDatabase(name) {
    
 }
 
-async function getCards(number) { 
+async function getCards(name) { 
     let query = `
-        Select lastnumber from mafia_cards
-        Order by created desc limit $1;
+        Select number 
+        FROM paylaod_card
+        WHERE name ~ $1
+        AND created > now() - interval '1 hour'
+        Order by created desc
+        limit 1;
     `
-    let result = await pool.query(query, [number])
+    let result = await pool.query(query, [name])
 
     return result.rows
 }

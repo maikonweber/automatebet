@@ -25,7 +25,6 @@ puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
 const browser = await puppeteer.launch({
-    
      headless: false,
      defaultViewport: {
        width: 1100,
@@ -135,6 +134,7 @@ await page.waitForTimeout(6000);
  }) 
 
  setInterval(async  () => {
+gi
     const pagex = await page.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')

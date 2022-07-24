@@ -55,7 +55,8 @@ const strategyx = [
       'Ausencia da Terceiro Bloco - 17 vezes ',
       'Ausencia da Primeiro Bloco - 17 vezes ',
       'Ausencia da Primeiro Bloco - 17 vezes ',
-]
+      'Repetição de 5 vezes da Segunda Coluna',
+     ]
 
 const spectStrategy = [
      'Alternando Primeira e Segunda Colunas - 9 vezes',
@@ -63,7 +64,7 @@ const spectStrategy = [
      // 'Repitição de 8 vezes do Segundo Bloco',
     // 'Repitição de 8 vezes do Terceira Bloco',
     // 'Repetição de 8 vezes da Primeira Coluna',
-    // 'Repetição de 8 vezes da Segunda Coluna',
+     'Repetição de 4 vezes da Segunda Coluna',
      'Repetição de 8 vezes da Terceira Coluna',
      'Ausencia da Segunda Coluna - 16 vezes ',
      'Ausencia da Terceira Coluna - 16 vezes ',
@@ -138,7 +139,7 @@ async function saveMemorySend(sygnalBase, string) {
      const msg1 = await sendMsg(-1150553286, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`, JSON.stringify({
                msg : msg1
-          }) ,'EX', 60 * 11).then((result)=> {
+          }) ,'EX', 60 * 7).then((result)=> {
                console.log(result)
           })  
 
@@ -360,7 +361,7 @@ ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
      const msgs = msg.content.toString()
      const strig =  JSON.parse(msgs); // 'message'
-     console.log(strig.estrategiaDetect, strig.roulleteName)
+     console.log(strig.estrategiaDetect, strig.roulleteName, strig)
      
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')

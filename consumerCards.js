@@ -30,10 +30,11 @@ async function regExe(string, result) {
                // Make division mock 1 minutes
                const mock = created / 1000 / 60;
                const mockDivision = Math.floor(mock);
-     
                
+               console.log(JSON.stringify(estrategiaDetect))               
                console.log('=========================================================================')
                console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+
                console.log('=========================================================================')
                amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                     if (err) throw err;
@@ -60,41 +61,43 @@ const { getCards } = require('./database')
 function getStrategy(strategy, value, number){
           // Received the number of element need remove to value array
     // Return the array with the element removed
+console.log(strategy, value, number)
+const array2 = new Array(...value)  // Copy the array     
+    // remove the element from the array
+for(number; number > 0; number--) {
+         array2.pop()     
+}
   
 
-const StringValue = value.toString()
+const StringValue = array2.toString()
      console.log(StringValue)
 if(strategy[`${StringValue}`]) {
+     console.log(strategy[`${StringValue}`]())
      return strategy[`${StringValue}`]();
      } 
      return `Não identificado ${StringValue}` ;
 }
-     
+
+const name = [
+     'Football_studio',
+     'Türkçe_Futbol_Stüdyosu'
+]
 
 setInterval(async ()=> {
      // Consultar na Base os Ultimos 5 registros 
-     const getDatabaseOfCard = await getCards(5) 
-     console.log(getDatabaseOfCard)
-     let strategy  = []
-     getDatabaseOfCard.forEach(function (element) {
-          strategy.push(element.lastnumber)
-     })
+     name.forEach(async (elem) => { 
+     const getDatabaseOfCard = await getCards(elem) 
+     console.log(getDatabaseOfCard[0].number)
 
-     const cards4 = await getCards(4) 
-     console.log(cards4)
-     let strategy4  = []
-     cards4.forEach(function (element) {
-          strategy4.push(element.lastnumber)
-     })
+     const returns = getStrategy(obj, getDatabaseOfCard[0].number, 6)
+     const returns4 = getStrategy(obj, getDatabaseOfCard[0].number, 5)
 
-     
-     console.log(strategy4)
-     const returns = getStrategy(obj, strategy, 5)
-     const returns4 = getStrategy(obj, strategy4, 4)
-
-     await regExe(returns, strategy)
-     await regExe(returns4, strategy)
+     await regExe(returns, returns)
+     await regExe(returns4, returns4)
      // Jogar para uma fila RabbitMq.
      // c
+     })
 
 }, 7000)
+
+  

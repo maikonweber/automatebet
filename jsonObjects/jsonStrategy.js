@@ -1039,8 +1039,7 @@ const parOuImpar = {
           ,
           '1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3' : () => {
                return 'Alternando Primeira e Terceira Colunas - 18 vezes';
-          } 
-
+          },
      }
 
 module.exports = {
