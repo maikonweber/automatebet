@@ -154,7 +154,7 @@ async function getLastNumberEv(name) {
 
 async function getLastNumberCard(name) {
     let sql = `SELECT number 
-    FROM paylaod_card where name ~ $1
+    FROM paylaoad_card where name ~ $1
     order by created  
     desc limit 1;`;
 
@@ -163,7 +163,7 @@ async function getLastNumberCard(name) {
 }
 
 async function insertCardPayload (name, number) {
-    let sql = `INSERT INTO paylaod_card (name, number) VALUES ($1, $2) RETURNING id`
+    let sql = `INSERT INTO paylaoad_card (name, number) VALUES ($1, $2) RETURNING id`
 
     let result = await pool.query(sql, [name, number])
     return result.rows[0];
