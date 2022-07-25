@@ -97,7 +97,7 @@ const stringreen = `
 `
 
 const stringred = `
-XXX RED, RESPIRA E SEGUA A GESTÃO!
+🔴  RED, RESPIRA E SEGUA A GESTÃO 🔴!
 {last}
 `
 
