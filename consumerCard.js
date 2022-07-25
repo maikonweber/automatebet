@@ -301,11 +301,11 @@ ch2.consume(q.queue, async function(msg) {
           console.log('-------------------------------')
           console.log(strig.estrategiaDetect)
           redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)
-          await proccedAlert(possivelAlert, strig)
+          await proccedAlert(strig, string)
      } else if (/5 vezes/.test(strig.estrategiaDetect)) {
           console.log('-------------------------------')
           console.log(strig.estrategiaDetect)
-          await saveMemorySend(string, strig)
+          await saveMemorySend(strig, string)
      }
 }
 }, { noAck : true} 

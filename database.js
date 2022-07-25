@@ -185,7 +185,7 @@ async function getLastNumber18(name) {
 
 async function getLastCard() {
     let sql = `SELECT number, name, created from  paylaoad_card
-               Where created order by desc`
+               order by desc`
     let result = await pool.query(sql)
     return result
 }
