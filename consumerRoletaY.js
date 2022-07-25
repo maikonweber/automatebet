@@ -15,7 +15,7 @@ const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
 
 ;(async () => {
-     const id = 2;
+const id = 2;
 
 const roleta = 
      [
