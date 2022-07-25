@@ -10,12 +10,13 @@ const client = redis.createClient({
 const  {
   l,
   getTextEvalute
-} = require("./puppeterFunctions")
+} = require("./puppeterFunctions");
+const { get } = require("cheerio/lib/api/traversing");
 
 async function waitGoto(url, timeout, page) {
-  await page.goto(url, {waitUntil: 'networkidle0'});
+  await page.A.goto(url, {waitUntil: 'networkidle0'});
   await console.log('------Go to ' + url +'--------')
-  await page.waitForTimeout(timeout)
+  await page.A.waitForTimeout(timeout)
 }
 
 
@@ -34,33 +35,37 @@ const browser = await puppeteer.launch({
      args: [
        "--no-sandbox",
        "--window-size=920,680",
-       "--window-position=500,0",
+       "--window-position=1200,0",
        '--disable-extensions',
        '--use-gl=egl',
      ],  
    });
-   const page = await browser.newPage()
-   return page
+   const pageA = await browser.newPage()
+   const pageB = await browser.newPage()
+   return {
+    A : pageA,
+    B : pageB
+   }
 }
 
 
 
 async function login(page) {
-await page.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
+await page.A.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
 
 const sideicons = "#trn";
 const xPathEvolution = '/html/body/main/section[2]/div/div/div/div[2]/figure/a';
 const Roullet = '#Thumbnail--c01d7 AnimateZoom--c472b'
 const link = 'https://www.smashup.com/'
 const elementNumber = "#number-container--c5cdb recent-number--1a19f desktop--b8c6b";
-const element_ = await page.$('#username');
-const elementPass_ = await page.$('#password');
+const element_ = await page.A.$('#username');
+const elementPass_ = await page.A.$('#password');
 if (element_ && elementPass_) {
      // Send keys to the element
      await element_.type(this.username);
      await elementPass_.type(this.password);
-     await page.keyboard.press('Enter');
-     await page.waitForNavigation({waitUntil: 'networkidle0'});
+     await page.A.keyboard.press('Enter');
+     await page.A.waitForNavigation({waitUntil: 'networkidle0'});
  }
  else {
      console.log('Ocorreu um erro ao logar no site');    
@@ -76,18 +81,17 @@ const elementNumber = "#number-container--c5cdb recent-number--1a19f desktop--b8
 
 (async () => { 
 const page = await getBrowser()
-await page.goto(url);
-
-const element_ = await page.$('#username')
-const elementPass_ = await page.$('#password')
+await page.A.goto(url);
+const element_ = await page.A.$('#username')
+const elementPass_ = await page.A.$('#password')
 
 if (element_ && elementPass_) {
      await element_.type('maikonweber1');
      await elementPass_.type('ma128sio4');
-     await page.keyboard.press('Enter')
-     await page.waitForNavigation({ waitUntil: 'networkidle0'})
+     await page.A.keyboard.press('Enter')
+     await page.A.waitForNavigation({ waitUntil: 'networkidle0'})
      // player_uname // lastLogintimeTxt
-     const balance = await page.evaluate(() => {
+     const balance = await page.A.evaluate(() => {
         let current = document.querySelector('.currency_number').innerText
         let currentValor = document.querySelector('#player_uname').innerText
         let lastLogin = document.querySelector('#lastLogintimeTxt').innerText
@@ -98,43 +102,100 @@ if (element_ && elementPass_) {
         }
       })
      console.log(balance) 
-     await page.waitForTimeout(3000)
+     await page.A.waitForTimeout(3000)
 } else {
      console.log('Ocorreu um erroo no site')
 }
 
-await page.evaluate (() => {
+const sleep = (ms) => { 
+  return new Promise((resolve, reject) =>{
+  setTimeout(() => {
+    resolve(true)
+  }, ms)
+})
+
+async function getEsporte(page) {
+  page.goto('https://player.smashup.com/player_center/').then()
+  while (true) {
+    console.log(page)
+    
+    page.evaluate(() => {
+       return document.querySelectorAll('a')[3].click()
+      }).then()
+
+    page.waitForSelector('.bto-sb-betting-menu-active').then((result) => result.click())
+
+    await sleep(1000 * 60 * 5)    
+  }
+}
+
+async function getDoubleCash(page) {
+  setInterval(() => {
+    console.log(page)
+  }, 1000 * 60 * 17)
+}
+
+async function getRouleta(page) {
+  setInterval(() => {
+
+  }, 7000)
+}
+
+// await page.B.evaluate(() => {
+//  return document.querySelectorAll('a')[3].click()
+// })
+await getEsporte(page.B)
+
+// await page.B.evaluate(() => {
+//  return document.querySelector('.bto-sb-betting-menu-active').click()
+// })
+
+await page.B.waitForTimeout(15000)
+
+// await page.B.evaluate(() => {
+//   return document.querySelectorAll('.bto-sb-slider-value.bto-sb-slider-value')[1].click()
+// })
+
+// const tyt = await page.B.evaluate(() => {
+//   return document.querySelectorAll('.bto-sb-widget.bto-sb-widget-prematch.bto-sb-widget-prematch-full-view.bto-sb-widget-live-now')[0].querySelectorAll('a')
+// })
+
+// console.log(tyt)
+
+
+
+await page.A.evaluate (() => {
   let button = document.querySelector('.brand-logo')
   button.click()
 })
 
-await page.waitForTimeout(5000)
+await page.A.waitForTimeout(5000)
 
-await page.evaluate(() => {
+await page.A.evaluate(() => {
   document.querySelector('.livecasino a').click()
 })
-await page.waitForTimeout(7000);
-await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000')
-await page.waitForTimeout(6000);
-     await page.waitForTimeout(15000);
-     var frames = (await page.frames());
+await page.A.waitForTimeout(7000);
+await page.A.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000')
+await page.A.waitForTimeout(6000);
+     await page.A.waitForTimeout(15000);
+     var frames = (await page.A.frames());
      const a = frames[1].url();
-     await page.goto(a, {waitUntil: 'networkidle0'});
-     await page.waitForTimeout(15000);
+     await page.A.goto(a, {waitUntil: 'networkidle0'});
+     await page.A.waitForTimeout(15000);
 
- await page.evaluate(() => {
+ await page.A.evaluate(() => {
     let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
     console.log(arrayElement)
     arrayElement[1].click()
  })    
 
- await page.evaluate(() => {
+ await page.A.evaluate(() => {
    let arrayElement = document.querySelectorAll('img')
    console.log(arrayElement)
  }) 
 
  setInterval(async  () => {
-    const pagex = await page.evaluate(() => {
+    const pagex = await page.A.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')
       history.forEach((Element) => {
@@ -158,25 +219,26 @@ await page.waitForTimeout(6000);
         console.log(payload)
         return payload
       })
-    l(pagex)
+
+
     pagex.forEach((el) => {
       l(el)
-    axios.post('http://localhost:3055/api/evolution', el).then((result) => {
+    axios.post('https:api/muttercorp.com/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
     })
   })
 
-    await page.waitForTimeout(1500)
+    await page.A.waitForTimeout(12000)
     
-    await page.evaluate(() => {
+    await page.A.evaluate(() => {
       let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
       console.log(arrayElement)
       arrayElement[5].click()
     })
     
-    const shows = await page.evaluate(() => {
+    const shows = await page.A.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')
       history.forEach((Element) => {              
@@ -204,7 +266,7 @@ await page.waitForTimeout(6000);
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('http://localhost:3055/api/cards', elem).then((result) => {
+      axios.post('https:api/muttercorp.com/api/cards', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -212,21 +274,67 @@ await page.waitForTimeout(6000);
       }
     })
 
-    await page.evaluate(() => {
+    await page.A.evaluate(() => {
       let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
       console.log(arrayElement)
       arrayElement[1].click()
     })
     
-    await page.waitForTimeout(700)
+    await page.A.waitForTimeout(700)
   }, 8000)
   
+// setInterval(async () => {
+//     await page.B.evaluate(() => {
+//       return document.querySelectorAll('li > a')[5].click()
+//      })
+   
+ 
+//      const pagexB = await page.B.evaluate(() => {
+//        const array = []
+//       //  document.querySelectorAll('.roulette-previous.casino-recent')[0].querySelectorAll('.entries.main')[0].querySelectorAll('div').forEach((elemt) => { 
+//       //    console.log(elemt.innerText)
+//       //    array.push(elemt.innerText)
+      
+//        const obj = {
+//          Double : array
+//        }
+ 
+//        return obj
+//      }) 
+ 
+//      console.log(pagexB)
+ 
+//      await page.B.evaluate(() => {
 
-      // let array = await page.$$('article')
-      // console.log(array)
-      // array.forEach( async (element, index) => {
-      //     const name = await element.$('p')
-      //     const textObject = await name.getProperty('textContent');
+//        return document.querySelectorAll('li > a')[4].click()
+//      })
+ 
+
+//      await page.B.waitForTimeout(45000)
+ 
+//      // console.log(pagexB)
+ 
+//     //  const pagexBCrash = await page.B.evaluate(() => {
+//     //    const array = []
+//     //   //  document.querySelectorAll('.entries.main')[0].querySelectorAll('.entry.crash-mr').forEach((elemt) => {
+//     //   //    return array.push(elemt.innerText)
+
+//     //    let obj =
+//     //    {
+//     //      Crash : array
+//     //    }
+//     //    return obj
+ 
+
+//     //   })
+
+//     //       }, 17000)
+
+//       // let array = await page.A.$$('article')
+//       // console.log(array)
+//       // array.forEach( async (element, index) => {
+//       //     const name = await element.$('p')
+//       //     const textObject = await name.getProperty('textContent');
       //     const text = textObject._remoteObject.value;
       //     const numberAll = await element.$$('.HistoryGridItem--237f9')
       //     let arrayNumber = []
@@ -261,7 +369,7 @@ await page.waitForTimeout(6000);
 //  }
  
 //  try {
-//   let elementHistory = await page.$$('.History--09963.tile--9ba18')
+//   let elementHistory = await page.A.$$('.History--09963.tile--9ba18')
   
 //   for(let i = 0; elementHistory.length > i; i++) {
 //     let ay = []
