@@ -27,6 +27,7 @@ const {
   getLastNumberCard,
   insertCardPayload
 } = require('./database');
+const { before } = require('cheerio/lib/api/manipulation');
 
 app.use(cors());
 app.use(express.json());
@@ -134,7 +135,7 @@ app.post('/api/v2/setblaze', async (req, res) => {
 
 app.post('/api/cards', async (req, res) => {
   const body = req.body
-  console.log(cards)
+  console.log(body)
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
   const resultado = await  getLastNumberCard(name_);
