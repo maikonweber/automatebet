@@ -87,6 +87,7 @@ setInterval(async ()=> {
      // Consultar na Base os Ultimos 5 registros 
      name.forEach(async (elem) => { 
      const getDatabaseOfCard = await getCards(elem) 
+     console.log(elem)
      console.log(getDatabaseOfCard[0].number)
 
      const returns = getStrategy(obj, getDatabaseOfCard[0].number, 6)

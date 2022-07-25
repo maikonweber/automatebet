@@ -48,7 +48,7 @@ const strategyx = [
     // 'Repetição de 9 vezes da Primeira Coluna',
    //  'Repetição de 9 vezes da Segunda Coluna',
      'Repetição de 9 vezes da Terceira Coluna',
-   //  'Ausencia da Segunda Coluna - 12 vezes ',
+     'Ausencia da Segunda Coluna - 6 vezes ',
     // 'Ausencia da Terceira Coluna - 12 vezes ',
       'Ausencia da Primeira Coluna  - 17 vezes ',
       'Ausencia da Segundo Bloco - 17 vezes ',
@@ -63,7 +63,8 @@ const spectStrategy = [
       // 'Repetição de 8 vezes do Primeiro Bloco',
      // 'Repitição de 8 vezes do Segundo Bloco',
     // 'Repitição de 8 vezes do Terceira Bloco',
-    // 'Repetição de 8 vezes da Primeira Coluna',
+    // 'Repetição de 8 vezes da Primeira Coluna'
+     'Ausencia da Segunda Coluna - 5 vezes ',
      'Repetição de 4 vezes da Segunda Coluna',
      'Repetição de 8 vezes da Terceira Coluna',
      'Ausencia da Segunda Coluna - 16 vezes ',
@@ -78,11 +79,13 @@ const spectStrategy = [
 const string = 
 `
 !!! MAFIA DAS ROLETAS !!!
+{data}
 🔔ENTRADA CONFIRMADA🔔
 🎰Roleta 🎰: {roulleteName}
 💎Estratégia💎: {strategyName}
 ✅Entrada: {expect}
 {last}
+
 0️⃣COBRIR ZERO
 `
 
@@ -152,13 +155,13 @@ async function saveMemorySend(sygnalBase, string) {
 function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
           if(!zero) {
                const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
-               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
+               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.number[0]} || ${resultadoAtual.number[1]} || ${resultadoAtual.number[2]} || ${resultadoAtual.number[3]}`)
                const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
                return replace4
           } else {
                const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN NO ZEROOOO ✅')
-               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
+               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.number[0]} || ${resultadoAtual.number[1]} || ${resultadoAtual.number[2]} || ${resultadoAtual.number[3]}`)
                const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`) 
                return replace4
@@ -167,7 +170,7 @@ function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
 
 function replaceForRed(string, resultadoAtual, sygnalBase) {
                const replace = string.replace(/✅ GREEN ✅/g, '🔴  RED 🔴')
-               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.numberjson[0]} || ${resultadoAtual.numberjson[1]} || ${resultadoAtual.numberjson[2]} || ${resultadoAtual.numberjson[3]}`)
+               const replace2 = replace.replace(/{last}/g, `${resultadoAtual.number[0]} || ${resultadoAtual.number[1]} || ${resultadoAtual.number[2]} || ${resultadoAtual.number[3]}`)
                const replace3 = replace2.replace(/{roulleteName}/g, `${sygnalBase.roulleteName}`)
                const replace4 = replace3.replace(/{strategyName}/g, `${sygnalBase.estrategiaDetect}`)
                return replace4
@@ -181,12 +184,12 @@ setTimeout(async () => {
      console.log(array)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
      console.log(resultadoAtual)
-     if(array.includes(resultadoAtual.numberjson[0])) {
+     if(array.includes(resultadoAtual.number[0])) {
      console.log('GREEN')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1150553286, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
-     } else if ([0].includes(resultadoAtual.numberjson[0])) {
+     } else if ([0].includes(resultadoAtual.number[0])) {
      console.log('ZEROOOOO')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
      entry =  JSON.parse(entry)
@@ -222,13 +225,13 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      const PromiseCromprove = new Promise(() => {
           setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
-               if(array.includes(resultadoAtual.numberjson[0])) {
+               if(array.includes(resultadoAtual.number[0])) {
                     console.log('GREEN')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1150553286, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
                } 
-              else if ([0].includes(resultadoAtual.numberjson[0])) {
+              else if ([0].includes(resultadoAtual.number[0])) {
                   console.log('ZEROOOOO')
                   let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}`)
                   entry =  JSON.parse(entry)
@@ -261,7 +264,9 @@ function stringReplace(string, sygnalBase) {
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
                const replace4 = replace2.replace(/{last}/g, last)
                const replace5 = replace4.replace(/{expect}/g, test.expect)
-               return replace5
+               const data = replace5.replace(/{data}/g, new Date())
+               console.log(data)
+               return data
  }    
           
 

@@ -132,7 +132,7 @@ async function getStrategyByRoullet (name) {
 }
 
 async function getLastNumber(name) {
-    let sql = `SELECT numberjson 
+    let sql = `SELECT number 
     FROM robotevolution where name ~ $1
     order by created  
     desc limit 1;`;

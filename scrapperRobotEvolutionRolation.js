@@ -134,7 +134,6 @@ await page.waitForTimeout(6000);
  }) 
 
  setInterval(async  () => {
-gi
     const pagex = await page.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')
@@ -199,6 +198,9 @@ gi
         return payload
       })
 
+      if(shows.lenght < 1) {
+        process.exit()
+      }
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
