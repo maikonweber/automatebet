@@ -1,3 +1,12 @@
+const { getLastCard } = require('./database')
+
+
+const input = require("input"); // npm i input
+const { createClient }  = require('redis');
+const Redis = require("ioredis");
+const redis = new Redis();
+const amqplib = require('amqplib/callback_api');
+
 obj =  {
      'H,A,H,A,H' : () => {
           return "Alternando Home - 5 vezes"
@@ -22,7 +31,8 @@ async function regExe(string, result) {
           } else {
              const estrategiaDetect =  {
                    estrategiaDetect : string, 
-                   lastResult : result,
+                   lastResult : result.number,
+                   name: result.name,
                    created : new Date().getTime()
                }
                
@@ -34,13 +44,11 @@ async function regExe(string, result) {
                console.log(JSON.stringify(estrategiaDetect))               
                console.log('=========================================================================')
                console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
-
                console.log('=========================================================================')
                amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                     if (err) throw err;
                     conn.createChannel((err, ch1) => {
-                         if(err) throw err;
-                         
+                         if(err) throw err;        
                     ch1.assertExchange('cards', 'fanout', {
                               durable: false
                          });
@@ -53,10 +61,6 @@ async function regExe(string, result) {
                })         
           }
      }
-
-     
-const amqplib = require('amqplib/callback_api');
-const { getCards } = require('./database')
 
 function getStrategy(strategy, value, number){
           // Received the number of element need remove to value array
@@ -86,15 +90,12 @@ const name = [
 setInterval(async ()=> {
      // Consultar na Base os Ultimos 5 registros 
      name.forEach(async (elem) => { 
-     const getDatabaseOfCard = await getCards(elem) 
+     const getDatabaseOfCard = await getLastCard(elem) 
      console.log(elem)
-     console.log(getDatabaseOfCard[0].number)
-
      const returns = getStrategy(obj, getDatabaseOfCard[0].number, 6)
      const returns4 = getStrategy(obj, getDatabaseOfCard[0].number, 5)
-
-     await regExe(returns, returns)
-     await regExe(returns4, returns4)
+     await regExe(returns, getDatabaseOfCard)
+     await regExe(returns4, getDatabaseOfCard)
      // Jogar para uma fila RabbitMq.
      // c
      })

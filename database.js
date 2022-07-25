@@ -184,7 +184,7 @@ async function getLastNumber18(name) {
 }
 
 async function getLastCard() {
-    let sql = `SELECT lastnumber from  mafia_cards
+    let sql = `SELECT number, name, created from  paylaoad_card
                Where created order by desc`
     let result = await pool.query(sql)
     return result
@@ -295,7 +295,7 @@ async function getResultDatabase(name) {
 
 async function getCards(name) { 
     let query = `
-        Select number 
+        Select number, name, created
         FROM paylaod_card
         WHERE name ~ $1
         AND created > now() - interval '1 hour'
@@ -377,6 +377,7 @@ module.exports = {
     updateStrategyFilter,
     insertCards,
     getCards,
+    getLastCard,
     getResultDatabase,
     getLastNumberEv,
     InsertRoulleteEv,

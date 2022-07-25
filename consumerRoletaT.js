@@ -41,31 +41,27 @@ const roleta =
      ]
 
 const strategyx = [
-     'Alternando Segunda e Primeira Colunas - 10 vezes',
-   //  'Repetição de 9 vezes do Primeiro Bloco',
-   //  'Repitição de 9 vezes do Segundo Bloco',
-    // 'Repitição de 9 vezes do Terceira Bloco',
-    // 'Repetição de 9 vezes da Primeira Coluna',
-   //  'Repetição de 9 vezes da Segunda Coluna',
+     'Repetição de 9 vezes do Primeiro Bloco',
+     'Repitição de 9 vezes do Segundo Bloco',
+     'Repitição de 9 vezes do Terceira Bloco',
+     'Repetição de 9 vezes da Primeira Coluna',
+     'Repetição de 9 vezes da Segunda Coluna',
      'Repetição de 9 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 6 vezes ',
-    // 'Ausencia da Terceira Coluna - 12 vezes ',
       'Ausencia da Primeira Coluna  - 17 vezes ',
+      'Ausencia da Segunda Coluna  - 17 vezes ',
+      'Ausencia da Terceira Coluna  - 17 vezes ',
       'Ausencia da Segundo Bloco - 17 vezes ',
       'Ausencia da Terceiro Bloco - 17 vezes ',
       'Ausencia da Primeiro Bloco - 17 vezes ',
-      'Ausencia da Primeiro Bloco - 17 vezes ',
-      'Repetição de 5 vezes da Segunda Coluna',
      ]
 
 const spectStrategy = [
-     'Alternando Primeira e Segunda Colunas - 9 vezes',
-      // 'Repetição de 8 vezes do Primeiro Bloco',
-     // 'Repitição de 8 vezes do Segundo Bloco',
-    // 'Repitição de 8 vezes do Terceira Bloco',
-    // 'Repetição de 8 vezes da Primeira Coluna'
-     'Ausencia da Segunda Coluna - 5 vezes ',
-     'Repetição de 4 vezes da Segunda Coluna',
+     'Repetição de 8 vezes do Primeiro Bloco',
+     'Repitição de 8 vezes do Segundo Bloco',
+    'Repitição de 8 vezes do Terceiro Bloco',
+    'Repetição de 8 vezes da Segunda Coluna',
+    'Repetição de 8 vezes da Primeira Coluna',
+    'Repetição de 8 vezes da Terceira Coluna',
      'Repetição de 8 vezes da Terceira Coluna',
      'Ausencia da Segunda Coluna - 16 vezes ',
      'Ausencia da Terceira Coluna - 16 vezes ',
@@ -73,12 +69,11 @@ const spectStrategy = [
      'Ausencia da Segundo Bloco - 16 vezes ',
      'Ausencia da Terceiro Bloco - 16 vezes ',
      'Ausencia da Primeiro Bloco - 16 vezes ',
-     'Ausencia da Primeiro Bloco - 16 vezes ',
 ]
 
 const string = 
 `
-!!! MAFIA DAS ROLETAS !!!
+!!! Mutter Corp !!!
 {data}
 🔔ENTRADA CONFIRMADA🔔
 🎰Roleta 🎰: {roulleteName}
@@ -93,7 +88,7 @@ const possivelAlert = `
 ⚠️POSSÍVEL ENTRADA⚠️
 🎰 Roleta 🎰: {roulleteName}
 💎Estratégia💎: {strategyName}
-!!! MAFIA DAS ROLETAS !!!
+!!! Mutter Corp !!!
 `
 
 
@@ -217,9 +212,9 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      JSON.parse(entry)
      await sendMsg(-1150553286, `
      Martingale
-    🎰 Roleta 🎰 ${sygnalBase.roulleteName},
-    👉🏻 Entrada 👈🏻: ${expect} 
-    🎯 Cobrir o zero'
+🎰 Roleta 🎰 ${sygnalBase.roulleteName},
+👉🏻 Entrada 👈🏻: ${expect} 
+🎯 Cobrir o zero'
       `, entry.msg )
 
      const PromiseCromprove = new Promise(() => {
