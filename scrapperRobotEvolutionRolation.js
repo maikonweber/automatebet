@@ -2,10 +2,6 @@ const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const redis = require("redis");
 const axios = require('axios'); 
-const client = redis.createClient({
-  host: "127.0.0.1",
-  port: 6379
-});
 
 const  {
   l,
@@ -14,14 +10,14 @@ const  {
 const { get } = require("cheerio/lib/api/traversing");
 
 async function waitGoto(url, timeout, page) {
-  await page.A.goto(url, {waitUntil: 'networkidle0'});
+  await page.goto(url, {waitUntil: 'networkidle0'});
   await console.log('------Go to ' + url +'--------')
-  await page.A.waitForTimeout(timeout)
+  await page.waitForTimeout(timeout)
 }
 
 
 
-client.connect();
+
 puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
@@ -35,37 +31,37 @@ const browser = await puppeteer.launch({
      args: [
        "--no-sandbox",
        "--window-size=920,680",
-       "--window-position=1200,0",
+       "--window-position=500,0",
        '--disable-extensions',
        '--use-gl=egl',
      ],  
    });
    const pageA = await browser.newPage()
    const pageB = await browser.newPage()
+   const pageC = await browser.newPage()
    return {
     A : pageA,
-    B : pageB
+    B : pageB,
+    C : pageC
    }
 }
 
 
-
 async function login(page) {
-await page.A.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
-
+await page.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
 const sideicons = "#trn";
 const xPathEvolution = '/html/body/main/section[2]/div/div/div/div[2]/figure/a';
 const Roullet = '#Thumbnail--c01d7 AnimateZoom--c472b'
 const link = 'https://www.smashup.com/'
 const elementNumber = "#number-container--c5cdb recent-number--1a19f desktop--b8c6b";
-const element_ = await page.A.$('#username');
-const elementPass_ = await page.A.$('#password');
+const element_ = await page.$('#username');
+const elementPass_ = await page.$('#password');
 if (element_ && elementPass_) {
      // Send keys to the element
      await element_.type(this.username);
      await elementPass_.type(this.password);
-     await page.A.keyboard.press('Enter');
-     await page.A.waitForNavigation({waitUntil: 'networkidle0'});
+     await page.keyboard.press('Enter');
+     await page.waitForNavigation({waitUntil: 'networkidle0'});
  }
  else {
      console.log('Ocorreu um erro ao logar no site');    
@@ -113,89 +109,35 @@ const sleep = (ms) => {
     resolve(true)
   }, ms)
 })
-
-async function getEsporte(page) {
-  page.goto('https://player.smashup.com/player_center/').then()
-  while (true) {
-    console.log(page)
-    
-    page.evaluate(() => {
-       return document.querySelectorAll('a')[3].click()
-      }).then()
-
-    page.waitForSelector('.bto-sb-betting-menu-active').then((result) => result.click())
-
-    await sleep(1000 * 60 * 5)    
-  }
 }
 
-async function getDoubleCash(page) {
-  setInterval(() => {
-    console.log(page)
-  }, 1000 * 60 * 17)
-}
-
-async function getRouleta(page) {
-  setInterval(() => {
-
-  }, 7000)
-}
-
-// await page.B.evaluate(() => {
-//  return document.querySelectorAll('a')[3].click()
-// })
-await getEsporte(page.B)
-
-// await page.B.evaluate(() => {
-//  return document.querySelector('.bto-sb-betting-menu-active').click()
+async function getRoleta(page) {
+// await sleep(8000)
+// await page.evaluate(() => {
+//   document.querySelector('.livecasino a').click()
 // })
 
-await page.B.waitForTimeout(15000)
+await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000')
 
-// await page.B.evaluate(() => {
-//   return document.querySelectorAll('.bto-sb-slider-value.bto-sb-slider-value')[1].click()
-// })
+ await sleep(8000)
+  var frames = (await page.frames());
+  const a = frames[1].url();
+  await page.goto(a, {waitUntil: 'networkidle0'});
+  await sleep(8000)
 
-// const tyt = await page.B.evaluate(() => {
-//   return document.querySelectorAll('.bto-sb-widget.bto-sb-widget-prematch.bto-sb-widget-prematch-full-view.bto-sb-widget-live-now')[0].querySelectorAll('a')
-// })
-
-// console.log(tyt)
-
-
-
-await page.A.evaluate (() => {
-  let button = document.querySelector('.brand-logo')
-  button.click()
-})
-
-await page.A.waitForTimeout(5000)
-
-await page.A.evaluate(() => {
-  document.querySelector('.livecasino a').click()
-})
-await page.A.waitForTimeout(7000);
-await page.A.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000')
-await page.A.waitForTimeout(6000);
-     await page.A.waitForTimeout(15000);
-     var frames = (await page.A.frames());
-     const a = frames[1].url();
-     await page.A.goto(a, {waitUntil: 'networkidle0'});
-     await page.A.waitForTimeout(15000);
-
- await page.A.evaluate(() => {
+ await page.evaluate(() => {
     let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
     console.log(arrayElement)
     arrayElement[1].click()
  })    
 
- await page.A.evaluate(() => {
+ await page.evaluate(() => {
    let arrayElement = document.querySelectorAll('img')
    console.log(arrayElement)
  }) 
 
  setInterval(async  () => {
-    const pagex = await page.A.evaluate(() => {
+    const pagex = await page.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')
       history.forEach((Element) => {
@@ -230,15 +172,15 @@ await page.A.waitForTimeout(6000);
     })
   })
 
-    await page.A.waitForTimeout(12000)
+    await page.waitForTimeout(12000)
     
-    await page.A.evaluate(() => {
+    await page.evaluate(() => {
       let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
       console.log(arrayElement)
       arrayElement[5].click()
     })
     
-    const shows = await page.A.evaluate(() => {
+    const shows = await page.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')
       history.forEach((Element) => {              
@@ -263,6 +205,7 @@ await page.A.waitForTimeout(6000);
       if(shows.lenght < 1) {
         process.exit()
       }
+
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
@@ -274,15 +217,84 @@ await page.A.waitForTimeout(6000);
       }
     })
 
-    await page.A.evaluate(() => {
+    await page.evaluate(() => {
       let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
       console.log(arrayElement)
       arrayElement[1].click()
     })
     
-    await page.A.waitForTimeout(700)
+    await page.waitForTimeout(700)
   }, 8000)
   
+}
+
+async function getEsporte(page) {
+
+  await page.goto('https://player.smashup.com/player_center/')
+  await page.evaluate(() => {
+  return document.querySelectorAll('a')[3].click()
+  })
+
+  var frames = (await page.frames());
+  const a = frames[0].url();
+  await page.goto(a, {waitUntil: 'networkidle0'});
+  await sleep(8000)
+
+  const evaluate = await page.evaluate(() => {
+  const grid = document.querySelectorAll('iframe')[1].contentWindow.document
+    // const allElement = grid.querySelectorAll('.bto-sb-event-odds')
+    // console.log(allElement)
+    const inCommmingEvent = []
+    // allElement.forEach((el) => {
+      // Sconsole.log(el)
+    //   let inCommingEvent = {}
+    //   inCommingEvent.name = el.querySelector('a').innerText
+    //   inCommingEvent.campeonato = el.querySelector('.bto-sb-event-description').innerText
+    //   inCommingEvent.data = el.querySelector('.bto-sb-event-inntime').innerText
+    //   inCommingEvent.hora = el.querySelector('.bto-sb-event-inndate').innerText
+    //   inCommingEvent.g1x2_1 =  el.querySelectorAll('span')[9].innerText
+    //   inCommingEvent.g1x2_x =  el.querySelectorAll('span')[10].innerText
+    //   inCommingEvent.g1x2_2 = el.querySelectorAll('span')[11].innerText
+    //   el.click()
+    //   let grid = document.querySelectorAll('.bto-sb-mormarket-content.bto-sb-event-mormarket-full')[0].querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')
+    //   grid.forEach((el => {
+
+    //     inCommingEvent.n1x2_1 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[0].querySelectoAll('.bto-sb-event-odd')[0]
+    //     inCommingEvent.n1x2_x = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[0].querySelectoAll('.bto-sb-event-odd')[1]
+    //     inCommmingEvent.n1x2_2 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[0].querySelectoAll('.bto-sb-event-odd')[0]
+    //     inCommingEvent.ATM.sim = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[1].querySelectoAll('.bto-sb-event-odd')[0]
+    //     inCommingEvent.ATM.nao = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[1].querySelectoAll('.bto-sb-event-odd')[1]
+    //     inCommingEvent.doublechange.x1 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[2].querySelectoAll('.bto-sb-event-odd')[0]
+    //     inCommingEvent.doublechange.x12 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[2].querySelectoAll('.bto-sb-event-odd')[1]
+    //     inCommingEvent.doublechange.x2 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[2].querySelectoAll('.bto-sb-event-odd')[2]
+    //     inCommingEvent.midtime_full._1_1 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[0]
+    //     inCommingEvent.midtime_full._1_x = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[1]
+    //     inCommingEvent.midtime_full._1_2 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[2]
+    //     inCommingEvent.midtime_full._x_1 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[3]
+    //     inCommingEvent.midtime_full._x_x = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[4]
+    //     inCommingEvent.midtime_full._x_2 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[5]
+    //     inCommingEvent.midtime_full._2_1 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[6]
+    //     inCommingEvent.midtime_full._2_x = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[7]
+    //     inCommingEvent.midtime_full._2_2 = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[3].querySelectoAll('.bto-sb-event-odd')[8]
+    //     inCommingEvent.impar_par.impar = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[4].querySelectoAll('.bto-sb-event-odd')[0]
+    //     inCommingEvent.impar_par.par = el.querySelectorAll('.bto-sb-event-mormarket-market.bto-sb-mormarket')[4].querySelectoAll('.bto-sb-event-odd')[1]
+    //    }))
+          //})
+    //     document.querySelector('.bto-sb-main-nav-left a').click()
+    //     inCommming.push(inCommingEvent)
+    //     console.log(inCommingEvent)
+    // })
+    //     console.log(inCommmingEvent)
+    //     return inCommmingEvent
+          return true
+    })
+      console.log(evaluate)
+}
+
+
+
+await getEsporte(page.B)
+await getRoleta(page.A)
 // setInterval(async () => {
 //     await page.B.evaluate(() => {
 //       return document.querySelectorAll('li > a')[5].click()
@@ -330,7 +342,7 @@ await page.A.waitForTimeout(6000);
 
 //     //       }, 17000)
 
-//       // let array = await page.A.$$('article')
+//       // let array = await page.$$('article')
 //       // console.log(array)
 //       // array.forEach( async (element, index) => {
 //       //     const name = await element.$('p')
@@ -369,7 +381,7 @@ await page.A.waitForTimeout(6000);
 //  }
  
 //  try {
-//   let elementHistory = await page.A.$$('.History--09963.tile--9ba18')
+//   let elementHistory = await page.$$('.History--09963.tile--9ba18')
   
 //   for(let i = 0; elementHistory.length > i; i++) {
 //     let ay = []
