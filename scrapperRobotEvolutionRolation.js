@@ -21,7 +21,9 @@ async function waitGoto(url, timeout, page) {
 puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
+
 const browser = await puppeteer.launch({
+     executablePath: '/usr/bin/chromium-browser',
      headless: true,
      defaultViewport: {
        width: 1100,
@@ -29,6 +31,10 @@ const browser = await puppeteer.launch({
      },
      SlowMo: 50,
      args: [
+      '--disable-gpu', 
+      '--disable-setuid-sandbox', 
+      '--no-sandbox',
+       '--no-zygote',
        "--no-sandbox",
        "--window-size=920,680",
        "--window-position=500,0",
