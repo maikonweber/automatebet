@@ -209,7 +209,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('https://api.muttercorp.online/api/cards', elem).then((result) => {
+      axios.post('https://api.muttercorp.online/api/card', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)

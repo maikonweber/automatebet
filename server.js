@@ -133,9 +133,8 @@ app.post('/api/v2/setblaze', async (req, res) => {
   res.json('You have set the blaze at ')
 })
 
-app.post('/api/cards', async (req, res) => {
+app.post('/api/card', async (req, res) => {
   const body = req.body
-  console.log(body)
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
   const resultado = await  getLastNumberCard(name_);
@@ -146,7 +145,6 @@ app.post('/api/cards', async (req, res) => {
   const lastNumberString = resultado.number
   const numberJsonString = number
  // console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
-
   if (lastNumberString[0] === numberJsonString[0]) {
     console.log('Já existe um número igual ao que está tentando inserir')
     res.json("Numero não inserido")
@@ -156,6 +154,7 @@ app.post('/api/cards', async (req, res) => {
     res.json('You have set the blqaze at ')
   }
  }
+
 })
 
 
