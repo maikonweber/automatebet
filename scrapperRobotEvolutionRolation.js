@@ -23,7 +23,6 @@ puppeteer.use(StealthPlugin());
 async function getBrowser () {
 
 const browser = await puppeteer.launch({
-     executablePath: '/usr/bin/chromium-browser',
      headless: true,
      defaultViewport: {
        width: 1100,
@@ -33,7 +32,6 @@ const browser = await puppeteer.launch({
      args: [
       '--disable-gpu', 
       '--disable-setuid-sandbox', 
-      '--no-sandbox',
        '--no-zygote',
        "--no-sandbox",
        "--window-size=920,680",
