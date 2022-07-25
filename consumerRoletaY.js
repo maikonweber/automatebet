@@ -13,9 +13,9 @@ const expectNumber = require('./jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
-const id = 2;
 
 ;(async () => {
+     const id = 2;
 
 const roleta = 
      [
