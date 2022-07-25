@@ -189,7 +189,7 @@ async function getLastCard() {
                order by 
                created desc`
     let result = await pool.query(sql)
-    return result
+    return result.rows
 }
 
 async function insertCards(number) {
