@@ -204,7 +204,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
       })
 
       if(shows.lenght < 1) {
-        process.exit()
+        process.exit(1)
       }
 
     shows.forEach((elem) =>  {
