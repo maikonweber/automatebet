@@ -134,9 +134,10 @@ app.post('/api/v2/setblaze', async (req, res) => {
 
 app.post('/api/cards', async (req, res) => {
   const body = req.body
+  console.log(cards)
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
-  const resultado = await   getLastNumberCard(name_);
+  const resultado = await  getLastNumberCard(name_);
   if (typeof resultado === 'undefined') {
     const result = await insertCardPayload(name_, number);;
     res.json('You have set the blqaze at ')

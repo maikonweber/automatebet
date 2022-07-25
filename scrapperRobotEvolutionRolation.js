@@ -165,7 +165,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     pagex.forEach((el) => {
       l(el)
-    axios.post('https:api/muttercorp.com/api/evolution', el).then((result) => {
+    axios.post('https://api.muttercorp.com/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -209,7 +209,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('https:api/muttercorp.com/api/cards', elem).then((result) => {
+      axios.post('https://api.muttercorp.com/api/cards', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -230,21 +230,21 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
 async function getEsporte(page) {
 
-  await page.goto('https://player.smashup.com/player_center/')
-  await page.evaluate(() => {
-  return document.querySelectorAll('a')[3].click()
-  })
+  // await page.goto('https://player.smashup.com/player_center/')
+  // await page.evaluate(() => {
+  // return document.querySelectorAll('a')[3].click()
+  // })
 
-  var frames = (await page.frames());
-  const a = frames[0].url();
-  await page.goto(a, {waitUntil: 'networkidle0'});
-  await sleep(8000)
+  // var frames = (await page.frames());
+  // const a = frames[0].url();
+  // await page.goto(a, {waitUntil: 'networkidle0'});
+  // await sleep(8000)
 
-  const evaluate = await page.evaluate(() => {
-  const grid = document.querySelectorAll('iframe')[1].contentWindow.document
+  // const evaluate = await page.evaluate(() => {
+  // const grid = document.querySelectorAll('iframe')[1].contentWindow.document
     // const allElement = grid.querySelectorAll('.bto-sb-event-odds')
-    // console.log(allElement)
-    const inCommmingEvent = []
+    // // console.log(allElement)
+    // const inCommmingEvent = []
     // allElement.forEach((el) => {
       // Sconsole.log(el)
     //   let inCommingEvent = {}
@@ -286,9 +286,9 @@ async function getEsporte(page) {
     // })
     //     console.log(inCommmingEvent)
     //     return inCommmingEvent
-          return true
-    })
-      console.log(evaluate)
+    //       return true
+    // })
+    //   console.log(evaluate)
 }
 
 
