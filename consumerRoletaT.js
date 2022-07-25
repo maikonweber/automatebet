@@ -13,7 +13,7 @@ const expectNumber = require('./jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
 const amqplib = require('amqplib/callback_api');
-const id = 1
+const id = 1;
 
 (async () => {
 
@@ -97,7 +97,7 @@ const stringreen = `
 `
 
 const stringred = `
-XXX RED, RESPIRA E SEGUA A GESTÃO!
+🔴 RED, RESPIRA E SEGUA A GESTÃO!
 {last}
 `
 
@@ -133,7 +133,7 @@ async function saveMemorySend(sygnalBase, string) {
 
      let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${1}`)
      if(!result) {
-     const msg1 = await sendMsg(-703391126, string)
+     const msg1 = await sendMsg(-1593932898, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
                msg : msg1
           }) ,'EX', 60 * 7).then((result)=> {
@@ -182,12 +182,12 @@ setTimeout(async () => {
      console.log('GREEN')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      entry =  JSON.parse(entry)
-     await sendMsg(-703391126, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
+     await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
      } else if ([0].includes(resultadoAtual.number[0])) {
      console.log('ZEROOOOO')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      entry =  JSON.parse(entry)
-     await sendMsg(-703391126, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
+     await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
      } else {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
@@ -209,7 +209,7 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      } = testStrategy(sygnalBase.estrategiaDetect)
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      JSON.parse(entry)
-     await sendMsg(-703391126, `
+     await sendMsg(-1593932898, `
      Martingale
 🎰 Roleta 🎰 ${sygnalBase.roulleteName},
 👉🏻 Entrada 👈🏻: ${expect} 
@@ -223,19 +223,19 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     console.log('GREEN')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                     entry =  JSON.parse(entry)   
-                    await sendMsg(-703391126, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
+                    await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
                } 
               else if ([0].includes(resultadoAtual.number[0])) {
                   console.log('ZEROOOOO')
                   let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                   entry =  JSON.parse(entry)
-                  await sendMsg(-703391126, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
+                  await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
                   
                } else {
                     console.log('RED')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                     entry =  JSON.parse(entry)
-                    await sendMsg(-703391126, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
+                    await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
                }, 33000)
           })  
@@ -282,7 +282,7 @@ await client.start({
 async function deleteMsg(msg, channel) {
      const result = await client.invoke(
           new Api.messages.DeleteMessages({
-            channel : -703391126,
+            channel : -1593932898,
             id: [msg.updates[0].id],
           })
         );
@@ -305,7 +305,7 @@ async function proccedAlert (sygnalBase, string) {
      const replace = string.replace(/{roulleteName}/g, roulleteName)
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const place =  replace2.replace(/[0-9]* vezes/g, '')
-     const msg2 = await sendMsg(-703391126, place)
+     const msg2 = await sendMsg(-1593932898, place)
      redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
           console.log(deletex)
      })
