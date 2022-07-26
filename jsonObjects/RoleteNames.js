@@ -15,7 +15,6 @@ const arrayName = [
     'Salon_Privé_Roulette',
     'Hippodrome_Grand_Casino',
     'Arabic_Roulette',
-    'Speed_Auto_Roulette',
     'French_Roulette_Gold',
     'Dansk_Roulette'    
    ]
