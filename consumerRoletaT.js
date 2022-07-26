@@ -134,15 +134,14 @@ async function saveMemorySend(sygnalBase, string) {
      console.log('------------SaveMemory-----------------------')
 
      let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
-     if(!result) {
-     const msg1 = await sendMsg(-1593932898, string)
-     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
+     let process = await redis.get(`process`)
+     if(!result && process) {
+          const msg1 = await sendMsg(-1593932898, string)
+          await redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
                msg : msg1
-          }) ,'EX', 60 * 7).then((result)=> {
-               console.log(result)
-          })  
-
-     await consultMemory(sygnalBase, string)
+          }) ,'EX', 60 * 7)
+          await redis.set(`process`, true, 'EX', 120)  
+          await consultMemory(sygnalBase, string)
      } else {
           console.log('result process')
      }
@@ -174,8 +173,11 @@ function replaceForRed(string, resultadoAtual, sygnalBase) {
 
 
 async function consultMemory (sygnalBase, string) {
- console.log('------------ConsultMemory-----------------------')
-setTimeout(async () => {
+console.log('------------ConsultMemory-----------------------')
+await redis.set(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+if (!result) {
+await redis.set(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`, true, 'EX', 120)
+return setTimeout(async () => {
      const { array, expect } = testStrategy(sygnalBase.estrategiaDetect)
      console.log(array)
      let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
@@ -196,6 +198,7 @@ setTimeout(async () => {
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
      }
      }, 35000)
+   }
 }
 
 /* 
@@ -205,21 +208,23 @@ setTimeout(async () => {
 */
 
 async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase) {
-     let {
-          array,
-          expect
-     } = testStrategy(sygnalBase.estrategiaDetect)
-     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
-     JSON.parse(entry)
-     await sendMsg(-1593932898, `
-     Martingale
+let {
+array,
+expect } = testStrategy(sygnalBase.estrategiaDetect)
+
+let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
+console.log(entry)
+JSON.parse(entry)
+
+await sendMsg(-1593932898, `
+Martingale
 🎰 Roleta 🎰 ${sygnalBase.roulleteName},
 👉🏻 Entrada 👈🏻: ${expect} 
 🎯 Cobrir o zero'
-      `, entry.msg )
+`, entry.msg )
 
-     const PromiseCromprove = new Promise(() => {
-          setTimeout(async () => {
+const PromiseCromprove = new Promise(() => {
+     setTimeout(async () => {
                let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
                if(array.includes(resultadoAtual.number[0])) {
                     console.log('GREEN')
@@ -239,8 +244,8 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
                     entry =  JSON.parse(entry)
                     await sendMsg(-1593932898, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
                }
-               }, 33000)
-          })  
+          }, 33000)
+     })  
      await PromiseCromprove
      }
           
@@ -362,12 +367,13 @@ ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
      const msgs = msg.content.toString()
      const strig =  JSON.parse(msgs); // 'message'
-     console.log(strig.estrategiaDetect, strig.roulleteName, strig)
+     
      
      if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
           console.log('-------------------ALERT-------------------')
           let result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`)
           if(!result) {
+                 console.log(strig.estrategiaDetect, strig.roulleteName, strig)
                  await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`, 'alert', 'EX', 60 * 7)
                     return await proccedAlert(strig, possivelAlert) 
                }      
