@@ -296,6 +296,7 @@ amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
 
 ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
+     console.log(msg.content, 'resultado')
      const msgs = msg.content.toString()
      const strig =  JSON.parse(msgs); // 'message'
      if(/4 vezes/g.test(strig.estrategiaDetect)) {
