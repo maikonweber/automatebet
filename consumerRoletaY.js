@@ -20,7 +20,6 @@ const id = 2;
 const roleta = 
      [
           'Türkçe_Lightning_Rulet',
-          'Auto-Roulette',
           'Immersive_Roulette',
           'Roulette',
           'American_Roulette',
@@ -61,7 +60,7 @@ const spectStrategy = [
 
 const string = 
 `
-!!! Mutter Corp !!!
+!!! MAFIA DAS  ROLETAS!!!
 {data}
 🔔ENTRADA CONFIRMADA🔔
 🎰Roleta 🎰: {roulleteName}
@@ -76,7 +75,7 @@ const possivelAlert = `
 ⚠️POSSÍVEL ENTRADA⚠️
 🎰 Roleta 🎰: {roulleteName}
 💎Estratégia💎: {strategyName}
-!!! Mutter Corp !!!
+!!! MAFIA DAS  ROLETAS!!!
 `
 
 

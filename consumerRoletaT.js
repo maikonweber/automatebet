@@ -16,12 +16,11 @@ const amqplib = require('amqplib/callback_api');
 
 
 ;(async () => {
-     const id = 1;
+const id = 1;
 
 const roleta = 
      [
           'Türkçe_Lightning_Rulet',
-          'Auto-Roulette',
           'Immersive_Roulette',
           'Roulette',
           'American_Roulette',
@@ -132,7 +131,7 @@ async function proccedRoulletAndSend(sygnalBase, string) {
 async function saveMemorySend(sygnalBase, string) {
      console.log('------------SaveMemory-----------------------')
 
-     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${1}`)
+     let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      if(!result) {
      const msg1 = await sendMsg(-1593932898, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
@@ -307,11 +306,11 @@ async function proccedAlert (sygnalBase, string) {
      const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
      const place =  replace2.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1593932898, place)
-     redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
+     redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id}`)).then((deletex) => {
           console.log(deletex)
      })
      
-     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`, JSON.stringify({
+     redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id}`, JSON.stringify({
           msg : msg2    
      }) , 'EX', 60 * 11)
 

@@ -2,8 +2,13 @@ module.exports = {
   apps : [{
     name: 'cards',
     script: 'scrapperRobotEvolutionRolation.js',
-    cron_restart: '0,20 * * * *',
-    autorestart: true
+    autorestart: true,
+  }, 
+  {
+    name: 'cards2':
+    script: 'scrapperRobotEvolutionRolation.js',
+    autorestart: true,
+    restartDelay: 1000 * 60 * 4
   }
 ],
 };
