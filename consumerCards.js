@@ -20,7 +20,7 @@ obj =  {
      'A,H,A,H' : () => {
           return 'Alternando Away - 4 Vezes'
      }
-     }
+}
 
 async function regExe(string, result) {
           // RegEx Nao Intendificado

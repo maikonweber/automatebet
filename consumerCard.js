@@ -19,7 +19,7 @@ const amqplib = require('amqplib/callback_api');
 
 const string = 
 `
-!!! MAFIA DAS ROLETAS !!!
+!!! MAFIA DAS CARTAS !!!
 🔔ENTRADA CONFIRMADA🔔
 💎Estratégia💎: {strategyName}
 ✅Entrada: {expect}
@@ -31,7 +31,7 @@ const possivelAlert = `
 ⚠️POSSÍVEL ENTRADA⚠️
 🎰 Roleta 🎰: {roulleteName}
 💎Estratégia💎: {strategyName}
-!!! MAFIA DAS ROLETAS !!!
+!!! MAFIA DAS CARTAS !!!
 `
 
 
@@ -186,7 +186,7 @@ async function martingale(sendMsg, replaceForGreen, replaceForRed, stringred, st
      }
           
 function stringReplace(string, sygnalBase) {
-               const { estrategiaDetect,created, lastResult } = sygnalBase
+               const { estrategiaDetect, name , created, lastResult } = sygnalBase
                console.log(estrategiaDetect,  '--------------------')
                console.log(estrategiaDetect)
                const test = testStrategy(estrategiaDetect)
@@ -197,7 +197,7 @@ function stringReplace(string, sygnalBase) {
                const last = `${last1} | ${last2} | ${last3} | ${last4}`
 
 
-               const replace = string.replace(/{roulleteName}/g, roulleteName)
+               const replace = string.replace(/{roulleteName}/g, name)
                const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
                const replace4 = replace2.replace(/{last}/g, last)
                const replace5 = replace4.replace(/{expect}/g, test.expect)
@@ -238,10 +238,11 @@ const promisseDelete = (msg, channel) =>  new Promise(() => {
 })
 
 async function proccedAlert (sygnalBase, string) {
-     const { estrategiaDetect, created, result } = sygnalBase
+     const { estrategiaDetect, name ,created, lastResult } = sygnalBase
      console.log(`----------------- Alerta ----------------------`)
      const test = testStrategy(sygnalBase.estrategiaDetect)
-     const replace2 = replace.replace(/{strategyName/g, estrategiaDetect)
+     const replace1 = replace.replace(/{roulletName}/g, name)        
+     const replace2 = replace1.replace(/{strategyName/g, estrategiaDetect)
      const place =  replace2.replace(/[0-9]* vezes/g, '')
      const msg2 = await sendMsg(-1734065719, place)
      redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`)).then((deletex) => {
@@ -316,3 +317,5 @@ ch2.consume(q.queue, async function(msg) {
 })
   
 })()
+
+
