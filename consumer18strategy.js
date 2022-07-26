@@ -430,7 +430,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
           let result = await redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
           console.log(result, '--------------------------->')
           if(!result) {
-          await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, 'alert', 'EX', 60 * 5)
+          await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${strategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 3)
           console.log('=========================================================================')
           console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
           console.log('=========================================================================')
