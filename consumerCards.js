@@ -43,7 +43,7 @@ async function regExe(string, result) {
                
                console.log(JSON.stringify(estrategiaDetect))               
                console.log('=========================================================================')
-               console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
+               console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.name)
                console.log('=========================================================================')
                amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                     if (err) throw err;
