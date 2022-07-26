@@ -8,6 +8,7 @@ const  {
   getTextEvalute
 } = require("./puppeterFunctions");
 const { get } = require("cheerio/lib/api/traversing");
+const { getCards } = require("./database");
 
 async function waitGoto(url, timeout, page) {
   await page.goto(url, {waitUntil: 'networkidle0'});
@@ -166,7 +167,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     pagex.forEach((el) => {
       l(el)
-    axios.post('https://api.muttercorp.online/api/evolution', el).then((result) => {
+    axios.post('http://localhost:3055/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -210,7 +211,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('https://api.muttercorp.online/api/card', elem).then((result) => {
+      axios.post('http://localhost:3055/api/cards_', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -293,55 +294,19 @@ async function getEsporte(page) {
 }
 
 
+async function getCrash(page) {
+  page.waitGoto('https://player.smashup.com/player_center/')
+  setInterval(async () => {
+    console.log('click')
+
+  }, 8000)
+}
+
+
 
 await getEsporte(page.B)
 await getRoleta(page.A)
-// setInterval(async () => {
-//     await page.B.evaluate(() => {
-//       return document.querySelectorAll('li > a')[5].click()
-//      })
-   
- 
-//      const pagexB = await page.B.evaluate(() => {
-//        const array = []
-//       //  document.querySelectorAll('.roulette-previous.casino-recent')[0].querySelectorAll('.entries.main')[0].querySelectorAll('div').forEach((elemt) => { 
-//       //    console.log(elemt.innerText)
-//       //    array.push(elemt.innerText)
-      
-//        const obj = {
-//          Double : array
-//        }
- 
-//        return obj
-//      }) 
- 
-//      console.log(pagexB)
- 
-//      await page.B.evaluate(() => {
-
-//        return document.querySelectorAll('li > a')[4].click()
-//      })
- 
-
-//      await page.B.waitForTimeout(45000)
- 
-//      // console.log(pagexB)
- 
-//     //  const pagexBCrash = await page.B.evaluate(() => {
-//     //    const array = []
-//     //   //  document.querySelectorAll('.entries.main')[0].querySelectorAll('.entry.crash-mr').forEach((elemt) => {
-//     //   //    return array.push(elemt.innerText)
-
-//     //    let obj =
-//     //    {
-//     //      Crash : array
-//     //    }
-//     //    return obj
- 
-
-//     //   })
-
-//     //       }, 17000)
+await getCrash(page.C)
 
 //       // let array = await page.$$('article')
 //       // console.log(array)

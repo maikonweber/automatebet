@@ -314,7 +314,7 @@ async function proccedAlert (sygnalBase, string) {
      
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id}`, JSON.stringify({
           msg : msg2    
-     }) , 'EX', 60 * 11)
+     }) , 'EX', 60 * 7)
 
      return
 }
@@ -368,7 +368,7 @@ ch2.consume(q.queue, async function(msg) {
           console.log('-------------------ALERT-------------------')
           let result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`)
           if(!result) {
-                 await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`, 'alert', 'EX', 60 * 11)
+                 await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`, 'alert', 'EX', 60 * 7)
                     return await proccedAlert(strig, possivelAlert) 
                }      
           }

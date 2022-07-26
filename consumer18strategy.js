@@ -430,7 +430,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
           let result = await redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
           console.log(result, '--------------------------->')
           if(!result) {
-          await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${strategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 3)
+          await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${estrategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 60 * 1)
           console.log('=========================================================================')
           console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
           console.log('=========================================================================')
@@ -447,7 +447,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
 
                setTimeout(function() {
                     conn.close();
-                     }, 200);
+                     }, 100);
                })
           })            
           }

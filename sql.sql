@@ -25,7 +25,7 @@ CREATE TABLE mafia_cards (
     created TIMESTAMP DEFAULT now()
 )
 
-CREATE TABLE paylaod_card (
+CREATE TABLE paylaoad_card (
     id serial PRIMARY KEY,
     name varchar(200) NOT null,
     number text[] not null,

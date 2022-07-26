@@ -7,6 +7,8 @@ const exceljs = require('exceljs')
 const fs = require('fs')
 const path = require('path')
 const {getAll, insertLeads, isUser, getToken, insertToken} = require('./db/db.js')
+const Redis = require('ioredis')
+const redis = new Redis()
 
 
 const {
@@ -133,10 +135,13 @@ app.post('/api/v2/setblaze', async (req, res) => {
   res.json('You have set the blaze at ')
 })
 
-app.post('/api/card', async (req, res) => {
+app.post('/api/cards_', async (req, res) => {
   const body = req.body
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
+  
+ 
+
   const resultado = await  getLastNumberCard(name_);
   if (typeof resultado === 'undefined') {
     const result = await insertCardPayload(name_, number);;
@@ -149,6 +154,7 @@ app.post('/api/card', async (req, res) => {
     console.log('Já existe um número igual ao que está tentando inserir')
     res.json("Numero não inserido")
   } else {
+    await redis.set(`${name}_lastresult`, JSON.stringify({ number : number, name: name}))
     const result = await insertCardPayload(name_, number);
     console.log(result.rows, "ID :", name_, number);
     res.json('You have set the blqaze at ')
@@ -218,6 +224,7 @@ app.post('/api/evolution', async (req, res) => {
     // console.log('Já existe um número igual ao que está tentando inserir')
     res.json("Numero não inserido")
   } else {
+    await redis.set(`${name}_lastresult`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);
     // console.log(result.rows, "ID :", name_, number);
     res.json('You have set the blqaze at ')
@@ -277,6 +284,7 @@ app.post('/api/bet365', async (req, res) => {
       console.log('Já existe um número igual ao que está tentando inserir')
       res.json("Numero não inserido")
     } else {
+      await redis.set(`${name}_lastresult`, JSON.stringify({ name : name , number: number}))
       const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
       console.log(result.rows, "ID :", name_, number);
       res.json('You have set the blqaze at ')

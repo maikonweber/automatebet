@@ -124,7 +124,7 @@ async function saveMemorySend(sygnalBase, string) {
      const msg1 = await sendMsg(-1267429660, string)
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
                msg : msg1
-          }) ,'EX', 60 * 7).then((result)=> {
+          }) ,'EX', 60000 * 5).then((result)=> {
                console.log(result)
           })  
 
@@ -300,7 +300,7 @@ async function proccedAlert (sygnalBase, string) {
      
      redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert`, JSON.stringify({
           msg : msg2    
-     }) , 'EX', 60 * 11)
+     }) , 'EX', 60000 * 5)
 
      return
 }
@@ -354,7 +354,7 @@ ch2.consume(q.queue, async function(msg) {
           console.log('-------------------ALERT-------------------')
           let result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`)
           if(!result) {
-                 await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`, 'alert', 'EX', 60 * 11)
+                 await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`, 'alert', 'EX', 60000 * 5)
                     return await proccedAlert(strig, possivelAlert) 
                }      
           }
