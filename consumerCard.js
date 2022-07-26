@@ -299,6 +299,7 @@ ch2.consume(q.queue, async function(msg) {
      console.log(msg.content, 'resultado')
      const msgs = msg.content.toString()
      const strig =  JSON.parse(msgs); // 'message'
+     
      if(/4 vezes/g.test(strig.estrategiaDetect)) {
           console.log('-------------------------------')
           console.log(strig.estrategiaDetect)

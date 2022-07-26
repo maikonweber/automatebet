@@ -45,6 +45,11 @@ async function regExe(string, result) {
                console.log('=========================================================================')
                console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.name)
                console.log('=========================================================================')
+               const result = await redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.name}`) 
+                if (!result) {
+                    await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.name}`, { result : true }, )
+                    
+               }
                amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                     if (err) throw err;
                     conn.createChannel((err, ch1) => {
