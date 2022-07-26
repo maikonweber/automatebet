@@ -135,7 +135,8 @@ async function saveMemorySend(sygnalBase, string) {
 
      let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      let process = await redis.get(`process`)
-     if(!result && process) {
+     if(!process) {
+     if(!result) {
           const msg1 = await sendMsg(-1593932898, string)
           await redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
                msg : msg1
@@ -144,6 +145,8 @@ async function saveMemorySend(sygnalBase, string) {
           await consultMemory(sygnalBase, string)
      } else {
           console.log('result process')
+     }
+     return 
      }
 }
           
@@ -174,7 +177,7 @@ function replaceForRed(string, resultadoAtual, sygnalBase) {
 
 async function consultMemory (sygnalBase, string) {
 console.log('------------ConsultMemory-----------------------')
-await redis.set(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+const result = await redis.get(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
 if (!result) {
 await redis.set(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`, true, 'EX', 120)
 return setTimeout(async () => {
@@ -187,12 +190,23 @@ return setTimeout(async () => {
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
-     } else if ([0].includes(resultadoAtual.number[0])) {
+    
+
+await redis.del('process')
+await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
+
+} else if ([0].includes(resultadoAtual.number[0])) {
      console.log('ZEROOOOO')
      let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
      entry =  JSON.parse(entry)
      await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
-     } else {
+     
+
+await redis.del('process')
+await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
+} else {
      console.log('RED')  
      //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
      await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, stringreen, sygnalBase)    
@@ -231,13 +245,24 @@ const PromiseCromprove = new Promise(() => {
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                     entry =  JSON.parse(entry)   
                     await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
+                    
+
+await redis.del('process')
+await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
+      
                } 
               else if ([0].includes(resultadoAtual.number[0])) {
                   console.log('ZEROOOOO')
                   let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                   entry =  JSON.parse(entry)
                   await sendMsg(-1593932898, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
+     
                   
+await redis.del('process')
+await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
+
                } else {
                     console.log('RED')
                     let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
@@ -388,11 +413,8 @@ ch2.consume(q.queue, async function(msg) {
                console.log('stack')
           }
      }  else {     
-      console.log('Consumer Cancelled by Server')
      }
      }
-     console.log('=========================================================================')
-    
 }, { noAck : true} 
 );
 

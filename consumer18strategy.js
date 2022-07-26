@@ -176,6 +176,23 @@ function getStrategy(strategy, value, number){
          return strategy[`${StringValue}`]();
      } 
      return `Não identificado` ;
+}
+
+function blocoFlutuantes(strategy, value, number){
+     // Received the number of element need remove to value array
+     // Return the array with the element removed
+
+     const array2 = new Array(...value)  // Copy the array     
+     // remove the element from the array
+     for(number; number > 0; number--) {
+          array2.pop()     
+     }
+     const StringValue = array2.toString()
+
+     if(strategy[`${StringValue}`]) {
+         return strategy[`${StringValue}`]();
+     } 
+     return `Não identificado` ;
      }
 
 

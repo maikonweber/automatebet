@@ -133,7 +133,8 @@ console.log('------------SaveMemory-----------------------')
 
 let result = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
 let process = await redis.get(`process`)
-if(!result && process) {
+if(!process) {
+if(!result) {
      const msg1 = await sendMsg(-1150553286, string)
      await redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`, JSON.stringify({
           msg : msg1
@@ -143,8 +144,10 @@ if(!result && process) {
 } else {
      console.log('result process')
 }
+     console.log(`ìnProcess`)
 }
-     
+}
+
 function replaceForGreen(string, resultadoAtual, sygnalBase, zero) {
      if(!zero) {
           const replace = string.replace(/✅ ENTRADA CONFIRMADA ✅/g, '✅ GREEEEEEEN ✅')
@@ -172,7 +175,7 @@ function replaceForRed(string, resultadoAtual, sygnalBase) {
 
 async function consultMemory (sygnalBase, string) {
 console.log('------------ConsultMemory-----------------------')
-await redis.set(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+const result = await redis.get(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
 if (!result) {
 await redis.set(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`, true, 'EX', 120)
 return setTimeout(async () => {
@@ -180,16 +183,26 @@ const { array, expect } = testStrategy(sygnalBase.estrategiaDetect)
 console.log(array)
 let resultadoAtual = await getLastNumber(sygnalBase.roulleteName)
 console.log(resultadoAtual)
+
 if(array.includes(resultadoAtual.number[0])) {
 console.log('GREEN')
 let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
 entry =  JSON.parse(entry)
 await sendMsg(-1150553286, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)
+
+await redis.del('process')
+await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
 } else if ([0].includes(resultadoAtual.number[0])) {
 console.log('ZEROOOOO')
 let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
 entry =  JSON.parse(entry)
 await sendMsg(-1150553286, replaceForGreen(stringreen, resultadoAtual, sygnalBase, 'zero'), entry.msg)
+
+
+await redis.del('process')
+await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
 } else {
 console.log('RED')  
 //await martingale(sendMsg, replaceForGreen, replaceForRed, stringred, sygnalBase)   
@@ -229,6 +242,10 @@ setTimeout(async () => {
                let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                entry =  JSON.parse(entry)   
                await sendMsg(-1150553286, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)                
+               
+               await redis.del('process')
+               await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
           } 
          else if ([0].includes(resultadoAtual.number[0])) {
              console.log('ZEROOOOO')
@@ -236,11 +253,18 @@ setTimeout(async () => {
              entry =  JSON.parse(entry)
              await sendMsg(-1150553286, replaceForGreen(stringreen, resultadoAtual, sygnalBase), entry.msg)    
              
+             await redis.del('process')
+             await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
           } else {
                console.log('RED')
                let entry = await redis.get(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_${id}`)
                entry =  JSON.parse(entry)
                await sendMsg(-1150553286, replaceForRed(stringred, resultadoAtual, sygnalBase, 'zero'), entry.msg)       
+               
+               await redis.del('process')
+               await redis.del(`${sygnalBase.estrategiaDetect}_${roulletName}_inprocess`)
+     
           }
      }, 33000)
 })  
@@ -314,7 +338,6 @@ const msg2 = await sendMsg(-1150553286, place)
 redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id}`)).then((deletex) => {
      console.log(deletex)
 })
-
 redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id}`, JSON.stringify({
      msg : msg2    
 }) , 'EX', 60 * 7)
