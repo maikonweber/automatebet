@@ -53,6 +53,7 @@ const strategyx = [
       'Ausencia da Segundo Bloco - 8 vezes ',
       'Ausencia da Terceiro Bloco - 8 vezes ',
       'Ausencia da Primeiro Bloco - 8 vezes ',
+      'Repetição 7 vezes da Menores'
      ]
 
 const spectStrategy = [
@@ -68,6 +69,7 @@ const spectStrategy = [
      'Ausencia da Segundo Bloco - 7 vezes ',
      'Ausencia da Terceiro Bloco - 7 vezes ',
      'Ausencia da Primeiro Bloco - 7 vezes ',
+     'Repetição 6 vezes da Menores'
 ]
 
 const string = 

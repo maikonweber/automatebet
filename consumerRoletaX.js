@@ -47,12 +47,12 @@ const strategyx = [
      'Repetição de 9 vezes da Primeira Coluna',
      'Repetição de 9 vezes da Segunda Coluna',
      'Repetição de 9 vezes da Terceira Coluna',
-      'Ausencia da Primeira Coluna  - 17 vezes ',
-      'Ausencia da Segunda Coluna  - 17 vezes ',
-      'Ausencia da Terceira Coluna  - 17 vezes ',
-      'Ausencia da Segundo Bloco - 17 vezes ',
-      'Ausencia da Terceiro Bloco - 17 vezes ',
-      'Ausencia da Primeiro Bloco - 17 vezes ',
+      'Ausencia da Primeira Coluna  - 7 vezes ',
+      'Ausencia da Segunda Coluna  - 7 vezes ',
+      'Ausencia da Terceira Coluna  - 7 vezes ',
+      'Ausencia da Segundo Bloco - 7 vezes ',
+      'Ausencia da Terceiro Bloco - 7 vezes ',
+      'Ausencia da Primeiro Bloco - 7 vezes ',
      ]
 
 const spectStrategy = [
@@ -62,12 +62,12 @@ const spectStrategy = [
     'Repetição de 8 vezes da Segunda Coluna',
     'Repetição de 8 vezes da Primeira Coluna',
     'Repetição de 8 vezes da Terceira Coluna',
-     'Ausencia da Segunda Coluna - 16 vezes ',
-     'Ausencia da Terceira Coluna - 16 vezes ',
-     'Ausencia da Primeira Coluna - 16 vezes ',
-     'Ausencia da Segundo Bloco - 16 vezes ',
-     'Ausencia da Terceiro Bloco - 16 vezes ',
-     'Ausencia da Primeiro Bloco - 16 vezes ',
+     'Ausencia da Segunda Coluna - 6 vezes ',
+     'Ausencia da Terceira Coluna - 6 vezes ',
+     'Ausencia da Primeira Coluna - 6 vezes ',
+     'Ausencia da Segundo Bloco - 6 vezes ',
+     'Ausencia da Terceiro Bloco - 6 vezes ',
+     'Ausencia da Primeiro Bloco - 6 vezes ',
 ]
 
 const string = 
