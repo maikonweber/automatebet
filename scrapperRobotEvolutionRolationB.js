@@ -173,7 +173,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
 
     pagex.forEach((el) => {
-      l(el)
+      console.log(el)
     axios.post('https://api.muttercorp.online/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
@@ -216,7 +216,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
       }
 
     shows.forEach((elem) =>  {
-      l(elem)
+      console.log(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
       axios.post('https://api.muttercorp.online/api/cards_', elem).then((result) => {
       console.log(result.data)
