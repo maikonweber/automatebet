@@ -98,15 +98,11 @@ app.post('/api/crash_', async (req, res) => {
 
 app.post('/api/double_', async ( req, res) => {
   const { number, date } = req.body
-  if(number != 'X') {
-    return number.replace('X', '')
-  }
-  console.log(`set`)
-  const resultxT = await redis.get(`${number}_${date}_crash`)
+  const resultxT = await redis.get(`${number}_${date}_double`)
 
   if(!resultxT) {
     console.log(`set Double`)
-    await redis.set(`${number}_${date}_crash`, true, 'EX', 30)
+    await redis.set(`${number}_${date}_double`, true, 'EX', 30)
     const insertDouble = insertDouble_(date, number)  
     return res.status(200)
   }
