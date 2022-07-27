@@ -14,13 +14,13 @@ let client = {
 let pool = new pg.Pool(client);
 
 async function insertCrash_ (date, number) {
-    console.log(date)
+    const date_ = new Date(date).getTime()
 
    let  sqlString = `
    INSERT INTO crash_game (number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
    `  
 
-   const result = await pool.query(sqlString, [number, date])
+   const result = await pool.query(sqlString, [number, date_])
     return result
 } 
 
