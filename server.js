@@ -90,7 +90,7 @@ app.post('/api/crash_', async (req, res) => {
 
     await redis.set(`${number}_crash_${date}`, true, 'EX', 30)
   
-    const insertCrash = insertCrash_(date, number)  
+    const insertCrash = await insertCrash_(date, number)  
     console.log(insertCrash_)
     return res.status(200)
   }
@@ -104,7 +104,7 @@ app.post('/api/double_', async ( req, res) => {
   if(!resultxT) {
     console.log(`set Double`)
     await redis.set(`${number}_${date}_double`, true, 'EX', 30)
-    const insertDouble = insertDouble_(date, number)  
+    const insertDouble = await insertDouble_(date, number)  
     console.log(insertDouble)
     return res.status(200)
   }
