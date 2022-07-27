@@ -31,7 +31,6 @@ const {
   insertDouble_,
   insertCrash_
 } = require('./database');
-const { before } = require('cheerio/lib/api/manipulation');
 
 app.use(cors());
 app.use(express.json());
@@ -40,18 +39,11 @@ app.use(cookieParser());
 
 
 
-app.get('/api/v1', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();	
-});
-
 app.use("/api/time", async (req, res, next) => {
   console.log(new Date());
   
   res.json({ ts: Date.now() });
 });
-
 
 
 app.post('/api/v1/sendLead', async (request, response) => {
@@ -105,7 +97,7 @@ app.post('/api/crash_', async (req, res) => {
 
 app.post('/api/double_', async ( req, res) => {
   const { number, date } = req.body
-  if(number != X) {
+  if(number != 'X') {
     return number.replace('X', '')
   }
 
