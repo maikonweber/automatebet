@@ -20,5 +20,4 @@ const arrayName = [
    ]
 
 
-
    module.exports = arrayName;

@@ -57,29 +57,29 @@ const jsonRoullete = {
     }
 }
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=7qzwkynq5hbzo78o&vt_id=nya6dt6zzywewthl
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=7qzwkynq5hbzo78o&vt_id=nya6dt6zzywewthl
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=r15uycx4vegmnhfl
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=r15uycx4vegmnhfl
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=rr0yhns3we03tqqu
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=rr0yhns3we03tqqu
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=r5aw9yumyaxgnd90
-
-
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=hiey8yx1hkkgqawl
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=r5aw9yumyaxgnd90
 
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=hiey8yx1hkkgqawl&vt_id=nybaosaizyweydhb
-
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=k4r2vh6v4eqqb6xu
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=hiey8yx1hkkgqawl
 
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=k37tle5hfceqacik
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=hiey8yx1hkkgqawl&vt_id=nybaosaizyweydhb
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=mvrcophqscoqosd6
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=k4r2vh6v4eqqb6xu
 
 
-    https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=mvrcophqscoqosd6
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=k37tle5hfceqacik
+
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=mvrcophqscoqosd6
+
+
+//     https://ezugi.evo-games.com/frontend/evo/r2/#category=roulette&game=roulette&table_id=mvrcophqscoqosd6
 
 
 

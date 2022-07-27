@@ -25,6 +25,8 @@ ch2.consume(q.queue, async function(msg) {
      const strig =  JSON.parse(msgs); // 'message'
      console.log(strig)     
 
+
+
      }
 }, { noAck : true} 
 );

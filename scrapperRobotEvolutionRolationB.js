@@ -251,10 +251,10 @@ async function getEsporte(page) {
   objCrash.number = result.replace('X', '')
   objCrash.date = new Date()
 
-  const resultx = await redis.get(`${objCrash.number}`)
-  
+  let resultx = await redis.get(`${objCrash.number}`)
   if(!resultx) {
-  redis.set(`${objCrash.number}`, true, 'EX', 20)
+  await redis.set(`${objCrash.number}`, true, 'EX', 20)
+  console.log(objCrash)
   axios.post('https://api.muttercorp.online/api/crash', objCrash).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
@@ -269,6 +269,7 @@ async function getCrash(page) {
   await page.waitForTimeout(18000)
   await page.goto('https://blaze.com/en/games/double') 
   setInterval(async () => {
+  await page.waitForTimeout(8000)
   const number = await page.$$('.entries.main')
   const tite = await number[0].$('.entry')
   const lastnumber = await tite.$('.number')
@@ -280,10 +281,10 @@ async function getCrash(page) {
   obj.date = new Date().getTime()
   console.log(obj)
 
-  const resultx = await redis.get(`${obj.number}`)
+  let resultx = await redis.get(`${obj.number}`)
   
   if(!resultx) {
-  redis.set(`${obj.number}`, true, 'EX', 20)
+  await redis.set(`${obj.number}`, true, 'EX', 20)
   axios.post('https://api.muttercorp.online/api/double_', obj).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
@@ -322,9 +323,8 @@ const promisse  = new Promise((resolve, reject) =>  {
   }, 60000 * 10)
 })
 
- await getCrash(page.C)
- await getEsporte(page.B)
- await getRoleta(page.A)
- await promisse()
+  Promise.all([promisse,  getCrash(page.C),  getEsporte(page.B), getRoleta(page.A)]).then(() => {
+    console.log('Promisse Finished')
+  })
 
 })()

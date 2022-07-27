@@ -20,7 +20,6 @@ const {
 } = require('../database')
 
 const arrayName = require('../jsonObjects/RoleteNames');
-const jsonRoullete = require('../jsonObjects/jsonOfhtml');
 const Redis = require("ioredis");
 const redis = new Redis();
 
@@ -526,7 +525,6 @@ setInterval(() => {
                 }
 
                strategyProced(obj)
-               
           })
      })
 
