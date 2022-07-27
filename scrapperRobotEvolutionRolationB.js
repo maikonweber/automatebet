@@ -325,4 +325,6 @@ const promisse  = new Promise((resolve, reject) =>  {
  await getCrash(page.C)
  await getEsporte(page.B)
  await getRoleta(page.A)
+ await promisse()
+ 
 })()
