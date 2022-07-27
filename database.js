@@ -18,7 +18,7 @@ async function insertCrash_ (date, number) {
    INSERT INTO crash_game (number, date_) VALUES ($1, $2) RETURNING date_; 
    `  
 
-   const result = await pool.query(sqlString, [date, number])
+   const result = await pool.query(sqlString, [number, date])
     return result
 } 
 
