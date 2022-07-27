@@ -2,21 +2,7 @@ const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const Redis = require("ioredis");
 const axios = require('axios'); 
-const redis = new Redis()
-const  {
-  l,
-  getTextEvalute
-} = require("./puppeterFunctions");
-const { get } = require("cheerio/lib/api/traversing");
-const { getCards } = require("./database");
-
-async function waitGoto(url, timeout, page) {
-  await page.goto(url, {waitUntil: 'networkidle0'});
-  await console.log('------Go to ' + url +'--------')
-  await page.waitForTimeout(timeout)
-}
-
-find .git/objects/ -size 0 -delete
+const redis = new Redis();
 
 process.on('SIGINT', function() {
   redis.quit(function(err) {
