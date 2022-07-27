@@ -87,6 +87,7 @@ app.post('/api/crash_', async (req, res) => {
   const { number, date } = body
   const resultxTx = await redis.get(`${number}_crash_${date}`)
   if(!resultxTx) {
+    console.log(`set Crash`)
     await redis.set(`${number}_crash_${date}`, true, 'EX', 30)
     const insertCrash = insertCrash_(date, number)  
     return res.status(200)
@@ -100,10 +101,11 @@ app.post('/api/double_', async ( req, res) => {
   if(number != 'X') {
     return number.replace('X', '')
   }
-
+  console.log(`set`)
   const resultxT = await redis.get(`${number}_${date}_crash`)
 
   if(!resultxT) {
+    console.log(`set Double`)
     await redis.set(`${number}_${date}_crash`, true, 'EX', 30)
     const insertDouble = insertDouble_(date, number)  
     return res.status(200)
@@ -245,6 +247,7 @@ app.post('/api/evolution', async (req, res) => {
     // console.log('Já existe um número igual ao que está tentando inserir')
     res.json("Numero não inserido")
   } else {
+    console.log(`set Evolution`)
     await redis.set(`${name}_lastresult`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);
     // console.log(result.rows, "ID :", name_, number);
