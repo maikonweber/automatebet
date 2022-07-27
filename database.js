@@ -14,7 +14,7 @@ let client = {
 let pool = new pg.Pool(client);
 
 async function insertCrash_ (date, number) {
-    
+    console.log(date)
 
    let  sqlString = `
    INSERT INTO crash_game (number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
@@ -25,7 +25,7 @@ async function insertCrash_ (date, number) {
 } 
 
 async function insertDouble_ (date, number) {
-
+    console.log(date)
     let  sqlString = `
     INSERT INTO double_game(number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
     `  
