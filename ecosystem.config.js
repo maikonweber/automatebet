@@ -1,8 +1,9 @@
 module.exports = {
   apps : [{
     name: 'cards',
-    script: 'scrapperRobotEvolutionRolation.js',
-    wait_ready : true
+    script: 'scrapperRobotEvolutionRolationB.js',
+    wait_ready : true,
+    autorestart : true		  
   }
 ],
 };

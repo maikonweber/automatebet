@@ -266,7 +266,7 @@ async function getEsporte(page) {
 
 
 async function getCrash(page) {
-  await page.waitForTimeout(5000)
+  await page.waitForTimeout(18000)
   await page.goto('https://blaze.com/en/games/double') 
   setInterval(async () => {
   const number = await page.$$('.entries.main')
@@ -322,6 +322,7 @@ const promisse  = new Promise((resolve, reject) =>  {
   }, 60000 * 10)
 })
 
-Promise.all([getCrash(page.C), getEsporte(page.A), getRoleta(page.C), getSport(page.D), promisse]).then(result => console.log(result))
-
+ await getCrash(page.C)
+ await getEsporte(page.B)
+ await getRoleta(page.A)
 })()
