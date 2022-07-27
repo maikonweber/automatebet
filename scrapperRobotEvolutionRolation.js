@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-const redis = require("redis");
+const Redis = require("ioredis");
 const axios = require('axios'); 
-
+const redis = new Redis()
 const  {
   l,
   getTextEvalute
@@ -231,6 +231,60 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 }
 
 async function getEsporte(page) {
+  await page.goto('https://blaze.com/en/games/crash', {waitUntil: 'networkidle2'});
+  setInterval(async () => {
+  const el = await page.waitForSelector('.entries')
+  const element = await el.$('span')
+  console.log(element)
+
+  const result = await  page.evaluate(() => {
+    return document.querySelector('.entries').querySelector('span').innerText
+  })
+
+  const objCrash = {}
+  objCrash.number = result.replace('X', '')
+  objCrash.date = new Date()
+
+  const resultx = await redis.get(`${objCrash.number}`)
+  
+  if(!resultx) {
+  redis.set(`${objCrash.number}`, true, 'EX', 20)
+  axios.post('http://localhost:3055/api/crash_', objCrash).then((result) => {
+      console.log(result.data)
+    }).catch((erro) => {
+      console.log(erro)
+    })
+  }
+
+    await sleep(1000)
+
+
+    await page.goto('https://blaze.com/en/games/double', {waitUntil: 'networkidle2'});
+    
+    const result3 = await page.evaluate(() => {
+      return document.querySelector('.entries.main').querySelector('div').innerText
+       })
+
+  
+    const objDouble = {}
+    objDouble.number = result.replace('', '0')
+    objDouble.date = new Date()
+  
+    const resultxT = await redis.get(`${objDouble.number}`)
+    
+    if(!resultxT) {
+    redis.set(`${objDouble.number}`, true, 'EX', 20)
+    axios.post('http://localhost:3055/api/double_', objDouble).then((result) => {
+        console.log(result.data)
+      }).catch((erro) => {
+        console.log(erro)
+      })
+    }
+  
+    await sleep(1000)
+  
+
+  }, 3000)
 
   // await page.goto('https://player.smashup.com/player_center/')
   // await page.evaluate(() => {
@@ -295,17 +349,21 @@ async function getEsporte(page) {
 
 
 async function getCrash(page) {
-  page.waitGoto('https://player.smashup.com/player_center/')
-  setInterval(async () => {
-    console.log('click')
+  await page.goto('https://br.betano.com/live/', {waitUntil: 'networkidle2'});
+   var i = 0
+  await page.evaluate(() => {
+      console.log(0)
+      const a = document.querySelectorAll('a')
+      console.log(a)
 
-  }, 8000)
+    })
+  
 }
 
 
 
 await getEsporte(page.B)
-await getRoleta(page.A)
+//await getRoleta(page.A)
 await getCrash(page.C)
 
 //       // let array = await page.$$('article')

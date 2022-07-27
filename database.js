@@ -13,6 +13,28 @@ let client = {
 
 let pool = new pg.Pool(client);
 
+
+async function insertCrash_ (date, numer) {
+   let  sqlString = `
+   INSERT INTO crash_game (number, date) VALUES ($1, $2) RETURNING date; 
+   `  
+
+   const result = await pool.query(sqlString, [date, number])
+    return result
+} 
+
+async function insertDouble_ (date, numer) {
+    let  sqlString = `
+    INSERT INTO crash_game (number, date) VALUES ($1, $2) RETURNING date; 
+    `  
+ 
+    const result = await pool.query(sqlString, [date, number])
+     return result
+ } 
+
+
+
+
 async function insertTelegramSygnal(Sala, Message, Aposta) {
     let sql = `INSERT INTO roullete (sala, message, aposta, resultado) VALUES ($1, $2, $3) Returning id`;    
     let params = [Sala, Message, Aposta];
@@ -384,7 +406,9 @@ module.exports = {
     getLastNumberEv,
     InsertRoulleteEv,
     insertCardPayload,
-    getLastNumberCard
+    getLastNumberCard,
+    insertCrash_,
+    insertDouble_
 }
 
 

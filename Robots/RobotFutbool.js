@@ -4,10 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 const moment = require('moment');
-const { table } = require('console');
 const redis = require('redis');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const console = require('console');
+
 puppeteer.use(StealthPlugin())
 
 class FootBoolScrap {
@@ -57,7 +57,6 @@ class FootBoolScrap {
             await page.screenshot({path: './bet365.png'});
             await page.waitForSelector('.iip-IntroductoryPopup_Cross')
             return page;
-          
         
             }
         
