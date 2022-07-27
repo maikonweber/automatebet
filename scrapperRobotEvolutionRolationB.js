@@ -255,7 +255,7 @@ async function getEsporte(page) {
   
   if(!resultx) {
   redis.set(`${objCrash.number}`, true, 'EX', 20)
-  axios.post('https://api.muttercorp.online/api/crash_', objCrash).then((result) => {
+  axios.post('https://api.muttercorp.online/api/crash', objCrash).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
