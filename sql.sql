@@ -12,6 +12,20 @@ CREATE TABLE robotBetPayload (
     jsonbStrategy jsonb not null
 );
 
+
+--> CRASH DOUBLE IMPLEMENTATION
+
+CREATE TABLE crash_game (
+    date_ timestamp not null,
+    number varchar(5) not null
+);
+
+CREATE TABLE double_game (
+    date_ timestamp not null,
+    number varchar(5) not null
+);
+
+
 CREATE TABLE robotevolution (
     id serial primary key,
     name varchar(255) not null,

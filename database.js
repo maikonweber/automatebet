@@ -24,8 +24,11 @@ async function insertCrash_ (date, numer) {
 } 
 
 async function insertDouble_ (date, numer) {
+    
+    const newdate = new Date(date).setTime()
+
     let  sqlString = `
-    INSERT INTO crash_game (number, date) VALUES ($1, $2) RETURNING date; 
+    INSERT INTO double_game (number, date) VALUES ($1, $2) RETURNING date; 
     `  
  
     const result = await pool.query(sqlString, [date, number])
@@ -409,6 +412,7 @@ module.exports = {
     getLastNumberCard,
     insertCrash_,
     insertDouble_
+
 }
 
 

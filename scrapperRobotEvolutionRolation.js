@@ -231,11 +231,11 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 }
 
 async function getEsporte(page) {
-  await page.goto('https://blaze.com/en/games/crash', {waitUntil: 'networkidle2'});
   setInterval(async () => {
-  const el = await page.waitForSelector('.entries')
-  const element = await el.$('span')
-  console.log(element)
+  
+  await page.goto('https://blaze.com/en/games/crash', {waitUntil: 'networkidle2'});
+
+  await page.waitForTimeout(10000)
 
   const result = await  page.evaluate(() => {
     return document.querySelector('.entries').querySelector('span').innerText
@@ -256,19 +256,22 @@ async function getEsporte(page) {
     })
   }
 
-    await sleep(1000)
+  await page.waitForTimeout(10000)
 
+  await page.goto('https://blaze.com/en/games/double') 
 
-    await page.goto('https://blaze.com/en/games/double', {waitUntil: 'networkidle2'});
-    
+  await page.waitForSelector('.entry')
+
     const result3 = await page.evaluate(() => {
-      return document.querySelector('.entries.main').querySelector('div').innerText
-       })
+      const el = document.querySelector('.entries.main')
+      ccoquerySelector('.entry').querySelector('div').innerText
+      
+    })
 
   
     const objDouble = {}
     objDouble.number = result.replace('', '0')
-    objDouble.date = new Date()
+    objDouble.date = new Date().getTime()
   
     const resultxT = await redis.get(`${objDouble.number}`)
     
@@ -281,10 +284,10 @@ async function getEsporte(page) {
       })
     }
   
-    await sleep(1000)
+    await page.waitForTimeout(10000)
   
 
-  }, 3000)
+  }, 8000)
 
   // await page.goto('https://player.smashup.com/player_center/')
   // await page.evaluate(() => {
