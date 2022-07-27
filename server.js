@@ -233,24 +233,25 @@ app.post('/api/evolution', async (req, res) => {
   const body = req.body;
   const {name, number} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
-  const resultado = await getLastNumberEv(name_);
-  if (typeof resultado === 'undefined') {
+  const result = await redis.get(`${name}_${number}`)
+  if (typeof result === 'undefined') {
+    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);;
     res.json('You have set the blqaze at ')
   } else {
   const lastNumberString = resultado.number
   const numberJsonString = number
- // console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
-
-  if (lastNumberString[0] === numberJsonString[0]) {
-    // console.log('Já existe um número igual ao que está tentando inserir')
+  if (result === number) {
     res.json("Numero não inserido")
   } else {
     console.log(`set Evolution`)
-    await redis.set(`${name}_lastresult`, JSON.stringify({ name : name , number: number}))
+    const result = await redis.get(`${name}_${number}`)
+    if (!result) {
+    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);
     // console.log(result.rows, "ID :", name_, number);
     res.json('You have set the blqaze at ')
+    }
   } 
 }
 
