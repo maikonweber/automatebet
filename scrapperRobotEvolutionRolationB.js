@@ -18,7 +18,7 @@ puppeteer.use(StealthPlugin());
 async function getBrowser () {
 
 const browser = await puppeteer.launch({
-     headless: false,
+	headless: false,
      defaultViewport: {
        width: 1100,
        height: 980
@@ -174,7 +174,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     pagex.forEach((el) => {
       l(el)
-    axios.post('http://api.muttercorp.online/api/evolution', el).then((result) => {
+    axios.post('https://api.muttercorp.online/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -218,7 +218,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('http://api.muttercorp.online/api/cards_', elem).then((result) => {
+      axios.post('https://api.muttercorp.online/api/cards_', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -255,7 +255,7 @@ async function getEsporte(page) {
   
   if(!resultx) {
   redis.set(`${objCrash.number}`, true, 'EX', 20)
-  axios.post('http://api.muttercorp.online/api/crash_', objCrash).then((result) => {
+  axios.post('https://api.muttercorp.online/api/crash_', objCrash).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -284,7 +284,7 @@ async function getCrash(page) {
   
   if(!resultx) {
   redis.set(`${obj.number}`, true, 'EX', 20)
-  axios.post('http://api.muttercorp.online/api/double_', obj).then((result) => {
+  axios.post('https://api.muttercorp.online/api/double_', obj).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
