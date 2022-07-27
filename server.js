@@ -87,11 +87,9 @@ app.post('/api/crash', async (req, res) => {
   const body  = req.body
   const { number, date } = body
   'https://api.muttercorp.online/api/double_'
-  const resultxTx = await redis.get(`${number}_crash_${date}`)
+  const resultxTx = await redis.get(`${number}_crash`)
   if(!resultxTx) {
-
-    await redis.set(`${number}_crash_${date}`, true, 'EX', 30)
-  
+    await redis.set(`${number}_crash`, true, 'EX', 30)
     const insertCrash = await insertCrash_(date, number)  
     console.log('new crash')
     return res.status(200)
@@ -102,10 +100,10 @@ app.post('/api/crash', async (req, res) => {
 
 app.post('/api/double_', async ( req, res) => {
   const { number, date } = req.body
-  const resultxT = await redis.get(`${number}_${date}_double`)
+  const resultxT = await redis.get(`${number}_double`)
   if(!resultxT) {
     console.log(`set Double`)
-    await redis.set(`${number}_${date}_double`, true, 'EX', 30)
+    await redis.set(`${number}_double`, true, 'EX', 30)
     const insertDouble = await insertDouble_(date, number)  
     return res.status(200)
   }
@@ -234,23 +232,20 @@ app.post('/api/evolution', async (req, res) => {
   const {name, number} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
   const result = await redis.get(`${name}_${number}`)
-  if (typeof result === 'undefined') {
+  if (typeof result.number === 'undefined') {
     await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);;
     res.json('You have set the blqaze at ')
   } else {
-  const lastNumberString = resultado.number
-  const numberJsonString = number
-  if (result === number) {
-    res.json("Numero não inserido")
+  if (result.number === number) {
+     return res.json("Numero não inserido")
   } else {
     console.log(`set Evolution`)
     const result = await redis.get(`${name}_${number}`)
-    if (!result) {
+    if (!result.number) {
     await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);
-    // console.log(result.rows, "ID :", name_, number);
-    res.json('You have set the blqaze at ')
+    return res.json('You have set the blqaze at ')
     }
   } 
 }
