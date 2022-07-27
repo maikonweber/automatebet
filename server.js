@@ -231,20 +231,22 @@ app.post('/api/evolution', async (req, res) => {
   const body = req.body;
   const {name, number} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
-  const result = await redis.get(`${name}_${number}`)
+  let result = await redis.get(`${name}_${number}`)
+  result = JSON.parse(result)
   if (typeof result.number === 'undefined') {
-    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}))
-    const result = await InsertRoulleteEv(name_, number);;
+    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}), 'EX', 180)
+    const resultado = await InsertRoulleteEv(name_, number);;
     res.json('You have set the blqaze at ')
   } else {
   if (result.number === number) {
      return res.json("Numero não inserido")
   } else {
     console.log(`set Evolution`)
-    const result = await redis.get(`${name}_${number}`)
+    let result = await redis.get(`${name}_${number}`)
+    result = JSON.parse(result)
     if (!result.number) {
-    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}))
-    const result = await InsertRoulleteEv(name_, number);
+    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}), 'EX', 160)
+    const resultado2 = await InsertRoulleteEv(name_, number);
     return res.json('You have set the blqaze at ')
     }
   } 
@@ -255,40 +257,7 @@ app.post('/api/evolution', async (req, res) => {
 app.post('/api/bet365', async (req, res) => {
     const body = req.body;
 
-    const { name, number, preload, strategyDuziaRepeat, 
-    strategyColumnReapeat, strategyAlternateColum, strategy19to36, strategyImparReapeat
-  , strategyParReapeat , strategyGreen, strategyRed, strategyOneTo18, strategyRed4Time } = body;
-
-      // Convert number type array to jsonb
-    const numberJson = JSON.stringify(number);
-
-    const jsonbStrategy = {
-      "strategy19to39" : strategy19to36,
-      "strategyAlternateColum" : strategyAlternateColum,
-      "strategyColumnReapeat" : strategyColumnReapeat,
-      "strategyDuziaRepeat" : strategyDuziaRepeat,
-      "strategyImparReapeat" : strategyImparReapeat,
-      "strategyParReapeat" : strategyParReapeat,
-      "strategyGreen" : strategyGreen,
-      "strategyRed" : strategyRed,
-      "strategyOneTo18" :strategyOneTo18,
-      "strategyRed4Time" : strategyRed4Time
-    }
-    
-    const { colunas, bloco, impares, pares, green, red, oneTo18, nineteenTo36, colunas2 } = preload;
-   
-    const jsonPreload = {
-      "colunas" : colunas,      
-      "colunas2" : colunas2,
-      "duzias" : bloco,
-      "impares" : impares,
-      "pares" : pares,
-      "green" : green,
-      "red" : red,
-      "oneto18" : oneTo18,
-      "nineteenTo36" : nineteenTo36, // last 18 numbers
-    }
-  
+    const { name, number } = body;
   
     let name_ = name.replace(/\s/g, '_');
     const resultado = await getLastNumber(name_);
