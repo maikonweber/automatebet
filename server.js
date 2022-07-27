@@ -93,9 +93,9 @@ app.post('/api/v1/login', async(request, response) => {
 app.post('/api/crash_', async (req, res) => {
   const body  = req.body
   const { number, date } = body
-  const resultxT = await redis.get(`${number}_double_${date}`)
+  const resultxT = await redis.get(`${number}_crash_${date}`)
   if(!resultxT) {
-    redis.set(`${number}_double_${date}`, true, 'EX', 30)
+    redis.set(`${number}_crash_${date}`, true, 'EX', 30)
     const insertCrash = insertDouble_(number, date)  
     res.send('set the blaze')
   }
@@ -103,15 +103,15 @@ app.post('/api/crash_', async (req, res) => {
 })
 
 
-app.post('/api/double_', async ( request, response) => {
-  const { number, date } = request.body
-  const resultxT = await redis.get(`${objDouble.number}`)
+app.post('/api/double_', async ( req, res) => {
+  const { number, date } = req.body
+  const resultxT = await redis.get(`${number}_${date}_crash`)
   if(!resultxT) {
-    redis.set(`${number}_${date}`, true, 'EX', 30)
+    redis.set(`${number}_${date}_crash`, true, 'EX', 30)
     const insertDouble = insertDouble_(number, date)  
-    response.send('set the blaze')
+    res.send('set the blaze')
   }
-  response.send('You never see the gueixas')
+  res.send('You never see the gueixas')
 })
 
 app.post('/api/v1/', async(request, response) => {
