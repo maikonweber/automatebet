@@ -1,7 +1,7 @@
 const { TelegramClient, Api } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm i input
-const { getStrategyByRoullet , getLastNumber18,} = require('./database')
+const { getStrategyByRoullet , getLastNumber18,} = require('../database')
 const {
      blocosRepeat,
      ColunasRepeat,
@@ -9,7 +9,7 @@ const {
      alternateColumns,
      on18or36,
      parOuImpar,
-} = require('./jsonObjects/jsonStrategy.js')
+} = require('../jsonObjects/jsonStrategy.js')
 
 const queue = 'msg'
 const amqplib = require('amqplib/callback_api');
@@ -17,15 +17,15 @@ const {
      insertSygnal,
      updateStrategy,
      updateStrategyFilter
-} = require('./database')
+} = require('../database')
 
-const arrayName = require('./jsonObjects/RoleteNames');
-const jsonRoullete = require('./jsonObjects/jsonOfhtml');
+const arrayName = require('../jsonObjects/RoleteNames');
+const jsonRoullete = require('../jsonObjects/jsonOfhtml');
 const Redis = require("ioredis");
 const redis = new Redis();
 
-const testStrategy = require('./functions/testStrategy')
-const expectNumber = require('./jsonObjects/strategy.js');
+const testStrategy = require('../functions/testStrategy')
+const expectNumber = require('../jsonObjects/strategy.js');
 
 /*
      @dev Maikon Weber

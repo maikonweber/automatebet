@@ -11,14 +11,14 @@ process.on('SIGINT', function() {
 })
 
 
-
+//
 
 puppeteer.use(StealthPlugin());
 
 async function getBrowser () {
 
 const browser = await puppeteer.launch({
-     headless: false,
+	headless: true,
      defaultViewport: {
        width: 1100,
        height: 980
@@ -81,7 +81,7 @@ const element_ = await page.A.$('#username')
 const elementPass_ = await page.A.$('#password')
 
 if (element_ && elementPass_) {
-     await element_.type('maikonweber4');
+     await element_.type('maikonweber1');
      await elementPass_.type('ma128sio4');
      await page.A.keyboard.press('Enter')
      await page.A.waitForNavigation({ waitUntil: 'networkidle0'})
@@ -173,7 +173,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
 
     pagex.forEach((el) => {
-      l(el)
+      console.log(el)
     axios.post('https://api.muttercorp.online/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
@@ -216,9 +216,9 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
       }
 
     shows.forEach((elem) =>  {
-      l(elem)
+      console.log(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('http://api.muttercorp.online/api/cards_', elem).then((result) => {
+      axios.post('https://api.muttercorp.online/api/cards_', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -262,11 +262,11 @@ async function getEsporte(page) {
     })
   }
   }, 8000)
-}''
+}
 
 
 async function getCrash(page) {
-  await page.waitForTimeout(5000)
+  await page.waitForTimeout(18000)
   await page.goto('https://blaze.com/en/games/double') 
   setInterval(async () => {
   const number = await page.$$('.entries.main')
@@ -322,6 +322,9 @@ const promisse  = new Promise((resolve, reject) =>  {
   }, 60000 * 10)
 })
 
-Promise.all([getCrash(page.C), getEsporte(page.A), getRoleta(page.C), getSport(page.D), promisse]).then(result => console.log(result))
+ await getCrash(page.C)
+ await getEsporte(page.B)
+ await getRoleta(page.A)
+ promisse().then((result) => { console.log(result)})
 
 })()

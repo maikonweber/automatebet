@@ -82,7 +82,8 @@ app.post('/api/v1/login', async(request, response) => {
     }
   });
 
-app.post('/api/crash_', async (req, res) => {
+
+app.post('/api/crash', async (req, res) => {
   const body  = req.body
   const { number, date } = body
   const resultxTx = await redis.get(`${number}_crash_${date}`)

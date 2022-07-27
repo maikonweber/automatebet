@@ -1,4 +1,4 @@
-const { getLastCard } = require('./database')
+const { getLastCard } = require('../database')
 
 
 const input = require("input"); // npm i input
