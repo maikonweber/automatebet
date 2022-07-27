@@ -174,7 +174,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     pagex.forEach((el) => {
       l(el)
-    axios.post('http://localhost:3055/api/evolution', el).then((result) => {
+    axios.post('http://api.muttercorp.online/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -218,7 +218,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
     shows.forEach((elem) =>  {
       l(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('http://localhost:3055/api/cards_', elem).then((result) => {
+      axios.post('http://api.muttercorp.online/api/cards_', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -255,7 +255,7 @@ async function getEsporte(page) {
   
   if(!resultx) {
   redis.set(`${objCrash.number}`, true, 'EX', 20)
-  axios.post('http://localhost:3055/api/crash_', objCrash).then((result) => {
+  axios.post('http://api.muttercorp.online/api/crash_', objCrash).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -284,7 +284,7 @@ async function getCrash(page) {
   
   if(!resultx) {
   redis.set(`${obj.number}`, true, 'EX', 20)
-  axios.post('http://localhost:3055/api/double_', obj).then((result) => {
+  axios.post('http://api.muttercorp.online/api/double_', obj).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -303,7 +303,7 @@ async function getCrash(page) {
     
     // if(!resultxT) {
     // redis.set(`${objDouble.number}`, true, 'EX', 20)
-    // axios.post('http://localhost:3055/api/double_', objDouble).then((result) => {
+    // axios.post('http://api.muttercorp.online/api/double_', objDouble).then((result) => {
     //     console.log(result.data)
     //   }).catch((erro) => {
     //     console.log(erro)
