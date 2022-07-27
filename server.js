@@ -96,7 +96,7 @@ app.post('/api/crash_', async (req, res) => {
   const resultxT = await redis.get(`${number}_crash_${date}`)
   if(!resultxT) {
     redis.set(`${number}_crash_${date}`, true, 'EX', 30)
-    const insertCrash = insertDouble_(number, date)  
+    const insertCrash = insertDouble_(date, number)  
     res.send('set the blaze')
   }
     res.send('You never see the gueixas')
@@ -105,10 +105,15 @@ app.post('/api/crash_', async (req, res) => {
 
 app.post('/api/double_', async ( req, res) => {
   const { number, date } = req.body
+  if(number != X) {
+    return number.replace('X', '')
+  }
+  
   const resultxT = await redis.get(`${number}_${date}_crash`)
+
   if(!resultxT) {
     redis.set(`${number}_${date}_crash`, true, 'EX', 30)
-    const insertDouble = insertDouble_(number, date)  
+    const insertDouble = insertDouble_(date, number)  
     res.send('set the blaze')
   }
   res.send('You never see the gueixas')
