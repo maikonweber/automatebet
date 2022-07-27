@@ -13,8 +13,7 @@ let client = {
 
 let pool = new pg.Pool(client);
 
-
-async function insertCrash_ (date, numer) {
+async function insertCrash_ (date, number) {
    let  sqlString = `
    INSERT INTO crash_game (number, date) VALUES ($1, $2) RETURNING date; 
    `  
@@ -23,15 +22,13 @@ async function insertCrash_ (date, numer) {
     return result
 } 
 
-async function insertDouble_ (date, numer) {
+async function insertDouble_ (date, number) {
     
-    const newdate = new Date(date).setTime()
-
     let  sqlString = `
     INSERT INTO double_game (number, date) VALUES ($1, $2) RETURNING date; 
     `  
  
-    const result = await pool.query(sqlString, [date, number])
+    const result = await pool.query(sqlString, [number, date])
      return result
  } 
 
@@ -207,6 +204,22 @@ async function getLastNumber18(name) {
         lastRow : result.rows[12]
     }
 }
+
+
+async function getLastNumber18bet(name) {
+    let sql = `SELECT number
+    FROM robotbetpayload where name ~ $1
+    and created > now() - interval '4 hour'
+    order by created  
+    desc limit 13;`;
+
+    let result = await pool.query(sql, [name]);
+    return obj = {
+        fistRow : result.rows[0],
+        lastRow : result.rows[12]
+    }
+}
+
 
 async function getLastCard() {
     let sql = `SELECT number, name, created from  

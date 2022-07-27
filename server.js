@@ -27,7 +27,9 @@ const {
   getLastNumberEv,
   InsertRoulleteEv,
   getLastNumberCard,
-  insertCardPayload
+  insertCardPayload,
+  insertDouble_,
+  insertCrash_
 } = require('./database');
 const { before } = require('cheerio/lib/api/manipulation');
 
@@ -89,11 +91,12 @@ app.post('/api/v1/login', async(request, response) => {
   });
 
 app.post('/api/crash_', async ( request, response) => {
-  const { number, date } = response.body
-  const resultxT = await redis.get(`${objDouble.number}`)
+  const body  = response.body
+  const { number, date } = body
+  const resultxT = await redis.get(`${number}_double_${date}`)
   if(!resultxT) {
-    redis.set(`${number}_${date}`, true, 'EX', 30)
-    const insertCrash = insertCrash_(number, date)  
+    redis.set(`${number}_double_${date}`, true, 'EX', 30)
+    const insertCrash = insertDouble_(number, date)  
     request.send('set the blaze')
   }
     request.send('You never see the gueixas')
@@ -163,8 +166,6 @@ app.post('/api/cards_', async (req, res) => {
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
   
- 
-
   const resultado = await  getLastNumberCard(name_);
   if (typeof resultado === 'undefined') {
     const result = await insertCardPayload(name_, number);;
