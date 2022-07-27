@@ -85,18 +85,18 @@ app.post('/api/v1/login', async(request, response) => {
   
 app.post('/api/crash', async (req, res) => {
   const body  = req.body
-  console.log(number, date)
   const { number, date } = body
+  'https://api.muttercorp.online/api/double_'
   const resultxTx = await redis.get(`${number}_crash_${date}`)
   if(!resultxTx) {
 
     await redis.set(`${number}_crash_${date}`, true, 'EX', 30)
   
     const insertCrash = await insertCrash_(date, number)  
-    console.log(insertCrash)
+    console.log('new crash')
     return res.status(200)
   }
-    return res.status(500)
+    return res.status(200)
 })
 
 
@@ -107,7 +107,7 @@ app.post('/api/double_', async ( req, res) => {
     console.log(`set Double`)
     await redis.set(`${number}_${date}_double`, true, 'EX', 30)
     const insertDouble = await insertDouble_(date, number)  
-    console.log(insertDouble)
+  
     return res.status(200)
   }
     return res.status(200)
