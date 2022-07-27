@@ -232,9 +232,8 @@ app.post('/api/evolution', async (req, res) => {
   const {name, number} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
   let result = await redis.get(`${name}_${number}`)
-  result = JSON.parse(result)
-  if (typeof result.number === 'undefined') {
-    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}), 'EX', 180)
+  if (!result) {
+    await redis.set(`${name}_${number}`, { name : name , number: number}, 'EX', 30)
     const resultado = await InsertRoulleteEv(name_, number);;
     res.json('You have set the blqaze at ')
   } else {
@@ -243,9 +242,8 @@ app.post('/api/evolution', async (req, res) => {
   } else {
     console.log(`set Evolution`)
     let result = await redis.get(`${name}_${number}`)
-    result = JSON.parse(result)
-    if (!result.number) {
-    await redis.set(`${name}_${number}`, JSON.stringify({ name : name , number: number}), 'EX', 160)
+    if (!result) {
+    await redis.set(`${name}_${number}`, { name : name , number: number}, 'EX', 30)
     const resultado2 = await InsertRoulleteEv(name_, number);
     return res.json('You have set the blqaze at ')
     }
