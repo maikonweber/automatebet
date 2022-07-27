@@ -14,23 +14,23 @@ let client = {
 let pool = new pg.Pool(client);
 
 async function insertCrash_ (date, number) {
-    let datex = new Date(date)
+    
 
    let  sqlString = `
-   INSERT INTO crash_game (number, date_) VALUES ($1, $2) RETURNING date_; 
+   INSERT INTO crash_game (number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
    `  
 
-   const result = await pool.query(sqlString, [number, datex])
+   const result = await pool.query(sqlString, [number, date])
     return result
 } 
 
 async function insertDouble_ (date, number) {
-    let datex = new Date(date)
+
     let  sqlString = `
-    INSERT INTO double_game(number, date_) VALUES ($1, $2) RETURNING date_; 
+    INSERT INTO double_game(number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
     `  
  
-    const result = await pool.query(sqlString, [number, datex])
+    const result = await pool.query(sqlString, [number, date])
      return result
  } 
 
