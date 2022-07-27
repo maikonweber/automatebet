@@ -2,94 +2,21 @@
 
 const { TelegramClient, Api, client } = require("telegram");
 const { StringSession } = require("telegram/sessions");
+
 const input = require("input"); // npm i input
+
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("../database");
+
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTQBu7jfw1tDzOkH7vrrFyEhVQHcFgx/NY/xgc2zt2nrGFEXZCLizMgd/IZfD4xZYPkq071kVGb64BaBRY13fLFfUOZiUo40jfMokpnuM7+y+V8WGcwYi6cLBCXYaVeyMI/pTbkcHyQOZOoAmD6qh7C3ls+OGjTzrIaWQF27VQmNX73lv6Vg4FjALR7Cpa+Xz3e63tViZ84pph2Zw50q6u9TpNsDfdNTocK9cVODEdczeXrekDCB9D8+bZullp5hsn77lgpWjDHe57eZHC/m7OhR0wLvjnhcqRp5JrWQNMJYV2P1xdGimgzAQGRLn5pAPzuxDkKawdi5ZHjYgXsVQ1lPDOE=');
-const { createClient }  = require('redis');
+
 const testStrategy = require('../functions/testStrategy')
 const expectNumber = require('../jsonObjects/strategy.js');
 const Redis = require("ioredis");
 const redis = new Redis();
-const amqplib = require('amqplib/callback_api');
-
-;(async () => {
-const id = 2;
-
-const roleta = 
-     [
-          'Türkçe_Lightning_Rulet',
-          'Immersive_Roulette',
-          'Roulette',
-          'American_Roulette',
-          'Speed_Roulette',
-          'VIP_Roulette',
-          'Grand_Casino_Roulette',
-          'Lightning_Roulette',
-          'Speed_Auto_Roulette',
-          'Auto-Roulette_VIP',
-          'Auto-Roulette_La_Partage',
-          'London_Roulette',
-          'Salon_Privé_Roulette',
-          'Hippodrome_Grand_Casino',
-          'Arabic_Roulette',
-          'Speed_Auto_Roulette',
-          'French_Roulette_Gold',
-          'Dansk_Roulette'  
-     ]
-
-const strategyx = [
-     'Repetição de 9 vezes do Primeiro Bloco',
-     'Repitição de 9 vezes do Segundo Bloco',
-     'Repitição de 9 vezes do Terceiro Bloco',
-     'Repetição de 9 vezes da Primeira Coluna',
-     'Repetição de 9 vezes da Segunda Coluna',
-     'Repetição de 9 vezes da Tercceira Coluna',
-    
-     ]
-
-const spectStrategy = [
-    'Repetição de 8 vezes do Primeiro Bloco',
-    'Repitição de 8 vezes do Segundo Bloco',
-    'Repitição de 8 vezes do Terceiro Bloco',
-    'Repetição de 8 vezes da Segunda Coluna',
-    'Repetição de 8 vezes da Primeira Coluna',
-    'Repetição de 8 vezes da Terceira Coluna',
-]
-
-const string = 
-`
-!!! MAFIA DAS  ROLETAS!!!
-{data}
-🔔ENTRADA CONFIRMADA🔔
-🎰Roleta 🎰: {roulleteName}
-💎Estratégia💎: {strategyName}
-✅Entrada: {expect}
-{last}
-
-0️⃣COBRIR ZERO
-`
-
-const possivelAlert = `
-⚠️POSSÍVEL ENTRADA⚠️
-🎰 Roleta 🎰: {roulleteName}
-💎Estratégia💎: {strategyName}
-!!! MAFIA DAS  ROLETAS!!!
-`
 
 
-const stringreen = `
-✅✅✅ GREEN, BATEU A META VAZAA!!!
-{last}
-`
-
-const stringred = `
-🔴 RED, RESPIRA E SEGUA A GESTÃO!
-{last}
-`
-
-   
 async function sendMsg(sala, msg, reply) {
      if(!reply) {
      const salaEntity = await client.getEntity(sala)      
@@ -285,22 +212,6 @@ function stringReplace(string, sygnalBase) {
           return data
 }    
      
-
-
-console.log("Loading interactive example...");
-const client = new TelegramClient(stringSession, apiId, apiHash, {
-       connectionRetries: 5,
-});    
-
-await client.start({
-phoneNumber: async () => await input.text("Please enter your number: "),
-password: async () => await input.text("Please enter your password: "),
-phoneCode: async () =>
-  await input.text("Please enter the code you received: "),
-onError: (err) => console.log(err),
-});
-
-
 async function deleteMsg(msg, channel) {
 const result = await client.invoke(
      new Api.messages.DeleteMessages({
@@ -335,21 +246,8 @@ redis.del((`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id
 redis.set(`${sygnalBase.estrategiaDetect}_${sygnalBase.roulleteName}_alert_${id}`, JSON.stringify({
      msg : msg2    
 }) , 'EX', 60 * 7)
-
-return
+return 
 }
-
-const result = await client.invoke( new Api.messages.GetAllChats({
-exceptIds : [43]
-}));
-
-for(let i = 0; i < result.chats.length; i++){
-console.log(result.chats[i].id, result.chats[i].title)
-}
-
-console.log(client.session.save());
-
-const sala1 = result.chats[0].id
 
 function downNumber (detectString) {
 if(/[0-9]*/.test(detectString)) {
@@ -359,60 +257,17 @@ if(/[0-9]*/.test(detectString)) {
 }
 }
 
-amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
-if (err) throw err;
-
-conn.createChannel(async (err, ch2) => {
-     if(err) throw err;
-
-ch2.assertExchange('msg', 'fanout', {
-          durable: false
-});
-
-ch2.assertQueue('', {
-     exclusive: true
-   }, function(error2, q) {
-     if (error2) {
-       throw error2;
-     }
-
-ch2.bindQueue(q.queue, 'msg', '');
-
-ch2.consume(q.queue, async function(msg) {
-if(msg.content) {
-const msgs = msg.content.toString()
-const strig =  JSON.parse(msgs); // 'message'
-
-
-if(spectStrategy.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-     console.log('-------------------ALERT-------------------')
-     let result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`)
-     if(!result) {
-            console.log(strig.estrategiaDetect, strig.roulleteName, strig)
-            await redis.set(`${strig.estrategiaDetect}_${strig.roulleteName}_alert_${id}`, 'alert', 'EX', 60 * 7)
-               return await proccedAlert(strig, possivelAlert) 
-          }      
-     }
-
-if(strategyx.includes(strig.estrategiaDetect) && roleta.includes(strig.roulleteName)) {
-     console.log(`-------------------------------PROCESS OF SEND -----------------------------`)
-    const result = await redis.get(`${strig.estrategiaDetect}_${strig.roulleteName}_${id}`)
-     if (!result) { 
-          return await proccedRoulletAndSend(strig, string)    
-     } else {
-          console.log('stack')
-     }
-}  else {     
- console.log('Consumer Cancelled by Server')
+module.exports = {
+     downNumber,
+     proccedAlert,
+     promisseDelete,
+     deleteMsg,
+     stringReplace,
+     martingale,
+     consultMemory,
+     replaceForRed,
+     replaceForGreen,
+     saveMemorySend,
+     proccedRoulletAndSend,
+     sendMsg
 }
-}
-console.log('=========================================================================')
-
-}, { noAck : true} 
-);
-
-   })
-})
-})
-
-})()

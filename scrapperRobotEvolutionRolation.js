@@ -81,7 +81,7 @@ const element_ = await page.A.$('#username')
 const elementPass_ = await page.A.$('#password')
 
 if (element_ && elementPass_) {
-     await element_.type('maikonweber1');
+     await element_.type('maikonweber4');
      await elementPass_.type('ma128sio4');
      await page.A.keyboard.press('Enter')
      await page.A.waitForNavigation({ waitUntil: 'networkidle0'})
@@ -251,11 +251,11 @@ async function getEsporte(page) {
   objCrash.number = result.replace('X', '')
   objCrash.date = new Date()
 
-  const resultx = await redis.get(`${objCrash.number}`)
-  
+  let resultx = await redis.get(`${objCrash.number}`)
   if(!resultx) {
-  redis.set(`${objCrash.number}`, true, 'EX', 20)
-  axios.post('https://api.muttercorp.online/api/crash_', objCrash).then((result) => {
+  await redis.set(`${objCrash.number}`, true, 'EX', 20)
+  console.log(objCrash)
+  axios.post('https://api.muttercorp.online/api/crash', objCrash).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -269,6 +269,7 @@ async function getCrash(page) {
   await page.waitForTimeout(18000)
   await page.goto('https://blaze.com/en/games/double') 
   setInterval(async () => {
+  await page.waitForTimeout(8000)
   const number = await page.$$('.entries.main')
   const tite = await number[0].$('.entry')
   const lastnumber = await tite.$('.number')
@@ -280,10 +281,10 @@ async function getCrash(page) {
   obj.date = new Date().getTime()
   console.log(obj)
 
-  const resultx = await redis.get(`${obj.number}`)
+  let resultx = await redis.get(`${obj.number}`)
   
   if(!resultx) {
-  redis.set(`${obj.number}`, true, 'EX', 20)
+  await redis.set(`${obj.number}`, true, 'EX', 20)
   axios.post('https://api.muttercorp.online/api/double_', obj).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
@@ -322,9 +323,8 @@ const promisse  = new Promise((resolve, reject) =>  {
   }, 60000 * 10)
 })
 
- await getCrash(page.C)
- await getEsporte(page.B)
- await getRoleta(page.A)
- promisse().then((result) => { console.log(result)})
+  Promise.all([promisse,  getCrash(page.C),  getEsporte(page.B), getRoleta(page.A)]).then(() => {
+    console.log('Promisse Finished')
+  })
 
 })()

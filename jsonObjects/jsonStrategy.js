@@ -9,32 +9,32 @@ const ColunasRepeat = {
           return 'Repetição de 2 vezes da Terceira Colunas'
      },
      '2,2,2' : () => {
-          return 'Repetição de 3 vezes da Colunas Segunda'
+          return 'Repetição de 3 vezes da Segunda Colunas'
      },
      '2,2' : () => {
-          return 'Repetição de 2 vezes da Coluna Segunda'
+          return 'Repetição de 2 vezes da Segunda Colunas'
      },
      '2' : () => {
           return 'Repetição de 2 vezes da Primeira Coluna'
      }, 
      '1,1,1' : () => {
-          return 'Repetição de 3 vezes  da Primeira Coluna'
+          return 'Repetição de 3 vezes  da Primeira Colunas'
      },
      '1' : () => {
-            return 'Repetição de 3 vezes da Primeira Coluna'
+            return 'Repetição de 3 vezes da Primeira Colunas'
      },
      '1,1' : () => {
-          return 'Repetição de 2 vezes da Primeira Coluna'
+          return 'Repetição de 2 vezes da Primeira Colunas'
      },
      '1,1,1,1' : () => {
-           return 'Repetição de 4 vezes da Primeira Coluna';
+           return 'Repetição de 4 vezes da Primeira Colunas';
 
      },
      '2,2,2,2' : () => {
-               return 'Repetição de 4 vezes da Segunda Coluna';
+               return 'Repetição de 4 vezes da Segunda Colunas';
      },
      '3,3,3,3' : () => {
-               return 'Repetição de 4 vezes da Terceira Coluna';
+               return 'Repetição de 4 vezes da Terceira Colunas';
      },
      '1,1,1,1,1' : () => {
            return 'Repetição de 5 vezes da Primeira Colunas';
@@ -542,10 +542,10 @@ const on18or36 = {
 
 const parOuImpar = {
      '1' : () => {
-          return 'Par';
+          return 'Par 1 vezes';
      }
      ,'2' : () => {
-          return 'Impar';
+          return 'Impar 1';
      },
      '2,2' : () => {
           return 'Impar 2 vezes';

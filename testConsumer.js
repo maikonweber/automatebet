@@ -1,4 +1,24 @@
 const amqplib = require('amqplib/callback_api');
+const { getFilterByUser } = require('./database')
+const { TelegramClient, Api, client } = require("telegram");
+const { StringSession } = require("telegram/sessions");
+const { getStrategyFilter, getLastNumber18, getLastNumber } = require("../database");
+
+const {
+     downNumber,
+     proccedAlert,
+     promisseDelete,
+     deleteMsg,
+     stringReplace,
+     martingale,
+     consultMemory,
+     replaceForRed,
+     replaceForGreen,
+     saveMemorySend,
+     proccedRoulletAndSend,
+     sendMsg
+} = require('./consumer/consumerRoletaY')
+
 
 amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
      if (err) throw err;
@@ -17,20 +37,18 @@ amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
             throw error2;
           }
 
-     ch2.bindQueue(q.queue, 'cards', '');
+ch2.bindQueue(q.queue, 'cards', '');
 
 ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
-     const msgs = msg.content.toString()
-     const strig =  JSON.parse(msgs); // 'message'
-     console.log(strig)     
+     let msgs = msg.content.toString()
+     msgs = JSON.parse(msgs)  
+     console.log(msgs, '->', 'Message with Delivery')
+     
 
-
-
-     }
+}
 }, { noAck : true} 
 );
-
-        })
-     })
+})
+})
 })
