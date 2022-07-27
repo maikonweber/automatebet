@@ -235,6 +235,7 @@ app.post('/api/evolution', async (req, res) => {
   const resultado = await getLastNumberEv(name_);
   if (typeof resultado === 'undefined') {
     const result = await InsertRoulleteEv(name_, number);;
+    console.log(result)
     res.json('You have set the blqaze at ')
   } else {
   const lastNumberString = resultado.number
@@ -248,6 +249,7 @@ app.post('/api/evolution', async (req, res) => {
     console.log(`set Evolution`)
     await redis.set(`${name}_lastresult`, JSON.stringify({ name : name , number: number}))
     const result = await InsertRoulleteEv(name_, number);
+    console.log(result)
     // console.log(result.rows, "ID :", name_, number);
     res.json('You have set the blqaze at ')
   } 
