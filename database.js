@@ -199,12 +199,14 @@ async function getStrategyByRoullet (name) {
 
 async function getLastNumber(name) {
     let sql = `SELECT number 
-    FROM robotevolution where name = $1
+    FROM robotevolution 
+    where name ~ $1
     order by created  
     desc limit 1;`;
 
     let result = await pool.query(sql, [name]);
-    return result.rows[0].number;
+    console.log(name, result)
+    return result.rows.number;
 }
 
 
