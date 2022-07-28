@@ -29,7 +29,8 @@ const {
   getLastNumberCard,
   insertCardPayload,
   insertDouble_,
-  insertCrash_
+  insertCrash_,
+  insertNumberClass
 } = require('./database');
 
 app.use(cors());
@@ -84,30 +85,22 @@ app.post('/api/v1/login', async(request, response) => {
 
   
 app.post('/api/crash', async (req, res) => {
-  const body  = req.body
-  const { number, date } = body
-  'https://api.muttercorp.online/api/double_'
-  const resultxTx = await redis.get(`${number}_crash`)
-  if(!resultxTx) {
-    await redis.set(`${number}_crash`, true, 'EX', 30)
-    const insertCrash = await insertCrash_(date, number)  
-    console.log('new crash')
-    return res.status(200)
-  }
-    return res.status(200)
+  const body = req.body;
+    const { name, number } = body;
+    let name_ = name.replace(/\s/g, '_');
+    const objInsert = new insertNumberClass(name, number, 'robotevolution')
+    const result = result.tryInsertThis()
+    res.send(result).status(200)
 })
 
 
 app.post('/api/double_', async ( req, res) => {
-  const { number, date } = req.body
-  const resultxT = await redis.get(`${number}_double`)
-  if(!resultxT) {
-    console.log(`set Double`)
-    await redis.set(`${number}_double`, true, 'EX', 30)
-    const insertDouble = await insertDouble_(date, number)  
-    return res.status(200)
-  }
-    return res.status(200)
+  const body = req.body;
+    const { name, number } = body;
+    let name_ = name.replace(/\s/g, '_');
+    const objg = new insertNumberClass(name, number, 'robotevolution')
+    const result = result.tryInsertThis()
+    res.send(result).status(200)
 })
 
 app.post('/api/v1/', async(request, response) => {
@@ -136,7 +129,6 @@ app.get('/api/v1/data/', async (request, response) => {
 });
 
 app.get('/api/v1/data/getAll', async (request, response) => {
-
   const data = await getAll();    
   console.log(data)
 
@@ -161,26 +153,9 @@ app.post('/api/cards_', async (req, res) => {
   const body = req.body
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
-  
-  const resultado = await  getLastNumberCard(name_);
-  if (typeof resultado === 'undefined') {
-    const result = await insertCardPayload(name_, number);;
-    res.json('You have set the blqaze at ')
-  } else {
-  const lastNumberString = resultado.number
-  const numberJsonString = number
- // console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
-  if (lastNumberString[0] === numberJsonString[0]) {
-    console.log('Já existe um número igual ao que está tentando inserir')
-    res.json("Numero não inserido")
-  } else {
-    await redis.set(`${name}_lastresult`, JSON.stringify({ number : number, name: name}))
-    const result = await insertCardPayload(name_, number);
-    console.log(result.rows, "ID :", name_, number);
-    res.json('You have set the blqaze at ')
-  }
- }
-
+  const objInsert = new insertNumberClass(name, number, 'mafia_cards')
+  const result = result.tryInsertThis()
+  res.send(result).status(200)
 })
 
 
@@ -231,53 +206,22 @@ app.post('/api/evolution', async (req, res) => {
   const body = req.body;
   const {name, number} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
-  let result = await redis.get(`${name}_${number}`)
-  if (!result) {
-    await redis.set(`${name}_${number}`, { name : name , number: number}, 'EX', 30)
-    const resultado = await InsertRoulleteEv(name_, number);;
-    res.json('You have set the blqaze at ')
-  } else {
-  if (result.number === number) {
-     return res.json("Numero não inserido")
-  } else {
-    console.log(`set Evolution`)
-    let result = await redis.get(`${name}_${number}`)
-    if (!result) {
-    await redis.set(`${name}_${number}`, { name : name , number: number}, 'EX', 30)
-    const resultado2 = await InsertRoulleteEv(name_, number);
-    return res.json('You have set the blqaze at ')
-    }
-  } 
-}
 
+  // Name , Number, Database 
+  const objInsert = new insertNumberClass(name, number, 'robotevolution')
+  const result = result.tryInsertThis()
+  res.send(result).status(200)
 })
+
+
 
 app.post('/api/bet365', async (req, res) => {
     const body = req.body;
-
     const { name, number } = body;
-  
     let name_ = name.replace(/\s/g, '_');
-    const resultado = await getLastNumber(name_);
-    if (typeof resultado === 'undefined') {
-      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);;
-      res.json('You have set the blqaze at ')
-    } else {
-    const lastNumberString = resultado.numberjson.toString()
-    const numberJsonString = number.toString()
-    console.log(name_, numberJsonString, ":: Numbers Json :: Type Of ::", typeof numberJsonString)
-    if (lastNumberString === numberJsonString) {
-      console.log('Já existe um número igual ao que está tentando inserir')
-      res.json("Numero não inserido")
-    } else {
-      await redis.set(`${name}_lastresult`, JSON.stringify({ name : name , number: number}))
-      const result = await InsertRoullete(name_, numberJson, jsonbStrategy, jsonPreload);
-      console.log(result.rows, "ID :", name_, number);
-      res.json('You have set the blqaze at ')
-    } 
-  }
-  
-    
+    const objInsert = new insertNumberClass(name, number, 'robotevolution')
+    const result = result.tryInsertThis()
+    res.send(result).status(200)
 })
 
 app.use('/api/v3/*', (req, res, next) => {
@@ -347,23 +291,6 @@ app.post('/api/v2/setFilter', async (req, res) => {
   }
     res.send(result);
 })
-
-
-app.get("/api/v2/telegramresult", async (req, res) => {
-    const result = await getAllSygnal();
-    res.json(result)
-}
-);
-
-app.get("/api/v2/getTable", async (req, res) => {
-  const result = await getAllRows();
-  res.json(result).status(200);
-}
-);
-
-
-
-
 
 
 app.listen(port, () => {

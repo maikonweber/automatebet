@@ -13,6 +13,48 @@ let client = {
 
 let pool = new pg.Pool(client);
 
+class insertNumberClass {
+    constructor(roullet, insertNumber, database) {
+        this.roullet = name_
+        this.insertNumber = insertNumber 
+        this.game = database
+        this.lastResult = []
+    }
+
+    async getLastNumber() {
+        let sql = `SELECT number 
+        FROM $2 where name = $1
+        order by created  
+        desc limit 1;`;
+    
+        let result = await pool.query(sql, [this.roullet, this.games]);
+        return result.rows[0].number;
+    }
+
+    async tryInsertThis() {
+       const result  = await this.getLastNumber()
+       if(!result) {
+            console.log("Nao Existe Nenhum Numero que Antecede a para seja Inserido")
+            console.log("Inserido Primeiro Registro")
+            const insert= await this.InsertRoulleteEv()
+            return 'NEW INSERT' + insert
+       } else if (result === insertNumber) {
+            console.log('O Registro da ', this.roullet, 'É igual ao ', result, 'inserNumber : ', this.insertNumber)
+            return 'INSERT PLOBLEM'
+       } else {
+        const insert = await this.InsertRoulleteEv()
+        console.log('Numero Inserido', this.roullet, this.insertNumber)
+        return 'INSERT COMPLETE' + insert
+       }
+    }
+    async InsertRoulleteEv() {
+            let sql = `INSERT INTO $3 (name, number) 
+            VALUES ($1, $2) returning id`;
+            let result = await pool.query(sql, [this.roullet, this.insertNumber, this.games]); 
+            return result.rows
+    }
+}
+
 async function insertCrash_ (date, number) {
     const date_ = new Date(date).getTime()
 
@@ -157,12 +199,12 @@ async function getStrategyByRoullet (name) {
 
 async function getLastNumber(name) {
     let sql = `SELECT number 
-    FROM robotevolution where name ~ $1
+    FROM robotevolution where name = $1
     order by created  
     desc limit 1;`;
 
     let result = await pool.query(sql, [name]);
-    return result.rows[0];
+    return result.rows[0].number;
 }
 
 
@@ -250,8 +292,8 @@ async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
 }
 
 async function InsertRoulleteEv (name, number) {
-    let sql = `insert into robotevolution (name, number) 
-    values ($1, $2) returning id`;
+    let sql = `INSERT INTO robotevolution (name, number) 
+    VALUES ($1, $2) returning id`;
 
     let result = await pool.query(sql, [name, number]);
     
@@ -426,7 +468,8 @@ module.exports = {
     insertCardPayload,
     getLastNumberCard,
     insertCrash_,
-    insertDouble_
+    insertDouble_,
+    insertNumberClass,
 
 }
 

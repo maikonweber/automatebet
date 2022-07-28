@@ -1,6 +1,6 @@
 const expectNumber = require('../jsonObjects/strategy.js');
 
-function testStrategy(estrategiaDetect, lastNumber) {
+function testStrategy(estrategiaDetect) {
     if(estrategiaDetect.match(/Primeira Coluna/g) && estrategiaDetect.match(/Repetição/g)) {
          console.log('Repetição')
          return { 
@@ -197,7 +197,6 @@ if (estrategiaDetect.match(/Alternando Segunda e Primeira Colunas/g)) {
      }
 }
 }
-
 
 
 module.exports = testStrategy

@@ -2,6 +2,7 @@ const amqplib = require('amqplib/callback_api');
 const { TelegramClient, Api, client } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
+const  testStrategy  = require('./functions/testStrategy')
 
 const {
      downNumber,
@@ -17,7 +18,7 @@ const {
      proccedRoulletAndSend,
      sendMsg
 } = require('./consumer/consumerRoletaY')
-
+const detectEstrategiaRoleta = require('./ObjectDetect.js')
 
 
 
@@ -44,9 +45,9 @@ ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
      let msgs = msg.content.toString()
      msgs = JSON.parse(msgs)  
-     console.log(msgs, '->', 'Message with Delivery')
-     
-
+     const { array, expect } = testStrategy(msgs.estrategiaDetect)
+     const ObjectDetect = new detectEstrategiaRoleta(msgs.estrategiaDetect,  msgs.roulletName, msgs.lastNumber, array, expect)
+     ObjectDetect.init()
 }
 }, { noAck : true} 
 );

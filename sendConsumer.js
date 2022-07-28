@@ -1,19 +1,24 @@
 const amqplib = require('amqplib/callback_api');
 const arrayName = require('./jsonObjects/RoleteNames.js')
 
-function getRandomArbitrary(min, max) {
-     return Math.random() * (max - min) + min;
- }
+function generateRandom(maxLimit = 100){
+     let rand = Math.random() * maxLimit; 
+   
+     rand = Math.floor(rand); // 99
+   
+     return Math.round(rand);
+   }
+
+
  
 const strategyx = [
      `Repetição de 8 vezes do Primeiro Bloco`,
      ]
 
-
 const estrategiaDetect =  {
-     estrategiaDetect : strategyx[1],
-     roulleteName : arrayName[getRandomArbitrary(1, 18)],
-     payload : [ getRandomArbitrary(1,18), getRandomArbitrary(1,18),  getRandomArbitrary(1,18),  getRandomArbitrary(1,18),  getRandomArbitrary(1,18), getRandomArbitrary(1,18),  getRandomArbitrary(1,18),  getRandomArbitrary(1,18)],
+     estrategiaDetect : strategyx[0],
+     roulletName : 'Salon_Privé_Roulette',
+     lastNumber :[generateRandom(39), generateRandom(38), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39)],
      created : new Date().getTime(),
  }
 
