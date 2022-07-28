@@ -1,8 +1,7 @@
 const amqplib = require('amqplib/callback_api');
-const { getFilterByUser } = require('./database')
 const { TelegramClient, Api, client } = require("telegram");
 const { StringSession } = require("telegram/sessions");
-const { getStrategyFilter, getLastNumber18, getLastNumber } = require("../database");
+const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
 
 const {
      downNumber,
@@ -18,6 +17,8 @@ const {
      proccedRoulletAndSend,
      sendMsg
 } = require('./consumer/consumerRoletaY')
+
+
 
 
 amqplib.connect('amqp://localhost:5672', async  (err, conn) => {

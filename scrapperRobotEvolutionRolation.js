@@ -30,6 +30,8 @@ const browser = await puppeteer.launch({
        "--window-position=500,0",
        '--disable-extensions',
        '--use-gl=egl',
+       "--disable-gpu",
+    
      ],  
    });
    const pageA = await browser.newPage()
