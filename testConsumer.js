@@ -46,7 +46,7 @@ ch2.consume(q.queue, async function(msg) {
      let msgs = msg.content.toString()
      msgs = JSON.parse(msgs)  
      const { array, expect } = testStrategy(msgs.estrategiaDetect)
-     const ObjectDetect = new detectEstrategiaRoleta(msgs.estrategiaDetect,  msgs.roulletName, msgs.lastNumber, array, expect)
+     const ObjectDetect = new detectEstrategiaRoleta(msgs.estrategiaDetect, msgs.lastNumber, 'Salon_Privé_Roulette', array, expect)
      ObjectDetect.init()
 }
 }, { noAck : true} 

@@ -12,6 +12,7 @@ class detectEstrategiaRoleta {
           this.martigale2 = null;
           this.expectNumber = expectNumber
           this.roullete = roullete 
+          this.lastNumber1 = lastNumber[0]
           this.finished = true
      }
 
@@ -23,8 +24,8 @@ class detectEstrategiaRoleta {
      async getResultOfBase() {
          while (this.finished) {
          const lastResult = await getLastNumber(this.roullete)
-         console.log('last number', lastResult)
-         console.log(this.lastNumber)
+         console.log('last number', lastResult[0])
+         console.log(this.lastNumber[0])
          this.sleep(1000)
           }
      }
@@ -34,10 +35,9 @@ class detectEstrategiaRoleta {
           }        
 
      loggerTest() {
-        
-          console.log(this.lastNumber)
-         
+          console.log(this.lastNumber)   
      }
+     
 }
 
 module.exports =  detectEstrategiaRoleta
