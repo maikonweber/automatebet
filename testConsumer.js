@@ -18,6 +18,7 @@ const {
      proccedRoulletAndSend,
      sendMsg
 } = require('./consumer/consumerRoletaY')
+
 const detectEstrategiaRoleta = require('./ObjectDetect.js')
 
 
@@ -48,6 +49,8 @@ ch2.consume(q.queue, async function(msg) {
      const { array, expect } = testStrategy(msgs.estrategiaDetect)
      const ObjectDetect = new detectEstrategiaRoleta(msgs.estrategiaDetect, msgs.lastNumber, 'Salon_Privé_Roulette', array, expect)
      ObjectDetect.init()
+
+
 }
 }, { noAck : true} 
 );

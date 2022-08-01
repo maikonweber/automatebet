@@ -1,0 +1,47 @@
+* Mutter Corporation e Mafia da Roleta.
+  
+  Por meio do modo coorporátivo de criação esta software
+foi inicialmente elaborado com concepção criativa de 
+de Douglas Medeiros com a concepção tecnologica de Maikon Weber
+sendo assim, é de toda direito de ambos a comercialização, utilização 
+publicação desta ferrementa deste que ambos estejam de acordos
+sobre o acordo de ambos em caso.
+
+** Concepção Criativa.
+
+   Croupier é aquele que oferece as cartas aos jogadores
+nosso software tem como ideia indicar as melhores jogadas
+para que que jogador realmente esteja com as melhores cartas em sua mãos quando
+for realizar suas apostas.
+
+   O Programa se resume em Análise de padrões, estocática e estátistica.
+para jogos de aposta focado em Roletas, Cartas e outros jogos.
+utilizando machine learning.
+
+*** Concepção Técnologica
+
+    Utilizando scrappers de informações de sites de casa de aposta, é realizado 
+um processamento deste dados em banco de dados assim que é emitido um novo resultado.
+um processador faz o processamento dos resultados e detecta possíveis padrões de aposta.
+este padrões são registrados posteriormente para analíse de resultados e  machine learning.
+
+* Scrappers 
+  Os scrappers poderão ser visualizados na pastas de production scrappers
+nela se encontra as versões funcionais de scrappers e as versões futuras
+
+** Procedds
+   São os Processadores de estrátegias, que identifica e processa e emite mensagem para
+os canais necessários.
+
+*** Consumer
+  Os consumidores são as API que poderão notificar ou consumir as informaçoes necessárias para visualização
+dos resultados.
+
+**** API node 
+  O server.js principal é utilizado apenas para recebimento de payloads do scrappers que são armazedos
+na base, podendo ser utilizado também para um dashboard ou site.
+
+**** API Machine Learning.
+  Periodicamente a api de machine lerning recebe um solicitação de analise e faz a devolução desta
+informação por meio de api e canais.
+
