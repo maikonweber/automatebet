@@ -1,10 +1,8 @@
 const { getLastNumber } = require('./database')
 
 
-
-
 class detectEstrategiaRoleta {
-     constructor(estrategia, lastNumber, roullete, array, expectNumber) {
+     constructor(estrategia, lastNumber, roullete, expectNumber) {
           this.estrategia = estrategia
           this.lastNumber = lastNumber
           this.martigale = null;
@@ -13,7 +11,6 @@ class detectEstrategiaRoleta {
           this.roullete = roullete 
           this.lastNumber1 = lastNumber[0]
           this.finished = true
-     
      }
 
      async init() {
@@ -38,7 +35,6 @@ class detectEstrategiaRoleta {
 
      async sendInitMsg () {
           const msg = ''
-
      }
 
       

@@ -174,7 +174,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     pagex.forEach((el) => {
       console.log(el)
-    axios.post('https://api.muttercorp.online/api/evolution', el).then((result) => {
+      axios.post('http://localhost:3055/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -218,7 +218,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
     shows.forEach((elem) =>  {
       console.log(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
-      axios.post('https://api.muttercorp.online/api/cards_', elem).then((result) => {
+      axios.post('http://localhost:3055/api/cards_', elem).then((result) => {
       console.log(result.data)
       }).catch((erro) => {
       console.log(erro)
@@ -239,7 +239,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
 async function getEsporte(page) {
   setInterval(async () => {
-  await page.goto('https://blaze.com/en/games/crash')
+  await page.goto('http://blaze.com/en/games/crash')
 
   await page.waitForTimeout(10000)
 
@@ -255,7 +255,7 @@ async function getEsporte(page) {
   if(!resultx) {
   await redis.set(`${objCrash.number}`, true, 'EX', 20)
   console.log(objCrash)
-  axios.post('https://api.muttercorp.online/api/crash', objCrash).then((result) => {
+  axios.post('http://localhost:3055/api/crash', objCrash).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -285,7 +285,7 @@ async function getCrash(page) {
   
   if(!resultx) {
   await redis.set(`${obj.number}`, true, 'EX', 20)
-  axios.post('https://api.muttercorp.online/api/double_', obj).then((result) => {
+  axios.post('http://localhost:3055/api/double_', obj).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -312,8 +312,6 @@ async function getCrash(page) {
     // }
   
     // await page.waitForTimeout(10000)
-  
-
   
 
 

@@ -1,7 +1,11 @@
 const hasher = require('./hasher')
 const crypto = require('crypto')
 
+
 var pg = require('pg');
+const EventEmitter = require('events');
+
+
 let client = {
     host: 'localhost',
     port: 5532,
@@ -13,53 +17,20 @@ let client = {
 
 let pool = new pg.Pool(client);
 
-class insertNumberClass {
-    constructor(roullet, insertNumber, database) {
-        this.roullet = name_
-        this.insertNumber = insertNumber 
-        this.game = database
-        this.lastResult = []
-    }
 
-    async getLastNumber() {
-        let sql = `SELECT number 
-        FROM $2 where name = $1
-        order by created  
-        desc limit 1;`;
-    
-        let result = await pool.query(sql, [this.roullet, this.games]);
-        return result.rows[0].number;
-    }
 
-    async tryInsertThis() {
-       const result  = await this.getLastNumber()
-       if(!result) {
-            console.log("Nao Existe Nenhum Numero que Antecede a para seja Inserido")
-            console.log("Inserido Primeiro Registro")
-            const insert= await this.InsertRoulleteEv()
-            return 'NEW INSERT' + insert
-       } else if (result === insertNumber) {
-            console.log('O Registro da ', this.roullet, 'É igual ao ', result, 'inserNumber : ', this.insertNumber)
-            return 'INSERT PLOBLEM'
-       } else {
-        const insert = await this.InsertRoulleteEv()
-        console.log('Numero Inserido', this.roullet, this.insertNumber)
-        return 'INSERT COMPLETE' + insert
-       }
-    }
-    async InsertRoulleteEv() {
-            let sql = `INSERT INTO $3 (name, number) 
-            VALUES ($1, $2) returning id`;
-            let result = await pool.query(sql, [this.roullet, this.insertNumber, this.games]); 
-            return result.rows
-    }
-}
 
 async function insertCrash_ (date, number) {
     const date_ = new Date(date).getTime()
 
    let  sqlString = `
-   INSERT INTO crash_game (number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
+   INSERT INTO crash_game 
+   (number, date_) 
+   VALUES 
+   ($1, to_timestamp($2::bigint)) 
+   RETURNING date_
+   ON CONFLICT (number, date_);
+   Do Nothing 
    `  
 
    const result = await pool.query(sqlString, [number, date_])
@@ -69,8 +40,11 @@ async function insertCrash_ (date, number) {
 async function insertDouble_ (date, number) {
     console.log(date)
     let  sqlString = `
-    INSERT INTO double_game(number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_; 
-    `  
+    INSERT INTO double_game(number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_
+    ON CONFLICT (number, date_);
+    Do Nothing 
+   
+    ;`  
  
     const result = await pool.query(sqlString, [number, date])
      return result
@@ -232,7 +206,11 @@ async function getLastNumberCard(name) {
 }
 
 async function insertCardPayload (name, number) {
-    let sql = `INSERT INTO paylaoad_card (name, number) VALUES ($1, $2) RETURNING id`
+    let sql = `INSERT INTO paylaoad_card 
+    (name, number)
+     VALUES 
+     ($1, $2) 
+     RETURNING id`
 
     let result = await pool.query(sql, [name, number])
     return result.rows[0];
@@ -295,8 +273,10 @@ async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
 }
 
 async function InsertRoulleteEv (name, number) {
-    let sql = `INSERT INTO robotevolution (name, number) 
-    VALUES ($1, $2) returning id`;
+    let sql = `INSERT INTO 
+    robotevolution (name, number) 
+    VALUES ($1, $2) returning id;
+    `;
 
     let result = await pool.query(sql, [name, number]);
     
@@ -471,9 +451,7 @@ module.exports = {
     insertCardPayload,
     getLastNumberCard,
     insertCrash_,
-    insertDouble_,
-    insertNumberClass,
-
+    insertDouble_
 }
 
 

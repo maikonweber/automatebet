@@ -87,9 +87,8 @@ app.post('/api/v1/login', async(request, response) => {
 app.post('/api/crash', async (req, res) => {
   const body = req.body;
     const { name, number } = body;
-    let name_ = name.replace(/\s/g, '_');
-    const objInsert = new insertNumberClass(name, number, 'robotevolution')
-    const result = result.tryInsertThis()
+    // const objInsert = new insertNumberClass(name, number, 'crash_game')
+    // const result = objInsert.tryInsertThis()
     res.send(result).status(200)
 })
 
@@ -97,9 +96,9 @@ app.post('/api/crash', async (req, res) => {
 app.post('/api/double_', async ( req, res) => {
   const body = req.body;
     const { name, number } = body;
-    let name_ = name.replace(/\s/g, '_');
-    const objg = new insertNumberClass(name, number, 'robotevolution')
-    const result = result.tryInsertThis()
+    // let name_ = name.replace(/\s/g, '_');
+    // const objg = new insertNumberClass(name_, number, 'double_game')
+    // const result = objInsert.tryInsertThis()
     res.send(result).status(200)
 })
 
@@ -153,8 +152,6 @@ app.post('/api/cards_', async (req, res) => {
   const body = req.body
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
-  const objInsert = new insertNumberClass(name, number, 'mafia_cards')
-  const result = result.tryInsertThis()
   res.send(result).status(200)
 })
 
@@ -162,38 +159,6 @@ app.post('/api/cards_', async (req, res) => {
 app.get('/api', async (req, res) => { 
   res.send('Hello')
 })
-
-
-app.get('/exportcsv', async (req, res) => {
-  const arrayName = [
-    'American_Roulette',
-   ]
-
-   const worksheet = new exceljs.Workbook();
-
-   for(i = 0; arrayName.length > i; i++) {
-    let getResult = await getResultDatabase(arrayName[i])
-    console.log(getResult)
-    let sheet =  worksheet.addWorksheet(arrayName[i])
-    sheet.columns = [
-      { header: 'resultado', key : 'resultado'},
-      { header: 'Roleta', key: 'Roleta' },
-      { header: 'created', key: 'created'}
-    ]
-
-    for(i = 0; getResult.length > i; i++) {
-      sheet.addRow({
-        resultado : getResult[i].numberjson[0],
-        Roleta: getResult[i].name,
-        created: getResult[i].created
-      })
-    }
-  }
-    
-   await worksheet.xlsx.writeFile('export2.xlsx')
-    const file = `${__dirname}/export2.xlsx`
-   await res.attachment('roleta.xlsx').sendFile(file)
-  })
 
 
 app.get('/', (req, res) => {
@@ -204,13 +169,28 @@ app.get('/', (req, res) => {
 
 app.post('/api/evolution', async (req, res) => {
   const body = req.body;
-  const {name, number} = body;  // console.log(name, number)
+  const {name, number, date} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
+  console.log(name_, number, date)
+  const mock = 1000 * 30 
+  const mockate = date / 1000 / 5
+  console.log(mock, Math.round(mockate))
+  const result = await redis.get(`${name_}_${Math.round(mockate)}`)
+  if (!result) {
+  await redis.set(`${name_}_${Math.round(mockate)}`, { result : 'ok' }, 'EX', 80)
+    console.log('New Insert')
+    const result = await getLastNumberEv()  
+    
+    if(result != number) {
+      const insertResult = await InsertRoulleteEv(name, number)
+      return res.send('This Number Insert')
+    }
 
+    return res.send('This number not inser')
+  }
   // Name , Number, Database 
-  const objInsert = new insertNumberClass(name, number, 'robotevolution')
-  const result = result.tryInsertThis()
-  res.send(result).status(200)
+  //const objInsert = new insertNumberClass(name_, number, 'robotevolution')
+  return res.send('The number need verification').status(500)
 })
 
 
@@ -219,8 +199,8 @@ app.post('/api/bet365', async (req, res) => {
     const body = req.body;
     const { name, number } = body;
     let name_ = name.replace(/\s/g, '_');
-    const objInsert = new insertNumberClass(name, number, 'robotevolution')
-    const result = result.tryInsertThis()
+    const objInsert = new insertNumberClass(name, number, 'robotbet365')
+    const result = objInsert.tryInsertThis()
     res.send(result).status(200)
 })
 
