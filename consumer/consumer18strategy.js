@@ -513,6 +513,7 @@ async function regExe(string, objetoRolleta, strategyArg) {
 setInterval(() => {
      console.log('thick')
      arrayName.forEach(async (Element) => {
+     if(Element === 'Türkçe_Lightning_Rulet') {
      const result = await getStrategyByRoullet(Element)
      const last18 = await getLastNumber18(Element);
               // Match RegEx Nao Indenticado for Result strateg
@@ -526,8 +527,10 @@ setInterval(() => {
 
                strategyProced(obj)
           })
+        }
      })
+     
 
-}, 1000)
+}, 7000)
 
 })()

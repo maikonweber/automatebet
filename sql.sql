@@ -17,12 +17,12 @@ CREATE TABLE robotBetPayload (
 
 CREATE TABLE crash_game (
     date_ timestamp not null,
-    number varchar(5) not null
+    number integer[] not null
 );
 
 CREATE TABLE double_game (
     date_ timestamp not null,
-    number varchar(5) not null
+    number integer[] not null
 );
 
 
@@ -35,7 +35,7 @@ CREATE TABLE robotevolution (
 
 CREATE TABLE mafia_cards (
     id serial PRIMARY KEY,
-    lastNumber int(1),
+    lastNumber integer[] not null,
     created TIMESTAMP DEFAULT now()
 )
 

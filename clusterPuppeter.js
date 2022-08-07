@@ -25,6 +25,7 @@ puppeteer.use(StealthPlugin());
 const l = (log) => {console.log(log, 'This is Logger ', new Date() )}
 
 // Logging Smash Up
+
 const Logging = async ({page, data: url}) => {
   await page.goto(url);
   const element_ = await page.$('#username')

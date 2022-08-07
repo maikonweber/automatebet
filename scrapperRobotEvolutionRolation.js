@@ -18,7 +18,7 @@ puppeteer.use(StealthPlugin());
 async function getBrowser () {
 
 const browser = await puppeteer.launch({
-	headless: true,
+	headless: false,
      defaultViewport: {
        width: 1100,
        height: 980
@@ -315,8 +315,8 @@ async function getCrash(page) {
   
     // await page.waitForTimeout(10000)
   
-
   
+
 
 
 const promisse  = new Promise((resolve, reject) =>  {
@@ -325,7 +325,7 @@ const promisse  = new Promise((resolve, reject) =>  {
   }, 60000 * 10)
 })
 
-  Promise.all([promisse,  getCrash(page.C),  getEsporte(page.B), getRoleta(page.A)]).then(() => {
+  Promise.all([promisse, getRoleta(page.A)]).then(() => {
     console.log('Promisse Finished')
   })
 

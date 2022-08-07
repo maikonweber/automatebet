@@ -17,7 +17,7 @@ const strategyx = [
 
 const estrategiaDetect =  {
      estrategiaDetect : strategyx[0],
-     roulletName : 'Salon_Privé_Roulette',
+     roulletName : 'Türkçe_Lightning_Rulet',
      lastNumber :[generateRandom(39), generateRandom(38), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39), generateRandom(39)],
      created : new Date().getTime(),
  }
@@ -31,7 +31,8 @@ amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
      ch1.assertExchange('msg', 'fanout', {
                durable: false
           });
-     
+          
+     console.log(estrategiaDetect)
      ch1.publish('cards', '', Buffer.from(JSON.stringify(estrategiaDetect)));
 
      setTimeout(function() {

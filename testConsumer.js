@@ -1,7 +1,7 @@
 const amqplib = require('amqplib/callback_api');
 const { TelegramClient, Api, client } = require("telegram");
 const { StringSession } = require("telegram/sessions");
-const { getStrategyFilter, getLastNumber18, getLastNumber } = require("./database");
+const { getStrategyFilter, getLastNumber18, getLastNumber, getUsersFilter } = require("./database");
 const  testStrategy  = require('./functions/testStrategy')
 
 const {
@@ -20,8 +20,8 @@ const {
 } = require('./consumer/consumerRoletaY')
 
 const detectEstrategiaRoleta = require('./ObjectDetect.js')
-
-
+const users = await getUsersFilter('mafiaroleta@gmail.com')
+console.log(users)
 
 amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
      if (err) throw err;
@@ -29,7 +29,7 @@ amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
      conn.createChannel(async (err, ch2) => {
           if(err) throw err;
 
-     ch2.assertExchange('cards', 'fanout', {
+     ch2.assertExchange('msg', 'fanout', {
                durable: false
      });
 
@@ -40,7 +40,7 @@ amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
             throw error2;
           }
 
-ch2.bindQueue(q.queue, 'cards', '');
+ch2.bindQueue(q.queue, 'msg', '');
 
 ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
@@ -49,7 +49,7 @@ ch2.consume(q.queue, async function(msg) {
      const { array, expect } = testStrategy(msgs.estrategiaDetect)
      const ObjectDetect = new detectEstrategiaRoleta(msgs.estrategiaDetect, msgs.lastNumber, 'Salon_Privé_Roulette', array, expect)
      ObjectDetect.init()
-
+     
 
 }
 }, { noAck : true} 

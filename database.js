@@ -180,7 +180,6 @@ async function getLastNumber(name) {
     desc limit 1;`
 
     let result = await pool.query(sql, [name]);
-    console.log(name, result)
     return result.rows[0].number;
 }
 
@@ -324,6 +323,7 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
     console.log(user_id, games, roullet_permit, string_msg, string_msg_green, string_msg_red)
     // Parse games to jsonb 
     let gamesJson = JSON.stringify(games);
+
     // parse roullet_permit to jsonb
     let roulletPermitJson = JSON.stringify(roullet_permit);
 
@@ -332,7 +332,7 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
                  VALUES ($1, $2, $3, $4, $5, $6)
                  ON CONFLICT (user_id) DO UPDATE SET    
                     games = $2,
-                    rollets_permit = $3,
+                    strategy = $3,
                     string_msg = $4,
                     string_msg_green = $5,
                     string_msg_red = $6
@@ -382,6 +382,7 @@ async function getUsersFilter (email) {
       from users_filter
       JOIN d
       ON d.id = users_id;`
+      
     let result = await pool.query(query);
     return result.rows
 }

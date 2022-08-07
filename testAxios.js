@@ -2,7 +2,7 @@ const axios = require('axios')
 const arrayName = require('./jsonObjects/RoleteNames')
 
 console.log(arrayName.length)
-setInterval(() => {
+
 function generateRandom(maxLimit = 100){
     let rand = Math.random() * maxLimit; 
   
@@ -21,13 +21,13 @@ obj.number = [generateRandom(39), generateRandom(39), generateRandom(39), genera
 obj.date = new Date().getTime()
 
 
-
-// obj.number.pop()
-// obj.number.reverse()
-// obj.number.push(generateRandom(39))
-// obj.number.reverse()
-// console.log(obj.number)
-// obj.date = new Date().getTime()
+setInterval(() => {
+obj.number.pop()
+obj.number.reverse()
+obj.number.push(generateRandom(39))
+obj.number.reverse()
+console.log(obj.number)
+obj.date = new Date().getTime()
 
 axios.post('http://localhost:3055/api/evolution', obj).then((result) => {
     console.log(result.data)

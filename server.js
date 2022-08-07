@@ -89,8 +89,7 @@ app.post('/api/crash', async (req, res) => {
     const { name, number } = body;
     // const objInsert = new insertNumberClass(name, number, 'crash_game')
     // const result = objInsert.tryInsertThis()
-    res.send(result).status(200)
-})
+     })
 
 
 app.post('/api/double_', async ( req, res) => {
@@ -99,7 +98,7 @@ app.post('/api/double_', async ( req, res) => {
     // let name_ = name.replace(/\s/g, '_');
     // const objg = new insertNumberClass(name_, number, 'double_game')
     // const result = objInsert.tryInsertThis()
-    res.send(result).status(200)
+    // res.send(result).status(200)
 })
 
 app.post('/api/v1/', async(request, response) => {
@@ -152,7 +151,8 @@ app.post('/api/cards_', async (req, res) => {
   const body = req.body
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
-  res.send(result).status(200)
+  // res.send(result).status(200)
+  res.send('New')
 })
 
 
@@ -180,7 +180,7 @@ app.post('/api/evolution', async (req, res) => {
   await redis.set(`${name_}_${Math.round(mockate)}`, { result : 'ok' }, 'EX', 80)
     console.log('New Insert')
     const result = await getLastNumberEv()  
-    
+    console.log('her')
     if(result != number) {
       const insertResult = await InsertRoulleteEv(name, number)
       return res.send('This Number Insert')
