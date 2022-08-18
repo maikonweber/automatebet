@@ -10,11 +10,13 @@ function generateRandom(maxLimit = 100){
    }
 
 
- 
+
+
 const strategyx = [
      `Repetição de 8 vezes do Primeiro Bloco`,
      ]
-
+     
+setInterval(async () => {
 const estrategiaDetect =  {
      estrategiaDetect : strategyx[0],
      roulletName : 'Türkçe_Lightning_Rulet',
@@ -31,12 +33,16 @@ amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
      ch1.assertExchange('msg', 'fanout', {
                durable: false
           });
-          
+
      console.log(estrategiaDetect)
-     ch1.publish('cards', '', Buffer.from(JSON.stringify(estrategiaDetect)));
+     ch1.publish('msg', '', Buffer.from(JSON.stringify(estrategiaDetect)));
+     
+   
 
      setTimeout(function() {
           conn.close();
            }, 100);
      })
-})            
+})
+}, 30000); 
+        
