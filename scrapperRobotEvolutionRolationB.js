@@ -30,6 +30,8 @@ const browser = await puppeteer.launch({
        "--window-position=500,0",
        '--disable-extensions',
        '--use-gl=egl',
+       "--disable-gpu",
+    
      ],  
    });
    const pageA = await browser.newPage()
@@ -81,7 +83,7 @@ const element_ = await page.A.$('#username')
 const elementPass_ = await page.A.$('#password')
 
 if (element_ && elementPass_) {
-     await element_.type('maikonweber1');
+     await element_.type('maikonweber4');
      await elementPass_.type('ma128sio4');
      await page.A.keyboard.press('Enter')
      await page.A.waitForNavigation({ waitUntil: 'networkidle0'})
@@ -174,7 +176,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     pagex.forEach((el) => {
       console.log(el)
-      axios.post('http://localhost:3055/api/evolution', el).then((result) => {
+    axios.post('http://localhost:3055/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
       console.log(erro)
@@ -239,7 +241,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
 async function getEsporte(page) {
   setInterval(async () => {
-  await page.goto('http://blaze.com/en/games/crash')
+  await page.goto('https://blaze.com/en/games/crash')
 
   await page.waitForTimeout(10000)
 
@@ -270,27 +272,27 @@ async function getCrash(page) {
   await page.goto('https://blaze.com/en/games/double') 
   setInterval(async () => {
   await page.waitForTimeout(8000)
-  // const number = await page.$$('.entries.main')
-  // const tite = await number[0].$('.entry')
-  // const lastnumber = await tite.$('.number')
-  // const newnumber = await lastnumber.getProperty('textContent')
-  // let nownumber = await newnumber.jsonValue()
-  // console.log('Her')
-  // const obj = {}
-  // obj.number = nownumber.replace('', 'X')
-  // obj.date = new Date().getTime()
-  // console.log(obj)
+  const number = await page.$$('.entries.main')
+  const tite = await number[0].$('.entry')
+  const lastnumber = await tite.$('.number')
+  const newnumber = await lastnumber.getProperty('textContent')
+  let nownumber = await newnumber.jsonValue()
+  console.log('Her')
+  const obj = {}
+  obj.number = nownumber.replace('', 'X')
+  obj.date = new Date().getTime()
+  console.log(obj)
 
-  // let resultx = await redis.get(`${obj.number}`)
+  let resultx = await redis.get(`${obj.number}`)
   
-  // if(!resultx) {
-  // await redis.set(`${obj.number}`, true, 'EX', 20)
-  // axios.post('http://localhost:3055/api/double_', obj).then((result) => {
-  //     console.log(result.data)
-  //   }).catch((erro) => {
-  //     console.log(erro)
-  //   })
-  // }
+  if(!resultx) {
+  await redis.set(`${obj.number}`, true, 'EX', 20)
+  axios.post('http://localhost:3055/api/double_', obj).then((result) => {
+      console.log(result.data)
+    }).catch((erro) => {
+      console.log(erro)
+    })
+  }
   
 }, 8000)
 
@@ -313,6 +315,8 @@ async function getCrash(page) {
   
     // await page.waitForTimeout(10000)
   
+  
+
 
 
 const promisse  = new Promise((resolve, reject) =>  {

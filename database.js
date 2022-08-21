@@ -205,7 +205,8 @@ async function getLastNumberCard(name) {
 }
 
 async function insertCardPayload (name, number) {
-    let sql = `INSERT INTO paylaoad_card 
+    let sql = `
+    INSERT INTO paylaod_card 
     (name, number)
      VALUES 
      ($1, $2) 

@@ -152,7 +152,15 @@ app.post('/api/cards_', async (req, res) => {
   let { number , name } = body  
   let name_ = name.replace(/\s/g, '_');
   // res.send(result).status(200)
-  res.send('New')
+  
+  const result = await redis.get(`${name_}_${number}`)
+  if(!result){
+    await redis.set(`${name_}_${number}`, 'true', 'EX', '60')
+    const objg = await insertCardPayload(name_, number)  
+
+  } 
+  res.send(result).status(200)
+  
 })
 
 
@@ -171,21 +179,20 @@ app.post('/api/evolution', async (req, res) => {
   const body = req.body;
   const {name, number, date} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
-  console.log(name_, number, date)
+  console.log(name_, number)
+
   const mock = 1000 * 30 
   const mockate = date / 1000 / 5
-  console.log(mock, Math.round(mockate))
-  const result = await redis.get(`${name_}_${Math.round(mockate)}`)
+  const newNumber = JSON.stringify(number)
+  const result = await redis.get(`${name_}_${newNumber}`)
   if (!result) {
-  await redis.set(`${name_}_${Math.round(mockate)}`, { result : 'ok' }, 'EX', 80)
+  await redis.set(`${name_}_${newNumber}`, { result : 'ok' }, 'EX', 80)
     console.log('New Insert')
-    const result = await getLastNumberEv()  
-    console.log('her')
+    const result = await getLastNumberEv() 
     if(result != number) {
       const insertResult = await InsertRoulleteEv(name, number)
-      return res.send('This Number Insert')
+    return res.send('This Number Insert')
     }
-
     return res.send('This number not inser')
   }
   // Name , Number, Database 

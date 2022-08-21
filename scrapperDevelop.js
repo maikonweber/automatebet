@@ -30,8 +30,6 @@ const browser = await puppeteer.launch({
        "--window-position=500,0",
        '--disable-extensions',
        '--use-gl=egl',
-       "--disable-gpu",
-    
      ],  
    });
    const pageA = await browser.newPage()
@@ -46,7 +44,6 @@ const browser = await puppeteer.launch({
     D : pageD
    }
 }
-
 
 async function login(page) {
 await page.goto("https://player.smashup.com/iframe/auth/login", {waitUntil: 'networkidle0'});
@@ -83,7 +80,7 @@ const element_ = await page.A.$('#username')
 const elementPass_ = await page.A.$('#password')
 
 if (element_ && elementPass_) {
-     await element_.type('maikonweber4');
+     await element_.type('maikonweber1');
      await elementPass_.type('ma128sio4');
      await page.A.keyboard.press('Enter')
      await page.A.waitForNavigation({ waitUntil: 'networkidle0'})
@@ -118,8 +115,6 @@ await page.waitForTimeout(45000)
 await page.goto('https://blaze.com/pt/sports')
 
 const allDiv = await page.$$('div')
-
-
 }
 
 async function getRoleta(page) {
@@ -143,39 +138,38 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
  })    
 
  await page.evaluate(() => {
-//    let arrayElement = document.querySelectorAll('img')
-//    console.log(arrayElement)
-//  }) 
+   let arrayElement = document.querySelectorAll('img')
+   console.log(arrayElement)
+ }) 
 
-//  setInterval(async  () => {
-//     const pagex = await page.evaluate(() => {
-//       var payload = []
-//       const history = document.querySelectorAll('article')
-//       history.forEach((Element) => {
-//         var rou = {}
-//         const name = Element.querySelector('p').innerText
-//         rou.name = name
-//         const node = Element.querySelectorAll('.HistoryGridItem--237f9')
-//         rou.number = []
-//         node.forEach((el) => {
-//           const number =  el.innerText
-//           let newNumber = number.replace(/\n[0-9]*x/g, '')
-//           let new1Number = newNumber.replace(/\n[0-9]*/g, '')
-//           let int_ = parseInt(new1Number)
-//           rou.number.push(int_)
-//           return
-//           })
-//           console.log(rou)
-//           payload.push(rou)
-//         })
-//         console.log(payload)
-//         return payload
+ setInterval(async  () => {
+    const pagex = await page.evaluate(() => {
+      var payload = []
+      const history = document.querySelectorAll('article')
+      history.forEach((Element) => {
+        var rou = {}
+        const name = Element.querySelector('p').innerText
+        rou.name = name
+        const node = Element.querySelectorAll('.HistoryGridItem--237f9')
+        rou.number = []
+        node.forEach((el) => {
+          const number =  el.innerText
+          let newNumber = number.replace(/\n[0-9]*x/g, '')
+          let new1Number = newNumber.replace(/\n[0-9]*/g, '')
+          let int_ = parseInt(new1Number)   
+          rou.number.push(int_)
+          return
+          })
+          console.log(rou)
+          payload.push(rou)
+        })
+        console.log(payload)
+        return payload
       })
 
 
     pagex.forEach((el) => {
-      setTimeout(async () => {
-      }, 150)
+      console.log(el)
       axios.post('http://localhost:3055/api/evolution', el).then((result) => {
       console.log(result.data)
     }).catch((erro) => {
@@ -185,35 +179,38 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
     await page.waitForTimeout(12000)
     
-    // await page.evaluate(() => {
-    //   let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
-    //   console.log(arrayElement)
-    //   arrayElement[5].click()
-    // })
+    await page.evaluate(() => {
+      let arrayElement = document.querySelectorAll('.CategoryIcon--647f6')
+      console.log(arrayElement)
+      arrayElement[5].click()
+    })
     
-    // const shows = await page.evaluate(() => {
-    //   var payload = []
-    //   const history = document.querySelectorAll('article')
-    //   history.forEach((Element) => {              
-    //     var rou = {}
-    //     const name = Element.querySelector('p').innerText
-    //     rou.name = name
-    //     const node = Element.querySelectorAll('.HistoryGridItem--237f9')
-    //     rou.number = []
+    const shows = await page.evaluate(() => {
+      var payload = []
+      const history = document.querySelectorAll('article')
+      history.forEach((Element) => {              
+        var rou = {}
+        const name = Element.querySelector('p').innerText
+        rou.name = name
+        const node = Element.querySelectorAll('.HistoryGridItem--237f9')
+        rou.number = []
+        node.forEach((el) => {
+          const number =  el.innerText
+          let newNumber = number.replace(/\n[0-9]*x/g, '')
+          rou.number.push(newNumber)
+          return
+          })
+          console.log(rou)
+          payload.push(rou)
+        })
+        console.log(payload)
+        return payload
+      })
 
-    //     node.forEach((el) => {
-    //       const number =  el.innerText
-    //       let newNumber = number.replace(/\n[0-9]*x/g, '')
-    //       rou.number.push(newNumber)
-    //       return
-    //       })
-    //       console.log(rou)
-    //       payload.push(rou)
-    //     })
-    //     console.log(payload)
-    //     return payload
-    //   })
-      
+      if(shows.lenght < 1) {
+        process.exit(1)
+      }
+
     shows.forEach((elem) =>  {
       console.log(elem)
       if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
@@ -238,7 +235,7 @@ await page.goto('https://player.smashup.com/player_center/goto_common_game/5941/
 
 async function getEsporte(page) {
   setInterval(async () => {
-  await page.goto('https://blaze.com/en/games/crash')
+  await page.goto('http://blaze.com/en/games/crash')
 
   await page.waitForTimeout(10000)
 
@@ -269,27 +266,27 @@ async function getCrash(page) {
   await page.goto('https://blaze.com/en/games/double') 
   setInterval(async () => {
   await page.waitForTimeout(8000)
-  const number = await page.$$('.entries.main')
-  const tite = await number[0].$('.entry')
-  const lastnumber = await tite.$('.number')
-  const newnumber = await lastnumber.getProperty('textContent')
-  let nownumber = await newnumber.jsonValue()
-  console.log('Her')
-  const obj = {}
-  obj.number = nownumber.replace('', 'X')
-  obj.date = new Date().getTime()
-  console.log(obj)
+  // const number = await page.$$('.entries.main')
+  // const tite = await number[0].$('.entry')
+  // const lastnumber = await tite.$('.number')
+  // const newnumber = await lastnumber.getProperty('textContent')
+  // let nownumber = await newnumber.jsonValue()
+  // console.log('Her')
+  // const obj = {}
+  // obj.number = nownumber.replace('', 'X')
+  // obj.date = new Date().getTime()
+  // console.log(obj)
 
-  let resultx = await redis.get(`${obj.number}`)
+  // let resultx = await redis.get(`${obj.number}`)
   
-  if(!resultx) {
-  await redis.set(`${obj.number}`, true, 'EX', 20)
-  axios.post('http://localhost:3055/api/double_', obj).then((result) => {
-      console.log(result.data)
-    }).catch((erro) => {
-      console.log(erro)
-    })
-  }
+  // if(!resultx) {
+  // await redis.set(`${obj.number}`, true, 'EX', 20)
+  // axios.post('http://localhost:3055/api/double_', obj).then((result) => {
+  //     console.log(result.data)
+  //   }).catch((erro) => {
+  //     console.log(erro)
+  //   })
+  // }
   
 }, 8000)
 
@@ -312,8 +309,6 @@ async function getCrash(page) {
   
     // await page.waitForTimeout(10000)
   
-  
-
 
 
 const promisse  = new Promise((resolve, reject) =>  {
