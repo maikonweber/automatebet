@@ -1,17 +1,16 @@
 module.exports = {
   apps : [{
     name: 'cards',
-    script: 'scrapperRobotEvolutionRolation.js',
+    script: 'index.js',
     wait_ready : true,
     autorestart : true,
     restartDelay: 5
   },
   {
-    name: 'cards1',
-    script: 'scrapperRobotEvolutionRolationB.js',
-    wait_ready: true,
-    autorestart: true,
-    restartDelay: 60000
-  }
-],
+    name: 'roleta',
+    script: './consumer/consumer18strategy.js',
+    wait_ready : true,
+    autorestart : true,
+    restartDelay: 5
+  }]
 };

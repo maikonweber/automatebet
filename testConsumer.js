@@ -110,7 +110,7 @@ let user = {
 
 
 const senderEstrategia = new StrategyProccedChannel(user)
-senderEstrategia.init()
+// senderEstrategia.init()
 
 
 ch2.consume(q.queue, async function(msg) {

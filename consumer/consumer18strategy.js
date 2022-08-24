@@ -25,6 +25,7 @@ const redis = new Redis();
 
 const testStrategy = require('../functions/testStrategy')
 const expectNumber = require('../jsonObjects/strategy.js');
+const { last } = require('cheerio/lib/api/traversing');
 
 /*
      @dev Maikon Weber
@@ -35,8 +36,6 @@ const expectNumber = require('../jsonObjects/strategy.js');
 // get all key in redis
 (async () => {
 
-console.log("Initializing...");
-console.log("Consumer memory and strategy...");
 /* 
      @dev | Send msg to redisChannel proceed strategya and save detect
 */
@@ -214,9 +213,6 @@ async function strategy18Procced (strategy) {
      let times = 24
      let array = []
 
-     
-
-     console.log()
 
      //parOuImpar,
      let arrayColunas1Ausencia = []
@@ -347,13 +343,11 @@ async function strategyProced (objetoRolleta) {
 
      // Strategy Proced
      const last18 = objetoRolleta.last18
-     const concat = last18[0].concat(last18[1])
      // Remove every time the 10th element of array and make a new array com rest of elements
      // Get the strategy
-     const strategyProcess = await strategyConsultFor18(concat)
-     console.log(strategyProcess)
+     const strategyProcess = await strategyConsultFor18(last18)
      objetoRolleta.detectStrategy = await strategy18Procced(strategyProcess)
-     objetoRolleta.concat = concat
+     objetoRolleta.concat = last18
      objetoRolleta.detectStrategy.colunasRepeat.forEach(async (coluna) => {
           await regExe(coluna.coluna, objetoRolleta, objetoRolleta.objsResult.name)
           })
@@ -444,12 +438,8 @@ async function regExe(string, objetoRolleta, strategyArg) {
           const mockDivision = Math.floor(mock);
 
           let result = await redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
-          console.log(result, '--------------------------->')
           if(!result) {
           await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${estrategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 60 * 1)
-          console.log('=========================================================================')
-          console.log(estrategiaDetect.estrategiaDetect, estrategiaDetect.roulleteName)
-          console.log('=========================================================================')
           amqplib.connect('amqp://guest:guest@localhost:5672', (err, conn) => {
                if (err) throw err;
                conn.createChannel((err, ch1) => {
@@ -468,69 +458,28 @@ async function regExe(string, objetoRolleta, strategyArg) {
           })            
           }
      }
-}    
-
-//await client.start({
- //   phoneNumber: async () => await input.text('Please enter your number: '),
-   // password: async () => await input.text('Please enter your password: '),
-    //phoneCode: async () =>
-      //await input.text('Please enter the code you received: '),
-   // onError: (err) => console.log(err),
-  //});
-//console.log('You should now be connected.');
-//console.log(client.session.save()); // Save this string to avoid logging in again
-  //await client.connect();
-    //console.log('You should now be logged in.');
-
-
-//const result = await client.invoke( new Api.messages.GetAllChats({
-    //    exceptIds : [43]
-  //  }) );
-
-// async function sendMsg(sala, msg) {
-     //const salaEntity = await client.getEntity(sala)
-
-    // console.log(salaEntity)
-
-  //   await client.invoke( new Api.messages.SendMessage({
-   //       peer: salaEntity,
-    //      message: msg.toString()
-    // }) );
-     //}
-
-    //for(let i = 0; i < result.chats.length; i++){
-      //  console.log(result.chats[i].id, result.chats[i].title)
-   // }
-
-// {-1150553286 } MÁFIA DA ROLETA - [VIP] 🎰💰
-// Integer { value: 1266295662n } VR BOT
-// Integer { value: 1267429660n } MÁFIA DA ROLETA - [FREE] 🎰💰
-// Integer { value: 1581808712n } NOVA MINING INVESTMENT
-// Integer { value: 1614635356n } Mesa VIP | Bot Cassino 🎰
-// Integer { value: 1629499483n } RoosterBattle - Brazilian Community
-
+} 
 
 setInterval(() => {
-     console.log('thick')
+   
      arrayName.forEach(async (Element) => {
-     if(Element === 'Türkçe_Lightning_Rulet') {
+     
      const result = await getStrategyByRoullet(Element)
      const last18 = await getLastNumber18(Element);
               // Match RegEx Nao Indenticado for Result strateg
+              console.log(result)
+              console.log(last18)
           result.forEach(async (estrategia) => {
                let obj = {
                'roulletename' : estrategia.name,
                'numberjson'   :  estrategia.number,
                'objsResult' : estrategia,
-               'last18' : [estrategia.number, last18.lastRow.number],
-                }
+               'last18' : last18
+               }
 
                strategyProced(obj)
           })
-        }
      })
-     
-
 }, 7000)
 
 })()

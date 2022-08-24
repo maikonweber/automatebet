@@ -177,27 +177,15 @@ app.get('/', (req, res) => {
 
 app.post('/api/evolution', async (req, res) => {
   const body = req.body;
-  const {name, number, date} = body;  // console.log(name, number)
+  console.log(body)
+  const {name, number} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
-  console.log(name_, number)
-
-  const mock = 1000 * 30 
-  const mockate = date / 1000 / 5
-  const newNumber = JSON.stringify(number)
-  const result = await redis.get(`${name_}_${newNumber}`)
-  if (!result) {
-  await redis.set(`${name_}_${newNumber}`, { result : 'ok' }, 'EX', 80)
-    console.log('New Insert')
-    const result = await getLastNumberEv() 
-    if(result != number) {
-      const insertResult = await InsertRoulleteEv(name, number)
-    return res.send('This Number Insert')
-    }
-    return res.send('This number not inser')
-  }
-  // Name , Number, Database 
-  //const objInsert = new insertNumberClass(name_, number, 'robotevolution')
-  return res.send('The number need verification').status(500)
+  const result = await getLastNumberEv(name_) 
+  if(JSON.stringify(result) != JSON.stringify(number)) {
+      const insertResult = await InsertRoulleteEv(name_, number)
+      return res.send('This Number Insert')
+      }
+      res.send('This Number Already Insert')
 })
 
 

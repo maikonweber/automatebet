@@ -2,10 +2,11 @@ const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const Redis = require("ioredis");
 const axios = require('axios'); 
-const redis = new Redis();
+
+
 
 class scrapperRobot {
-    constructor(username, password) {
+    constructor(username, password, redis) {
         this.username = username;
         this.password = password;
         this.browser = null;
@@ -13,10 +14,29 @@ class scrapperRobot {
         this.secondPage = null;    
         this.thirdPage = null;
         this.fourthPage = null;
-    
+        this.client = redis
+        this.urlSender = 'http://localhost:3055'
         this.urlSmash = 'https://player.smashup.com/iframe/auth/login';
         this.jsonObject = {}
         this.jsonObjectCards = []
+    }
+
+    async getCurrentAndSet(name, data) {
+      console.log(name, data)
+      const args = await this.client.get(`${name}`)
+        console.log(args != data)
+        console.log(args != JSON.stringify(data)) 
+      if (args != JSON.stringify(data)) {
+          
+          const sender = {
+            name,
+            data
+          }
+
+          await  this.client.set(`${name}`, JSON.stringify(data), 'EX', 250)
+          axios.post(this.urlSender + '/api/evolution', sender).then(el => {
+          }).catch(e => console.log(e))
+        }
     }
 
     async init() {
@@ -24,28 +44,25 @@ class scrapperRobot {
             headless: false,
              defaultViewport: {
                width: 1100,
-               height: 980
+               height: 1280
              },
-             devTool : true,
              SlowMo: 50,
              args: [
                "--no-sandbox",
-               "--window-size=1020,480",
                "--window-position=0,0",
                '--disable-extensions',
-            
              ],  
            });
            const pageA = await browser.newPage()
-           const pageB = await browser.newPage()
-           const pageC = await browser.newPage()
-           const pageD = await browser.newPage()
+          //  const pageB = await browser.newPage()
+          //  const pageC = await browser.newPage()
+          //  const pageD = await browser.newPage()
            
         this.browser = browser;
         this.currentPage = pageA; 
-        this.secondPage = pageB;
-        this.thirdPage = pageC;
-        this.fourthPage = pageD;
+        // this.secondPage = pageB;
+        // this.thirdPage = pageC;
+        // this.fourthPage = pageD;
     }
 
 async login () {
@@ -68,7 +85,7 @@ if (element_ && elementPass_) {
           'lastLogin' : lastLogin
         }
       })
-     console.log(balance) 
+   
      await this.currentPage.waitForTimeout(3000)
 } else {
      console.log('Ocorreu um erroo no site')
@@ -87,11 +104,35 @@ if (element_ && elementPass_) {
 
     await this.currentPage.waitForTimeout(1500)
 
-    setInterval(async  () => {
-        console.log('thick')
+    setInterval(async () => {
         await this.currentPage.waitForTimeout(1000)
         await this.currentPage.reload({waitUntil: 'networkidle0'})
-        await this.currentPage.waitForTimeout(8000)
+        await this.currentPage.waitForTimeout(3000)
+        await this.currentPage.evaluate(() => {
+          window.scrollTo(0, document.body.scrollHeight / 2);
+        })
+
+        await this.sleep(300)
+
+        await this.currentPage.evaluate(() => {
+          window.scrollTo(0, document.body.scrollHeight);
+        })
+
+        await this.sleep(300)
+      //   })
+      //   await this.currentPage.waitForTimeout(300)
+
+      //   await this.currentPage.evaluate(() => {
+      //     window.scrollTo(0, 200);
+      //     window.scrollTo(0 ,600)
+      //     window.scrollTo(0, 900)
+      //     window.scrollTo(0, 1200)
+      //     window.scrollTo(0, 1200)
+      //     window.scrollTo(0, 1200)
+      //  })
+
+       await this.currentPage.waitForTimeout(300)
+
         const pagex = await this.currentPage.evaluate(() => {
            var payload = []
            const history = document.querySelectorAll('article')
@@ -101,35 +142,29 @@ if (element_ && elementPass_) {
              rou.name = name
              const node = Element.querySelectorAll('.HistoryGridItem--237f9')
              rou.number = []
-             console.log(node)
+             var height = 20
              node.forEach((el) => {
                const number =  el.innerText
                let newNumber = number.replace(/\n[0-9]*x/g, '')
                let new1Number = newNumber.replace(/\n[0-9]*/g, '')
                let int_ = parseInt(new1Number)
-               
                rou.number.push(int_)
                return
                })
                console.log(rou)
                payload.push(rou)
              })
-             console.log(payload)
+            
              return payload
            })
-           console.log(pagex)
-           pagex.forEach((element) => {
+                  pagex.forEach(async(element) => {
+                      console.log(element)
                         if(element.number.length > 0) {
-                        console.log(element)
-                        return axios.post('http://localhost:3055/api/evolution', element).then((result) => {
-                        console.log(result.data)  
-                        }).catch((erro) => {
-                        console.log(erro)
-                        })
+                        await this.getCurrentAndSet(element.name, element.number)
                         }
             })
             
-    }, 20000)
+    }, 12000)
 
 }
 
@@ -148,7 +183,7 @@ async getCards() {
 
     setInterval( async () => { 
     
-    console.log('thick')
+
     const shows = await this.secondPage.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')
@@ -165,22 +200,24 @@ async getCards() {
           rou.number.push(newNumber)
           return
           })
-          console.log(rou)
+          
           payload.push(rou)
         })
-        console.log(payload)
+        
         return payload
       })
       
       shows.forEach((elem) =>  {
-        console.log(elem)
+      
         if((/Football/g).test(elem.name) || (/Futbol/g).test(elem.name) ) {
         axios.post('http://localhost:3055/api/cards_', elem).then((result) => {
-        console.log(result.data)
+          console.log(result.data)
         }).catch((erro) => {
-        console.log(erro)
-        })
+               })
         }
+
+
+
       })
   
 
@@ -188,11 +225,29 @@ async getCards() {
     }, 12000)
     }
 
+    sleep (ms)  { 
+        return new Promise((resolve, reject) =>{
+        setTimeout(() => {
+        resolve(true)
+        }, ms)
+      })
+    }
+
 
     async getSport() {
-        await this.thirdPage.waitForTimeout(45000)
-        await this.thirdPage.goto('https://blaze.com/pt/sports')
+      // bt171 bt172 
+      // bt-inner-page
+      // betby
 
+
+    
+    
+        // Open the Shadow DOM
+        // Inside a element
+        // const shadowRoot = element[0].shadowRoot;
+      
+        // Get properties from of the element 
+        
     }
 }
 

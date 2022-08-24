@@ -4,6 +4,21 @@ const { StringSession } = require("telegram/sessions");
 const testStrategy = require('./functions/testStrategy')
 const consulExpectNumber = require('./functions/detectExpectNumber')
 
+var pg = require('pg');
+const EventEmitter = require('events');
+
+
+let client = {
+    host: 'localhost',
+    port: 5532,
+    database: 'roullet',
+    user: 'roullet',
+    password: 'roullet'
+};
+
+
+let pool = new pg.Pool(client);
+
 const apiId = 17228434;
 const apiHash = 'b05e1c84ad4dd7c77e9965204c016a36';
 const stringSession = new StringSession('1AQAOMTQ5LjE1NC4xNzUuNTQBu7jfw1tDzOkH7vrrFyEhVQHcFgx/NY/xgc2zt2nrGFEXZCLizMgd/IZfD4xZYPkq071kVGb64BaBRY13fLFfUOZiUo40jfMokpnuM7+y+V8WGcwYi6cLBCXYaVeyMI/pTbkcHyQOZOoAmD6qh7C3ls+OGjTzrIaWQF27VQmNX73lv6Vg4FjALR7Cpa+Xz3e63tViZ84pph2Zw50q6u9TpNsDfdNTocK9cVODEdczeXrekDCB9D8+bZullp5hsn77lgpWjDHe57eZHC/m7OhR0wLvjnhcqRp5JrWQNMJYV2P1xdGimgzAQGRLn5pAPzuxDkKawdi5ZHjYgXsVQ1lPDOE=');
@@ -55,11 +70,12 @@ class StrategyProccedChannel {
      }        
 
      async proccedThisSygnal(sygnalObject) {
-          console.log('Received Process the Sygnal ')
-          console.log({sygnalObject})
           if(this.isBusy === false) {
-               if (this.availableRoullete.includes(sygnalObject.roulletName)) {
+               console.log('Procced This Sygnal')
+               console.log(sygnalObject)
+               if (this.availableRoullete.includes(sygnalObject.roulleteName)) {
                     if(this.usersFilter.includes(sygnalObject.estrategiaDetect)) {
+                         console.log(sygnalObject)
                          this.isBusy = true
                          return this.waitingComprove(sygnalObject)   
                     }

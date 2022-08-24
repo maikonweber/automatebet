@@ -186,9 +186,9 @@ async function getLastNumber(name) {
 
 async function getLastNumberEv(name) {
     let sql = `SELECT number 
-    FROM robotevolution where name ~ $1
+    FROM robotevolution where name = $1
     order by created  
-    desc limit 1;`;
+    desc limit 18;`;
 
     let result = await pool.query(sql, [name]);
     return result.rows[0];
@@ -217,17 +217,14 @@ async function insertCardPayload (name, number) {
 }
 
 async function getLastNumber18(name) {
-    let sql = `SELECT number
-    FROM robotevolution where name ~ $1
-    and created > now() - interval '4 hour'
+    let sql = `SELECT number[1]
+    FROM robotevolution where name = $1
     order by created  
-    desc limit 13;`;
+    desc limit 18;`;
+
 
     let result = await pool.query(sql, [name]);
-    return obj = {
-        fistRow : result.rows[0],
-        lastRow : result.rows[12]
-    }
+    return  result.rows.map(el => el.number)
 }
 
 
@@ -273,14 +270,14 @@ async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
 }
 
 async function InsertRoulleteEv (name, number) {
+    if (number != null) {
     let sql = `INSERT INTO 
     robotevolution (name, number) 
-    VALUES ($1, $2) returning id;
+    VALUES ($1, $2);
     `;
-
     let result = await pool.query(sql, [name, number]);
-    
     return result
+    }   
 }
     
 async function insertUsersToken(id, navegator, is_admin) {
@@ -386,6 +383,17 @@ async function getUsersFilter (email) {
       
     let result = await pool.query(query);
     return result.rows
+}
+
+
+async function getAllNumber() {
+    console.log('Name')
+    const sql = `With as a (
+    Select name from robotevolution 
+    where created < now () - interval '1 day' 
+    Group by name
+    ) Select * from a;
+    `
 }
 
 async function getStrategyFilter() {
