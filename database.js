@@ -1,8 +1,11 @@
 const hasher = require('./hasher')
 const crypto = require('crypto')
 
+
 var pg = require('pg');
-const { fromLine } = require('telegram/tl/generationHelpers');
+const EventEmitter = require('events');
+
+
 let client = {
     host: 'localhost',
     port: 5532,
@@ -13,6 +16,42 @@ let client = {
 
 
 let pool = new pg.Pool(client);
+
+
+
+
+async function insertCrash_ (date, number) {
+    const date_ = new Date(date).getTime()
+
+   let  sqlString = `
+   INSERT INTO crash_game 
+   (number, date_) 
+   VALUES 
+   ($1, to_timestamp($2::bigint)) 
+   RETURNING date_
+   ON CONFLICT (number, date_);
+   Do Nothing 
+   `  
+
+   const result = await pool.query(sqlString, [number, date_])
+    return result
+} 
+
+async function insertDouble_ (date, number) {
+    console.log(date)
+    let  sqlString = `
+    INSERT INTO double_game(number, date_) VALUES ($1, to_timestamp($2::bigint)) RETURNING date_
+    ON CONFLICT (number, date_);
+    Do Nothing 
+   
+    ;`  
+ 
+    const result = await pool.query(sqlString, [number, date])
+     return result
+ } 
+
+
+
 
 async function insertTelegramSygnal(Sala, Message, Aposta) {
     let sql = `INSERT INTO roullete (sala, message, aposta, resultado) VALUES ($1, $2, $3) Returning id`;    
@@ -123,8 +162,8 @@ async function getColSygnal() {
 }
 
 async function getStrategyByRoullet (name) {
-    let sql = `Select name, numberjson, jsonbpreload, jsonbstrategy, created, id 
-               FROM robotbetpayload where name ~ $1
+    let sql = `Select name, number 
+               FROM robotevolution where name ~ $1
                Order by created 
                Desc LIMIT 1;` 
 
@@ -133,8 +172,31 @@ async function getStrategyByRoullet (name) {
 }
 
 async function getLastNumber(name) {
-    let sql = `SELECT numberjson 
-    FROM robotbetpayload where name ~ $1
+    console.log()
+   const sql = `Select number
+    from robotevolution 
+    Where name = $1
+    order by created
+    desc limit 1;`
+
+    let result = await pool.query(sql, [name]);
+    return result.rows[0].number;
+}
+
+
+async function getLastNumberEv(name) {
+    let sql = `SELECT number 
+    FROM robotevolution where name = $1
+    order by created  
+    desc limit 18;`;
+
+    let result = await pool.query(sql, [name]);
+    return result.rows[0];
+}
+
+async function getLastNumberCard(name) {
+    let sql = `SELECT number 
+    FROM paylaoad_card where name ~ $1
     order by created  
     desc limit 1;`;
 
@@ -142,25 +204,61 @@ async function getLastNumber(name) {
     return result.rows[0];
 }
 
-async function getUsuariosActivosPadroes (id) {
-    let query = `Select * FROM users where id = $1`
+async function insertCardPayload (name, number) {
+    let sql = `
+    INSERT INTO paylaod_card 
+    (name, number)
+     VALUES 
+     ($1, $2) 
+     RETURNING id`
 
-} 
-
+    let result = await pool.query(sql, [name, number])
+    return result.rows[0];
+}
 
 async function getLastNumber18(name) {
-    let sql = `SELECT numberjson 
-    FROM robotbetpayload where name ~ $1
+    let sql = `SELECT number[1]
+    FROM robotevolution where name = $1
     order by created  
-    desc limit 10;`;
+    desc limit 18;`;
+
 
     let result = await pool.query(sql, [name]);
+    return  result.rows.map(el => el.number)
+}
 
+
+async function getLastNumber18bet(name) {
+    let sql = `SELECT number
+    FROM robotbetpayload where name ~ $1
+    and created > now() - interval '4 hour'
+    order by created  
+    desc limit 13;`;
+
+    let result = await pool.query(sql, [name]);
     return obj = {
         fistRow : result.rows[0],
-        lastRow : result.rows[9]
+        lastRow : result.rows[12]
     }
 }
+
+
+async function getLastCard() {
+    let sql = `SELECT number, name, created from  
+               paylaoad_card
+               order by 
+               created desc`
+    let result = await pool.query(sql)
+    return result.rows
+}
+
+async function insertCards(number) {
+
+    let sql  = `INSERT INTO mafia_cards(lastnumber) VALUES ($1)`
+    let result = await pool.query(sql, [number])
+    return result
+}
+
 
 async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
     let sql = `insert into robotbetpayload (name, numberjson, jsonbpreload, jsonbstrategy) 
@@ -169,6 +267,17 @@ async function InsertRoullete (name, numberJson, jsonPreload, jsonbStrategy) {
     let result = await pool.query(sql, [name, numberJson, jsonPreload, jsonbStrategy]);
     
     return result
+}
+
+async function InsertRoulleteEv (name, number) {
+    if (number != null) {
+    let sql = `INSERT INTO 
+    robotevolution (name, number) 
+    VALUES ($1, $2);
+    `;
+    let result = await pool.query(sql, [name, number]);
+    return result
+    }   
 }
     
 async function insertUsersToken(id, navegator, is_admin) {
@@ -197,13 +306,14 @@ async function checkToken(token) {
     }
 }
 
-async function insertSygnal (number, detectStrategy, name) {
+async function insertSygnal (number, detectStrategy, name, expect_number) {
     // convert number to json
+    let expect_number_json = JSON.stringify(expect_number)
     let numberJson = JSON.stringify(number);
-    let queryString = `INSERT INTO robotbetsygnal (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3, process)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
-    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false, false]);
-    return result;
+    let queryString = `INSERT INTO robotbetsygnal (number, detectstretegy, roulletname, result, martingale, martingale2, martingale3, process, expect_number)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`
+    let result = await pool.query(queryString, [numberJson, detectStrategy, name, false, false, false, false, false, expect_number_json]);
+    return result.rows[0];
 }
 
 
@@ -211,6 +321,7 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
     console.log(user_id, games, roullet_permit, string_msg, string_msg_green, string_msg_red)
     // Parse games to jsonb 
     let gamesJson = JSON.stringify(games);
+
     // parse roullet_permit to jsonb
     let roulletPermitJson = JSON.stringify(roullet_permit);
 
@@ -219,7 +330,7 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
                  VALUES ($1, $2, $3, $4, $5, $6)
                  ON CONFLICT (user_id) DO UPDATE SET    
                     games = $2,
-                    rollets_permit = $3,
+                    strategy = $3,
                     string_msg = $4,
                     string_msg_green = $5,
                     string_msg_red = $6
@@ -235,6 +346,32 @@ async function usersFilters(user_id, games, roullet_permit, string_msg, string_m
  
 }
 
+async function getResultDatabase(name) {
+    let query = `Select numberjson, created, name, id 
+                FROM robotbetpayload
+                WHERE name  ~ $1
+                AND created BETWEEN now() - interval '1 day' AND now()
+                Order by created desc;`
+
+    let result = await pool.query(query, [name])
+    return result.rows
+   
+}
+
+async function getCards(name) { 
+    let query = `
+        Select number, name, created
+        FROM paylaod_card
+        WHERE name ~ $1
+        AND created > now() - interval '1 hour'
+        Order by created desc
+        limit 1;
+    `
+    let result = await pool.query(query, [name])
+
+    return result.rows
+}
+
 async function getUsersFilter (email) {
     let query = `With d as 
     (Select id, email
@@ -243,20 +380,32 @@ async function getUsersFilter (email) {
       from users_filter
       JOIN d
       ON d.id = users_id;`
+      
     let result = await pool.query(query);
     return result.rows
 }
 
-async function getStrategyFilter(roulletName, nameStrategy) {
 
-    console.log(roulletName, nameStrategy)
+async function getAllNumber() {
+    console.log('Name')
+    const sql = `With as a (
+    Select name from robotevolution 
+    where created < now () - interval '1 day' 
+    Group by name
+    ) Select * from a;
+    `
+}
+
+async function getStrategyFilter() {
+    console.log(roulletName, 'Aqui')
+
     let query =  `Select * from robotbetsygnal
-                  Where roulletname ~ $1
-                  AND detectstretegy ~ $2
-                  Order by created desc
-                  Limit 1;`
+                  WHERE created BETWEEN now() - interval '9 seconds'
+                  AND now()
+                  ORDER BY created desc
+                  ;`
                     
-    let result = await pool.query(query, [roulletName, nameStrategy]);
+    let result = await pool.query(query);
     return result.rows
 }   
 
@@ -302,7 +451,17 @@ module.exports = {
     getUsersFilter,
     usersFilters,
     updateStrategy,
-    updateStrategyFilter
+    updateStrategyFilter,
+    insertCards,
+    getCards,
+    getLastCard,
+    getResultDatabase,
+    getLastNumberEv,
+    InsertRoulleteEv,
+    insertCardPayload,
+    getLastNumberCard,
+    insertCrash_,
+    insertDouble_
 }
 
 

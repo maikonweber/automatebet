@@ -1,15 +1,29 @@
-Create Table telegramBot {
-    id serial primary key,
-    jsonb jsonb not null
-}
 
-CREATE TABLE robotBetPayload (
+
+--> CRASH DOUBLE IMPLEMENTATION
+
+-- CREATE TABLE crash_game (
+--     date_ timestamp not null,
+--     number integer[] not null
+-- );
+
+-- CREATE TABLE double_game (
+--     date_ timestamp not null,
+--     number integer[] not null
+-- );
+
+CREATE TABLE robotevolution (
     id serial primary key,
     name varchar(255) not null,
-    numberJson jsonb not null,
-    jsonbPreload jsonb not null,
-    created timestamp default now(),
-    jsonbStrategy jsonb not null
+    number integer[] not null,
+    created timestamp default now()
+);
+
+CREATE TABLE paylaoad_card (
+    id serial PRIMARY KEY,
+    name varchar(200) NOT null,
+    number text[] not null,
+    created TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE robotBetSygnal (
@@ -23,20 +37,6 @@ CREATE TABLE robotBetSygnal (
     martingale3 boolean
 );
 
-CREATE TABLE roullete_new(
-id serial PRIMARY KEY,
-room varchar(200),
-aposta varchar(100),
-result boolean default false,
-firstGale boolean default false,
-secondGale boolean default false;
-)
-
-CREATE TABLE bet365LiveRoullete (
-id serial PRIMARY KEY,
-result integer,
-created timestamp default now()
-);
 
 CREATE TABLE users (
 id serial PRIMARY KEY,
