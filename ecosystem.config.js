@@ -1,16 +1,11 @@
 module.exports = {
   apps : [{
-    name: 'cards',
-    script: 'index.js',
-    wait_ready : true,
-    autorestart : true,
-    restartDelay: 5
+    name: 'autoroullet-server',
+    script: './server.js',
   },
   {
-    name: 'roleta',
-    script: './consumer/consumer18strategy.js',
-    wait_ready : true,
-    autorestart : true,
-    restartDelay: 5
+    name: 'scrapperClass',
+    script: './index.js',
+    restart: 1000 * 60 * 10
   }]
 };

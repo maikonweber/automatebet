@@ -16,7 +16,6 @@ let client = {
     password: 'roullet'
 };
 
-
 let pool = new pg.Pool(client);
 
 const apiId = 17228434;

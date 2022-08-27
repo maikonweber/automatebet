@@ -393,6 +393,7 @@ async function getAllNumber() {
     where created < now () - interval '1 day' 
     Group by name
     ) Select * from a;
+    
     `
 }
 
