@@ -46,6 +46,37 @@ app.use("/api/time", async (req, res, next) => {
   res.json({ ts: Date.now() });
 });
 
+app.post('/api/football/table', async (req, res) => {
+  console.log(req.body)
+})
+
+app.post('/api/football/incoming', async (req, res) => {
+  console.log(req.body) 
+})
+
+app.post('/api/football/statisct', async (req, res) => {
+  console.log(req.body)
+  
+  })
+  
+  
+app.post('/api/football/best-player-time', async (req, res) => {
+  console.log(req.body)
+})
+
+app.post('/api/football/time-incoming', async (req, res) => {
+  console.log(req.body)
+  
+})
+ 
+app.post('/api/football/best-player-tating', async (req, res) => {
+  console.log(req.body)
+  
+})
+    
+      
+  
+
 
 app.post('/api/v1/sendLead', async (request, response) => {
   

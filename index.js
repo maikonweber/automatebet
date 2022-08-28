@@ -12,9 +12,14 @@ scrapper.init().then(() => {;
 }).catch(err => {
 }).finally(() => {
     scrapper.login().then(() => {  
-    scrapper.initRoleta();
-    scrapperFoot.init()
+    // scrapper.initRoleta();
+    scrapperFoot.init().then(() => { 
+        
+    scrapperFoot.scrappingFoot('Brasileiro')
+
+    
     // scrapper.getCards();
-    // scrapper.getSport();
+    })
+    //
     })
 })

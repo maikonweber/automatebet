@@ -43,6 +43,7 @@
     "telegraf": "^4.8.2",
     "telegram": "^2.6.13",
     "tesseract.js": "^2.1.5",
+    "winston": "^3.8.1",
     "xlsx": "^0.18.5"
   }
 }
