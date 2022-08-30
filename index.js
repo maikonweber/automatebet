@@ -12,10 +12,10 @@ scrapper.init().then(() => {;
 }).catch(err => {
 }).finally(() => {
     scrapper.login().then(() => {  
-    // scrapper.initRoleta();
+    scrapper.initRoleta();
     scrapperFoot.init().then(() => { 
         
-    scrapperFoot.scrappingFoot('Brasileiro')
+    // scrapperFoot.scrappingFoot('Brasileiro')
 
     
     // scrapper.getCards();
