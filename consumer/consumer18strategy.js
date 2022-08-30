@@ -411,10 +411,7 @@ async function strategyProced (objetoRolleta) {
                     await regExe(colunas.coluna, objetoRolleta, objetoRolleta.objsResult.name)
                }
           )
-
-
-
-}
+     }
 
 
 async function regExe(string, objetoRolleta, strategyArg) {

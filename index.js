@@ -13,13 +13,13 @@ scrapper.init().then(() => {;
 }).finally(() => {
     scrapper.login().then(() => {  
     scrapper.initRoleta();
-    scrapperFoot.init().then(() => { 
+    // scrapperFoot.init().then(() => { 
         
     // scrapperFoot.scrappingFoot('Brasileiro')
 
     
     // scrapper.getCards();
-    })
+    // })
     //
     })
 })

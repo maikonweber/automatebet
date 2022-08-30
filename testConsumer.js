@@ -45,7 +45,7 @@ amqplib.connect('amqp://localhost:5672', async  (err, conn) => {
                durable: false
      });
 
-     ch2.assertQueue('', {
+     ch2.assertQueue('msg', {
           exclusive: true
         }, function(error2, q) {
           if (error2) {
@@ -117,8 +117,8 @@ ch2.consume(q.queue, async function(msg) {
      if(msg.content) {
      let msgs = msg.content.toString()
      msgs = JSON.parse(msgs)
-
      senderEstrategia.proccedThisSygnal(msgs);
+
 }
 }, { noAck : true} 
 );

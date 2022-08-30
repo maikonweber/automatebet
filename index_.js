@@ -15,6 +15,6 @@ let client = {
 
 let pool = new pg.Pool(client);
 
-const consumer = new  consumerRoleta(pool, redis,'telegram');
+const consumer = new  consumerRoleta(pool, redis, 'msg');
+consumer.intervalInit(18000);
 
-consumer.intervalInit();

@@ -208,12 +208,20 @@ app.get('/', (req, res) => {
 
 app.post('/api/evolution', async (req, res) => {
   const body = req.body;
-  console.log(body)
-  const {name, number} = body;  // console.log(name, number)
+  const {name, data} = body;  // console.log(name, number)
   let name_ = name.replace(/\s/g, '_');
   const result = await getLastNumberEv(name_) 
-  if(JSON.stringify(result) != JSON.stringify(number)) {
-      const insertResult = await InsertRoulleteEv(name_, number)
+  console.log(result)
+
+  if (!result) {
+    console.log('--insert--')
+    const insertResult = await InsertRoulleteEv(name_, data)
+    return res.send('This number insert')
+  }
+
+  if(JSON.stringify(result) != JSON.stringify(data)) {
+      console.log('Here her this shit')
+      const insertResult = await InsertRoulleteEv(name_, data)
       return res.send('This Number Insert')
       }
       res.send('This Number Already Insert')
