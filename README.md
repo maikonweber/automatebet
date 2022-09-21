@@ -1,12 +1,17 @@
 -> API PARA SCRAPPING E CANAIS NO TELEGRAM
 
+- TODO - Reformular a integração com telegram.
+- TODO - Subir para a Nuvem e Deploy
+- TODO - Canal de Passagem
+
+
 --------- Created : Maikon Weber e Douglas Moreira -----------------------------
 
 - Instalando dependências para executar o Projeto.
 
      Para iniciar o projeto deve utilizar Node em qualquer versão disponivel e válida para projeto.
 recomendo o uso do node 17 e npm 8.
-     Deve instalar o node e npm após a instalação deve ir até a pasta raiz e exucatar o seguinte comando.
+     Deve instalar o node e npm após a instalação deve ir até a pasta raiz e exeutar o seguinte comando.
 
 *** NPM INSTALL 
      > Este comando recebe todas as atualizações do projeto.
