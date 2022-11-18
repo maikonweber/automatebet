@@ -5,7 +5,7 @@
 - TODO - Canal de Passagem
 
 
---------- Created : Maikon Weber e Douglas Moreira -----------------------------
+--------- Created : Maikon Weber 
 
 - Instalando dependências para executar o Projeto.
 
