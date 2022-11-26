@@ -82,6 +82,7 @@ async setupConnection() {
       }   
   
      send(msg) {
+
           this.channel.sendToQueue(this.q, Buffer.from(msg));
           console.log(' [x] Sent %s', msg);
       }
@@ -91,8 +92,7 @@ async setupConnection() {
       
     }
 
-    async createPattern(newArray) {       
-     console.log(newArray)   
+    async createPattern(newArray,  objetoRolleta) {       
      
      const coluna1 = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
      const coluna2 = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
@@ -193,12 +193,12 @@ async setupConnection() {
         imparOrPar : imparx
      } 
 
-    console.log(strategyProccess)    
-    return this.regExStrategy(strategyProccess)        
+
+    return this.regExStrategy(strategyProccess,  objetoRolleta)        
 }
 
- async regExStrategy(strategy) {
-          console.log(strategy, 'Strategy')
+ async regExStrategy(strategy, objetoRolleta) {
+     
           const stringColunas = strategy.colunas
           const stringBlocos = strategy.blocos
           const stringRed = strategy.reds
@@ -212,8 +212,6 @@ async setupConnection() {
      
           let times = 10
           let array = []
-
-          console.log(strategy.colunas)
      
           //parOuImpar,
           let arrayColunas1Ausencia = []
@@ -336,11 +334,18 @@ async setupConnection() {
           strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
           strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
           // Convert array to string
-          console.log(strategyProced)
+          const ray = Object.keys(strategyProced)
+       
+          strategyProced[ray[0]].forEach(async el => {
+                this.regExe(Object.values(el)[0], objetoRolleta);
+          })
+
+
           return strategyProced;
      }
 
     async regExe(string, objetoRolleta, strategyArg) {
+          
           // RegEx Nao Intendificado
           // if true return false
           const regEx = /Não identificado/g;
@@ -358,24 +363,26 @@ async setupConnection() {
                // Make division mock 1 minutes
                const mock = created / 1000 / 60;
                const mockDivision = Math.floor(mock);
-     
-               let result = await redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
+            
+               console.log(estrategiaDetect, 'detect')
+               let result = await this.redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
                if(!result) {   
-               await redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${estrategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 60 * 1)          
-               await this.send(estrategiaDetect)
+               await this.redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${estrategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 60 * 1)          
+               //await this.send(estrategiaDetect)
                }   
           }
      }
 
-
     async intervalInit(interval) {
         this.interval = interval
+        this.setupConnection().then(el => {
         setInterval ( async () => {
             console.log('Thick This Interval for Queue Sygnal')
             console.log('---------------------------------------')
             const LastNames = await this.client.query(`SELECT name 
             FROM robotevolution Where created > now() - interval '1 day' Group by name;`)
-            console.log(LastNames)
+        
+            
             LastNames.rows.forEach(async element => {
                 console.log('Get Last Result from', element.name )   
                 const last30 = await this.client.query(`
@@ -390,13 +397,15 @@ async setupConnection() {
                     numberjson : last30.rows[0].number
                     }
                   
-               return this.createPattern(objectAnalyser.numberjson)       
+               return this.createPattern(objectAnalyser.numberjson, objectAnalyser)       
 
                })
 
                
         }, interval)
-    }
+     })
+     }
+
 }
 
 
