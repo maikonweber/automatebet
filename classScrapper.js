@@ -94,13 +94,13 @@ if (element_ && elementPass_) {
 
     async initRoleta() {
 
-    await this.currentPage.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000?_ga=2.255341960.1850900768.1661037548-19437148.1661037548')
+    await this.currentPage.goto('https://player.smashup.com/player_center/goto_common_game/5941/1000000?_ga=2.188298344.135593314.1669422289-2018334139.1669422289')
     await this.currentPage.waitForTimeout(3000)
     var frames = (await this.currentPage.frames());
     const a = frames[1].url();
     await this.currentPage.goto(a, {waitUntil: 'networkidle0'});
     
-    await this.currentPage.goto('https://ezugi.evo-games.com/frontend/rr/live-redirect/#category=roulette', {waitUntil: 'networkidle0'});
+    await this.currentPage.goto('https://ezugi.evo-games.com/frontend/evo/r3/#category=roulette', {waitUntil: 'networkidle0'});
 
     await this.currentPage.waitForTimeout(1500)
 
