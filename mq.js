@@ -25,7 +25,7 @@ module.exports = class MQ {
     }
 
     recv() {
-        return this.channel
+       return this.channel    
     }
 }
 

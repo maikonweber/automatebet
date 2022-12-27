@@ -32,7 +32,7 @@ class scrapperRobot {
             name,
             data
           }
-
+          
           await  this.client.set(`${name}`, JSON.stringify(data), 'EX', 250)
           axios.post(this.urlSender + '/api/evolution', sender).then(el => {
           }).catch(e => console.log(e))
@@ -106,7 +106,7 @@ if (element_ && elementPass_) {
 
     setInterval(async () => {
         await this.currentPage.waitForTimeout(1000)
-        await this.currentPage.reload({waitUntil: 'networkidle0'})
+        await this.currentPage.reload({waitUntil: 'networkidle0'})      
         await this.currentPage.waitForTimeout(3000)
         await this.currentPage.evaluate(() => {
           window.scrollTo(0, document.body.scrollHeight / 2);
@@ -183,7 +183,6 @@ async getCards() {
 
     setInterval( async () => { 
     
-
     const shows = await this.secondPage.evaluate(() => {
       var payload = []
       const history = document.querySelectorAll('article')

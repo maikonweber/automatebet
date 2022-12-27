@@ -63,7 +63,7 @@ function blocoFlutuantes(strategy, value, number){
      }
 
  
- class consumerRoleta {
+class consumerRoleta {
     constructor(pool, client, queue) {
     this.redis = client
     this.client = pool
@@ -82,10 +82,9 @@ async setupConnection() {
       }   
   
      send(msg) {
-
-          this.channel.sendToQueue(this.q, Buffer.from(msg));
-          console.log(' [x] Sent %s', msg);
-      }
+          return this.channel.sendToQueue(this.q, Buffer.from(msg));
+         
+     }
   
      recv() {
           return this.channel
@@ -335,12 +334,12 @@ async setupConnection() {
           strategyProced.arrayBloco1Ausencia = arrayBloco1Ausencia
           // Convert array to string
           const ray = Object.keys(strategyProced)
-       
-          strategyProced[ray[0]].forEach(async el => {
-                this.regExe(Object.values(el)[0], objetoRolleta);
-          })
-
-
+          console.log(ray);          
+          ray.forEach(el =>  strategyProced[el].forEach(async el => {
+               console.log(Object.values(el)[0], objetoRolleta.roulletName)            
+               this.regExe(Object.values(el)[0], objetoRolleta);
+          }))
+          
           return strategyProced;
      }
 
@@ -348,13 +347,15 @@ async setupConnection() {
           
           // RegEx Nao Intendificado
           // if true return false
+          console.table(string, objetoRolleta.name);
+
           const regEx = /Não identificado/g;
           if (regEx.test(string)) {
                return false
           } else {
              const estrategiaDetect =  {
                    estrategiaDetect : string, 
-                   roulleteName : strategyArg, 
+                   roulleteName : objetoRolleta.roulletName, 
                    payload : objetoRolleta,
                    created : new Date().getTime()
                }
@@ -368,7 +369,7 @@ async setupConnection() {
                let result = await this.redis.get(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`)
                if(!result) {   
                await this.redis.set(`${estrategiaDetect.estrategiaDetect}_${estrategiaDetect.roulleteName}_sygnal`, `alert - ${estrategiaDetect.estrategiaDetect}, ${estrategiaDetect.roulleteName})`, 'EX', 60 * 1)          
-               //await this.send(estrategiaDetect)
+               this.send(JSON.stringify(estrategiaDetect));
                }   
           }
      }
@@ -396,7 +397,7 @@ async setupConnection() {
                     roulletName : last30.rows[0].name,
                     numberjson : last30.rows[0].number
                     }
-                  
+               
                return this.createPattern(objectAnalyser.numberjson, objectAnalyser)       
 
                })

@@ -6,6 +6,15 @@ module.exports = {
   {
     name: 'scrapperClass',
     script: './index.js',
-    restart: 1000 * 60 * 10
-  }]
+    cron_restart: "*/5 * * * *",
+  }, 
+  {
+    name : 'detectStrategyClass',
+    script : './index_.js'
+  },
+  {
+    name : 'consumerTest',
+    script : './testConsumer.js'
+  }
+  ]
 };
